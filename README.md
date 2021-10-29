@@ -22,5 +22,5 @@ Input: userAddress + { ContractName : [ id ] }
 1. To add a new contract, edit the userAddress string to nftMetadata.ts
 2. Add code to retrieve the contract metadata and fill out the "results" struct keyed by NFT id
 3. The contract metadata should mimic the standardized NFT response format defined here: https://www.notion.so/dapperlabs/Generic-NFT-Response-0fc17e037bc34a2590c1d8f159bfe8d7 so that we can reuse a simple deserialization function in Java for every field except (metadata)
-4. The Java class for the standardized NFT response is checked in here:
+4. The Java class for the standardized NFT response is checked in here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/NftHttpResponseV2.java
 5. Fields available for every Flow contracts can be found here: https://github.com/StarlyIO/flowfest-contracts/tree/master/contracts
