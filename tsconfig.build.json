@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "inlineSources": true,
+    "noEmit": false,
+    "outDir": "build",
+    "sourceMap": true,
+    "sourceRoot": "/"
+  },
+  "include": ["src/**/*"],
+  "extends": "./tsconfig.json"
+}
