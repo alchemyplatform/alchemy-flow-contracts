@@ -24,3 +24,4 @@ Input: userAddress + { ContractName : [ id ] }
 3. The contract metadata should mimic the standardized NFT response format defined here: https://www.notion.so/dapperlabs/Generic-NFT-Response-0fc17e037bc34a2590c1d8f159bfe8d7 so that we can reuse a simple deserialization function in Java for every field except (metadata)
 4. The Java class for the standardized NFT response is checked in here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/NftHttpResponseV2.java
 5. Fields available for every Flow contracts can be found here: https://github.com/StarlyIO/flowfest-contracts/tree/master/contracts
+6. The contract metadata schema can also be added to the java file
