@@ -4,6 +4,7 @@ To set up this repo on your machine:
 2. Run `npm install`
 3. Run `npm run nft-metadata` or `npm run nft-id` to run the metadata and NFT ID retrieval Cadence scripts
 4. You might also have to run `nvm use 14` if you see the `Object.fromEntries` error
+5. Install flow-cli to run Cadence scripts directly `brew install flow-cli`
 
 # Retreiving NFT IDs for a particular address:
 This script takes in a user address and returns the list of NFT IDs (id + uuid) owned by the address
