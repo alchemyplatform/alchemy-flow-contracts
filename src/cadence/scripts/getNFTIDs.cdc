@@ -31,6 +31,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let paths: {String: PublicPath} = {}
 
     paths["CNN"] = CNN_NFT.CollectionPublicPath
+    paths["Gaia"] = Gaia.CollectionPublicPath
     paths["ChainmonstersRewards"] = /public/ChainmonstersRewardCollection
     paths["Beam"] = Beam.CollectionPublicPath
     paths["BlockleteGames_NFT"] = BlockleteGames_NFT.CollectionPublicPath
