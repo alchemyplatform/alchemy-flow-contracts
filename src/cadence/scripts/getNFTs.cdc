@@ -104,34 +104,30 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
 
     for key in ids.keys {
         for id in ids[key]! {
-            var nftData: NFTData? = nil
+            var d: NFTData? = nil
             
             // note: unfortunately dictonairy containing functions is not 
             // working on mainnet for now so we have to fallback to switch  
             switch key {
-                case "CNN":
-                    nftData = getCnnNFT(owner: owner, id: id)
-                case "ChainmonstersRewards":
-                    nftData = getChainonsterRewardNFT(owner: owner, id: id)
-                case "Gaia":
-                    nftData = getGaia(owner: owner, id: id)
-                case "TopShot":
-                    nftData = getTopShot(owner: owner, id: id)
-                case "MatrixWorldFlowFestNFT":
-                    nftData = getMatrixWorldFlowFest(owner: owner, id: id)
-                case "StarlyCard":
-                    nftData = getStarlyCard(owner: owner, id: id)
-                case "Shard":
-                    nftData = getShard(owner: owner, id: id)
-                case "Mynft":
-                    nftData = getMynft(owner: owner, id: id)
-                case "Vouchers":
-                    nftData = getVoucher(owner: owner, id: id)
+                case "CNN": d = getCnnNFT(owner: owner, id: id)
+                case "ChainmonstersRewards": d = getChainonsterRewardNFT(owner: owner, id: id)
+                case "Gaia": d = getGaia(owner: owner, id: id)
+                case "TopShot": d = getTopShot(owner: owner, id: id)
+                case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
+                case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
+                case "Shard": d = getShard(owner: owner, id: id)
+                case "Mynft": d = getMynft(owner: owner, id: id)
+                case "Vouchers": d = getVoucher(owner: owner, id: id)
+                case "MusicBlock": d = getMusicBlock(owner: owner, id: id)
+                case "NyatheesOVO": d = getNyatheesOVO(owner: owner, id: id)
+                case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
+                case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
+                case "Everbloom": d = getEverbloom(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
 
-            NFTs.append(nftData)
+            NFTs.append(d)
         }
     }
     
@@ -310,9 +306,11 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// Priority: High
+// Test: 
 // https://flow-view-source.com/mainnet/account/0xe703f7fee6400754/contract/Everbloom
 pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(name: "Everbloom", address: 0xe703f7fee6400754, external_domain: "")
 
     let col = owner.getCapability(Everbloom.CollectionPublicPath)
         .borrow<&{Everbloom.PrintCollectionPublic}>()
@@ -320,7 +318,9 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowPrint(id: id)
     if nft == nil { return nil }
-    
+
+    let art = nft!.data
+
     return NFTData(
         contract: contract, 
         id: nft!.id,
@@ -367,9 +367,11 @@ pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// Priority: High
+// Test: 
 // https://flow-view-source.com/mainnet/account/0x2e1ee1e7a96826ce/contract/FantastecNFT
 pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(name: "FantastecNFT", address: 0x2e1ee1e7a96826ce, external_domain: "")
 
     let col = owner.getCapability(FantastecNFT.CollectionPublicPath)
         .borrow<&{FantastecNFT.FantastecNFTCollectionPublic}>()
@@ -387,7 +389,7 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         media: nil,
         alternate_media: [],
-        metadata: {},
+        metadata: nft!.metadata!,
     )
 }
 
@@ -475,6 +477,8 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// Priority: High
+// Test: 
 // https://flow-view-source.com/mainnet/account/0x5634aefcb76e7d8c/contract/MusicBlock
 pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(name: "MusicBlock", address: 0x5634aefcb76e7d8c, external_domain: "melos.studio")
@@ -483,19 +487,23 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{MusicBlock.MusicBlockCollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowNFT(id: id)
-    if nft == nil { return nil }
-    
+    let data = col!.getMusicBlockData(id: id)
+
     return NFTData(
         contract: contract, 
-        id: nft!.id,
-        uuid: nft!.uuid,
+        id: id,
+        uuid: nil,
         title: nil,
         description: nil,
         external_domain_view_url: nil,
         media: nil,
         alternate_media: [],
-        metadata: {},
+        metadata: {
+            "creator": data.creator,
+            "cpower": data.cpower,
+            "cid": data.cid,
+            "generation": data.generation
+        },
     )
 }
 
@@ -533,9 +541,11 @@ pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// Priority: High
+// Test: '[{ "type": "Address", "value": "0x1a281ada027d19dd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NyatheesOVO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6042" }] } }] }]
 // https://flow-view-source.com/mainnet/account/0x75e0b6de94eb05d0/contract/NyatheesOVO
 pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(name: "NyatheesOVO", address: 0x75e0b6de94eb05d0, external_domain: "")
 
     let col = owner.getCapability(NyatheesOVO.CollectionPublicPath)
         .borrow<&{NyatheesOVO.NFTCollectionPublic}>()
@@ -544,22 +554,26 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowNFTItem(id: id)
     if nft == nil { return nil }
     
+    let meta = nft!.getMetadata()
+
     return NFTData(
         contract: contract, 
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
         description: nil,
-        external_domain_view_url: nil,
+        external_domain_view_url: meta["url"],
         media: nil,
         alternate_media: [],
-        metadata: {},
+        metadata: meta,
     )
 }
 
+// Priority: High
+// Test: [{ "type": "Address", "value": "0x61c73078c27d29a8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RaceDay_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "14282" }] } }] }]
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/RaceDay_NFT
 pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(name: "RaceDay_NFT", address: 0x329feb3ab062d289, external_domain: "")
 
     let col = owner.getCapability(RaceDay_NFT.CollectionPublicPath)
         .borrow<&{RaceDay_NFT.RaceDay_NFTCollectionPublic}>()
@@ -568,16 +582,26 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowRaceDay_NFT(id: id)
     if nft == nil { return nil }
     
+    let setMeta = RaceDay_NFT.getSetMetadata(setId: nft!.setId)!
+    let seriesMeta = RaceDay_NFT.getSeriesMetadata(
+        seriesId: RaceDay_NFT.getSetSeriesId(setId: nft!.setId)!
+    )
+
     return NFTData(
         contract: contract, 
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
-        metadata: {},
+        title: setMeta["name"],
+        description: setMeta["description"],
+        external_domain_view_url: setMeta["external_url"],
+        media: NFTMedia(uri: setMeta!["image"], mimetype: "image"),
+        alternate_media: [
+            NFTMedia(uri: setMeta!["preview"], mimetype: "image")
+        ],
+        metadata: {
+            "set": setMeta!,
+            "series": seriesMeta!
+        },
     )
 }
 
