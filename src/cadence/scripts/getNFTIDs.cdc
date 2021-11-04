@@ -28,47 +28,110 @@ import TopShot from 0x0b2a3299cc857e29
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
-    let paths: {String: PublicPath} = {}
-
-    paths["CNN"] = CNN_NFT.CollectionPublicPath
-    paths["Gaia"] = Gaia.CollectionPublicPath
-    paths["ChainmonstersRewards"] = /public/ChainmonstersRewardCollection
-    paths["Beam"] = Beam.CollectionPublicPath
-    paths["BlockleteGames_NFT"] = BlockleteGames_NFT.CollectionPublicPath
-    paths["CricketMoments"] = CricketMoments.CollectionPublicPath
-    paths["Everbloom"] = Everbloom.CollectionPublicPath
-    paths["Shard"] = /public/EternalShardCollection
-    paths["FantastecNFT"] = FantastecNFT.CollectionPublicPath
-    paths["Vouchers"] = Vouchers.CollectionPublicPath
-    paths["KOTD"] = KOTD.CollectionPublicPath
-    paths["KlktnNFT"] = KlktnNFT.CollectionPublicPath
-    paths["MusicBlock"] = MusicBlock.CollectionPublicPath
-    paths["Mynft"] = Mynft.CollectionPublicPath
-    paths["NyatheesOVO"] = NyatheesOVO.CollectionPublicPath
-    paths["RaceDay_NFT"] = RaceDay_NFT.CollectionPublicPath
-    paths["RareRooms_NFT"] = RareRooms_NFT.CollectionPublicPath
-    paths["RCRDSHPNFT"] = RCRDSHPNFT.collectionPublicPath
-    paths["SportsIconCollectible"] = SportsIconCollectible.CollectionPublicPath
-    paths["StarlyCard"] = StarlyCard.CollectionPublicPath
-    paths["CaaPass"] = CaaPass.CollectionPublicPath
-    paths["TuneGO"] = TuneGO.CollectionPublicPath
-    paths["MatrixWorldFlowFestNFT"] = MatrixWorldFlowFestNFT.CollectionPublicPath
-    paths["TopShot"] = /public/MomentCollection
-        
-    return extractIDs(owner: owner, paths: paths)
-}
-
-pub fun extractIDs(owner: PublicAccount, paths: {String: PublicPath}): {String: [UInt64]} {
     let ids: {String: [UInt64]} = {}
-    for name in paths.keys {
-        let collection = owner
-            .getCapability(paths[name]!)
-            .borrow<&AnyResource{NonFungibleToken.CollectionPublic}>()
-        
-        if collection != nil {
-            ids[name] = collection!.getIDs()
+    
+
+    if let col = owner.getCapability(CNN_NFT.CollectionPublicPath)
+        .borrow<&{CNN_NFT.CNN_NFTCollectionPublic}>() {
+            ids["CNN"] = col.getIDs()
         }
-    }
+    if let col = owner.getCapability(/public/ChainmonstersRewardCollection)
+        .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>() {
+            ids["ChainmonstersRewards"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Gaia.CollectionPublicPath)
+        .borrow<&{Gaia.CollectionPublic}>() {
+            ids["Gaia"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Beam.CollectionPublicPath)
+        .borrow<&{Beam.BeamCollectionPublic}>() {
+            ids["Beam"] = col.getIDs()
+        }
+    if let col = owner.getCapability(BlockleteGames_NFT.CollectionPublicPath)
+        .borrow<&{BlockleteGames_NFT.BlockleteGames_NFTCollectionPublic}>() {
+            ids["BlockleteGames_NFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Crave.CollectionPublicPath)
+        .borrow<&{Crave.CraveCollectionPublic}>() {
+            ids["Crave"] = col.getIDs()
+        }
+    if let col = owner.getCapability(CricketMoments.CollectionPublicPath)
+        .borrow<&{CricketMoments.CricketMomentsCollectionPublic}>() {
+            ids["CricketMoments"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Everbloom.CollectionPublicPath)
+        .borrow<&{Everbloom.PrintCollectionPublic}>() {
+            ids["Everbloom"] = col.getIDs()
+        }
+    if let col = owner.getCapability(/public/EternalShardCollection)
+        .borrow<&{Shard.ShardCollectionPublic}>() {
+            ids["Shard"] = col.getIDs()
+        }
+    if let col = owner.getCapability(FantastecNFT.CollectionPublicPath)
+        .borrow<&{FantastecNFT.FantastecNFTCollectionPublic}>() {
+            ids["FantastecNFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Vouchers.CollectionPublicPath)
+        .borrow<&{Vouchers.CollectionPublic}>() {
+            ids["Vouchers"] = col.getIDs()
+        }
+    if let col = owner.getCapability(KOTD.CollectionPublicPath)
+        .borrow<&{KOTD.NiftoryCollectibleCollectionPublic}>() {
+            ids["KOTD"] = col.getIDs()
+        }
+    if let col = owner.getCapability(KlktnNFT.CollectionPublicPath)
+        .borrow<&{KlktnNFT.KlktnNFTCollectionPublic}>() {
+            ids["KlktnNFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(MusicBlock.CollectionPublicPath)
+        .borrow<&{MusicBlock.MusicBlockCollectionPublic}>() {
+            ids["MusicBlock"] = col.getIDs()
+        }
+    if let col = owner.getCapability(Mynft.CollectionPublicPath)
+        .borrow<&{Mynft.MynftCollectionPublic}>() {
+            ids["Mynft"] = col.getIDs()
+        }
+    if let col = owner.getCapability(NyatheesOVO.CollectionPublicPath)
+        .borrow<&{NyatheesOVO.NFTCollectionPublic}>() {
+            ids["NyatheesOVO"] = col.getIDs()
+        }
+    if let col = owner.getCapability(RaceDay_NFT.CollectionPublicPath)
+        .borrow<&{RaceDay_NFT.RaceDay_NFTCollectionPublic}>() {
+            ids["RaceDay_NFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(RareRooms_NFT.CollectionPublicPath)
+        .borrow<&{RareRooms_NFT.RareRooms_NFTCollectionPublic}>() {
+            ids["RareRooms_NFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>() {
+            ids["RCRDSHPNFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(SportsIconCollectible.CollectionPublicPath)
+        .borrow<&{SportsIconCollectible.CollectibleCollectionPublic}>() {
+            ids["SportsIconCollectible"] = col.getIDs()
+        }
+    if let col = owner.getCapability(StarlyCard.CollectionPublicPath)
+        .borrow<&{StarlyCard.StarlyCardCollectionPublic}>() {
+            ids["StarlyCard"] = col.getIDs()
+        }
+    if let col = owner.getCapability(CaaPass.CollectionPublicPath)
+        .borrow<&{CaaPass.CollectionPublic}>() {
+            ids["CaaPass"] = col.getIDs()
+        }
+    if let col = owner.getCapability(TuneGO.CollectionPublicPath)
+        .borrow<&{TuneGO.TuneGOCollectionPublic}>() {
+            ids["TuneGO"] = col.getIDs()
+        }
+    if let col = owner.getCapability(MatrixWorldFlowFestNFT.CollectionPublicPath)
+        .borrow<&{MatrixWorldFlowFestNFT.MatrixWorldFlowFestNFTCollectionPublic}>() {
+            ids["MatrixWorldFlowFestNFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(/public/MomentCollection)
+        .borrow<&{TopShot.MomentCollectionPublic}>() {
+            ids["TopShot"] = col.getIDs()
+        }
+
 
     return ids
 }

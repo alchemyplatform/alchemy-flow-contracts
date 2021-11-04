@@ -115,6 +115,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                     nftData = getChainonsterRewardNFT(owner: owner, id: id)
                 case "Gaia":
                     nftData = getGaia(owner: owner, id: id)
+                case "TopShot":
+                    nftData = getTopShot(owner: owner, id: id)
             }
 
             NFTs.append(nftData)
@@ -183,6 +185,8 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowGaiaNFT(id: id)
     if nft == nil { return nil }
     
+    let metadata = getTemplateMetaData(templateID: Gaia.nft!.data.templateID)
+
     return NFTData(
         contract: contract, 
         id: nft!.id,
@@ -192,7 +196,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         media: nil,
         alternate_media: [],
-        metadata: {},
+        metadata: metadata,
     )
 }
 
@@ -676,6 +680,7 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// #1
 // https://flow-view-source.com/mainnet/account/0x2d2750f240198f91/contract/MatrixWorldFlowFestNFT
 pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(name: "", address: 0x1, external_domain: "")
@@ -691,12 +696,12 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract, 
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
-        media: nil,
+        title: nft!.metadata.name,
+        description: nft!.metadata.description,
+        external_domain_view_url: "https://matrixworld.org/",
+        media: NFTMedia(uri: nft!.metadata.animationUrl, type: "mime/video"),
         alternate_media: [],
-        metadata: {},
+        metadata: nft!.metadata,
     )
 }
 
@@ -705,21 +710,23 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(name: "", address: 0x1, external_domain: "")
 
     let col = owner.getCapability(/public/MomentCollection)
-        .borrow<&TopShot.Collection{TopShot.MomentCollectionPublic}>()
+        .borrow<&{TopShot.MomentCollectionPublic}>()
     if col == nil { return nil }
 
     let nft = col!.borrowMoment(id: id)
     if nft == nil { return nil }
     
+    let metadata = TopShot.getPlayMetaData(playID: nft!.data.playID)!
+    
     return NFTData(
         contract: contract, 
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
+        title: metadata["FullName"],
         description: nil,
         external_domain_view_url: nil,
         media: nil,
         alternate_media: [],
-        metadata: {},
+        metadata: metadata,
     )
 }
