@@ -91,6 +91,8 @@ pub fun main(owner: Address, offset: UInt16, limit: UInt16): [NFTData] {
     let col = owner.getCapability(/public/EternalShardCollection)
         .borrow<&{Shard.ShardCollectionPublic}>()
     if col == nil { return nil }
+    
+    ids = col.getIDs()
 
     if offset >= ids.length {
         panic("offset can't be bigger than size of the nft collection")
