@@ -1,3 +1,5 @@
+import KittyItems from "./KittyItems.cdc"
+
 // Collection wraps alchemy metadata by owner from which it was retrieved.
 //  
 pub struct NFTCollection {
@@ -87,9 +89,10 @@ pub fun main(owner: Address, offset: UInt16, limit: UInt16): [NFTData] {
     let owner = getAccount(ownerAddress)
     var ids: [UInt64] = []
     var nfts: [NFTData] = []
+    let contract = NFTContract(name: "KittyItems", address: 0x123, external_domain: "")
 
-    let col = owner.getCapability(/public/EternalShardCollection)
-        .borrow<&{Shard.ShardCollectionPublic}>()
+    let col = owner.getCapability(KittyItems.CollectionPublicPath)
+        .borrow<&{KittyItems.Collection}>()
     if col == nil { return nil }
     
     ids = col.getIDs()
@@ -102,25 +105,20 @@ pub fun main(owner: Address, offset: UInt16, limit: UInt16): [NFTData] {
     var index = offset + x
 
     while index < ids.length && x < limit {
-        let nft = col!.borrowShardNFT(id: index)
+        let nft = col!.borrowKittyItem(id: index)
         if nft == nil { return nil }
 
-        let clip = Shard.getClip(clipID: nft!.clipID)
-        let clipMetadata = Shard.getClipMetadata(clipID: nft!.clipID)
-        let momentMetadata = Shard.getMomentMetadata(momentID: clip!.momentID)
-        
         return NFTData(
             contract: contract, 
             id: nft!.id,
             uuid: nft!.uuid,
-            title: clipMetadata!["title"],
+            title: nft.typeID,
             description: "",
             external_domain_view_url: "",
-            media: NFTMedia(uri: clipMetadata!["video_url"], mimetype: "video"),
+            media: nil,
             alternate_media: [],
             metadata: {
-                "clip": clipMetadata!,
-                "moment": momentMetadata!
+                "typeID": nft.typeID!,
             },
         )
         
