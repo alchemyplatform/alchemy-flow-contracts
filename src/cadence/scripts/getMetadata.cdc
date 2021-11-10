@@ -83,5 +83,38 @@ pub struct NFTMedia {
 // Offset and limit define the range for returned array and support pagination.
 // 
 pub fun main(owner: Address, offset: UInt16, limit: UInt16): [NFTData] {
-    
+    let NFTs: [NFTData] = []
+    let owner = getAccount(ownerAddress)
+    var ids: [UInt64] = []
+    var nfts: [NFTData] = []
+
+    if let collection = owner.getCapability(/* capabiltiy path */)
+    .borrow<&{/* capability type */}>() {
+        ids = col.getIDs()
+    }
+
+    if offset >= ids.length {
+        panic("offset can't be bigger than size of the nft collection")
+    } 
+
+    var x = 0
+    while offset + x < ids.length && x < limit {
+        // borrow NFT by ID and create instance of NFTData with provided NFT data
+        let nft = NFTData(
+            contract: nil, 
+            id: nil,
+            uuid: nil,
+            title: nil,
+            description: nil,
+            external_domain_view_url: nil,
+            media: nil,
+            alternate_media: [],
+            metadata: {},
+        )
+        
+        nfts.append(nft)
+        x = x + 1
+    }
+
+    return nfts
 }
