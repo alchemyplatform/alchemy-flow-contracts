@@ -10,7 +10,7 @@ To set up this repo on your machine:
 This script returns all the NFT IDs belonging to a particular account
 
 ```
-flow scripts execute getNFTIDs.cdc 0x0d77ec47bbad8ef6 --network mainnet
+flow scripts execute getNFTIDs.cdc 0x9eef2e4511390ce4 --network mainnet
 ```
 Output:
 ```
