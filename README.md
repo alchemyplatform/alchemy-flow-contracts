@@ -43,7 +43,7 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
             ids["Gaia"] = col.getIDs()
         }
      ```
-2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc to retrieve NFT metadata given an NFT ID.
+2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc to retrieve NFT metadata for an NFT ID.
 
     a. Add contract import statement
     ```
@@ -82,7 +82,6 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
         )
     }
     ```
-3. Document a sample test and add contract information in the README.md
 
 ### Alchemy Metadata Schema
 
