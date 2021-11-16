@@ -70,8 +70,6 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
    ```
 
    ```
-   // Priority: High
-   // Test args: [{ "type": "Address", "value": "0x9eef2e4511390ce4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gaia" }, "value":     { "type": "Array", "value": [{ "type": "UInt64", "value": "1129" }] } }] }]
    // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
    pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
        let contract = NFTContract(name: "Gaia", address: 0x8b148183c28ff88f, external_domain: "ballerz.xyz")
