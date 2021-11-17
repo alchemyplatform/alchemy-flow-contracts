@@ -33,7 +33,7 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
 Output:
 
 ```
-flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9eef2e4511390ce4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gaia" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1129" }] } }] }]' --network mainnet
+Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTData(contract: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTContract(name: "Gaia", address: 0x8b148183c28ff88f, storage_path: "Gaia.CollectionStoragePath", public_path: "Gaia.CollectionPublicPath", public_collection_name: "Gaia.CollectionPublic", external_domain: "ballerz.xyz"), id: 1129, uuid: 74658161, title: "BALLER #1024", description: "A basketball-inspired generative NFT living on the Flow blockchain", external_domain_view_url: "/collection/ballerz//1024", media: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTMedia(uri: "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", mimetype: "image"), alternate_media: [], metadata: {"id": "1024", "body": "Human I", "team": "Los Angeles Knives", "accessories": "Pencil", "jersey": "Home", "hair": "Pink Pigtails", "role": "Player", "number": "67", "dunks": "85", "shooting": "85", "playmaking": "82", "defense": "87", "img": "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", "title": "BALLER #1024", "description": "A basketball-inspired generative NFT living on the Flow blockchain", "uri": "/collection/ballerz//1024"})]
 ```
 
 # Adding a new contract
@@ -57,51 +57,60 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
 
 2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc to retrieve NFT metadata given an NFT ID.
 
-   a. Add contract import statement
+    a. Add contract import statement
 
-   ```
-   import Gaia from 0x8b148183c28ff88f
-   ```
+    ```
+    import Gaia from 0x8b148183c28ff88f
+    ```
 
-   b. Add a new function to deserialize NFT metadata into the generic Alchemy metadata schema defined below.
+    b. Add a new function to deserialize NFT metadata into the generic Alchemy metadata schema defined below.
 
-   ```
-   case "Gaia": d = getGaia(owner: owner, id: id)
-   ```
+    ```
+    case "Gaia": d = getGaia(owner: owner, id: id)
+    ```
 
-   ```
-   // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
-   pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
-       let contract = NFTContract(name: "Gaia", address: 0x8b148183c28ff88f, external_domain: "ballerz.xyz")
+    ```
+    // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
+    pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
-       let col = owner.getCapability(Gaia.CollectionPublicPath)
-           .borrow<&{Gaia.CollectionPublic}>()
-       if col == nil { return nil }
+        let contract = NFTContract(
+            name: "Gaia",
+            address: 0x8b148183c28ff88f,
+            storage_path: "Gaia.CollectionPath",
+            public_path: "Gaia.CollectionPublicPath",
+            public_collection_name: "Gaia.CollectionPublic",
+            external_domain: "ballerz.xyz"
+        )
 
-       let nft = col!.borrowGaiaNFT(id: id)
-       if nft == nil { return nil }
+        let col = owner.getCapability(Gaia.CollectionPublicPath)
+            .borrow<&{Gaia.CollectionPublic}>()
 
-       let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+        if col == nil { return nil }
 
-       return NFTData(
-           contract: contract,
-           id: nft!.id,
-           uuid: nft!.uuid,
-           title: metadata!["title"],
-           description: metadata!["description"],
-           external_domain_view_url: metadata!["uri"],
-           media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
-           alternate_media: [],
-           metadata: metadata!,
-       )
-   }
-   ```
+        let nft = col!.borrowGaiaNFT(id: id)
+        if nft == nil { return nil }
 
-   c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc
+        let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
 
-   ```
-   sh testGetNFTs.sh Gaia
-   ```
+        return NFTData(
+            contract: contract,
+            id: nft!.id,
+            uuid: nft!.uuid,
+            title: metadata!["title"],
+            description: metadata!["description"],
+            external_domain_view_url: metadata!["uri"],
+            media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+            alternate_media: [],
+            metadata: metadata!,
+        )
+    }
+    ```
+
+    c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc
+
+    ```
+    sh testGetNFTs.sh Gaia
+    ```
 
 ### Alchemy Metadata Schema
 
