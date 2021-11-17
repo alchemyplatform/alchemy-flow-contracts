@@ -72,15 +72,24 @@ pub struct NFTData {
 pub struct NFTContract {
     pub let name: String
     pub let address: Address
+    pub let storage_path: String
+    pub let public_path: String
+    pub let public_collection_name: String
     pub let external_domain: String
 
     init(
         name: String, 
-        address: Address, 
+        address: Address,
+        storage_path: String,
+        public_path: String,
+        public_collection_name: String,
         external_domain: String
     ) {
         self.name = name
         self.address = address
+        self.storage_path = storage_path
+        self.public_path = public_path
+        self.public_collection_name = public_collection_name
         self.external_domain = external_domain
     }
 }
@@ -136,7 +145,14 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
 
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/CNN_NFT
 pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "CNN", address: 0x1, external_domain: "cnn.com")
+    let contract = NFTContract(
+        name: "CNN_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "CNN_NFT.CollectionStoragePath",
+        public_path: "CNN_NFT.CollectionPublicPath",
+        public_collection_name: "CNN_NFT.CNN_NFTCollectionPublic",
+        external_domain: "cnn.com",
+    )
 
     let col = owner.getCapability(CNN_NFT.CollectionPublicPath)
         .borrow<&{CNN_NFT.CNN_NFTCollectionPublic}>()
@@ -160,7 +176,14 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x93615d25d14fa337/contract/ChainmonstersRewards
 pub fun getChainonsterRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "ChainmonsterRewrads", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "ChainmonstersRewards", 
+        address: 0x93615d25d14fa337,
+        storage_path: "/storage/ChainmonstersRewardCollection",
+        public_path: "/public/ChainmonstersRewardCollection",
+        public_collection_name: "ChainmonstersRewards.ChainmonstersRewardCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(/public/ChainmonstersRewardCollection)
         .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>()
@@ -184,7 +207,14 @@ pub fun getChainonsterRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
 pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "Gaia", address: 0x8b148183c28ff88f, external_domain: "ballerz.xyz")
+    let contract = NFTContract(
+        name: "Gaia", 
+        address: 0x8b148183c28ff88f,
+        storage_path: "Gaia.CollectionStoragePath",
+        public_path: "Gaia.CollectionPublicPath",
+        public_collection_name: "Gaia.CollectionPublic",
+        external_domain: "ballerz.xyz"
+    )
 
     let col = owner.getCapability(Gaia.CollectionPublicPath)
         .borrow<&{Gaia.CollectionPublic}>()
@@ -210,7 +240,14 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x86b4a0010a71cfc3/contract/Beam
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "Beam", 
+        address: 0x86b4a0010a71cfc3,
+        storage_path: "Beam.CollectionStoragePath",
+        public_path: "Beam.CollectionPublicPath",
+        public_collection_name: "Beam.BeamCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(Beam.CollectionPublicPath)
         .borrow<&{Beam.BeamCollectionPublic}>()
@@ -234,7 +271,14 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/BlockleteGames_NFT
 pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "BlockleteGames_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "BlockleteGames_NFT.CollectionStoragePath",
+        public_path: "BlockleteGames_NFT.CollectionPublicPath",
+        public_collection_name: "BlockleteGames_NFT.BlockleteGames_NFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(BlockleteGames_NFT.CollectionPublicPath)
         .borrow<&{BlockleteGames_NFT.BlockleteGames_NFTCollectionPublic}>()
@@ -258,7 +302,14 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x6d008a788fc27265/contract/Crave
 pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "", 
+        address: 0x6d008a788fc27265,
+        storage_path: "Crave.CollectionStoragePath",
+        public_path: "Crave.CollectionPublicPath",
+        public_collection_name: "Crave.CraveCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(Crave.CollectionPublicPath)
         .borrow<&{Crave.CraveCollectionPublic}>()
@@ -282,7 +333,14 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0xed398881d9bf40fb/contract/CricketMoments
 pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "CricketMoments",
+        address: 0xed398881d9bf40fb,
+        storage_path: "CricketMoments.CollectionStoragePath",
+        public_path: "CricketMoments.CollectionPublicPath",
+        public_collection_name: "CricketMoments.CricketMomentsCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(CricketMoments.CollectionPublicPath)
         .borrow<&{CricketMoments.CricketMomentsCollectionPublic}>()
@@ -306,7 +364,14 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0xe703f7fee6400754/contract/Everbloom
 pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "Everbloom", address: 0xe703f7fee6400754, external_domain: "")
+    let contract = NFTContract(
+        name: "Everbloom",
+        address: 0xe703f7fee6400754,
+        storage_path: "Everbloom.CollectionStoragePath",
+        public_path: "Everbloom.CollectionPublicPath",
+        public_collection_name: "Everbloom.PrintCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(Everbloom.CollectionPublicPath)
         .borrow<&{Everbloom.PrintCollectionPublic}>()
@@ -332,7 +397,14 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x82b54037a8f180cf/contract/Shard
 pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "Shard", address: 0x82b54037a8f180cf, external_domain: "")
+    let contract = NFTContract(
+        name: "Shard",
+        address: 0x82b54037a8f180cf,
+        storage_path: "/storage/EternalShardCollection",
+        public_path: "/public/EternalShardCollection",
+        public_collection_name: "Shard.ShardCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(/public/EternalShardCollection)
         .borrow<&{Shard.ShardCollectionPublic}>()
@@ -363,7 +435,14 @@ pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x2e1ee1e7a96826ce/contract/FantastecNFT
 pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "FantastecNFT", address: 0x2e1ee1e7a96826ce, external_domain: "")
+    let contract = NFTContract(
+        name: "FantastecNFT",
+        address: 0x2e1ee1e7a96826ce,
+        storage_path: "FantastecNFT.CollectionStoragePath",
+        public_path: "FantastecNFT.CollectionPublicPath",
+        public_collection_name: "FantastecNFT.FantastecNFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(FantastecNFT.CollectionPublicPath)
         .borrow<&{FantastecNFT.FantastecNFTCollectionPublic}>()
@@ -387,7 +466,14 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x444f5ea22c6ea12c/contract/Vouchers
 pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "Vouchers", address: 0x444f5ea22c6ea12c, external_domain: "")
+    let contract = NFTContract(
+        name: "Vouchers",
+        address: 0x444f5ea22c6ea12c,
+        storage_path: "Vouchers.CollectionStoragePath",
+        public_path: "Vouchers.CollectionPublicPath",
+        public_collection_name: "Vouchers.CollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(Vouchers.CollectionPublicPath)
         .borrow<&{Vouchers.CollectionPublic}>()
@@ -421,7 +507,14 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x23dddd854fcc8c6f/contract/KOTD
 pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "KOTD",
+        address: 0x23dddd854fcc8c6f,
+        storage_path: "KOTD.CollectionStoragePath",
+        public_path: "KOTD.CollectionPublicPath",
+        public_collection_name: "KOTD.NiftoryCollectibleCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(KOTD.CollectionPublicPath)
         .borrow<&{KOTD.NiftoryCollectibleCollectionPublic}>()
@@ -445,7 +538,14 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0xabd6e80be7e9682c/contract/KlktnNFT
 pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "KlktnNFT",
+        address: 0xabd6e80be7e9682c,
+        storage_path: "KlktnNFT.CollectionStoragePath",
+        public_path: "KlktnNFT.CollectionPublicPath",
+        public_collection_name: "KlktnNFT.KlktnNFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(KlktnNFT.CollectionPublicPath)
         .borrow<&{KlktnNFT.KlktnNFTCollectionPublic}>()
@@ -469,7 +569,14 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x5634aefcb76e7d8c/contract/MusicBlock
 pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "MusicBlock", address: 0x5634aefcb76e7d8c, external_domain: "melos.studio")
+    let contract = NFTContract(
+        name: "MusicBlock",
+        address: 0x5634aefcb76e7d8c,
+        storage_path: "MusicBlock.CollectionStoragePath",
+        public_path: "MusicBlock.CollectionPublicPath",
+        public_collection_name: "MusicBlock.MusicBlockCollectionPublic",
+        external_domain: "melos.studio"
+    )
 
     let col = owner.getCapability(MusicBlock.CollectionPublicPath)
         .borrow<&{MusicBlock.MusicBlockCollectionPublic}>()
@@ -497,7 +604,14 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0xf6fcbef550d97aa5/contract/Mynft
 pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "Mynft", address: 0xf6fcbef550d97aa5, external_domain: "")
+    let contract = NFTContract(
+        name: "Mynft",
+        address: 0xf6fcbef550d97aa5,
+        storage_path: "Mynft.CollectionStoragePath",
+        public_path: "Mynft.CollectionPublicPath",
+        public_collection_name: "Mynft.MynftCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(Mynft.CollectionPublicPath)
         .borrow<&{Mynft.MynftCollectionPublic}>()
@@ -529,7 +643,14 @@ pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x75e0b6de94eb05d0/contract/NyatheesOVO
 pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "NyatheesOVO", address: 0x75e0b6de94eb05d0, external_domain: "")
+    let contract = NFTContract(
+        name: "NyatheesOVO",
+        address: 0x75e0b6de94eb05d0,
+        storage_path: "NyatheesOVO.CollectionStoragePath",
+        public_path: "NyatheesOVO.CollectionPublicPath",
+        public_collection_name: "NyatheesOVO.NFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(NyatheesOVO.CollectionPublicPath)
         .borrow<&{NyatheesOVO.NFTCollectionPublic}>()
@@ -555,7 +676,14 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/RaceDay_NFT
 pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "RaceDay_NFT", address: 0x329feb3ab062d289, external_domain: "")
+    let contract = NFTContract(
+        name: "RaceDay_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "RaceDay_NFT.CollectionStoragePath",
+        public_path: "RaceDay_NFT.CollectionPublicPath",
+        public_collection_name: "RaceDay_NFT.RaceDay_NFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(RaceDay_NFT.CollectionPublicPath)
         .borrow<&{RaceDay_NFT.RaceDay_NFTCollectionPublic}>()
@@ -589,7 +717,14 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/RareRooms_NFT
 pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "RareRooms_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "RareRooms_NFT.CollectionStoragePath",
+        public_path: "RareRooms_NFT.CollectionPublicPath",
+        public_collection_name: "RareRooms_NFT.RareRooms_NFTCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(RareRooms_NFT.CollectionPublicPath)
         .borrow<&{RareRooms_NFT.RareRooms_NFTCollectionPublic}>()
@@ -613,7 +748,14 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x6c3ff40b90b928ab/contract/RCRDSHPNFT
 pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "RCRDSHPNFT",
+        address: 0x6c3ff40b90b928ab,
+        storage_path: "RCRDSHPNFT.collectionStoragePath",
+        public_path: "RCRDSHPNFT.collectionPublicPath",
+        public_collection_name: "NonFungibleToken.CollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
         .borrow<&{NonFungibleToken.CollectionPublic}>()
@@ -637,7 +779,14 @@ pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x8de96244f54db422/contract/SportsIconCollectible
 pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "SportsIconCollectible",
+        address: 0x8de96244f54db422,
+        storage_path: "SportsIconCollectible.CollectionStoragePath",
+        public_path: "SportsIconCollectible.CollectionPublicPath",
+        public_collection_name: "SportsIconCollectible.CollectibleCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(SportsIconCollectible.CollectionPublicPath)
         .borrow<&{SportsIconCollectible.CollectibleCollectionPublic}>()
@@ -661,7 +810,14 @@ pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x5b82f21c0edf76e3/contract/StarlyCard
 pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "StarlyCard", address: 0x5b82f21c0edf76e3, external_domain: "")
+    let contract = NFTContract(
+        name: "StarlyCard",
+        address: 0x5b82f21c0edf76e3,
+        storage_path: "StarlyCard.CollectionStoragePath",
+        public_path: "StarlyCard.CollectionPublicPath",
+        public_collection_name: "StarlyCard.StarlyCardCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(StarlyCard.CollectionPublicPath)
         .borrow<&{StarlyCard.StarlyCardCollectionPublic}>()
@@ -687,7 +843,14 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x98c9c2e548b84d31/contract/CaaPass
 pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "CaaPass",
+        address: 0x98c9c2e548b84d31,
+        storage_path: "CaaPass.CollectionStoragePath",
+        public_path: "CaaPass.CollectionPublicPath",
+        public_collection_name: "CaaPass.CollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(CaaPass.CollectionPublicPath)
         .borrow<&{CaaPass.CollectionPublic}>()
@@ -711,7 +874,14 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x0d9bc5af3fc0c2e3/contract/TuneGO
 pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "TuneGO",
+        address: 0x0d9bc5af3fc0c2e3,
+        storage_path: "TuneGO.CollectionStoragePath",
+        public_path: "TuneGO.CollectionPublicPath",
+        public_collection_name: "TuneGO.TuneGOCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>()
@@ -735,7 +905,14 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x2d2750f240198f91/contract/MatrixWorldFlowFestNFT
 pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "MatrixWorldFlowFestNFT", address: 0x2d2750f240198f91, external_domain: "matrixworld.org")
+    let contract = NFTContract(
+        name: "MatrixWorldFlowFestNFT",
+        address: 0x2d2750f240198f91,
+        storage_path: "MatrixWorldFlowFestNFT.CollectionStoragePath",
+        public_path: "MatrixWorldFlowFestNFT.CollectionPublicPath",
+        public_collection_name: "MatrixWorldFlowFestNFT.MatrixWorldFlowFestNFTCollectionPublic",
+        external_domain: "matrixworld.org"
+    )
 
     let col = owner.getCapability(MatrixWorldFlowFestNFT.CollectionPublicPath)
         .borrow<&{MatrixWorldFlowFestNFT.MatrixWorldFlowFestNFTCollectionPublic}>()
@@ -762,7 +939,14 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x0b2a3299cc857e29/contract/TopShot
 pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(name: "", address: 0x1, external_domain: "")
+    let contract = NFTContract(
+        name: "TopShot",
+        address: 0x0b2a3299cc857e29,
+        storage_path: "/storage/MomentCollection",
+        public_path: "/public/MomentCollection",
+        public_collection_name: "TopShot.MomentCollectionPublic",
+        external_domain: ""
+    )
 
     let col = owner.getCapability(/public/MomentCollection)
         .borrow<&{TopShot.MomentCollectionPublic}>()
