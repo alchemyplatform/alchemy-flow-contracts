@@ -119,7 +119,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
             // working on mainnet for now so we have to fallback to switch  
             switch key {
                 case "CNN": d = getCnnNFT(owner: owner, id: id)
-                case "ChainmonstersRewards": d = getChainonsterRewardNFT(owner: owner, id: id)
+                case "ChainmonstersRewards": d = getChainmonstersRewardNFT(owner: owner, id: id)
                 case "Gaia": d = getGaia(owner: owner, id: id)
                 case "TopShot": d = getTopShot(owner: owner, id: id)
                 case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
@@ -175,7 +175,8 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x93615d25d14fa337/contract/ChainmonstersRewards
-pub fun getChainonsterRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
+// https://flow-view-source.com/testnet/account/0x75783e3c937304a8/contract/ChainmonstersRewards
+pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "ChainmonstersRewards", 
         address: 0x93615d25d14fa337,
@@ -206,6 +207,7 @@ pub fun getChainonsterRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
+// https://flow-view-source.com/testnet/account/0xc523a8bbf10fc4a3/contract/Gaia
 pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Gaia", 
@@ -239,6 +241,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x86b4a0010a71cfc3/contract/Beam
+// https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Beam
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Beam", 
@@ -301,6 +304,7 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x6d008a788fc27265/contract/Crave
+// https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Crave
 pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "", 
@@ -332,6 +336,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0xed398881d9bf40fb/contract/CricketMoments
+// https://flow-view-source.com/testnet/account/0xb45e7992680a0f7f/contract/CricketMoments
 pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "CricketMoments",
@@ -363,6 +368,7 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0xe703f7fee6400754/contract/Everbloom
+// https://flow-view-source.com/testnet/account/0xf30d2f642de8c895/contract/Everbloom
 pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Everbloom",
@@ -396,6 +402,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x82b54037a8f180cf/contract/Shard
+// https://flow-view-source.com/testnet/account/0x7ff5f9ac593c3ee0/contract/Shard
 pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Shard",
@@ -434,6 +441,7 @@ pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x2e1ee1e7a96826ce/contract/FantastecNFT
+// https://flow-view-source.com/testnet/account/0x7b4fab78fbddc57e/contract/FantastecNFT
 pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "FantastecNFT",
@@ -465,6 +473,7 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x444f5ea22c6ea12c/contract/Vouchers
+// https://flow-view-source.com/testnet/account/0xe94a6e229293f196/contract/Vouchers
 pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Vouchers",
@@ -506,6 +515,7 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x23dddd854fcc8c6f/contract/KOTD
+// https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/KOTD
 pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "KOTD",
@@ -537,6 +547,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0xabd6e80be7e9682c/contract/KlktnNFT
+// https://flow-view-source.com/testnet/account/0x336895dbe44c4b44/contract/KlktnNFT
 pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "KlktnNFT",
@@ -568,6 +579,7 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x5634aefcb76e7d8c/contract/MusicBlock
+// https://flow-view-source.com/testnet/account/0xeb3241ad7d7881db/contract/MusicBlock
 pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "MusicBlock",
@@ -603,6 +615,7 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0xf6fcbef550d97aa5/contract/Mynft
+// https://flow-view-source.com/testnet/account/0x1eced429f2012ef0/contract/Mynft
 pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Mynft",
@@ -642,6 +655,7 @@ pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x75e0b6de94eb05d0/contract/NyatheesOVO
+// https://flow-view-source.com/testnet/account/0xacf3dfa413e00f9f/contract/NyatheesOVO
 pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "NyatheesOVO",
@@ -747,6 +761,7 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x6c3ff40b90b928ab/contract/RCRDSHPNFT
+// https://flow-view-source.com/testnet/account/0x95d41a94b49a1ed1/contract/RCRDSHPNFT
 pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "RCRDSHPNFT",
@@ -778,6 +793,7 @@ pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x8de96244f54db422/contract/SportsIconCollectible
+// https://flow-view-source.com/testnet/account/0xc2824327396d3a39/contract/SportsIconCollectible
 pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "SportsIconCollectible",
@@ -809,6 +825,7 @@ pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x5b82f21c0edf76e3/contract/StarlyCard
+// https://flow-view-source.com/testnet/account/0x697d72a988a77070/contract/StarlyCard
 pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "StarlyCard",
@@ -842,6 +859,7 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x98c9c2e548b84d31/contract/CaaPass
+// https://flow-view-source.com/testnet/account/0xa8b1239250f8d342/contract/CaaPass
 pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "CaaPass",
@@ -873,6 +891,7 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x0d9bc5af3fc0c2e3/contract/TuneGO
+// https://flow-view-source.com/testnet/account/0x2b0150231c047a8c/contract/TuneGO
 pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "TuneGO",
@@ -904,6 +923,7 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x2d2750f240198f91/contract/MatrixWorldFlowFestNFT
+// https://flow-view-source.com/testnet/account/0xe2f1b000e0203c1d/contract/MatrixWorldFlowFestNFT
 pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "MatrixWorldFlowFestNFT",
@@ -938,6 +958,7 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x0b2a3299cc857e29/contract/TopShot
+// https://flow-view-source.com/testnet/account/0x877931736ee77cff/contract/TopShot
 pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "TopShot",

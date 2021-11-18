@@ -57,60 +57,61 @@ Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTD
 
 2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc to retrieve NFT metadata given an NFT ID.
 
-    a. Add contract import statement
+   a. Add contract import statement
 
-    ```
-    import Gaia from 0x8b148183c28ff88f
-    ```
+   ```
+   import Gaia from 0x8b148183c28ff88f
+   ```
 
-    b. Add a new function to deserialize NFT metadata into the generic Alchemy metadata schema defined below.
+   b. Add a new function to deserialize NFT metadata into the generic Alchemy metadata schema defined below.
 
-    ```
-    case "Gaia": d = getGaia(owner: owner, id: id)
-    ```
+   ```
+   case "Gaia": d = getGaia(owner: owner, id: id)
+   ```
 
-    ```
-    // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
-    pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
+   ```
+   // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
+   // https://flow-view-source.com/testnet/account/0xc523a8bbf10fc4a3/contract/Gaia
+   pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
-        let contract = NFTContract(
-            name: "Gaia",
-            address: 0x8b148183c28ff88f,
-            storage_path: "Gaia.CollectionPath",
-            public_path: "Gaia.CollectionPublicPath",
-            public_collection_name: "Gaia.CollectionPublic",
-            external_domain: "ballerz.xyz"
-        )
+       let contract = NFTContract(
+           name: "Gaia",
+           address: 0x8b148183c28ff88f,
+           storage_path: "Gaia.CollectionPath",
+           public_path: "Gaia.CollectionPublicPath",
+           public_collection_name: "Gaia.CollectionPublic",
+           external_domain: "ballerz.xyz"
+       )
 
-        let col = owner.getCapability(Gaia.CollectionPublicPath)
-            .borrow<&{Gaia.CollectionPublic}>()
+       let col = owner.getCapability(Gaia.CollectionPublicPath)
+           .borrow<&{Gaia.CollectionPublic}>()
 
-        if col == nil { return nil }
+       if col == nil { return nil }
 
-        let nft = col!.borrowGaiaNFT(id: id)
-        if nft == nil { return nil }
+       let nft = col!.borrowGaiaNFT(id: id)
+       if nft == nil { return nil }
 
-        let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+       let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
 
-        return NFTData(
-            contract: contract,
-            id: nft!.id,
-            uuid: nft!.uuid,
-            title: metadata!["title"],
-            description: metadata!["description"],
-            external_domain_view_url: metadata!["uri"],
-            media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
-            alternate_media: [],
-            metadata: metadata!,
-        )
-    }
-    ```
+       return NFTData(
+           contract: contract,
+           id: nft!.id,
+           uuid: nft!.uuid,
+           title: metadata!["title"],
+           description: metadata!["description"],
+           external_domain_view_url: metadata!["uri"],
+           media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+           alternate_media: [],
+           metadata: metadata!,
+       )
+   }
+   ```
 
-    c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc
+   c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc
 
-    ```
-    sh testGetNFTs.sh Gaia
-    ```
+   ```
+   sh testGetNFTs.sh Gaia
+   ```
 
 ### Alchemy Metadata Schema
 
