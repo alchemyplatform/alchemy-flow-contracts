@@ -24,6 +24,7 @@ import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
+import Domains from 0x233eb012d34b0070
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -132,6 +133,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
                 case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
+                case "Domains": d = getFlownsDomain(owner: owner, id:id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -988,5 +990,43 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
         media: nil,
         alternate_media: [],
         metadata: metadata,
+    )
+}
+
+
+
+// https://flow-view-source.com/mainnet/account/0x233eb012d34b0070/contract/Domains
+// https://flow-view-source.com/testnet/account/0xb05b2abb42335e88/contract/Domains
+pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FlownsDomain",
+        address: 0x233eb012d34b0070,
+        storage_path: "Domains.CollectionStoragePath",
+        public_path: "Domains.CollectionPublicPath",
+        public_collection_name: "Domains.CollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(Domains.CollectionPublicPath)
+        .borrow<&{Domains.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDomain(id: id)
+    if nft == nil { return nil }
+
+    let name = nft!.getDomainName()
+
+    let URI = "https://www.flowns.org/api/fns?domain=".concat(name) 
+
+    return NFTData(
+        contract: contract, 
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: name,
+        description: nil,
+        external_domain_view_url: nil,
+        media: NFTMedia(uri: URI, mimetype: "image"),
+        alternate_media: [],
+        metadata: nft!.getAllTexts(),
     )
 }
