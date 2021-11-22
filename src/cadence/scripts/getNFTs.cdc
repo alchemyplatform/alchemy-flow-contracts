@@ -1017,6 +1017,7 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
     let name = nft!.getDomainName()
 
     let URI = "https://www.flowns.org/api/fns?domain=".concat(name) 
+    let viewURL = "https://www.flowns.org/api/data?domain=".concat(name)
 
     return NFTData(
         contract: contract, 
@@ -1024,7 +1025,7 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: name,
         description: nil,
-        external_domain_view_url: nil,
+        external_domain_view_url: viewURL,
         media: NFTMedia(uri: URI, mimetype: "image"),
         alternate_media: [],
         metadata: nft!.getAllTexts(),
