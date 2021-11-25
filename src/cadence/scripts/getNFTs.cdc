@@ -24,6 +24,7 @@ import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
+import TFCItems from 0x81e95660ab5308e1
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -132,6 +133,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
                 case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
+                case "TFCItems": d = getTFCItems(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -986,6 +988,41 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
         description: nil,
         external_domain_view_url: nil,
         media: nil,
+        alternate_media: [],
+        metadata: metadata,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x81e95660ab5308e1/contract/TFCItems
+// https://flow-view-source.com/testnet/account/0x91a6217c3b70cae8/contract/TFCItems
+pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TFCItems",
+        address: 0x81e95660ab5308e1,
+        storage_path: "/storage/TFCItemsCollection",
+        public_path: "/public/TFCItemsCollection",
+        public_collection_name: "TFCItem.TFCItemsCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TFCItems.CollectionPublicPath)!
+    .borrow<&{TFCItems.TFCItemsCollectionPublic}>()
+        
+    if col == nil { return nil }
+
+    let nft = col!.borrowTFCItem(id: id)
+    if nft == nil { return nil }
+    
+    let metadata = nft!.getMetadata()
+
+    return NFTData(
+        contract: contract, 
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata["Title"]!,
+        description: nil,
+        external_domain_view_url: "thefootballclub.com",
+        media: NFTMedia(uri: metadata["URL"]!, mimetype: "image"),
         alternate_media: [],
         metadata: metadata,
     )
