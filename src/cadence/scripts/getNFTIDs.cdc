@@ -24,7 +24,7 @@ import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
-
+import GooberXContract from 0x34f2bf4a80bb0f69
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -131,7 +131,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{TopShot.MomentCollectionPublic}>() {
             ids["TopShot"] = col.getIDs()
         }
-
+    if let col = owner.getCapability(GooberXContract.CollectionPublicPath)
+        .borrow<&{GooberXContract.GooberCollectionPublic}>() {
+            ids["Gooberz"] = col.getIDs()
+        }
 
     return ids
 }
