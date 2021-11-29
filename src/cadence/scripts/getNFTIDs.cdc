@@ -26,6 +26,8 @@ import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
 import Domains from 0x233eb012d34b0070
 import Eternal from 0xc38aea683c0c4d38
+import GooberXContract from 0x34f2bf4a80bb0f69
+import TFCItems from 0x81e95660ab5308e1
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -140,7 +142,14 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Eternal.MomentCollectionPublic}>() {
             ids["EternalMoment"] = col.getIDs()
         }
-
+    if let col = owner.getCapability(TFCItems.CollectionPublicPath)
+        .borrow<&{TFCItems.TFCItemsCollectionPublic}>(){
+            ids["TFCItems"] = col.getIDs()
+        }
+    if let col = owner.getCapability(GooberXContract.CollectionPublicPath)
+        .borrow<&{GooberXContract.GooberCollectionPublic}>() {
+            ids["Gooberz"] = col.getIDs()
+        }
 
     return ids
 }

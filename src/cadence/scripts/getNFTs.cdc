@@ -26,6 +26,8 @@ import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
 import Domains from 0x233eb012d34b0070
 import Eternal from 0xc38aea683c0c4d38
+import GooberXContract from 0x34f2bf4a80bb0f69
+import TFCItems from 0x81e95660ab5308e1
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -136,6 +138,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
                 case "Domains": d = getFlownsDomain(owner: owner, id:id)
                 case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
+                case "TFCItems": d = getTFCItems(owner: owner, id: id)
+                case "Gooberz": d = getGooberz(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1068,5 +1072,72 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
         media: NFTMedia(uri: URI, mimetype: "image"),
         alternate_media: [],
         metadata: nft!.getAllTexts(),
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x81e95660ab5308e1/contract/TFCItems
+// https://flow-view-source.com/testnet/account/0x91a6217c3b70cae8/contract/TFCItems
+pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TFCItems",
+        address: 0x81e95660ab5308e1,
+        storage_path: "/storage/TFCItemsCollection",
+        public_path: "/public/TFCItemsCollection",
+        public_collection_name: "TFCItem.TFCItemsCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TFCItems.CollectionPublicPath)!
+    .borrow<&{TFCItems.TFCItemsCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowTFCItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+
+    return NFTData(
+        contract: contract, 
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata["Title"]!,
+        description: nil,
+        external_domain_view_url: "thefootballclub.com",
+        media: NFTMedia(uri: metadata["URL"]!, mimetype: "image"),
+        alternate_media: [],
+        metadata: metadata,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x34f2bf4a80bb0f69/contract/GooberXContract
+// https://flow-view-source.com/testnet/account/0x9be1ec5be8738e13/contract/GooberXContract
+pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "GooberXContract", 
+        address: 0x34f2bf4a80bb0f69,
+        storage_path: "GooberXContract.CollectionStoragePath",
+        public_path: "GooberXContract.CollectionPublicPath",
+        public_collection_name: "GooberXContract.GooberCollectionPublic",
+        external_domain: "partymansion.io"
+    )
+
+    let col = owner.getCapability(GooberXContract.CollectionPublicPath)
+        .borrow<&{GooberXContract.GooberCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowGoober(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract, 
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        media: NFTMedia(uri: nft!.data!.uri, mimetype: "image"),
+        alternate_media: [],
+        metadata: nft!.data!.metadata!,
     )
 }
