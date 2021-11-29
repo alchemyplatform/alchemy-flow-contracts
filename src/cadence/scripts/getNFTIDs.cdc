@@ -25,13 +25,13 @@ import TuneGO from 0x0d9bc5af3fc0c2e3
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
 import Domains from 0x233eb012d34b0070
-
+import Eternal from 0xc38aea683c0c4d38
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
     let ids: {String: [UInt64]} = {}
-    
+
 
     if let col = owner.getCapability(CNN_NFT.CollectionPublicPath)
         .borrow<&{CNN_NFT.CNN_NFTCollectionPublic}>() {
@@ -67,7 +67,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         }
     if let col = owner.getCapability(/public/EternalShardCollection)
         .borrow<&{Shard.ShardCollectionPublic}>() {
-            ids["Shard"] = col.getIDs()
+            ids["EternalShard"] = col.getIDs()
         }
     if let col = owner.getCapability(FantastecNFT.CollectionPublicPath)
         .borrow<&{FantastecNFT.FantastecNFTCollectionPublic}>() {
@@ -136,6 +136,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Domains.CollectionPublicPath)
         .borrow<&{Domains.CollectionPublic}>() {
             ids["Domains"] = col.getIDs()
+    if let col = owner.getCapability(/public/EternalMomentCollection)
+        .borrow<&{Eternal.MomentCollectionPublic}>() {
+            ids["EternalMoment"] = col.getIDs()
         }
 
 
