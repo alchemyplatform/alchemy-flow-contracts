@@ -24,6 +24,7 @@ import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
+import Eternal from 0xc38aea683c0c4d38
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -47,14 +48,14 @@ pub struct NFTData {
     pub let metadata: {String: AnyStruct}
 
     init(
-        contract: NFTContract, 
-        id: UInt64, 
-        uuid: UInt64?, 
-        title: String?, 
-        description: String?, 
-        external_domain_view_url: String?, 
-        media: NFTMedia?, 
-        alternate_media: [NFTMedia?], 
+        contract: NFTContract,
+        id: UInt64,
+        uuid: UInt64?,
+        title: String?,
+        description: String?,
+        external_domain_view_url: String?,
+        media: NFTMedia?,
+        alternate_media: [NFTMedia?],
         metadata: {String: AnyStruct}
     ) {
         self.contract = contract
@@ -78,7 +79,7 @@ pub struct NFTContract {
     pub let external_domain: String
 
     init(
-        name: String, 
+        name: String,
         address: Address,
         storage_path: String,
         public_path: String,
@@ -99,7 +100,7 @@ pub struct NFTMedia {
     pub let mimetype: String?
 
     init(
-        uri: String?, 
+        uri: String?,
         mimetype: String?
     ) {
         self.uri = uri
@@ -114,9 +115,9 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
     for key in ids.keys {
         for id in ids[key]! {
             var d: NFTData? = nil
-            
-            // note: unfortunately dictonairy containing functions is not 
-            // working on mainnet for now so we have to fallback to switch  
+
+            // note: unfortunately dictonairy containing functions is not
+            // working on mainnet for now so we have to fallback to switch
             switch key {
                 case "CNN": d = getCnnNFT(owner: owner, id: id)
                 case "ChainmonstersRewards": d = getChainmonstersRewardNFT(owner: owner, id: id)
@@ -124,7 +125,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TopShot": d = getTopShot(owner: owner, id: id)
                 case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
                 case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
-                case "Shard": d = getShard(owner: owner, id: id)
+                case "EternalShard": d = getEternalShard(owner: owner, id: id)
                 case "Mynft": d = getMynft(owner: owner, id: id)
                 case "Vouchers": d = getVoucher(owner: owner, id: id)
                 case "MusicBlock": d = getMusicBlock(owner: owner, id: id)
@@ -132,6 +133,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
                 case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
+                case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -139,7 +141,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
             NFTs.append(d)
         }
     }
-    
+
     return NFTs
 }
 
@@ -160,9 +162,9 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCNN_NFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -178,7 +180,7 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0x75783e3c937304a8/contract/ChainmonstersRewards
 pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "ChainmonstersRewards", 
+        name: "ChainmonstersRewards",
         address: 0x93615d25d14fa337,
         storage_path: "/storage/ChainmonstersRewardCollection",
         public_path: "/public/ChainmonstersRewardCollection",
@@ -192,9 +194,9 @@ pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowReward(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -210,7 +212,7 @@ pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0xc523a8bbf10fc4a3/contract/Gaia
 pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "Gaia", 
+        name: "Gaia",
         address: 0x8b148183c28ff88f,
         storage_path: "Gaia.CollectionStoragePath",
         public_path: "Gaia.CollectionPublicPath",
@@ -224,11 +226,11 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowGaiaNFT(id: id)
     if nft == nil { return nil }
-    
+
     let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
@@ -244,7 +246,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Beam
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "Beam", 
+        name: "Beam",
         address: 0x86b4a0010a71cfc3,
         storage_path: "Beam.CollectionStoragePath",
         public_path: "Beam.CollectionPublicPath",
@@ -258,9 +260,9 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -289,9 +291,9 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowBlockleteGames_NFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -307,7 +309,7 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Crave
 pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "", 
+        name: "",
         address: 0x6d008a788fc27265,
         storage_path: "Crave.CollectionStoragePath",
         public_path: "Crave.CollectionPublicPath",
@@ -321,9 +323,9 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -353,9 +355,9 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCricketMoment(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -389,7 +391,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
     let art = nft!.data
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -401,16 +403,53 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0xc38aea683c0c4d38/contract/Eternal
+pub fun getEternalMoment(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Eternal",
+        address: 0xc38aea683c0c4d38,
+        storage_path: "/storage/EternalMomentCollection",
+        public_path: "/public/EternalMomentCollection",
+        public_collection_name: "Eternal.MomentCollectionPublic",
+        external_domain: "https://eternal.gg/"
+    )
+
+    let col = owner.getCapability(/public/EternalMomentCollection)
+        .borrow<&{Eternal.MomentCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMoment(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Eternal.getPlayMetaData(playID: nft!.data.playID)
+    if metadata == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata!["Title"],
+        description: metadata!["Game"]!.concat(" - ").concat(metadata!["Influencer"]!),
+        external_domain_view_url: "https://eternal.gg/moments/".concat(nft!.id.toString()),
+        media: NFTMedia(
+            uri: "https://gateway.pinata.cloud/ipfs/".concat(metadata!["Hash"]!),
+            mimetype: "video"
+        ),
+        alternate_media: [],
+        metadata: metadata!,
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0x82b54037a8f180cf/contract/Shard
 // https://flow-view-source.com/testnet/account/0x7ff5f9ac593c3ee0/contract/Shard
-pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
+pub fun getEternalShard(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Shard",
         address: 0x82b54037a8f180cf,
         storage_path: "/storage/EternalShardCollection",
         public_path: "/public/EternalShardCollection",
         public_collection_name: "Shard.ShardCollectionPublic",
-        external_domain: ""
+        external_domain: "https://eternal.gg/"
     )
 
     let col = owner.getCapability(/public/EternalShardCollection)
@@ -423,14 +462,14 @@ pub fun getShard(owner: PublicAccount, id: UInt64): NFTData? {
     let clip = Shard.getClip(clipID: nft!.clipID)
     let clipMetadata = Shard.getClipMetadata(clipID: nft!.clipID)
     let momentMetadata = Shard.getMomentMetadata(momentID: clip!.momentID)
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: clipMetadata!["title"],
-        description: "",
-        external_domain_view_url: "",
+        description: "Deposit your Shard at Eternal.gg to merge them into a Crystal!",
+        external_domain_view_url: "https://eternal.gg/shards/".concat(nft!.id.toString()),
         media: NFTMedia(uri: clipMetadata!["video_url"], mimetype: "video"),
         alternate_media: [],
         metadata: {
@@ -458,9 +497,9 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowFantastecNFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -490,12 +529,12 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowVoucher(id: id)
     if nft == nil { return nil }
-    
+
     let metadata = nft!.getMetadata()
     if metadata == nil { return nil }
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!.name,
@@ -532,9 +571,9 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -564,9 +603,9 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowKlktnNFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -597,7 +636,7 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
     let data = col!.getMusicBlockData(id: id)
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: id,
         uuid: nil,
         title: nil,
@@ -632,9 +671,9 @@ pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowArt(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nft!.metadata!.name,
@@ -672,11 +711,11 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowNFTItem(id: id)
     if nft == nil { return nil }
-    
+
     let meta = nft!.getMetadata()
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -705,14 +744,14 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowRaceDay_NFT(id: id)
     if nft == nil { return nil }
-    
+
     let setMeta = RaceDay_NFT.getSetMetadata(setId: nft!.setId)!
     let seriesMeta = RaceDay_NFT.getSeriesMetadata(
         seriesId: RaceDay_NFT.getSetSeriesId(setId: nft!.setId)!
     )
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: setMeta["name"],
@@ -746,9 +785,9 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowRareRooms_NFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -778,9 +817,9 @@ pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowNFT(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -810,9 +849,9 @@ pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -842,9 +881,9 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowStarlyCard(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -876,9 +915,9 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCaaPass(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -908,9 +947,9 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
@@ -940,9 +979,9 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowVoucher(id: id)
     if nft == nil { return nil }
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nft!.metadata.name,
@@ -975,11 +1014,11 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowMoment(id: id)
     if nft == nil { return nil }
-    
+
     let metadata = TopShot.getPlayMetaData(playID: nft!.data.playID)!
-    
+
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata["FullName"],
