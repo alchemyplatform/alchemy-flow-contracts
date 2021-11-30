@@ -138,6 +138,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Domains.CollectionPublicPath)
         .borrow<&{Domains.CollectionPublic}>() {
             ids["Domains"] = col.getIDs()
+        }
     if let col = owner.getCapability(/public/EternalMomentCollection)
         .borrow<&{Eternal.MomentCollectionPublic}>() {
             ids["EternalMoment"] = col.getIDs()
