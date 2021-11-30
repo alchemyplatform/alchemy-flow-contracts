@@ -410,6 +410,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0xc38aea683c0c4d38/contract/Eternal
+// https://flow-view-source.com/testnet/account/0x8da9b78f32f3ef50/contract/Eternal
 pub fun getEternalMoment(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Eternal",
@@ -1059,11 +1060,11 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
 
     let name = nft!.getDomainName()
 
-    let URI = "https://www.flowns.org/api/fns?domain=".concat(name) 
+    let URI = "https://www.flowns.org/api/fns?domain=".concat(name)
     let viewURL = "https://www.flowns.org/api/data?domain=".concat(name)
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: name,
@@ -1098,7 +1099,7 @@ pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
     let metadata = nft!.getMetadata()
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata["Title"]!,
@@ -1114,7 +1115,7 @@ pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0x9be1ec5be8738e13/contract/GooberXContract
 pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "GooberXContract", 
+        name: "GooberXContract",
         address: 0x34f2bf4a80bb0f69,
         storage_path: "GooberXContract.CollectionStoragePath",
         public_path: "GooberXContract.CollectionPublicPath",
@@ -1130,7 +1131,7 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     return NFTData(
-        contract: contract, 
+        contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nil,
