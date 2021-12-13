@@ -28,6 +28,7 @@ import Domains from 0x233eb012d34b0070
 import Eternal from 0xc38aea683c0c4d38
 import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
+import BnGNFT from 0x7859c48816bfea3c
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -140,6 +141,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
+                case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1140,5 +1142,39 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
         media: NFTMedia(uri: nft!.data!.uri, mimetype: "image"),
         alternate_media: [],
         metadata: nft!.data!.metadata!,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x7859c48816bfea3c/contract/BnGNFT
+// https://flow-view-source.com/testnet/account/0xf7ebe30e2e33b1f2/contract/BnGNFTContract
+pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "BnGNFT",
+        address: 0x7859c48816bfea3c,
+        storage_path: "BnGNFT.CollectionStoragePath",
+        public_path: "BnGNFT.CollectionPublicPath",
+        public_collection_name: "BnGNFT.BnGNFTCollectionPublic",
+        external_domain: "www.bngroovy.com"
+    )
+
+    let col = owner.getCapability(BnGNFT.CollectionPublicPath)
+        .borrow<&{BnGNFT.BnGNFTCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowBnGNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nft!.metadata!["metadata_url"],
+        media: nil,
+        alternate_media: [],
+        metadata: nft!.metadata!,
     )
 }
