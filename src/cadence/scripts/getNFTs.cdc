@@ -29,6 +29,7 @@ import Eternal from 0xc38aea683c0c4d38
 import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
+import GeniaceNFT from 0x99eb28310626e56a
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -123,25 +124,26 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
             // note: unfortunately dictonairy containing functions is not
             // working on mainnet for now so we have to fallback to switch
             switch key {
-                case "CNN": d = getCnnNFT(owner: owner, id: id)
-                case "ChainmonstersRewards": d = getChainmonstersRewardNFT(owner: owner, id: id)
-                case "Gaia": d = getGaia(owner: owner, id: id)
-                case "TopShot": d = getTopShot(owner: owner, id: id)
-                case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
-                case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
-                case "EternalShard": d = getEternalShard(owner: owner, id: id)
-                case "Mynft": d = getMynft(owner: owner, id: id)
-                case "Vouchers": d = getVoucher(owner: owner, id: id)
-                case "MusicBlock": d = getMusicBlock(owner: owner, id: id)
-                case "NyatheesOVO": d = getNyatheesOVO(owner: owner, id: id)
-                case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
-                case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
-                case "Everbloom": d = getEverbloom(owner: owner, id: id)
-                case "Domains": d = getFlownsDomain(owner: owner, id:id)
-                case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
-                case "TFCItems": d = getTFCItems(owner: owner, id: id)
-                case "Gooberz": d = getGooberz(owner: owner, id: id)
-                case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
+                // case "CNN": d = getCnnNFT(owner: owner, id: id)
+                // case "ChainmonstersRewards": d = getChainmonstersRewardNFT(owner: owner, id: id)
+                // case "Gaia": d = getGaia(owner: owner, id: id)
+                // case "TopShot": d = getTopShot(owner: owner, id: id)
+                // case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
+                // case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
+                // case "EternalShard": d = getEternalShard(owner: owner, id: id)
+                // case "Mynft": d = getMynft(owner: owner, id: id)
+                // case "Vouchers": d = getVoucher(owner: owner, id: id)
+                // case "MusicBlock": d = getMusicBlock(owner: owner, id: id)
+                // case "NyatheesOVO": d = getNyatheesOVO(owner: owner, id: id)
+                // case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
+                // case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
+                // case "Everbloom": d = getEverbloom(owner: owner, id: id)
+                // case "Domains": d = getFlownsDomain(owner: owner, id:id)
+                // case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
+                // case "TFCItems": d = getTFCItems(owner: owner, id: id)
+                // case "Gooberz": d = getGooberz(owner: owner, id: id)
+                // case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
+                case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1176,5 +1178,42 @@ pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
         media: nil,
         alternate_media: [],
         metadata: nft!.metadata!,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x99eb28310626e56a/contract/GeniaceNFT
+// https://flow-view-source.com/testnet/account/0x99eb28310626e56a/contract/GeniaceNFT
+pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Geniace",
+        address: 0x99eb28310626e56a,
+        storage_path: "GeniaceNFT.CollectionStoragePath",
+        public_path: "GeniaceNFT.CollectionPublicPath",
+        public_collection_name: "GeniaceNFT.GeniaceNFTCollectionPublic",
+        external_domain: "https://www.geniace.com/"
+    )
+
+    let col = owner.getCapability(GeniaceNFT.CollectionPublicPath)
+        .borrow<&{GeniaceNFT.GeniaceNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowGeniaceNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.metadata!.name,
+        description: nft!.metadata!.description,
+        external_domain_view_url: nil,
+        media: NFTMedia(uri: nft!.metadata!.imageUrl, mimetype: nil),
+        alternate_media: [],
+        metadata: {
+            "celebrityName": nft!.metadata!.celebrityName,
+            "artist": nft!.metadata!.artist,
+            "rarity": nft!.metadata!.celebrityName,
+            "data": nft!.metadata!.data
+        },
     )
 }
