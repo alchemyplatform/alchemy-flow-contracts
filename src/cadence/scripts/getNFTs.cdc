@@ -1200,6 +1200,18 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowGeniaceNFT(id: id)
     if nft == nil { return nil }
 
+    fun getNFTMedia(): NFTMedia? {
+        if(nft!.metadata!.data!["mimetype"] == nil){
+            return nil
+        }
+        else{
+            return NFTMedia(
+                uri: nft!.metadata!.imageUrl,
+                mimetype: nft!.metadata!.data!["mimetype"]
+            )
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1207,7 +1219,7 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: nil,
-        media: NFTMedia(uri: nft!.metadata!.imageUrl, mimetype: nil),
+        media: getNFTMedia(),
         alternate_media: [],
         metadata: {
             "celebrityName": nft!.metadata!.celebrityName,
