@@ -29,6 +29,7 @@ import Eternal from 0xc38aea683c0c4d38
 import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
+import GeniaceNFT from 0xabda6627c70c7f52
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -142,6 +143,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
+                case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1176,5 +1178,54 @@ pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
         media: nil,
         alternate_media: [],
         metadata: nft!.metadata!,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xabda6627c70c7f52/contract/GeniaceNFT
+// https://flow-view-source.com/testnet/account/0x99eb28310626e56a/contract/GeniaceNFT
+pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Geniace",
+        address: 0xabda6627c70c7f52,
+        storage_path: "GeniaceNFT.CollectionStoragePath",
+        public_path: "GeniaceNFT.CollectionPublicPath",
+        public_collection_name: "GeniaceNFT.GeniaceNFTCollectionPublic",
+        external_domain: "https://www.geniace.com/"
+    )
+
+    let col = owner.getCapability(GeniaceNFT.CollectionPublicPath)
+        .borrow<&{GeniaceNFT.GeniaceNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowGeniaceNFT(id: id)
+    if nft == nil { return nil }
+
+    fun getNFTMedia(): NFTMedia? {
+        if(nft!.metadata!.data!["mimetype"] == nil){
+            return nil
+        }
+        else{
+            return NFTMedia(
+                uri: nft!.metadata!.imageUrl,
+                mimetype: nft!.metadata!.data!["mimetype"]
+            )
+        }
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.metadata!.name,
+        description: nft!.metadata!.description,
+        external_domain_view_url: nil,
+        media: getNFTMedia(),
+        alternate_media: [],
+        metadata: {
+            "celebrityName": nft!.metadata!.celebrityName,
+            "artist": nft!.metadata!.artist,
+            "rarity": nft!.metadata!.celebrityName,
+            "data": nft!.metadata!.data
+        },
     )
 }
