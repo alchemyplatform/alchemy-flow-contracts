@@ -64,7 +64,7 @@ case $CONTRACT in
 
   GeniaceNFT)
     echo "GeniaceNFT"
-    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5a6e3ae559f72121" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "GeniaceNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "68" }] } }] }]' --network mainnet
+    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9d6c1c883973c0b5" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "GeniaceNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
     ;;
 
   *)
