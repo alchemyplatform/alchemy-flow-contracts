@@ -29,7 +29,7 @@ import Eternal from 0xc38aea683c0c4d38
 import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
-import GeniaceNFT from 0x99eb28310626e56a
+import GeniaceNFT from 0xabda6627c70c7f52
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -1181,12 +1181,12 @@ pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x99eb28310626e56a/contract/GeniaceNFT
+// https://flow-view-source.com/mainnet/account/0xabda6627c70c7f52/contract/GeniaceNFT
 // https://flow-view-source.com/testnet/account/0x99eb28310626e56a/contract/GeniaceNFT
 pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Geniace",
-        address: 0x99eb28310626e56a,
+        address: 0xabda6627c70c7f52,
         storage_path: "GeniaceNFT.CollectionStoragePath",
         public_path: "GeniaceNFT.CollectionPublicPath",
         public_collection_name: "GeniaceNFT.GeniaceNFTCollectionPublic",
