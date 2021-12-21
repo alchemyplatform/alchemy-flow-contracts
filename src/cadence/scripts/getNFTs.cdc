@@ -286,7 +286,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         description: metadata!["description"],
         external_domain_view_url: nil,
         media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [],
+        alternate_media: [NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
@@ -351,7 +351,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         description: metadata!["description"],
         external_domain_view_url: nil,
         media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [],
+        alternate_media: [NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
@@ -602,7 +602,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         description: metadata!["description"],
         external_domain_view_url: nil,
         media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [],
+        alternate_media: [NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
