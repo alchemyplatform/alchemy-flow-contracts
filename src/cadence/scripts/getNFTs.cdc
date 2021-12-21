@@ -1280,16 +1280,17 @@ pub fun getRaribleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain: "https://www.rarible.com/"
     )
 
-    let col = owner.getCapability(RaribleNFT.CollectionPublicPath)
-        .borrow<&{RaribleNFT.CollectionPublic}>()
+    let col = owner
+        .getCapability<&{NonFungibleToken.CollectionPublic}>(RaribleNFT.collectionPublicPath)
+        .borrow()
     if col == nil { return nil }
 
-    let metadata = col!.getMetadata(id: id)
+    let nft = col!.borrowNFT(id: id)
 
     return NFTData(
         contract: contract,
-        id: id,
-        uuid: nil,
+        id: nft!.id,
+        uuid: nft!.uuid,
         title: nil,
         description: nil,
         external_domain_view_url: nil,
