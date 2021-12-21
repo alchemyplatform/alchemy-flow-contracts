@@ -31,6 +31,7 @@ import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
+import RaribleNFT from 0x01ab36aaf654a13e
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -146,6 +147,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
+                case "RaribleNFT": d = getRaribleNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1264,5 +1266,35 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "author": nft!.metadata!.author,
             "edition": nft!.metadata!.edition   
         },
+    )
+}
+
+//https://flow-view-source.com/mainnet/account/0x1ab36aaf654a13e/contract/RaribleNFT
+pub fun getRaribleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Rarible",
+        address: 0x01ab36aaf654a13e,
+        storage_path: "RaribleNFT.CollectionStoragePath",
+        public_path: "RaribleNFT.CollectionPublicPath",
+        public_collection_name: "RaribleNFT.CollectionPublicPath",
+        external_domain: "https://www.rarible.com/"
+    )
+
+    let col = owner.getCapability(RaribleNFT.CollectionPublicPath)
+        .borrow<&{RaribleNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let metadata = col!.getMetadata(id: id)
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: nil,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        media: nil,
+        alternate_media: [],
+        metadata: {},
     )
 }
