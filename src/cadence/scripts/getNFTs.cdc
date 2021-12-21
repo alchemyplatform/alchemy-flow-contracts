@@ -30,6 +30,7 @@ import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
+import Collectible from 0xf5b0eb433389ac3f
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -144,6 +145,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
+                case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1226,6 +1228,41 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "artist": nft!.metadata!.artist,
             "rarity": nft!.metadata!.celebrityName,
             "data": nft!.metadata!.data
+        },
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xf5b0eb433389ac3f/contract/Collectible
+// https://flow-view-source.com/testnet/account/0x85080f371da20cc1/contract/Collectible
+pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Xtingles",
+        address: 0xf5b0eb433389ac3f,
+        storage_path: "Collectible.CollectionStoragePath",
+        public_path: "Collectible.CollectionPublicPath",
+        public_collection_name: "Collectible.CollectionPublicPath",
+        external_domain: "https://www.xtingles.com/"
+    )
+
+    let col = owner.getCapability(Collectible.CollectionPublicPath)
+        .borrow<&{Collectible.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nft!.metadata!.name,
+        description: nft!.metadata!.description,
+        external_domain_view_url: nil,
+        media: NFTMedia(uri: nft!.metadata!.link, mimetype: "video"),
+        alternate_media: [],
+        metadata: {
+            "author": nft!.metadata!.author,
+            "edition": nft!.metadata!.edition   
         },
     )
 }

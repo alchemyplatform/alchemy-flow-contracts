@@ -67,6 +67,11 @@ case $CONTRACT in
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9d6c1c883973c0b5" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "GeniaceNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
     ;;
 
+  Xtingles)
+    echo "XtinglesNFT"
+    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf5b0eb433389ac3f" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Xtingles" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "78463" }] } }] }]' --network mainnet
+    ;;
+
   *)
     echo "Unknown contract"
     ;;
