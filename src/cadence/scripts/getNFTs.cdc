@@ -146,6 +146,9 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
+                case "Beam": d = getBeam(owner: owner, id: id)
+                case "KOTD": d = getKOTD(owner: owner, id: id)
+                case "Crave": d = getCrave(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -263,7 +266,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "Beam.CollectionStoragePath",
         public_path: "Beam.CollectionPublicPath",
         public_collection_name: "Beam.BeamCollectionPublic",
-        external_domain: ""
+        external_domain: "frightclub.niftory.com"
     )
 
     let col = owner.getCapability(Beam.CollectionPublicPath)
@@ -272,17 +275,19 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
+    
+    let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
+        title: metadata!["title"],
+        description: metadata!["description"],
         external_domain_view_url: nil,
-        media: nil,
+        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
         alternate_media: [],
-        metadata: {},
+        metadata: metadata!,
     )
 }
 
@@ -321,12 +326,12 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Crave
 pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
-        name: "",
+        name: "Crave",
         address: 0x6d008a788fc27265,
         storage_path: "Crave.CollectionStoragePath",
         public_path: "Crave.CollectionPublicPath",
         public_collection_name: "Crave.CraveCollectionPublic",
-        external_domain: ""
+        external_domain: "crave.niftory.com"
     )
 
     let col = owner.getCapability(Crave.CollectionPublicPath)
@@ -335,17 +340,19 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
+    
+    let metadata = Crave.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
+        title: metadata!["title"],
+        description: metadata!["description"],
         external_domain_view_url: nil,
-        media: nil,
+        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
         alternate_media: [],
-        metadata: {},
+        metadata: metadata!,
     )
 }
 
@@ -575,7 +582,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "KOTD.CollectionStoragePath",
         public_path: "KOTD.CollectionPublicPath",
         public_collection_name: "KOTD.NiftoryCollectibleCollectionPublic",
-        external_domain: ""
+        external_domain: "kotd.niftory.com"
     )
 
     let col = owner.getCapability(KOTD.CollectionPublicPath)
@@ -584,17 +591,19 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
+    
+    let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
+        title: metadata!["title"],
+        description: metadata!["description"],
         external_domain_view_url: nil,
-        media: nil,
+        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
         alternate_media: [],
-        metadata: {},
+        metadata: metadata!,
     )
 }
 
