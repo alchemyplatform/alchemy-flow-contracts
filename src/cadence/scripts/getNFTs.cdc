@@ -49,8 +49,8 @@ pub struct NFTData {
     pub let title: String?
     pub let description: String?
     pub let external_domain_view_url: String?
-    pub let media: NFTMedia?
-    pub let alternate_media: [NFTMedia?]
+    pub let token_uri: String?
+    pub let media: [NFTMedia?]
     pub let metadata: {String: AnyStruct}
 
     init(
@@ -60,8 +60,8 @@ pub struct NFTData {
         title: String?,
         description: String?,
         external_domain_view_url: String?,
-        media: NFTMedia?,
-        alternate_media: [NFTMedia?],
+        token_uri: String?,
+        media: [NFTMedia?],
         metadata: {String: AnyStruct}
     ) {
         self.contract = contract
@@ -70,8 +70,8 @@ pub struct NFTData {
         self.title = title
         self.description = description
         self.external_domain_view_url = external_domain_view_url
+        self.token_uri = token_uri
         self.media = media
-        self.alternate_media = alternate_media
         self.metadata = metadata
     }
 }
@@ -185,8 +185,8 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -217,8 +217,8 @@ pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -251,8 +251,8 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!["title"],
         description: metadata!["description"],
         external_domain_view_url: metadata!["uri"],
-        media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
         metadata: metadata!,
     )
 }
@@ -285,8 +285,9 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!["title"],
         description: metadata!["description"],
         external_domain_view_url: nil,
-        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+            NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
@@ -316,8 +317,8 @@ pub fun getBlockleteGames(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -350,8 +351,9 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!["title"],
         description: metadata!["description"],
         external_domain_view_url: nil,
-        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+            NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
@@ -382,8 +384,8 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -416,8 +418,8 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -451,11 +453,11 @@ pub fun getEternalMoment(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!["Title"],
         description: metadata!["Game"]!.concat(" - ").concat(metadata!["Influencer"]!),
         external_domain_view_url: "https://eternal.gg/moments/".concat(nft!.id.toString()),
-        media: NFTMedia(
+        token_uri: nil,
+        media: [NFTMedia(
             uri: "https://gateway.pinata.cloud/ipfs/".concat(metadata!["Hash"]!),
             mimetype: "video"
-        ),
-        alternate_media: [],
+        )],
         metadata: metadata!,
     )
 }
@@ -490,8 +492,8 @@ pub fun getEternalShard(owner: PublicAccount, id: UInt64): NFTData? {
         title: clipMetadata!["title"],
         description: "Deposit your Shard at Eternal.gg to merge them into a Crystal!",
         external_domain_view_url: "https://eternal.gg/shards/".concat(nft!.id.toString()),
-        media: NFTMedia(uri: clipMetadata!["video_url"], mimetype: "video"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: clipMetadata!["video_url"], mimetype: "video")],
         metadata: {
             "clip": clipMetadata!,
             "moment": momentMetadata!
@@ -525,8 +527,8 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: nft!.metadata!,
     )
 }
@@ -560,8 +562,8 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!.name,
         description: metadata!.description,
         external_domain_view_url: nil,
-        media: NFTMedia(uri: metadata!.mediaURI, mimetype: metadata!.mediaType),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata!.mediaURI, mimetype: metadata!.mediaType)],
         metadata: {
             "mediaHash": metadata!.mediaURI,
             "mediaType": metadata!.mediaType,
@@ -601,8 +603,9 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata!["title"],
         description: metadata!["description"],
         external_domain_view_url: nil,
-        media: NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
-        alternate_media: [NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+            NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
@@ -633,8 +636,8 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -664,8 +667,8 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {
             "creator": data.creator,
             "cpower": data.cpower,
@@ -701,8 +704,8 @@ pub fun getMynft(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: "",
-        media: NFTMedia(uri: nft!.metadata!.ipfsLink, mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.metadata!.ipfsLink, mimetype: "image")],
         metadata: {
             "artist": nft!.metadata!.artist,
             "arLink": nft!.metadata!.arLink,
@@ -743,8 +746,8 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: meta["url"],
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: meta,
     )
 }
@@ -779,10 +782,9 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
         title: setMeta["name"],
         description: setMeta["description"],
         external_domain_view_url: setMeta["external_url"],
-        media: NFTMedia(uri: setMeta!["image"], mimetype: "image"),
-        alternate_media: [
-            NFTMedia(uri: setMeta!["preview"], mimetype: "image")
-        ],
+        token_uri: nil,
+        media: [NFTMedia(uri: setMeta!["image"], mimetype: "image"),
+            NFTMedia(uri: setMeta!["preview"], mimetype: "image")],
         metadata: {
             "set": setMeta!,
             "series": seriesMeta!
@@ -815,8 +817,8 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -847,8 +849,8 @@ pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -879,8 +881,8 @@ pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -911,8 +913,8 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {
             "id": nft!.starlyID
         },
@@ -945,8 +947,8 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -977,8 +979,8 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: {},
     )
 }
@@ -1009,8 +1011,8 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata.name,
         description: nft!.metadata.description,
         external_domain_view_url: "matrixworld.org",
-        media: NFTMedia(uri: nft!.metadata.animationUrl, mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.metadata.animationUrl, mimetype: "image")],
         metadata: {
             "type": nft!.metadata.type,
             "hash": nft!.metadata.hash
@@ -1046,8 +1048,8 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata["FullName"],
         description: nil,
         external_domain_view_url: nil,
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: metadata,
     )
 }
@@ -1085,8 +1087,8 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
         title: name,
         description: nil,
         external_domain_view_url: viewURL,
-        media: NFTMedia(uri: URI, mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: URI, mimetype: "image")],
         metadata: nft!.getAllTexts(),
     )
 }
@@ -1120,8 +1122,8 @@ pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata["Title"]!,
         description: nil,
         external_domain_view_url: "thefootballclub.com",
-        media: NFTMedia(uri: metadata["URL"]!, mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata["URL"]!, mimetype: "image")],
         metadata: metadata,
     )
 }
@@ -1152,8 +1154,8 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nil,
-        media: NFTMedia(uri: nft!.data!.uri, mimetype: "image"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.data!.uri, mimetype: "image")],
         metadata: nft!.data!.metadata!,
     )
 }
@@ -1186,8 +1188,8 @@ pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
         title: nil,
         description: nil,
         external_domain_view_url: nft!.metadata!["metadata_url"],
-        media: nil,
-        alternate_media: [],
+        token_uri: nil,
+        media: [],
         metadata: nft!.metadata!,
     )
 }
@@ -1211,15 +1213,15 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowGeniaceNFT(id: id)
     if nft == nil { return nil }
 
-    fun getNFTMedia(): NFTMedia? {
+    fun getNFTMedia(): [NFTMedia?] {
         if(nft!.metadata!.data!["mimetype"] == nil){
-            return nil
+            return []
         }
         else{
-            return NFTMedia(
+            return [NFTMedia(
                 uri: nft!.metadata!.imageUrl,
                 mimetype: nft!.metadata!.data!["mimetype"]
-            )
+            )]
         }
     }
 
@@ -1230,8 +1232,8 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: nil,
+        token_uri: nil,
         media: getNFTMedia(),
-        alternate_media: [],
         metadata: {
             "celebrityName": nft!.metadata!.celebrityName,
             "artist": nft!.metadata!.artist,
@@ -1267,8 +1269,8 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: nil,
-        media: NFTMedia(uri: nft!.metadata!.link, mimetype: "video"),
-        alternate_media: [],
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.metadata!.link, mimetype: "video")],
         metadata: {
             "author": nft!.metadata!.author,
             "edition": nft!.metadata!.edition   
