@@ -145,6 +145,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
+                case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1257,12 +1258,11 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: nil,
-        media: nil,
+        media: NFTMedia(uri: nft!.metadata!.link, mimetype: "video"),
         alternate_media: [],
         metadata: {
             "author": nft!.metadata!.author,
-            "edition": nft!.metadata!.edition,
-            "link": nft!.metadata!.link
+            "edition": nft!.metadata!.edition   
         },
     )
 }
