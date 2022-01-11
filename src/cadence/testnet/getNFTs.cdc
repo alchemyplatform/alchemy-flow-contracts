@@ -28,6 +28,7 @@ import BnGNFT from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
 import CryptoZooNFT from 0xd60702f03bcafd46
+import OneFootballCollectible from 0x01984fb4ca279d9a
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -144,6 +145,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "KOTD": d = getKOTD(owner: owner, id: id)
                 case "Crave": d = getCrave(owner: owner, id: id)
                 case "InceptionAnimals": d = getInceptionAnimals(owner: owner, id: id)
+                case "OneFootballCollectible": d = getOneFootballCollectible(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1153,4 +1155,45 @@ pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!, mimetype: nft!.getNFTTemplate()!.getMetadata()["mimetype"]!)],
         metadata: nft!.getNFTTemplate()!.getMetadata()!,
     )
+}
+
+// https://flow-view-source.com/testnet/account/0x01984fb4ca279d9a/contract/OneFootballCollectible
+pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "OneFootballCollectible",
+        address: 0x01984fb4ca279d9a,
+        storage_path: "OneFootballCollectible.CollectionStoragePath",
+        public_path: "OneFootballCollectible.CollectionPublicPath",
+        public_collection_name: "OneFootballCollectible.OneFootballCollectibleCollectionPublic",
+        external_domain: "http://xmas.onefootball.com/"
+    )
+
+    if let collection = account
+        .getCapability<&OneFootballCollectible.Collection{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>(OneFootballCollectible.CollectionPublicPath)
+            .borrow() {
+        if let nft = collection.borrowOneFootballCollectible(id: nftID) {
+            if let metadata = nft.getTemplate() {
+                return NFTData(
+                    contract: contract,
+                    id: nft.id,
+                    uuid: nft.uuid,
+                    title: metadata.name,
+                    description: metadata.description,
+                    external_domain_view_url: "https://xmas.onefootball.com/".concat(owner.address),
+                    token_uri: nil,
+                    media: [
+                        // media
+                        NFTMedia(uri: "https://".concat(metadata.media).concat(".ipfs.dweb.link/"), mimetype: "video"),
+                        // preview
+                        NFTMedia(uri: "https://".concat(metadata.preview).concat(".ipfs.dweb.link/"), mimetype: "image")
+                    ],
+                    metadata: {
+                        "of_id": metadata.data.of_id,
+                        "player_name": metadata.data.player_name   
+                    },
+                )
+            }
+        }
+    }
+    return nil
 }
