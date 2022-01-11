@@ -82,6 +82,11 @@ KOTD)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4bf17ded24f783d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KOTD" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4877" }] } }] }]' --network mainnet
   ;;
 
+InceptionAnimals)
+echo "InceptionAnimals"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8ea44ab931cac762" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "InceptionAnimals" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

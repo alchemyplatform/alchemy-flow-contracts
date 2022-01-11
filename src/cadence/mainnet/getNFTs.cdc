@@ -31,6 +31,7 @@ import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
+import CryptoZooNFT from 0x8ea44ab931cac762
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -149,6 +150,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Beam": d = getBeam(owner: owner, id: id)
                 case "KOTD": d = getKOTD(owner: owner, id: id)
                 case "Crave": d = getCrave(owner: owner, id: id)
+                case "InceptionAnimals": d = getInceptionAnimals(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1247,5 +1249,36 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "author": nft!.metadata!.author,
             "edition": nft!.metadata!.edition   
         },
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x8ea44ab931cac762
+pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "InceptionAnimals",
+        address: 0x8ea44ab931cac762,
+        storage_path: "CryptoZooNFT.CollectionStoragePath",
+        public_path: "CryptoZooNFT.CollectionPublicPath",
+        public_collection_name: "CryptoZooNFT.CryptoZooNFTCollectionPublic",
+        external_domain: "https://www.inceptionanimals.com/"
+    )
+
+    let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
+        .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCryptoZooNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.getNFTTemplate()!.description,
+        external_domain_view_url: nil,
+        token_uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!,
+        media: [NFTMedia(uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!, mimetype: nft!.getNFTTemplate()!.getMetadata()["mimetype"]!)],
+        metadata: nft!.getNFTTemplate()!.getMetadata()!,
     )
 }
