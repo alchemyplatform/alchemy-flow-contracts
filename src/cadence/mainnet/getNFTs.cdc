@@ -141,6 +141,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
                 case "Domains": d = getFlownsDomain(owner: owner, id:id)
                 case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
+                case "ThingFund": d = getCaaPass(owner: owner, id: id)
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
@@ -921,7 +922,7 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCaaPass(id: id)
     if nft == nil { return nil }
 
-    let metadata: CaaPass.Metadata? = nft.getMetadata()
+    let metadata: CaaPass.Metadata? = nft!.getMetadata()
     if metadata == nil { return nil }
 
     return NFTData(
@@ -935,7 +936,12 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: "ipfs://".concat(metadata!.mediaHash), mimetype: metadata!.mediaType)
         ],
-        metadata: metadata,
+        metadata: {
+            "name": metadata!.name,
+            "description": metadata!.description,
+            "mediaType": metadata!.mediaType,
+            "mediaHash": metadata!.mediaHash
+        },
     )
 }
 
