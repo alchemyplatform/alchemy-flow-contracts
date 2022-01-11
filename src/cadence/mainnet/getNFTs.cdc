@@ -921,16 +921,21 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCaaPass(id: id)
     if nft == nil { return nil }
 
+    let metadata: CaaPass.Metadata? = nft.getMetadata()
+    if metadata == nil { return nil }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata!.name,
+        description: metadata!.description,
+        external_domain_view_url: "https://thing.fund/",
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [
+            NFTMedia(uri: "ipfs://".concat(metadata!.mediaHash), mimetype: metadata!.mediaType)
+        ],
+        metadata: metadata,
     )
 }
 
