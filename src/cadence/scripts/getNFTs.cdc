@@ -382,7 +382,6 @@ pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
         )
 
         let metadata = nft!.getMetadata()
-        log(metadata["ipfs"]) //why don't I see this in the output?
 
         return NFTData(
             contract: contract,
