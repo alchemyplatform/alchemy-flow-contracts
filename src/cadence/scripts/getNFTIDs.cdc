@@ -166,15 +166,5 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
             ids["Xtingles_NFT"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(KOTD.CollectionPublicPath)
-        .borrow<&{KOTD.NiftoryCollectibleCollectionPublic}>() {
-            ids["KOTD"] = col.getIDs()
-    }
-
-    if let col = owner.getCapability(Crave.CollectionPublicPath)
-        .borrow<&{Crave.CraveCollectionPublic}>() {
-            ids["Crave"] = col.getIDs()
-    }
-
     return ids
 }

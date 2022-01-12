@@ -410,7 +410,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
 
     if let nft = col!.borrowPrint(id: id) {
 
-        //let metadata = nft.data
+        let metadata = nft.data
 
         let contract = NFTContract(
             name: "Everbloom",
@@ -429,7 +429,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             external_domain_view_url: nil,
             token_uri: nil,
             media: [],
-            metadata: {},
+            metadata: metadata,
         )
     }
     return nil 
@@ -831,10 +831,10 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData {
 
     let col = owner.getCapability(RareRooms_NFT.CollectionPublicPath)
         .borrow<&{RareRooms_NFT.RareRooms_NFTCollectionPublic}>()
-    //if col == nil { return nil }
+    if col == nil { return nil }
 
     let nft = col!.borrowRareRooms_NFT(id: id)
-    //if nft == nil { return nil }
+    if nft == nil { return nil }
 
     let setMeta = RareRooms_NFT.getSetMetadata(setId: nft!.setId)!
     let seriesMeta = RareRooms_NFT.getSeriesMetadata(
@@ -921,7 +921,7 @@ pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: setMetadata["title"],
         description: setMetadata["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://app.sportsicon.com/collectible/".concat(editionData.getSetID().toString()).concat("/").concat(editionData.getEditionNumber().toString()),
         token_uri: nil,
         media: [NFTMedia(uri: setMetadata!["contentURL"], mimetype: "video/mp4")],
         metadata: setMetadata,
