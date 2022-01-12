@@ -1168,10 +1168,10 @@ pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain: "http://xmas.onefootball.com/"
     )
 
-    if let collection = account
+    if let collection = ownwer
         .getCapability<&OneFootballCollectible.Collection{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>(OneFootballCollectible.CollectionPublicPath)
             .borrow() {
-        if let nft = collection.borrowOneFootballCollectible(id: nftID) {
+        if let nft = collection.borrowOneFootballCollectible(id: id) {
             if let metadata = nft.getTemplate() {
                 return NFTData(
                     contract: contract,
@@ -1179,7 +1179,7 @@ pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
                     uuid: nft.uuid,
                     title: metadata.name,
                     description: metadata.description,
-                    external_domain_view_url: "https://xmas.onefootball.com/".concat(owner.address),
+                    external_domain_view_url: "https://xmas.onefootball.com/".concat(owner.address.toString()),
                     token_uri: nil,
                     media: [
                         // media
@@ -1188,8 +1188,8 @@ pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
                         NFTMedia(uri: "https://".concat(metadata.preview).concat(".ipfs.dweb.link/"), mimetype: "image")
                     ],
                     metadata: {
-                        "of_id": metadata.data.of_id,
-                        "player_name": metadata.data.player_name   
+                        "of_id": metadata.data["of_id"],
+                        "player_name": metadata.data["player_name"]
                     },
                 )
             }
