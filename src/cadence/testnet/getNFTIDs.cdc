@@ -1,46 +1,38 @@
-import NonFungibleToken from 0x1d7e57aa55817448
-import CNN_NFT from 0x329feb3ab062d289
-import Gaia from 0x8b148183c28ff88f
-import Beam from 0x86b4a0010a71cfc3
-import BlockleteGames_NFT from 0x329feb3ab062d289
-import ChainmonstersRewards from 0x93615d25d14fa337
-import Crave from 0x6d008a788fc27265
-import CricketMoments from 0xed398881d9bf40fb
-import Everbloom from 0xe703f7fee6400754
-import Shard from 0x82b54037a8f180cf
-import FantastecNFT from 0x2e1ee1e7a96826ce
-import Vouchers from 0x444f5ea22c6ea12c
-import KOTD from 0x23dddd854fcc8c6f
-import KlktnNFT from 0xabd6e80be7e9682c
-import MusicBlock from 0x5634aefcb76e7d8c
-import Mynft from 0xf6fcbef550d97aa5
-import NyatheesOVO from 0x75e0b6de94eb05d0
-import RaceDay_NFT from 0x329feb3ab062d289
-import RareRooms_NFT from 0x329feb3ab062d289
-import RCRDSHPNFT from 0x6c3ff40b90b928ab
-import SportsIconCollectible from 0x8de96244f54db422
-import StarlyCard from 0x5b82f21c0edf76e3
-import CaaPass from 0x98c9c2e548b84d31
-import TuneGO from 0x0d9bc5af3fc0c2e3
-import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
-import TopShot from 0x0b2a3299cc857e29
-import Domains from 0x233eb012d34b0070
-import Eternal from 0xc38aea683c0c4d38
-import GooberXContract from 0x34f2bf4a80bb0f69
-import TFCItems from 0x81e95660ab5308e1
-import BnGNFT from 0x7859c48816bfea3c
-import GeniaceNFT from 0xabda6627c70c7f52
-import Collectible from 0xf5b0eb433389ac3f
+import NonFungibleToken from 0x631e88ae7f1d7c20
+import Gaia from 0xc523a8bbf10fc4a3
+import Beam from 0x6085ae87e78e1433
+import ChainmonstersRewards from 0x75783e3c937304a8
+import Crave from 0x6085ae87e78e1433
+import CricketMoments from 0xb45e7992680a0f7f
+import Everbloom from 0xf30d2f642de8c895
+import Shard from 0x7ff5f9ac593c3ee0
+import FantastecNFT from 0x7b4fab78fbddc57e
+import Vouchers from 0xe94a6e229293f196
+import KOTD from 0x6085ae87e78e1433
+import KlktnNFT from 0x336895dbe44c4b44
+import MusicBlock from 0xeb3241ad7d7881db
+import Mynft from 0x1eced429f2012ef0
+import NyatheesOVO from 0xacf3dfa413e00f9f
+import RCRDSHPNFT from 0x95d41a94b49a1ed1
+import SportsIconCollectible from 0xc2824327396d3a39
+import StarlyCard from 0x697d72a988a77070
+import CaaPass from 0xa8b1239250f8d342
+import TuneGO from 0x2b0150231c047a8c
+import MatrixWorldFlowFestNFT from 0xe2f1b000e0203c1d
+import TopShot from 0x877931736ee77cff
+import Domains from 0xb05b2abb42335e88
+import Eternal from 0x8da9b78f32f3ef50
+import GooberXContract from 0x9be1ec5be8738e13
+import TFCItems from 0x91a6217c3b70cae8
+import BnGNFT from 0xf7ebe30e2e33b1f2
+import GeniaceNFT from 0x99eb28310626e56a
+import Collectible from 0x85080f371da20cc1
+import CryptoZooNFT from 0xd60702f03bcafd46
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
     let ids: {String: [UInt64]} = {}
 
-
-    if let col = owner.getCapability(CNN_NFT.CollectionPublicPath)
-        .borrow<&{CNN_NFT.CNN_NFTCollectionPublic}>() {
-            ids["CNN"] = col.getIDs()
-        }
     if let col = owner.getCapability(/public/ChainmonstersRewardCollection)
         .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>() {
             ids["ChainmonstersRewards"] = col.getIDs()
@@ -52,10 +44,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Beam.CollectionPublicPath)
         .borrow<&{Beam.BeamCollectionPublic}>() {
             ids["Beam"] = col.getIDs()
-        }
-    if let col = owner.getCapability(BlockleteGames_NFT.CollectionPublicPath)
-        .borrow<&{BlockleteGames_NFT.BlockleteGames_NFTCollectionPublic}>() {
-            ids["BlockleteGames_NFT"] = col.getIDs()
         }
     if let col = owner.getCapability(Crave.CollectionPublicPath)
         .borrow<&{Crave.CraveCollectionPublic}>() {
@@ -100,14 +88,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(NyatheesOVO.CollectionPublicPath)
         .borrow<&{NyatheesOVO.NFTCollectionPublic}>() {
             ids["NyatheesOVO"] = col.getIDs()
-        }
-    if let col = owner.getCapability(RaceDay_NFT.CollectionPublicPath)
-        .borrow<&{RaceDay_NFT.RaceDay_NFTCollectionPublic}>() {
-            ids["RaceDay_NFT"] = col.getIDs()
-        }
-    if let col = owner.getCapability(RareRooms_NFT.CollectionPublicPath)
-        .borrow<&{RareRooms_NFT.RareRooms_NFTCollectionPublic}>() {
-            ids["RareRooms_NFT"] = col.getIDs()
         }
     if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
         .borrow<&{NonFungibleToken.CollectionPublic}>() {
@@ -164,6 +144,20 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Collectible.CollectionPublicPath)
         .borrow<&{Collectible.CollectionPublic}>() {
             ids["Xtingles_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(KOTD.CollectionPublicPath)
+    .borrow<&{KOTD.CollectionPublic}>() {
+        ids["KOTD"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Crave.CollectionPublicPath)
+    .borrow<&{Crave.CollectionPublic}>() {
+        ids["Crave"] = col.getIDs()
+    }
+    if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
+    .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
+        ids["CryptoZooNFT"] = col.getIDs()
     }
 
     return ids
