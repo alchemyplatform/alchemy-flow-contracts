@@ -423,7 +423,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             external_domain_view_url: nil,
             token_uri: nil,
             media: [],
-            metadata: metadata,
+            metadata: {},
         )
     }
     return nil 
@@ -804,7 +804,7 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/RareRooms_NFT
-pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData {
+pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "RareRooms_NFT",
         address: 0x329feb3ab062d289,
