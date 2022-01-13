@@ -912,7 +912,7 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "CaaPass.CollectionStoragePath",
         public_path: "CaaPass.CollectionPublicPath",
         public_collection_name: "CaaPass.CollectionPublic",
-        external_domain: ""
+        external_domain: "thing.fund"
     )
 
     let col = owner.getCapability(CaaPass.CollectionPublicPath)
