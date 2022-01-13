@@ -69,7 +69,7 @@ Xtingles)
 
 Beam)
   echo "Beam"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd1e1908699c934fc" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Beam" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "749" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x13774a0e75c975d4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Beam" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "14685" }] } }] }]' --network mainnet
   ;;
 
 Crave)
@@ -83,7 +83,7 @@ KOTD)
   ;;
 
 InceptionAnimals)
-echo "InceptionAnimals"
+  echo "InceptionAnimals"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8ea44ab931cac762" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "InceptionAnimals" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
