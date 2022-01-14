@@ -124,7 +124,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         }
     if let col = owner.getCapability(CaaPass.CollectionPublicPath)
         .borrow<&{CaaPass.CollectionPublic}>() {
-            ids["CaaPass"] = col.getIDs()
+            ids["ThingFund"] = col.getIDs()
         }
     if let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>() {

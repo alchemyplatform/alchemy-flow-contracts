@@ -135,6 +135,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Domains": d = getFlownsDomain(owner: owner, id:id)
                 case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
+                case "ThingFund": d = getCaaPass(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
                 case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
@@ -772,7 +773,7 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "CaaPass.CollectionStoragePath",
         public_path: "CaaPass.CollectionPublicPath",
         public_collection_name: "CaaPass.CollectionPublic",
-        external_domain: ""
+        external_domain: "thing.fund"
     )
 
     let col = owner.getCapability(CaaPass.CollectionPublicPath)
@@ -782,16 +783,26 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCaaPass(id: id)
     if nft == nil { return nil }
 
+    let metadata: CaaPass.Metadata? = nft!.getMetadata()
+    if metadata == nil { return nil }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata!.name,
+        description: metadata!.description,
+        external_domain_view_url: "https://thing.fund/",
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [
+            NFTMedia(uri: "ipfs://".concat(metadata!.mediaHash), mimetype: metadata!.mediaType)
+        ],
+        metadata: {
+            "name": metadata!.name,
+            "description": metadata!.description,
+            "mediaType": metadata!.mediaType,
+            "mediaHash": metadata!.mediaHash
+        },
     )
 }
 

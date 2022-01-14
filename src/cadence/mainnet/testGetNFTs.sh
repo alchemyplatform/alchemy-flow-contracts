@@ -1,7 +1,6 @@
 CONTRACT=$1
 
 case $CONTRACT in
-
   Gaia)
     echo "Gaia"
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9eef2e4511390ce4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gaia" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1129" }] } }] }]' --network mainnet
@@ -136,9 +135,13 @@ case $CONTRACT in
   echo "InceptionAnimals"
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8ea44ab931cac762" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "InceptionAnimals" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
     ;;
+  
+  ThingFund)
+  echo "ThingFund"
+    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x98c9c2e548b84d31" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ThingFund" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+    ;;
 
   *)
     echo "Unknown contract"
     ;;
   esac
- 
