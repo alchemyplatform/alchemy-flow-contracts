@@ -1262,7 +1262,7 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://www.geniace.com/product/".concat(nft!.id.toString()),
         token_uri: nil,
         media: getNFTMedia(),
         metadata: {
