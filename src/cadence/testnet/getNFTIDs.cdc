@@ -27,6 +27,7 @@ import TFCItems from 0x91a6217c3b70cae8
 import BnGNFT from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
+import CryptoZooNFT from 0xd60702f03bcafd46
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -153,6 +154,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Crave.CollectionPublicPath)
     .borrow<&{Crave.CollectionPublic}>() {
         ids["Crave"] = col.getIDs()
+    }
+    if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
+    .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
+        ids["CryptoZooNFT"] = col.getIDs()
     }
 
     return ids
