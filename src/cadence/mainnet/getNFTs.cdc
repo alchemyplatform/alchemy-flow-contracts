@@ -1174,13 +1174,17 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowGoober(id: id)
     if nft == nil { return nil }
 
+    let title = "Goober #".concat(nft!.id.toString())
+    let description = "Goober living in the party mansion"
+    let external_domain_view_url = "https://partymansion.io/gooberz/".concat(nft!.id.toString())
+    
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: title,
+        description: description,
+        external_domain_view_url: external_domain_view_url,
         token_uri: nil,
         media: [NFTMedia(uri: nft!.data!.uri, mimetype: "image")],
         metadata: nft!.data!.metadata!,
