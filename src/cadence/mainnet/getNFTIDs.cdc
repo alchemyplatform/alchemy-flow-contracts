@@ -30,6 +30,8 @@ import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
 import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
+import Collectible from 0xf5b0eb433389ac3f
+import CryptoZooNFT from 0x8ea44ab931cac762
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -122,7 +124,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         }
     if let col = owner.getCapability(CaaPass.CollectionPublicPath)
         .borrow<&{CaaPass.CollectionPublic}>() {
-            ids["CaaPass"] = col.getIDs()
+            ids["ThingFund"] = col.getIDs()
         }
     if let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>() {
@@ -160,6 +162,14 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{GeniaceNFT.GeniaceNFTCollectionPublic}>() {
             ids["GeniaceNFT"] = col.getIDs()
     }
+    if let col = owner.getCapability(Collectible.CollectionPublicPath)
+        .borrow<&{Collectible.CollectionPublic}>() {
+            ids["Xtingles_NFT"] = col.getIDs()
+    }
 
+    if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
+    .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
+        ids["InceptionAnimals"] = col.getIDs()
+    }
     return ids
 }

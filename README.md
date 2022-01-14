@@ -38,7 +38,7 @@ Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTD
 
 # Adding a new contract
 
-1. Update https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTIDs.cdc to return the list of NFT IDs for the new contract
+1. Update https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/mainnet/getNFTIDs.cdc to return the list of NFT IDs for the new contract
 
    a. Add contract import statement
 
@@ -55,7 +55,7 @@ Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTD
        }
    ```
 
-2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc to retrieve NFT metadata given an NFT ID.
+2. Add a new function in https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/mainnet/getNFTs.cdc to retrieve NFT metadata given an NFT ID.
 
    a. Add contract import statement
 
@@ -71,7 +71,6 @@ Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTD
 
    ```
    // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
-   // https://flow-view-source.com/testnet/account/0xc523a8bbf10fc4a3/contract/Gaia
    pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
        let contract = NFTContract(
@@ -107,7 +106,9 @@ Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTD
    }
    ```
 
-   c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/scripts/getNFTs.cdc
+   c. Add a test case for your newly added contract here: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/mainnet/getNFTs.cdc
+
+   d. Do the same for testnet: https://github.com/alchemyplatform/alchemy-flow-contracts/blob/main/src/cadence/testnet
 
    ```
    sh testGetNFTs.sh Gaia
