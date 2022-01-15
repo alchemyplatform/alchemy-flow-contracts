@@ -33,6 +33,9 @@ import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
 import CryptoZooNFT from 0x8ea44ab931cac762
 import OneFootballCollectible from 0x6831760534292098
+import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
+import DieselNFT from 0x497153c597783bc3
+import MiamiNFT from 0x429a19abea586a3e
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -185,5 +188,19 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["OneFootballCollectible"] = col.getIDs()
     } 
 
+    if let col = owner.getCapability(TheFabricantMysteryBox_FF1.CollectionPublicPath)
+    .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>() {
+        ids["TheFabricantMysteryBox_FF1"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(DieselNFT.CollectionPublicPath)
+    .borrow<&{DieselNFT.DieselCollectionPublic}>() {
+        ids["DieselNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MiamiNFT.CollectionPublicPath)
+    .borrow<&{MiamiNFT.MiamiCollectionPublic}>() {
+        ids["MiamiNFT"] = col.getIDs()
+    }
     return ids
 }
