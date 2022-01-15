@@ -141,6 +141,11 @@ case $CONTRACT in
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x98c9c2e548b84d31" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ThingFund" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
     ;;
 
+  OneFootballCollectible)
+    echo "OneFootballCollectible"
+    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x90bd6b4845e310a0" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "OneFootballCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "90" }] } }] }]' --network mainnet
+    ;;
+
   TheFabricantMysteryBox_FF1)
   echo "TheFabricantMysteryBox_FF1"
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1d5954d03ccb02d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantMysteryBox_FF1" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "425" }] } }] }]' --network mainnet

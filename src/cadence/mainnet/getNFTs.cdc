@@ -32,6 +32,7 @@ import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
 import CryptoZooNFT from 0x8ea44ab931cac762
+import OneFootballCollectible from 0x6831760534292098
 import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
 import DieselNFT from 0x497153c597783bc3
 import MiamiNFT from 0x429a19abea586a3e
@@ -159,6 +160,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "CricketMoments": d = getCricketMoments(owner: owner, id: id)
                 case "SportsIconCollectible": d = getSportsIconCollectible(owner: owner, id: id)
                 case "InceptionAnimals": d = getInceptionAnimals(owner: owner, id: id)
+                case "OneFootballCollectible": d = getOneFootballCollectible(owner: owner, id: id)
                 case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
@@ -1266,7 +1268,7 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://www.geniace.com/product/".concat(nft!.id.toString()),
         token_uri: nil,
         media: getNFTMedia(),
         metadata: {
@@ -1341,6 +1343,47 @@ pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!, mimetype: nft!.getNFTTemplate()!.getMetadata()["mimetype"]!)],
         metadata: nft!.getNFTTemplate()!.getMetadata()!,
     )
+}
+
+// https://flow-view-source.com/mainnet/account/0x6831760534292098/contract/OneFootballCollectible
+pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "OneFootballCollectible",
+        address: 0x6831760534292098,
+        storage_path: "OneFootballCollectible.CollectionStoragePath",
+        public_path: "OneFootballCollectible.CollectionPublicPath",
+        public_collection_name: "OneFootballCollectible.OneFootballCollectibleCollectionPublic",
+        external_domain: "http://xmas.onefootball.com/"
+    )
+
+    if let collection = owner
+        .getCapability<&OneFootballCollectible.Collection{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>(OneFootballCollectible.CollectionPublicPath)
+            .borrow() {
+        if let nft = collection.borrowOneFootballCollectible(id: id) {
+            if let metadata = nft.getTemplate() {
+                return NFTData(
+                    contract: contract,
+                    id: nft.id,
+                    uuid: nft.uuid,
+                    title: metadata.name,
+                    description: metadata.description,
+                    external_domain_view_url: "https://xmas.onefootball.com/".concat(owner.address.toString()),
+                    token_uri: nil,
+                    media: [
+                        // media
+                        NFTMedia(uri: "https://".concat(metadata.media).concat(".ipfs.dweb.link/"), mimetype: "video"),
+                        // preview
+                        NFTMedia(uri: "https://".concat(metadata.preview).concat(".ipfs.dweb.link/"), mimetype: "image")
+                    ],
+                    metadata: {
+                        "of_id": metadata.data["of_id"],
+                        "player_name": metadata.data["player_name"]
+                    },
+                )
+            }
+        }
+    }
+    return nil
 }
 
 // https://flow-view-source.com/mainnet/account/0xa0cbe021821c0965/contract/TheFabricantMysteryBox_FF1
