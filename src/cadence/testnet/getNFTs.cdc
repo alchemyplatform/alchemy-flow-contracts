@@ -32,6 +32,8 @@ import OneFootballCollectible from 0x01984fb4ca279d9a
 import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
 import MiamiNFT from 0x716db717f9240d8a
+import AllDay from 0x4dfd62c88d1b6462
+import PackNFT from 0x4dfd62c88d1b6462
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -152,6 +154,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
+                case "AllDay": d = getAllDay(owner: owner, id: id)
+                case "PackNFT": d = getPackNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1204,6 +1208,7 @@ pub fun getOneFootballCollectible(owner: PublicAccount, id: UInt64): NFTData? {
     return nil
 }
 
+
 // https://flow-view-source.com/testnet/account/0x716db717f9240d8a/contract/TheFabricantMysteryBox_FF1
 pub fun getTheFabricantMysteryBox_FF1(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
@@ -1303,5 +1308,67 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "creator": miamiData.creator,
             "season": miamiData.season
         },
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4dfd62c88d1b6462/contract/AllDay
+pub fun getAllDay(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "AllDay",
+        address: 0x4dfd62c88d1b6462,
+        storage_path: "AllDay.CollectionStoragePath",
+        public_path: "AllDay.CollectionPublicPath",
+        public_collection_name: "AllDay.MomentNFTCollectionPublic",
+        external_domain: "https://nflallday.com/"
+    )
+
+    let col = owner.getCapability(AllDay.CollectionPublicPath)
+        .borrow<&{AllDay.MomentNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMomentNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: "Moment".concat(nft!.id.toString()).concat("-Edition").concat(nft!.editionID.toString()).concat("-SerialNumber").concat(nft!.serialNumber.toString()),
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4dfd62c88d1b6462/contract/PackNFT
+pub fun getPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "PackNFT",
+        address: 0x4dfd62c88d1b6462,
+        storage_path: "PackNFT.CollectionStoragePath",
+        public_path: "PackNFT.CollectionPublicPath",
+        public_collection_name: "NonFungibleToken.CollectionPublic",
+        external_domain: "https://nflallday.com/"
+    )
+
+    let col = owner.getCapability(PackNFT.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {},
     )
 }
