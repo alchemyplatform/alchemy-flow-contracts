@@ -1,7 +1,6 @@
 CONTRACT=$1
 
 case $CONTRACT in
-
 Gaia)
   echo "Gaia"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9eef2e4511390ce4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gaia" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1129" }] } }] }]' --network mainnet
@@ -17,14 +16,24 @@ Starly)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd88dea66b28c8637" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "StarlyCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "752" }] } }] }]' --network mainnet
   ;;
 
+MyNft)
+  echo "Eternal"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1f56a1e665826a52" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Shard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6014" }] } }] }]' --network mainnet
+  ;;
+
 NyatheesOVO)
   echo "NyatheesOVO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1a281ada027d19dd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NyatheesOVO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6042" }] } }] }]' --network mainnet
   ;;
 
-RaceDay)
-  echo "RaceDay"
+RaceDay_NFT)
+  echo "RaceDay_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x61c73078c27d29a8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RaceDay_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "14282" }] } }] }]' --network mainnet
+  ;;
+
+RareRooms_NFT)
+  echo "RareRooms_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RareRooms_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "50720" }] } }] }]' --network mainnet
   ;;
 
 EternalShard)
@@ -57,9 +66,49 @@ BiscuitsNGroovy)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5a6e3ae559f72121" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BiscuitsNGroovy" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "68" }] } }] }]' --network mainnet
   ;;
 
+FantastecNFT)
+  echo "FantastecNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8764f467ac272246" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FantastecNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6247" }] } }] }]' --network mainnet
+  ;;
+
 GeniaceNFT)
   echo "GeniaceNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9d6c1c883973c0b5" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "GeniaceNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+
+Everbloom)
+  echo "Everbloom"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6cced3c020fc5867" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Everbloom" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5809" }] } }] }]' --network mainnet
+  ;;
+
+CricketMoments)
+  echo "CricketMoments"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9802f89626586479" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "CricketMoments" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2906" }] } }] }]' --network mainnet
+  ;;
+
+KlktnNFT)
+  echo "KlktnNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KlktnNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1122" }] } }] }]' --network mainnet
+  ;;
+
+MusicBlock)
+  echo "MusicBlock"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MusicBlock" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "101342" }] } }] }]' --network mainnet
+  ;;
+
+Mynft)
+  echo "Mynft"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Mynft" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "31682" }] } }] }]' --network mainnet
+  ;;
+
+SportsIconCollectible)
+  echo "SportsIconCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SportsIconCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "61529083" }] } }] }]' --network mainnet
+  ;;
+
+Gooberz)
+  echo "Gooberz"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x445c3806345e5409" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gooberz" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "116" }] } }] }]' --network mainnet
   ;;
 
 Xtingles)
@@ -87,6 +136,30 @@ InceptionAnimals)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8ea44ab931cac762" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "InceptionAnimals" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
+ThingFund)
+  echo "ThingFund"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x98c9c2e548b84d31" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ThingFund" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+OneFootballCollectible)
+  echo "OneFootballCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x90bd6b4845e310a0" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "OneFootballCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "90" }] } }] }]' --network mainnet
+  ;;
+
+TheFabricantMysteryBox_FF1)
+  echo "TheFabricantMysteryBox_FF1"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1d5954d03ccb02d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantMysteryBox_FF1" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "425" }] } }] }]' --network mainnet
+  ;;
+
+DieselNFT)
+  echo "DieselNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1d5954d03ccb02d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DieselNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+MiamiNFT)
+  echo "MiamiNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1d5954d03ccb02d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MiamiNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

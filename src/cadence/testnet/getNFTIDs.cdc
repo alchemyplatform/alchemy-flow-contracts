@@ -28,6 +28,10 @@ import BnGNFT from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
 import CryptoZooNFT from 0xd60702f03bcafd46
+import OneFootballCollectible from 0x01984fb4ca279d9a
+import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
+import DieselNFT from 0x716db717f9240d8a
+import MiamiNFT from 0x716db717f9240d8a
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -103,7 +107,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         }
     if let col = owner.getCapability(CaaPass.CollectionPublicPath)
         .borrow<&{CaaPass.CollectionPublic}>() {
-            ids["CaaPass"] = col.getIDs()
+            ids["ThingFund"] = col.getIDs()
         }
     if let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>() {
@@ -145,12 +149,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Collectible.CollectionPublic}>() {
             ids["Xtingles_NFT"] = col.getIDs()
     }
-
     if let col = owner.getCapability(KOTD.CollectionPublicPath)
     .borrow<&{KOTD.CollectionPublic}>() {
         ids["KOTD"] = col.getIDs()
     }
-
     if let col = owner.getCapability(Crave.CollectionPublicPath)
     .borrow<&{Crave.CollectionPublic}>() {
         ids["Crave"] = col.getIDs()
@@ -159,6 +161,25 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
         ids["CryptoZooNFT"] = col.getIDs()
     }
+    if let col = owner.getCapability(OneFootballCollectible.CollectionPublicPath)
+    .borrow<&{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>() {
+        ids["OneFootballCollectible"] = col.getIDs()
+    } 
 
+    if let col = owner.getCapability(TheFabricantMysteryBox_FF1.CollectionPublicPath)
+    .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>() {
+        ids["TheFabricantMysteryBox_FF1"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(DieselNFT.CollectionPublicPath)
+    .borrow<&{DieselNFT.DieselCollectionPublic}>() {
+        ids["DieselNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MiamiNFT.CollectionPublicPath)
+    .borrow<&{MiamiNFT.DieselCollectionPublic}>() {
+        ids["MiamiNFT"] = col.getIDs()
+    }
+    
     return ids
 }
