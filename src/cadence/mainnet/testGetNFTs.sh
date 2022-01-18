@@ -167,7 +167,7 @@ case $CONTRACT in
     ;;
   
   PackNFT)
-    echo "PackNFT"
+    echo "AllDayPackNFT"
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4cf4bdc1751c65d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "PackNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
     ;;
 

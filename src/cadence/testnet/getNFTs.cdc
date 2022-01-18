@@ -155,7 +155,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
                 case "AllDay": d = getAllDay(owner: owner, id: id)
-                case "PackNFT": d = getPackNFT(owner: owner, id: id)
+                case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1343,7 +1343,7 @@ pub fun getAllDay(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/testnet/account/0x4dfd62c88d1b6462/contract/PackNFT
-pub fun getPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
+pub fun getAllDayPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "PackNFT",
         address: 0x4dfd62c88d1b6462,
