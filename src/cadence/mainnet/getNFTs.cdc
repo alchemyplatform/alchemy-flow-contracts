@@ -1265,8 +1265,8 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
     fun getRarity(): String? {
         switch nft!.metadata.rarity {
             case GeniaceNFT.Rarity.Collectible: return "Collectible"
-			case GeniaceNFT.Rarity.Rare: return "Rare"
-			case GeniaceNFT.Rarity.UltraRare: return "UltraRare"
+            case GeniaceNFT.Rarity.Rare: return "Rare"
+            case GeniaceNFT.Rarity.UltraRare: return "UltraRare"
             default: return ""
         }
     }
