@@ -32,6 +32,7 @@ import OneFootballCollectible from 0x01984fb4ca279d9a
 import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
 import MiamiNFT from 0x716db717f9240d8a
+import FlowChinaBadge from 0xb83e682ece5c8a50
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -152,6 +153,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
+                case "FlowFans": d = getFlowFansNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1303,5 +1305,36 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "creator": miamiData.creator,
             "season": miamiData.season
         },
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xb83e682ece5c8a50/contract/FlowChinaBadge
+pub fun getFlowFansNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FlowFans",
+        address: 0xb83e682ece5c8a50,
+        storage_path: "/storage/FlowChinaBadgeCollection",
+        public_path: "/public/FlowChinaBadgeCollection",
+        public_collection_name: "FlowChinaBadge.FlowChinaBadgeCollectionPublic",
+        external_domain: "https://twitter.com/FlowFansChina"
+    )
+
+    let col = owner.getCapability(/public/FlowChinaBadgeCollection)
+        .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlowChinaBadge(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nft!.metadata,
+        media: [],
+        metadata: {}
     )
 }
