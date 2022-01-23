@@ -36,6 +36,7 @@ import OneFootballCollectible from 0x6831760534292098
 import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
 import DieselNFT from 0x497153c597783bc3
 import MiamiNFT from 0x429a19abea586a3e
+import HaikuNFT from 0xf61e40c19db2a9e2
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -164,6 +165,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
+                case "Bitku": d = getBitku(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1484,6 +1486,39 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {            
             "creator": miamiData.creator,
             "season": miamiData.season
+        },
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xf61e40c19db2a9e2/contract/HaikuNFT
+pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Bitku",
+        address: 0xf61e40c19db2a9e2,
+        storage_path: "/storage/BitkuCollection",
+        public_path: "/public/BitkuCollection",
+        public_collection_name: "HaikuNFT.HaikuCollectionPublic",
+        external_domain: "bitku.art"
+    )
+
+    let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
+        .borrow<&{HaikuNFT.HaikuCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowHaiku(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nft.text,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {            
+            "text": nft.text
         },
     )
 }

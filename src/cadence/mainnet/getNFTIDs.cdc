@@ -36,6 +36,7 @@ import OneFootballCollectible from 0x6831760534292098
 import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
 import DieselNFT from 0x497153c597783bc3
 import MiamiNFT from 0x429a19abea586a3e
+import HaikuNFT from 0xf61e40c19db2a9e2
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -202,5 +203,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{MiamiNFT.MiamiCollectionPublic}>() {
         ids["MiamiNFT"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
+    .borrow<&{HaikuNFT.HaikuCollectionPublic}>() {
+        ids["Bitku"] = col.getIDs()
+    }
+
     return ids
 }
