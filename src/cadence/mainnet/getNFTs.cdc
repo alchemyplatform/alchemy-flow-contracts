@@ -294,15 +294,26 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
@@ -359,15 +370,26 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = Crave.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
@@ -616,15 +638,26 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
