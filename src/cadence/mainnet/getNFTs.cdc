@@ -1299,6 +1299,15 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    fun getRarity(): String? {
+        switch nft!.metadata.rarity {
+            case GeniaceNFT.Rarity.Collectible: return "Collectible"
+            case GeniaceNFT.Rarity.Rare: return "Rare"
+            case GeniaceNFT.Rarity.UltraRare: return "UltraRare"
+            default: return ""
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1311,7 +1320,7 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "celebrityName": nft!.metadata!.celebrityName,
             "artist": nft!.metadata!.artist,
-            "rarity": nft!.metadata!.celebrityName,
+            "rarity": getRarity(),
             "data": nft!.metadata!.data
         },
     )
