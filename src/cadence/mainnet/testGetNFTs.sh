@@ -160,6 +160,16 @@ MiamiNFT)
   echo "MiamiNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1d5954d03ccb02d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MiamiNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
+
+AllDay)
+  echo "AllDay"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4cf4bdc1751c65d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AllDay" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "50" }] } }] }]' --network mainnet
+  ;;
+
+PackNFT)
+  echo "AllDayPackNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4cf4bdc1751c65d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "PackNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
