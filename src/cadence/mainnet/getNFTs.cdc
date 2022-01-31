@@ -261,6 +261,11 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
 
+    // Populate Gaia NFT data attributes into the metadata
+    metadata!.insert(key: "setID", nft!.data.setID.toString())
+    metadata!.insert(key: "templateID", nft!.data.templateID.toString())
+    metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
+
     return NFTData(
         contract: contract,
         id: nft!.id,
