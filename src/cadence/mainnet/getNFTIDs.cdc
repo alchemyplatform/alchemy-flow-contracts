@@ -39,6 +39,8 @@ import MiamiNFT from 0x429a19abea586a3e
 import FlowChinaBadge from 0x99fed1e8da4c3431
 import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
+import ItemNFT from 0xfc91de5e6566cc7c
+import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -218,6 +220,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(PackNFT.CollectionPublicPath)
         .borrow<&{NonFungibleToken.CollectionPublic}>() {
             ids["PackNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ItemNFT.CollectionPublicPath)
+    .borrow<&{ItemNFT.ItemCollectionPublic}>() {
+        ids["ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
+    .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
+        ids["TheFabricantS1ItemNFT"] = col.getIDs()
     }
 
     return ids

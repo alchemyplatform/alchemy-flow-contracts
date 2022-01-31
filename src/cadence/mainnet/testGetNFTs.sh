@@ -175,6 +175,16 @@ PackNFT)
   echo "AllDayPackNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4cf4bdc1751c65d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "PackNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
+
+ItemNFT)
+  echo "ItemNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xfc91de5e6566cc7c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "48" }] } }] }]' --network mainnet
+  ;;
+
+TheFabricantS1ItemNFT)
+  echo "TheFabricantS1ItemNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
