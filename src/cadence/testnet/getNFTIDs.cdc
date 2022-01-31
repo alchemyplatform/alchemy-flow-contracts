@@ -32,6 +32,7 @@ import OneFootballCollectible from 0x01984fb4ca279d9a
 import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
 import MiamiNFT from 0x716db717f9240d8a
+import FlowChinaBadge from 0xb83e682ece5c8a50
 import AllDay from 0x4dfd62c88d1b6462
 import PackNFT from 0x4dfd62c88d1b6462
 
@@ -181,6 +182,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(MiamiNFT.CollectionPublicPath)
     .borrow<&{MiamiNFT.DieselCollectionPublic}>() {
         ids["MiamiNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(FlowChinaBadge.CollectionPublicPath)
+    .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>() {
+        ids["FlowFans"] = col.getIDS()
     }
     
     if let col = owner.getCapability(AllDay.CollectionPublicPath)

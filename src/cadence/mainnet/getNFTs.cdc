@@ -36,6 +36,7 @@ import OneFootballCollectible from 0x6831760534292098
 import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
 import DieselNFT from 0x497153c597783bc3
 import MiamiNFT from 0x429a19abea586a3e
+import FlowChinaBadge from 0x99fed1e8da4c3431
 import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 
@@ -166,6 +167,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
                 case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
                 case "MiamiNFT": d = getMiamiNFT(owner: owner, id: id)
+                case "FlowFans": d = getFlowFansNFT(owner: owner, id: id)
                 case "AllDay": d = getAllDay(owner: owner, id: id)
                 case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
                 default:
@@ -1536,6 +1538,37 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "creator": miamiData.creator,
             "season": miamiData.season
         },
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x99fed1e8da4c3431/contract/FlowChinaBadge
+pub fun getFlowFansNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FlowFans",
+        address: 0x99fed1e8da4c3431,
+        storage_path: "/storage/FlowChinaBadgeCollection",
+        public_path: "/public/FlowChinaBadgeCollection",
+        public_collection_name: "FlowChinaBadge.FlowChinaBadgeCollectionPublic",
+        external_domain: "https://twitter.com/FlowFansChina"
+    )
+
+    let col = owner.getCapability(/public/FlowChinaBadgeCollection)
+        .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlowChinaBadge(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nft!.metadata,
+        media: [],
+        metadata: {}
     )
 }
 
