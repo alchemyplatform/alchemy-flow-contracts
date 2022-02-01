@@ -33,6 +33,9 @@ import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
 import MiamiNFT from 0x716db717f9240d8a
 import HaikuNFT from 0x824f612f78d34250
+import FlowChinaBadge from 0xb83e682ece5c8a50
+import AllDay from 0x4dfd62c88d1b6462
+import PackNFT from 0x4dfd62c88d1b6462
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -187,5 +190,19 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["Bitku"] = col.getIDs()
     }
     
+    if let col = owner.getCapability(FlowChinaBadge.CollectionPublicPath)
+    .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>() {
+        ids["FlowFans"] = col.getIDS()
+    }
+    
+    if let col = owner.getCapability(AllDay.CollectionPublicPath)
+        .borrow<&{AllDay.MomentNFTCollectionPublic}>() {
+            ids["AllDay"] = col.getIDs()
+    } 
+    if let col = owner.getCapability(PackNFT.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>() {
+            ids["PackNFT"] = col.getIDs()
+    }
+
     return ids
 }
