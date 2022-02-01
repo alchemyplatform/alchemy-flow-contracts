@@ -1567,7 +1567,7 @@ pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nil,
         title: nil,
         description: nft!.text,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://bitku.art/#".concat(owner.address.toString()).concat("/").concat(nft!.id.toString()),
         token_uri: nil,
         media: [],
         metadata: {            
