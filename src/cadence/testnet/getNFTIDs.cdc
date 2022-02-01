@@ -155,14 +155,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Collectible.CollectionPublic}>() {
             ids["Xtingles_NFT"] = col.getIDs()
     }
-    if let col = owner.getCapability(KOTD.CollectionPublicPath)
-    .borrow<&{KOTD.CollectionPublic}>() {
-        ids["KOTD"] = col.getIDs()
-    }
-    if let col = owner.getCapability(Crave.CollectionPublicPath)
-    .borrow<&{Crave.CollectionPublic}>() {
-        ids["Crave"] = col.getIDs()
-    }
     if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
     .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
         ids["CryptoZooNFT"] = col.getIDs()
@@ -194,7 +186,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     
     if let col = owner.getCapability(FlowChinaBadge.CollectionPublicPath)
     .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>() {
-        ids["FlowFans"] = col.getIDS()
+        ids["FlowFans"] = col.getIDs()
     }
     
     if let col = owner.getCapability(AllDay.CollectionPublicPath)
