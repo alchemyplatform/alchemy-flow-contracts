@@ -39,6 +39,8 @@ import MiamiNFT from 0x429a19abea586a3e
 import FlowChinaBadge from 0x99fed1e8da4c3431
 import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
+import ItemNFT from 0xfc91de5e6566cc7c
+import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -170,6 +172,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FlowFans": d = getFlowFansNFT(owner: owner, id: id)
                 case "AllDay": d = getAllDay(owner: owner, id: id)
                 case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
+                case "ItemNFT": d = getItemNFT(owner: owner, id: id)
+                case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1631,5 +1635,87 @@ pub fun getAllDayPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [],
         metadata: {},
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xfc91de5e6566cc7c/contract/ItemNFT
+pub fun getItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "ItemNFT",
+        address: 0xfc91de5e6566cc7c,
+        storage_path: "ItemNFT.CollectionStoragePath",
+        public_path: "ItemNFT.CollectionPublicPath",
+        public_collection_name: "ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(ItemNFT.CollectionPublicPath)
+        .borrow<&{ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = ItemNFT.getItemData(id: itemDataID)
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemData.mainImage, mimetype: "image"),
+                NFTMedia(uri: itemData.images[0], mimetype: "image"),
+                NFTMedia(uri: itemData.images[1], mimetype: "image"),
+                NFTMedia(uri: itemData.images[2], mimetype: "image"),
+                NFTMedia(uri: itemData.images[3], mimetype: "image")],
+        metadata: {
+            "name": nft!.name
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x9e03b1f871b3513/contract/TheFabricantS1ItemNFT
+pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TheFabricantS1ItemNFT",
+        address: 0x9e03b1f871b3513,
+        storage_path: "TheFabricantS1ItemNFT.CollectionStoragePath",
+        public_path: "TheFabricantS1ItemNFT.CollectionPublicPath",
+        public_collection_name: "TheFabricantS1ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
+        .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = TheFabricantS1ItemNFT.getItemData(id: itemDataID)
+    let itemMetadata = itemData.getMetadata()
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemMetadata["itemVideo"]!.metadataValue, mimetype: "video"),
+                NFTMedia(uri: itemMetadata["itemImage"]!.metadataValue, mimetype: "image")],
+        metadata: {
+            "name": nft!.name, 
+            "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
+            "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
+            "coCreator": itemData.coCreator,
+            "season": itemMetadata["season"]!.metadataValue
+        }
     )
 }
