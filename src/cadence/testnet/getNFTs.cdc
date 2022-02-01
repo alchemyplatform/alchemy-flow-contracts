@@ -32,6 +32,7 @@ import OneFootballCollectible from 0x01984fb4ca279d9a
 import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
 import MiamiNFT from 0x716db717f9240d8a
+import HaikuNFT from 0x824f612f78d34250
 import FlowChinaBadge from 0xb83e682ece5c8a50
 import AllDay from 0x4dfd62c88d1b6462
 import PackNFT from 0x4dfd62c88d1b6462
@@ -1359,6 +1360,40 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {            
             "creator": miamiData.creator,
             "season": miamiData.season
+        },
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x824f612f78d34250/contract/HaikuNFT
+pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Bitku",
+        address: 0x824f612f78d34250,
+        storage_path: "/storage/BitkuCollection",
+        public_path: "/public/BitkuCollection",
+        public_collection_name: "HaikuNFT.HaikuCollectionPublic",
+        external_domain: "testnet.bitku.art"
+    )
+
+    let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
+        .borrow<&{HaikuNFT.HaikuCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowHaiku(id: id)
+
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nft!.text,
+        external_domain_view_url: "https://testnet.bitku.art/#".concat(owner.address.toString()).concat("/").concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [],
+        metadata: {            
+            "text": nft!.text
         },
     )
 }
