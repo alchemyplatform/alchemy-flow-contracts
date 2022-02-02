@@ -24,7 +24,7 @@ import Domains from 0xb05b2abb42335e88
 import Eternal from 0x8da9b78f32f3ef50
 import GooberXContract from 0x9be1ec5be8738e13
 import TFCItems from 0x91a6217c3b70cae8
-import BnGNFT from 0xf7ebe30e2e33b1f2
+import BnGNFTContract from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
 import CryptoZooNFT from 0xd60702f03bcafd46
@@ -143,10 +143,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{GooberXContract.GooberCollectionPublic}>() {
             ids["Gooberz"] = col.getIDs()
         }
-    if let col = owner.getCapability(BnGNFT.CollectionPublicPath)
-        .borrow<&{BnGNFT.BnGNFTCollectionPublic}>() {
-            ids["BiscuitsNGroovy"] = col.getIDs()
-    }
+
     if let col = owner.getCapability(GeniaceNFT.CollectionPublicPath)
         .borrow<&{GeniaceNFT.GeniaceNFTCollectionPublic}>() {
             ids["GeniaceNFT"] = col.getIDs()
@@ -172,11 +169,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DieselNFT.CollectionPublicPath)
     .borrow<&{DieselNFT.DieselCollectionPublic}>() {
         ids["DieselNFT"] = col.getIDs()
-    }
-
-    if let col = owner.getCapability(MiamiNFT.CollectionPublicPath)
-    .borrow<&{MiamiNFT.DieselCollectionPublic}>() {
-        ids["MiamiNFT"] = col.getIDs()
     }
 
     if let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
