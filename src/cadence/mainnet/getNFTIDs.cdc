@@ -42,6 +42,7 @@ import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
+import Andbox_NFT from 0x329feb3ab062d289
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -229,6 +230,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
     .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
         ids["TheFabricantS1ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Andbox_NFT.CollectionPublicPath)
+    .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>() {
+        ids["Andbox_NFT"] = col.getIDs()
     }
 
     return ids

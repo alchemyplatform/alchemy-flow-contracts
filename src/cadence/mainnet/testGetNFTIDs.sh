@@ -190,6 +190,12 @@ TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
   flow scripts execute getNFTIDs.cdc 0x9e03b1f871b3513 --network mainnet
   ;;
+
+Andbox_NFT)
+  echo "Andbox_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
