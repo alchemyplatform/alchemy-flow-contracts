@@ -42,6 +42,7 @@ import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
+import ZeedzINO from 0xe1c34bb70fbb5357
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -176,6 +177,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
                 case "ItemNFT": d = getItemNFT(owner: owner, id: id)
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
+                case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1752,5 +1754,44 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "coCreator": itemData.coCreator,
             "season": itemMetadata["season"]!.metadataValue
         }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xe1c34bb70fbb5357/contract/ZeedzINO
+pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "ZeedzINO",
+        address: 0xe1c34bb70fbb5357,
+        storage_path: "/storage/ZeedzINOCollection",
+        public_path: "/public/ZeedzINOCollection",
+        public_collection_name: "ZeedzINO.ZeedzCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(/public/ZeedzINOCollection)
+        .borrow<&{ZeedzINO.ZeedzCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowZeedle(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: "https:/www.zeedz.io",
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
+        metadata: {            
+            "typeID": nft!.typeID,
+            "evoultionStage": nft!.evolutionStage,
+            "serialNumber": nft!.serialNumber,
+            "edition": nft!.edition,
+            "editionCap": nft!.editionCap,
+            "rarity": nft!.rarity,
+            "carbonOffset": nft!.carbonOffset
+        },
     )
 }
