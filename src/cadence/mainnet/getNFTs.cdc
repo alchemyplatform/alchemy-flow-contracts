@@ -1272,7 +1272,7 @@ pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nil,
+        uuid: nft!.uuid,
         title: nil,
         description: nil,
         external_domain_view_url: nft!.metadata!["metadata_url"],
