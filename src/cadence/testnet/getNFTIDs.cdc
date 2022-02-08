@@ -38,6 +38,7 @@ import AllDay from 0x4dfd62c88d1b6462
 import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
+import DayNFT from 0x4d2fe486b2e43e95
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -197,6 +198,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
         .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
             ids["TheFabricantS1ItemNFT"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DayNFT.CollectionPublicPath)
+        .borrow<&{DayNFT.CollectionPublic}>() {
+            ids["DayNFT"] = col.getIDs()
     }
 
     return ids

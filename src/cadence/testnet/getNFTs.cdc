@@ -35,6 +35,7 @@ import AllDay from 0x4dfd62c88d1b6462
 import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
+import DayNFT from 0x4d2fe486b2e43e95
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -157,6 +158,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
                 case "ItemNFT": d = getItemNFT(owner: owner, id: id)
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
+                case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1452,6 +1454,43 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
             "coCreator": itemData.coCreator,
             "season": itemMetadata["season"]!.metadataValue
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4d2fe486b2e43e95/contract/DayNFT
+pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "DayNFT",
+        address: 0x4d2fe486b2e43e95,
+        storage_path: "DayNFT.CollectionStoragePath",
+        public_path: "DayNFT.CollectionPublicPath",
+        public_collection_name: "DayNFT.CollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(DayNFT.CollectionPublicPath)
+        .borrow<&{DayNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDayNFT(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+            "date": nft!.dateStr
         }
     )
 }
