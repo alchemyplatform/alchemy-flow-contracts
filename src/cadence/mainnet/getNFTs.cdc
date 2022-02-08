@@ -42,6 +42,7 @@ import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
+import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0xe1c34bb70fbb5357
 
 pub struct NFTCollection {
@@ -149,6 +150,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MusicBlock": d = getMusicBlock(owner: owner, id: id)
                 case "NyatheesOVO": d = getNyatheesOVO(owner: owner, id: id)
                 case "RaceDay_NFT": d = getRaceDay(owner: owner, id: id)
+                case "Andbox_NFT": d = getAndbox_NFT(owner: owner, id: id)
                 case "FantastecNFT": d = getFantastecNFT(owner: owner, id: id)
                 case "Everbloom": d = getEverbloom(owner: owner, id: id)
                 case "Domains": d = getFlownsDomain(owner: owner, id:id)
@@ -845,6 +847,46 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
     let setMeta = RaceDay_NFT.getSetMetadata(setId: nft!.setId)!
     let seriesMeta = RaceDay_NFT.getSeriesMetadata(
         seriesId: RaceDay_NFT.getSetSeriesId(setId: nft!.setId)!
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: setMeta["name"],
+        description: setMeta["description"],
+        external_domain_view_url: setMeta["external_url"],
+        token_uri: nil,
+        media: [NFTMedia(uri: setMeta!["image"], mimetype: "image"),
+            NFTMedia(uri: setMeta!["preview"], mimetype: "image")],
+        metadata: {
+            "set": setMeta!,
+            "series": seriesMeta!
+        },
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/Andbox_NFT
+pub fun getAndbox_NFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Andbox_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "Andbox_NFT.CollectionStoragePath",
+        public_path: "Andbox_NFT.CollectionPublicPath",
+        public_collection_name: "Andbox_NFT.Andbox_NFTCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(Andbox_NFT.CollectionPublicPath)
+        .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowAndbox_NFT(id: id)
+    if nft == nil { return nil }
+
+    let setMeta = Andbox_NFT.getSetMetadata(setId: nft!.setId)!
+    let seriesMeta = Andbox_NFT.getSeriesMetadata(
+        seriesId: Andbox_NFT.getSetSeriesId(setId: nft!.setId)!
     )
 
     return NFTData(
