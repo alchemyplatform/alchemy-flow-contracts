@@ -196,6 +196,11 @@ Andbox_NFT)
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
   ;;
 
+ZeedzINO)
+  echo "ZeedzINO"
+  flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
