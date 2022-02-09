@@ -24,10 +24,18 @@ import Domains from 0xb05b2abb42335e88
 import Eternal from 0x8da9b78f32f3ef50
 import GooberXContract from 0x9be1ec5be8738e13
 import TFCItems from 0x91a6217c3b70cae8
-import BnGNFT from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
 import CryptoZooNFT from 0xd60702f03bcafd46
+import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
+import DieselNFT from 0x716db717f9240d8a
+import HaikuNFT from 0x824f612f78d34250
+import FlowChinaBadge from 0xb83e682ece5c8a50
+import AllDay from 0x4dfd62c88d1b6462
+import PackNFT from 0x4dfd62c88d1b6462
+import ItemNFT from 0x716db717f9240d8a
+import TheFabricantS1ItemNFT from 0x716db717f9240d8a
+import ZeedzINO from 0x2dda9145001182e0
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -135,14 +143,22 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Domains": d = getFlownsDomain(owner: owner, id:id)
                 case "EternalMoment": d = getEternalMoment(owner: owner, id: id)
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
+                case "ThingFund": d = getCaaPass(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
-                case "BiscuitsNGroovy": d = getBiscuitsNGroovy(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
                 case "Beam": d = getBeam(owner: owner, id: id)
                 case "KOTD": d = getKOTD(owner: owner, id: id)
                 case "Crave": d = getCrave(owner: owner, id: id)
                 case "InceptionAnimals": d = getInceptionAnimals(owner: owner, id: id)
+                case "TheFabricantMysteryBox_FF1": d = getTheFabricantMysteryBox_FF1(owner: owner, id: id)
+                case "DieselNFT": d = getDieselNFT(owner: owner, id: id)
+                case "FlowFans": d = getFlowFansNFT(owner: owner, id: id)
+                case "AllDay": d = getAllDay(owner: owner, id: id)
+                case "PackNFT": d = getAllDayPackNFT(owner: owner, id: id)
+                case "ItemNFT": d = getItemNFT(owner: owner, id: id)
+                case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
+                case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -200,10 +216,15 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{Gaia.CollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowGaiaNFT(id: id)
+    let nft = col!.borrowGaiaAsset(id: id)
     if nft == nil { return nil }
 
     let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+
+    // Populate Gaia NFT data attributes into the metadata
+    metadata!.insert(key: "setID", nft!.data.setID.toString())
+    metadata!.insert(key: "templateID", nft!.data.templateID.toString())
+    metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
 
     return NFTData(
         contract: contract,
@@ -222,7 +243,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Beam",
-        address: 0x86b4a0010a71cfc3,
+        address: 0x6085ae87e78e1433,
         storage_path: "Beam.CollectionStoragePath",
         public_path: "Beam.CollectionPublicPath",
         public_collection_name: "Beam.BeamCollectionPublic",
@@ -238,15 +259,26 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
@@ -256,7 +288,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Crave",
-        address: 0x6d008a788fc27265,
+        address: 0x6085ae87e78e1433,
         storage_path: "Crave.CollectionStoragePath",
         public_path: "Crave.CollectionPublicPath",
         public_collection_name: "Crave.CraveCollectionPublic",
@@ -272,20 +304,30 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = Crave.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
 }
-
 // https://flow-view-source.com/testnet/account/0xb45e7992680a0f7f/contract/CricketMoments
 pub fun getCricketMoments(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
@@ -501,7 +543,7 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "KOTD",
-        address: 0x23dddd854fcc8c6f,
+        address: 0x6085ae87e78e1433,
         storage_path: "KOTD.CollectionStoragePath",
         public_path: "KOTD.CollectionPublicPath",
         public_collection_name: "KOTD.NiftoryCollectibleCollectionPublic",
@@ -517,15 +559,26 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     
     let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: nil,
+        external_domain_view_url: metadata!["domainUrl"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["mediaUrl"], mimetype: metadata!["mediaType"]),
+        media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
         metadata: metadata!,
     )
@@ -772,7 +825,7 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "CaaPass.CollectionStoragePath",
         public_path: "CaaPass.CollectionPublicPath",
         public_collection_name: "CaaPass.CollectionPublic",
-        external_domain: ""
+        external_domain: "thing.fund"
     )
 
     let col = owner.getCapability(CaaPass.CollectionPublicPath)
@@ -782,16 +835,26 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCaaPass(id: id)
     if nft == nil { return nil }
 
+    let metadata: CaaPass.Metadata? = nft!.getMetadata()
+    if metadata == nil { return nil }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata!.name,
+        description: metadata!.description,
+        external_domain_view_url: "https://thing.fund/",
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [
+            NFTMedia(uri: "ipfs://".concat(metadata!.mediaHash), mimetype: metadata!.mediaType)
+        ],
+        metadata: {
+            "name": metadata!.name,
+            "description": metadata!.description,
+            "mediaType": metadata!.mediaType,
+            "mediaHash": metadata!.mediaHash
+        },
     )
 }
 
@@ -981,49 +1044,20 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowGoober(id: id)
     if nft == nil { return nil }
 
+    let title = "Goober #".concat(nft!.id.toString())
+    let description = "Goober living in the party mansion"
+    let external_domain_view_url = "https://partymansion.io/gooberz/".concat(nft!.id.toString())
+    
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: title,
+        description: description,
+        external_domain_view_url: external_domain_view_url,
         token_uri: nil,
         media: [NFTMedia(uri: nft!.data!.uri, mimetype: "image")],
         metadata: nft!.data!.metadata!,
-    )
-}
-
-// https://flow-view-source.com/testnet/account/0xf7ebe30e2e33b1f2/contract/BnGNFTContract
-pub fun getBiscuitsNGroovy(owner: PublicAccount, id: UInt64): NFTData? {
-
-    let contract = NFTContract(
-        name: "BnGNFT",
-        address: 0x7859c48816bfea3c,
-        storage_path: "BnGNFT.CollectionStoragePath",
-        public_path: "BnGNFT.CollectionPublicPath",
-        public_collection_name: "BnGNFT.BnGNFTCollectionPublic",
-        external_domain: "www.bngroovy.com"
-    )
-
-    let col = owner.getCapability(BnGNFT.CollectionPublicPath)
-        .borrow<&{BnGNFT.BnGNFTCollectionPublic}>()
-
-    if col == nil { return nil }
-
-    let nft = col!.borrowBnGNFT(id: id)
-    if nft == nil { return nil }
-
-    return NFTData(
-        contract: contract,
-        id: nft!.id,
-        uuid: nil,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nft!.metadata!["metadata_url"],
-        token_uri: nil,
-        media: [],
-        metadata: nft!.metadata!,
     )
 }
 
@@ -1057,19 +1091,28 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    fun getRarity(): String? {
+        switch nft!.metadata.rarity {
+            case GeniaceNFT.Rarity.Collectible: return "Collectible"
+            case GeniaceNFT.Rarity.Rare: return "Rare"
+            case GeniaceNFT.Rarity.UltraRare: return "UltraRare"
+            default: return ""
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://geniace-devtoprod.devtomaster.com/product/".concat(nft!.id.toString()),
         token_uri: nil,
         media: getNFTMedia(),
         metadata: {
             "celebrityName": nft!.metadata!.celebrityName,
             "artist": nft!.metadata!.artist,
-            "rarity": nft!.metadata!.celebrityName,
+            "rarity": getRarity(),
             "data": nft!.metadata!.data
         },
     )
@@ -1137,5 +1180,319 @@ pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!,
         media: [NFTMedia(uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!, mimetype: nft!.getNFTTemplate()!.getMetadata()["mimetype"]!)],
         metadata: nft!.getNFTTemplate()!.getMetadata()!,
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x716db717f9240d8a/contract/TheFabricantMysteryBox_FF1
+pub fun getTheFabricantMysteryBox_FF1(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TheFabricantMysteryBox_FF1",
+        address: 0x716db717f9240d8a,
+        storage_path: "/storage/FabricantCollection001",
+        public_path: "/public/FabricantCollection001",
+        public_collection_name: "TheFabricantMysteryBox_FF1.FabricantCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(/public/FabricantCollection001)
+        .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFabricant(id: id)!
+    if nft == nil { return nil }
+
+    let dataID = nft.fabricant.fabricantDataID
+    let fabricantData = TheFabricantMysteryBox_FF1.getFabricantData(id: dataID)
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: fabricantData.mainImage, mimetype: "image")],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x716db717f9240d8a/contract/DieselNFT
+pub fun getDieselNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "DieselNFT",
+        address: 0x716db717f9240d8a,
+        storage_path: "/storage/DieselCollection001",
+        public_path: "/public/DieselCollection001",
+        public_collection_name: "DieselNFT.DieselCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(/public/DieselCollection001)
+        .borrow<&{DieselNFT.DieselCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDiesel(id: id)!
+    if nft == nil { return nil }
+
+    let dataID = nft.diesel.dieselDataID
+    let dieselData = DieselNFT.getDieselData(id: dataID)
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: dieselData.name,
+        description: dieselData.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: dieselData.mainVideo, mimetype: "video")],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x824f612f78d34250/contract/HaikuNFT
+pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Bitku",
+        address: 0x824f612f78d34250,
+        storage_path: "/storage/BitkuCollection",
+        public_path: "/public/BitkuCollection",
+        public_collection_name: "HaikuNFT.HaikuCollectionPublic",
+        external_domain: "testnet.bitku.art"
+    )
+
+    let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
+        .borrow<&{HaikuNFT.HaikuCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowHaiku(id: id)
+
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nft!.text,
+        external_domain_view_url: "https://testnet.bitku.art/#".concat(owner.address.toString()).concat("/").concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [],
+        metadata: {            
+            "text": nft!.text
+        },
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xb83e682ece5c8a50/contract/FlowChinaBadge
+pub fun getFlowFansNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FlowFans",
+        address: 0xb83e682ece5c8a50,
+        storage_path: "/storage/FlowChinaBadgeCollection",
+        public_path: "/public/FlowChinaBadgeCollection",
+        public_collection_name: "FlowChinaBadge.FlowChinaBadgeCollectionPublic",
+        external_domain: "https://twitter.com/FlowFansChina"
+    )
+
+    let col = owner.getCapability(/public/FlowChinaBadgeCollection)
+        .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlowChinaBadge(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nft!.metadata,
+        media: [],
+        metadata: {}
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4dfd62c88d1b6462/contract/AllDay
+pub fun getAllDay(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "AllDay",
+        address: 0x4dfd62c88d1b6462,
+        storage_path: "AllDay.CollectionStoragePath",
+        public_path: "AllDay.CollectionPublicPath",
+        public_collection_name: "AllDay.MomentNFTCollectionPublic",
+        external_domain: "https://nflallday.com/"
+    )
+
+    let col = owner.getCapability(AllDay.CollectionPublicPath)
+        .borrow<&{AllDay.MomentNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMomentNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: "Moment".concat(nft!.id.toString()).concat("-Edition").concat(nft!.editionID.toString()).concat("-SerialNumber").concat(nft!.serialNumber.toString()),
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4dfd62c88d1b6462/contract/PackNFT
+pub fun getAllDayPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "PackNFT",
+        address: 0x4dfd62c88d1b6462,
+        storage_path: "PackNFT.CollectionStoragePath",
+        public_path: "PackNFT.CollectionPublicPath",
+        public_collection_name: "NonFungibleToken.CollectionPublic",
+        external_domain: "https://nflallday.com/"
+    )
+
+    let col = owner.getCapability(PackNFT.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x716db717f9240d8a/contract/ItemNFT
+pub fun getItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "ItemNFT",
+        address: 0x716db717f9240d8a,
+        storage_path: "ItemNFT.CollectionStoragePath",
+        public_path: "ItemNFT.CollectionPublicPath",
+        public_collection_name: "ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(ItemNFT.CollectionPublicPath)
+        .borrow<&{ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = ItemNFT.getItemData(id: itemDataID)
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemData.mainImage, mimetype: "image"),
+                NFTMedia(uri: itemData.images[0], mimetype: "image"),
+                NFTMedia(uri: itemData.images[1], mimetype: "image"),
+                NFTMedia(uri: itemData.images[2], mimetype: "image"),
+                NFTMedia(uri: itemData.images[3], mimetype: "image")],
+        metadata: {
+            "name": nft!.name
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x716db717f9240d8a/contract/TheFabricantS1ItemNFT
+pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TheFabricantS1ItemNFT",
+        address: 0x716db717f9240d8a,
+        storage_path: "TheFabricantS1ItemNFT.CollectionStoragePath",
+        public_path: "TheFabricantS1ItemNFT.CollectionPublicPath",
+        public_collection_name: "TheFabricantS1ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
+        .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = TheFabricantS1ItemNFT.getItemData(id: itemDataID)
+    let itemMetadata = itemData.getMetadata()
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemMetadata["itemVideo"]!.metadataValue, mimetype: "video"),
+                NFTMedia(uri: itemMetadata["itemImage"]!.metadataValue, mimetype: "image")],
+        metadata: {
+            "name": nft!.name, 
+            "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
+            "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
+            "coCreator": itemData.coCreator,
+            "season": itemMetadata["season"]!.metadataValue
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x2dda9145001182e0/contract/ZeedzINO
+pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "ZeedzINO",
+        address: 0x2dda9145001182e0,
+        storage_path: "/storage/ZeedzINOCollection",
+        public_path: "/public/ZeedzINOCollection",
+        public_collection_name: "ZeedzINO.ZeedzCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(/public/ZeedzINOCollection)
+        .borrow<&{ZeedzINO.ZeedzCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowZeedle(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: "https:/www.zeedz.io",
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
+        metadata: {            
+            "typeID": nft!.typeID,
+            "evoultionStage": nft!.evolutionStage,
+            "serialNumber": nft!.serialNumber,
+            "edition": nft!.edition,
+            "editionCap": nft!.editionCap,
+            "rarity": nft!.rarity,
+            "carbonOffset": nft!.carbonOffset
+        },
     )
 }

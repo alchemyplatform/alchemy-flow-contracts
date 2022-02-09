@@ -32,6 +32,18 @@ import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
 import CryptoZooNFT from 0x8ea44ab931cac762
+import OneFootballCollectible from 0x6831760534292098
+import TheFabricantMysteryBox_FF1 from 0xa0cbe021821c0965
+import DieselNFT from 0x497153c597783bc3
+import MiamiNFT from 0x429a19abea586a3e
+import HaikuNFT from 0xf61e40c19db2a9e2
+import FlowChinaBadge from 0x99fed1e8da4c3431
+import AllDay from 0xe4cf4bdc1751c65d
+import PackNFT from 0xe4cf4bdc1751c65d
+import ItemNFT from 0xfc91de5e6566cc7c
+import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
+import Andbox_NFT from 0x329feb3ab062d289
+import ZeedzINO from 0xe1c34bb70fbb5357
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -124,7 +136,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         }
     if let col = owner.getCapability(CaaPass.CollectionPublicPath)
         .borrow<&{CaaPass.CollectionPublic}>() {
-            ids["CaaPass"] = col.getIDs()
+            ids["ThingFund"] = col.getIDs()
         }
     if let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>() {
@@ -167,18 +179,67 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
             ids["Xtingles_NFT"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(KOTD.CollectionPublicPath)
-    .borrow<&{KOTD.CollectionPublic}>() {
-        ids["KOTD"] = col.getIDs()
-    }
-
-    if let col = owner.getCapability(Crave.CollectionPublicPath)
-    .borrow<&{Crave.CollectionPublic}>() {
-        ids["Crave"] = col.getIDs()
-    }
     if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
     .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
         ids["InceptionAnimals"] = col.getIDs()
+    }
+    if let col = owner.getCapability(OneFootballCollectible.CollectionPublicPath)
+    .borrow<&{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>() {
+        ids["OneFootballCollectible"] = col.getIDs()
+    } 
+
+    if let col = owner.getCapability(TheFabricantMysteryBox_FF1.CollectionPublicPath)
+    .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>() {
+        ids["TheFabricantMysteryBox_FF1"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(DieselNFT.CollectionPublicPath)
+    .borrow<&{DieselNFT.DieselCollectionPublic}>() {
+        ids["DieselNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MiamiNFT.CollectionPublicPath)
+    .borrow<&{MiamiNFT.MiamiCollectionPublic}>() {
+        ids["MiamiNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(HaikuNFT.HaikuCollectionPublicPath)
+    .borrow<&{HaikuNFT.HaikuCollectionPublic}>() {
+        ids["Bitku"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(FlowChinaBadge.CollectionPublicPath)
+    .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>() {
+        ids["FlowFans"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(AllDay.CollectionPublicPath)
+        .borrow<&{AllDay.MomentNFTCollectionPublic}>() {
+            ids["AllDay"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(PackNFT.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>() {
+            ids["PackNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ItemNFT.CollectionPublicPath)
+    .borrow<&{ItemNFT.ItemCollectionPublic}>() {
+        ids["ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
+    .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
+        ids["TheFabricantS1ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Andbox_NFT.CollectionPublicPath)
+        .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>() {
+        ids["Andbox_NFT"] = col.getIDs()
+
+    if let col = owner.getCapability(ZeedzINO.CollectionPublicPath)
+    .borrow<&{ZeedzINO.ZeedzCollectionPublic}>() {
+        ids["ZeedzINO"] = col.getIDs()
     }
 
     return ids
