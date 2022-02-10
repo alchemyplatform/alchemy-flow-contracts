@@ -36,6 +36,7 @@ import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
+import Kicks from 0xe861e151d3556d70
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -159,6 +160,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ItemNFT": d = getItemNFT(owner: owner, id: id)
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
+                case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1203,6 +1205,7 @@ pub fun getTheFabricantMysteryBox_FF1(owner: PublicAccount, id: UInt64): NFTData
 
     let dataID = nft.fabricant.fabricantDataID
     let fabricantData = TheFabricantMysteryBox_FF1.getFabricantData(id: dataID)
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1494,5 +1497,49 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
             "rarity": nft!.rarity,
             "carbonOffset": nft!.carbonOffset
         },
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xe861e151d3556d70/contract/Kicks
+pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "ClosedSrc - NFTLX",
+        address: 0xe861e151d3556d70,
+        storage_path: "Kicks.CollectionStoragePath",
+        public_path: "Kicks.CollectionPublicPath",
+        public_collection_name: "Kicks.KicksCollectionPublic",
+        external_domain: "https://www.nftlx.io/closedSrc"
+    )
+
+    let col = owner.getCapability(Kicks.CollectionPublicPath)
+        .borrow<&{Kicks.KicksCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowSneaker(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    var media: [NFTMedia] = []
+
+    if let mediaValue = metadata["media"] {
+        if let supportedMedia = mediaValue as? {String: [String]} {
+            for mediaType in supportedMedia.keys {
+                for mediaURI in supportedMedia[mediaType]! {
+                    media.append(NFTMedia(uri: mediaURI, mimetype: mediaType))
+                }
+            }
+        }
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name(),
+        description: nft!.description(),
+        external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: media,
+        metadata: metadata,
     )
 }

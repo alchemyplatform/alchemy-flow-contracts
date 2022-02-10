@@ -201,6 +201,11 @@ ZeedzINO)
   flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
   ;;
 
+Kicks)
+  echo "ClosedSrc - NFTLX"
+  flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
