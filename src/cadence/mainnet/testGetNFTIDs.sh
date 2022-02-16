@@ -91,6 +91,11 @@ KlktnNFT)
   flow scripts execute getNFTIDs.cdc 0xc2f0dc51f05dc239 --network mainnet
   ;;
 
+KlktnNFT2)
+  echo "KlktnNFT2"
+  flow scripts execute getNFTIDs.cdc 0x3564d691f3ae6103 --network mainnet
+  ;;
+
 MusicBlock)
   echo "MusicBlock"
   flow scripts execute getNFTIDs.cdc 0xc2f0dc51f05dc239 --network mainnet

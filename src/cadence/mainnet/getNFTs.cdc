@@ -12,6 +12,7 @@ import FantastecNFT from 0x2e1ee1e7a96826ce
 import Vouchers from 0x444f5ea22c6ea12c
 import KOTD from 0x23dddd854fcc8c6f
 import KlktnNFT from 0xabd6e80be7e9682c
+import KlktnNFT2 from 0xabd6e80be7e9682c
 import MusicBlock from 0x5634aefcb76e7d8c
 import Mynft from 0xf6fcbef550d97aa5
 import NyatheesOVO from 0x75e0b6de94eb05d0
@@ -164,6 +165,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Beam": d = getBeam(owner: owner, id: id)
                 case "KOTD": d = getKOTD(owner: owner, id: id)
                 case "KlktnNFT": d = getKlktnNFT(owner: owner, id: id)
+                case "KlktnNFT2": d = getKlktnNFT2(owner: owner, id: id)
                 case "RareRooms_NFT": d = getRareRooms(owner: owner, id: id)
                 case "Crave": d = getCrave(owner: owner, id: id)
                 case "CricketMoments": d = getCricketMoments(owner: owner, id: id)
@@ -710,6 +712,42 @@ pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
             token_uri: nil,
             media: [NFTMedia(uri: metadata["media"], mimetype: metadata["mimeType"])],
             metadata: metadata,
+        )
+    }
+    return nil
+    
+}
+
+// https://flow-view-source.com/mainnet/account/0xabd6e80be7e9682c/contract/KlktnNFT2
+pub fun getKlktnNFT2(owner: PublicAccount, id: UInt64): NFTData? {
+    
+    let col = owner.getCapability(KlktnNFT2.CollectionPublicPath)
+        .borrow<&{KlktnNFT2.KlktnNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    if let nft = col!.borrowKlktnNFT(id: id){
+
+        let template = nft!.getFullMetadata()
+
+            let contract = NFTContract(
+            name: "KlktnNFT2",
+            address: 0xabd6e80be7e9682c,
+            storage_path: "KlktnNFT2.CollectionStoragePath",
+            public_path: "KlktnNFT2.CollectionPublicPath",
+            public_collection_name: "KlktnNFT2.KlktnNFTCollectionPublic",
+            external_domain: ""
+        )
+
+        return NFTData(
+            contract: contract,
+            id: nft!.id,
+            uuid: nft!.uuid,
+            title: template.metadata["name"] ?? "",
+            description:template.metadata["description"] ?? "",
+            external_domain_view_url: nil,
+            token_uri: template.metadata["uri"] ?? "",
+            media: [NFTMedia(uri: template.metadata["media"] ?? "", mimetype: template.metadata["mimeType"] ?? "")],
+            metadata: template.metadata,
         )
     }
     return nil
