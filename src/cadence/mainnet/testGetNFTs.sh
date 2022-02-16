@@ -195,10 +195,17 @@ Andbox_NFT)
   echo "Andbox_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Andbox_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "720634" }] } }] }]' --network mainnet
   ;;
+
 ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1c34bb70fbb5357" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
 ;;
+
+Kicks)
+  echo "ClosedSrc - NFTLX"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf3cc54f4d91c2f6c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "99" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

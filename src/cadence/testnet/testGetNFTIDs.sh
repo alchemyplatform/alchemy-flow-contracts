@@ -9,6 +9,10 @@ ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTIDs.cdc 0x2dda9145001182e0 --network testnet
   ;;
+Kicks)
+  echo "ClosedSrc - NFTLX"
+  flow scripts execute getNFTIDs.cdc 0xe861e151d3556d70 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

@@ -44,6 +44,7 @@ import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0xe1c34bb70fbb5357
+import Kicks from 0xf3cc54f4d91c2f6c
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -178,7 +179,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Collectible.CollectionPublic}>() {
             ids["Xtingles_NFT"] = col.getIDs()
     }
-
     if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
     .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
         ids["InceptionAnimals"] = col.getIDs()
@@ -237,9 +237,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>() {
         ids["Andbox_NFT"] = col.getIDs()
     }
+
     if let col = owner.getCapability(ZeedzINO.CollectionPublicPath)
     .borrow<&{ZeedzINO.ZeedzCollectionPublic}>() {
         ids["ZeedzINO"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Kicks.CollectionPublicPath)
+    .borrow<&{Kicks.KicksCollectionPublic}>() {
+        ids["NFTLX_ClosedSrc"] = col.getIDs()
     }
 
     return ids
