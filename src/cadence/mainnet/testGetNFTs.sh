@@ -199,7 +199,7 @@ Andbox_NFT)
 ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1c34bb70fbb5357" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
-  ;;
+;;
 
 Kicks)
   echo "ClosedSrc - NFTLX"
