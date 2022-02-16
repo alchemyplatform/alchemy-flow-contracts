@@ -236,7 +236,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Andbox_NFT.CollectionPublicPath)
         .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>() {
         ids["Andbox_NFT"] = col.getIDs()
-
+    }
     if let col = owner.getCapability(ZeedzINO.CollectionPublicPath)
     .borrow<&{ZeedzINO.ZeedzCollectionPublic}>() {
         ids["ZeedzINO"] = col.getIDs()
