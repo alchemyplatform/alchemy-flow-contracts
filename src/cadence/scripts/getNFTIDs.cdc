@@ -151,11 +151,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{GooberXContract.GooberCollectionPublic}>() {
             ids["Gooberz"] = col.getIDs()
         }
-
-    if let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
-        .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>() {
-            ids["MintStoreItem"] = col.getIDs()
-        }
         
     if let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
         .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>() {
