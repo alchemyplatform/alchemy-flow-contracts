@@ -91,6 +91,11 @@ KlktnNFT)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KlktnNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1122" }] } }] }]' --network mainnet
   ;;
 
+KlktnNFT2)
+  echo "KlktnNFT2"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3564d691f3ae6103" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KlktnNFT2" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "8" }] } }] }]' --network mainnet
+  ;;
+
 MusicBlock)
   echo "MusicBlock"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MusicBlock" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "101342" }] } }] }]' --network mainnet

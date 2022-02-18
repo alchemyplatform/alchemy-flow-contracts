@@ -12,6 +12,7 @@ import FantastecNFT from 0x2e1ee1e7a96826ce
 import Vouchers from 0x444f5ea22c6ea12c
 import KOTD from 0x23dddd854fcc8c6f
 import KlktnNFT from 0xabd6e80be7e9682c
+import KlktnNFT2 from 0xabd6e80be7e9682c
 import MusicBlock from 0x5634aefcb76e7d8c
 import Mynft from 0xf6fcbef550d97aa5
 import NyatheesOVO from 0x75e0b6de94eb05d0
@@ -102,6 +103,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(KlktnNFT.CollectionPublicPath)
         .borrow<&{KlktnNFT.KlktnNFTCollectionPublic}>() {
             ids["KlktnNFT"] = col.getIDs()
+        }
+    if let col = owner.getCapability(KlktnNFT2.CollectionPublicPath)
+        .borrow<&{KlktnNFT2.KlktnNFTCollectionPublic}>() {
+            ids["KlktnNFT2"] = col.getIDs()
         }
     if let col = owner.getCapability(MusicBlock.CollectionPublicPath)
         .borrow<&{MusicBlock.MusicBlockCollectionPublic}>() {
