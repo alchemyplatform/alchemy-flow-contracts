@@ -23,6 +23,7 @@ import TopShot from 0x877931736ee77cff
 import Domains from 0xb05b2abb42335e88
 import Eternal from 0x8da9b78f32f3ef50
 import GooberXContract from 0x9be1ec5be8738e13
+import MintStoreItem from 0x985d410b577fd4a1
 import TFCItems from 0x91a6217c3b70cae8
 import BnGNFTContract from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
@@ -38,7 +39,10 @@ import AllDay from 0x4dfd62c88d1b6462
 import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
+import ZeedzINO from 0x2dda9145001182e0
+import Kicks from 0xe861e151d3556d70
 import DayNFT from 0x4d2fe486b2e43e95
+
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -145,6 +149,22 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
             ids["Gooberz"] = col.getIDs()
         }
 
+    if let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
+        .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>() {
+            let mintStoreIDs = col.getIDs();
+            for tokenID in mintStoreIDs {
+
+                let nft = col!.borrowMintStoreItem(id: tokenID)
+                let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+                let merchKey = "MintStoreItem.".concat(merchantName);
+                if ids[merchKey] == nil {
+                    ids[merchKey] = [tokenID]
+                } else {
+                    ids[merchKey]!.append(tokenID)
+                }
+            }
+    }
+
     if let col = owner.getCapability(GeniaceNFT.CollectionPublicPath)
         .borrow<&{GeniaceNFT.GeniaceNFTCollectionPublic}>() {
             ids["GeniaceNFT"] = col.getIDs()
@@ -198,6 +218,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
         .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
             ids["TheFabricantS1ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ZeedzINO.CollectionPublicPath)
+    .borrow<&{ZeedzINO.ZeedzCollectionPublic}>() {
+        ids["ZeedzINO"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Kicks.CollectionPublicPath)
+    .borrow<&{Kicks.KicksCollectionPublic}>() {
+        ids["NFTLX_ClosedSrc"] = col.getIDs()
     }
     if let col = owner.getCapability(DayNFT.CollectionPublicPath)
         .borrow<&{DayNFT.CollectionPublic}>() {
