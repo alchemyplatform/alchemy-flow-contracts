@@ -23,6 +23,7 @@ import TopShot from 0x877931736ee77cff
 import Domains from 0xb05b2abb42335e88
 import Eternal from 0x8da9b78f32f3ef50
 import GooberXContract from 0x9be1ec5be8738e13
+import MintStoreItem from 0x985d410b577fd4a1
 import TFCItems from 0x91a6217c3b70cae8
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
@@ -146,6 +147,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TFCItems": d = getTFCItems(owner: owner, id: id)
                 case "ThingFund": d = getCaaPass(owner: owner, id: id)
                 case "Gooberz": d = getGooberz(owner: owner, id: id)
+                case "MintStoreItem": d = getMintStoreItem(owner: owner, id: id)
                 case "GeniaceNFT": d = getGeniaceNFT(owner: owner, id: id)
                 case "Xtingles": d = getXtinglesNFT(owner: owner, id: id)
                 case "Beam": d = getBeam(owner: owner, id: id)
@@ -1540,6 +1542,61 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: media,
+        metadata: metadata,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x20187093790b9aef/contract/MintStoreItem
+// https://flow-view-source.com/testnet/account/0x985d410b577fd4a1/contract/MintStoreItem
+pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "MintStoreItem",
+        address: 0x985d410b577fd4a1,
+        storage_path: "MintStoreItem.CollectionStoragePath",
+        public_path: "MintStoreItem.CollectionPublicPath",
+        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
+        .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMintStoreItem(id: id)
+    if nft == nil { return nil }
+
+    let editionData = MintStoreItem.EditionData(editionID: nft!.data.editionID)!
+    let description = editionData!.metadata["description"]!;
+    let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+
+    let editionMetadata: {String: AnyStruct} = {
+           "editionID": editionData!.editionID,
+            "numberOfItemsMinted": editionData!.numberOfItemsMinted,
+            "printingLimit": editionData!.printingLimit!,
+            "editionNumber": nft!.data.editionNumber
+    }
+
+    let merchantData: {String: AnyStruct} = {
+        "merchantID": nft!.data.merchantID,
+        "merchantName": merchantName
+    }
+
+
+    let metadata: {String: AnyStruct} = {
+        "merchant": merchantData,
+        "edition": editionMetadata, 
+        "nft": editionData!.metadata
+    }
+
+     return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: editionData.name,
+        description: description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
         metadata: metadata,
     )
 }

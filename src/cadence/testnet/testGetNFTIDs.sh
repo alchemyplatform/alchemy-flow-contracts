@@ -13,6 +13,10 @@ Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xe861e151d3556d70 --network testnet
   ;;
+MintStoreItem)
+  echo "MintStoreItem"
+  flow scripts execute getNFTIDs.cdc 0xb968bbed955def60 --network testnet
+  ;;  
 *)
   echo "Unknown contract"
   ;;

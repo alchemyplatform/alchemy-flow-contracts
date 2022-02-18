@@ -56,6 +56,11 @@ TFCItems)
   flow scripts execute getNFTIDs.cdc 0x81e95660ab5308e1 --network mainnet
   ;;
 
+MintStoreItem)
+  echo "MintStoreItem"
+  flow scripts execute getNFTIDs.cdc 0x504eb7d5da2c1c4e --network mainnet
+  ;;  
+
 Gooberz)
   echo "Gooberz"
   flow scripts execute getNFTIDs.cdc 0x445c3806345e5409 --network mainnet

@@ -29,6 +29,7 @@ import Domains from 0x233eb012d34b0070
 import Eternal from 0xc38aea683c0c4d38
 import GooberXContract from 0x34f2bf4a80bb0f69
 import TFCItems from 0x81e95660ab5308e1
+import MintStoreItem from 0x20187093790b9aef
 import BnGNFT from 0x7859c48816bfea3c
 import GeniaceNFT from 0xabda6627c70c7f52
 import Collectible from 0xf5b0eb433389ac3f
@@ -172,6 +173,23 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{GooberXContract.GooberCollectionPublic}>() {
             ids["Gooberz"] = col.getIDs()
         }
+
+    if let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
+        .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>() {
+            let mintStoreIDs = col.getIDs();
+            for tokenID in mintStoreIDs {
+
+                let nft = col!.borrowMintStoreItem(id: tokenID)
+                let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+                let merchKey = "MintStoreItem.".concat(merchantName);
+                if ids[merchKey] == nil {
+                    ids[merchKey] = [tokenID]
+                } else {
+                    ids[merchKey]!.append(tokenID)
+                }
+            }
+    }
+
     if let col = owner.getCapability(BnGNFT.CollectionPublicPath)
         .borrow<&{BnGNFT.BnGNFTCollectionPublic}>() {
             ids["BiscuitsNGroovy"] = col.getIDs()
