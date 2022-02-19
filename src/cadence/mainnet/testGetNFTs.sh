@@ -216,6 +216,46 @@ Kicks)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf3cc54f4d91c2f6c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "99" }] } }] }]' --network mainnet
   ;;
 
+CNN)
+  echo "CNN"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "CNN" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "115539" }] } }] }]' --network mainnet
+  ;;
+
+Costacos_NFT)
+  echo "Costacos_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Costacos_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "760459" }] } }] }]' --network mainnet
+  ;;
+
+Canes_Vault_NFT)
+  echo "Canes_Vault_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Canes_Vault_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "87104" }] } }] }]' --network mainnet
+  ;;
+
+AmericanAirlines_NFT)
+  echo "AmericanAirlines_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb07286ac3110ce44" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AmericanAirlines_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "797069" }] } }] }]' --network mainnet
+  ;;
+
+The_Next_Cartel_NFT)
+  echo "The_Next_Cartel_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "The_Next_Cartel_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "82979" }] } }] }]' --network mainnet
+  ;;
+
+Atheletes_Unlimited_NFT)
+  echo "Atheletes_Unlimited_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Atheletes_Unlimited_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "30099" }] } }] }]' --network mainnet
+  ;;
+
+Art_NFT)
+  echo "Art_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5c8bf6bc6ec6416b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Art_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "794059" }] } }] }]' --network mainnet
+  ;;
+
+DGD_NFT)
+  echo "DGD_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DGD_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "95991" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
