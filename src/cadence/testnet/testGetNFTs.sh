@@ -17,7 +17,11 @@ Kicks)
 MintStoreItem)
     echo "MintStoreItem"
     flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb968bbed955def60" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MintStoreItem" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "283" }] } }] }]' --network testnet
-  ;; 
+  ;;
+BarterYard)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4300fc3a11778a9a" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "365" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

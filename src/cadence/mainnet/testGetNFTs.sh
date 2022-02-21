@@ -59,7 +59,7 @@ TFCItems)
 MintStoreItem)
   echo "MintStoreItem"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x504eb7d5da2c1c4e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MintStoreItem" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "295" }] } }] }]' --network mainnet
-  ;;  
+  ;;
 
 Gooberz)
   echo "Gooberz"
@@ -215,7 +215,10 @@ Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf3cc54f4d91c2f6c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "99" }] } }] }]' --network mainnet
   ;;
-
+BarterYard)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa95b021cf8a30d80" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "365" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
