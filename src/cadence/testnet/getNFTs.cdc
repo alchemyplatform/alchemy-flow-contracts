@@ -166,6 +166,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
+                case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }

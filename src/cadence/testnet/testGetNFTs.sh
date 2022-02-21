@@ -20,7 +20,7 @@ MintStoreItem)
   ;;
 BarterYard)
   echo "Barter Yard Club"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4300fc3a11778a9a" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "365" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4300fc3a11778a9a" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4" }] } }] }]' --network testnet
   ;;
 *)
   echo "Unknown contract"
