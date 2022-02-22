@@ -38,7 +38,7 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
-import NFTContract from 0xd2a68e9311fd75ee
+import NFTContract from 0xed15722048e03cea
 
 
 pub struct NFTCollection {
@@ -1620,18 +1620,19 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     if col == nil { return nil }
 
     let nfts = col!.getIDs()
+    let nftData = col!.borrowNFT(id:id)
     if nfts == nil { return nil }
     var nftMetaData : {String:AnyStruct} = {}
     let nft = NFTContract.getNFTDataById(nftId: id)!
-    // if nft == nil { return nil }
+    if nft == nil { return nil }
     
      let templateData = NFTContract.getTemplateById(templateId: nft!.templateID)
 
      return NFTData (
         contract: contract,
-        id: nft!.templateID,
-        uuid: nft!.mintNumber,
-        title: templateData.immutableData["artistEmail"] as? String,
+        id: nftData.id,
+        uuid: nftData.uuid,
+        title: templateData.immutableData["title"]! as? String,
         description: nil,
         external_domain_view_url: nil,
         token_uri: nil,

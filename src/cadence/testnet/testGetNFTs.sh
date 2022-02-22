@@ -20,7 +20,7 @@ MintStoreItem)
   ;;
 NFTContract)
 echo "NFTContract"
-flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x248e2acda4a86e15" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0add010813a8c23f" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;; 
 *)
   echo "Unknown contract"
