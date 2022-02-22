@@ -41,6 +41,7 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
+import NFTContract from 0xd2a68e9311fd75ee
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -227,6 +228,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Kicks.CollectionPublicPath)
     .borrow<&{Kicks.KicksCollectionPublic}>() {
         ids["NFTLX_ClosedSrc"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NFTContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["NFTContract"] = col.getIDs()
     }
 
     return ids

@@ -16,7 +16,11 @@ Kicks)
 MintStoreItem)
   echo "MintStoreItem"
   flow scripts execute getNFTIDs.cdc 0xb968bbed955def60 --network testnet
-  ;;  
+  ;;
+NFTContract)
+  echo "NFTContract"
+  flow scripts execute getNFTIDs.cdc 0x248e2acda4a86e15 --network testnet
+  ;;    
 *)
   echo "Unknown contract"
   ;;
