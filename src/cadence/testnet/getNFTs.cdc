@@ -1631,7 +1631,7 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
     contract: contract,
     id: id,
     uuid: nil,
-    title: display.name.concat(" # ").concat(edition.toString()),
+    title: display.name.concat(" #").concat(edition.toString()),
     description: display.description,
     external_domain_view_url: "https://barteryard.club/nft/".concat(id.toString()),
     token_uri: nil,
