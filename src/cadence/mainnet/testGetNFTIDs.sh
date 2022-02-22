@@ -216,6 +216,10 @@ Kicks)
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
 
+DayNFT)
+  echo "DayNFT"
+  flow scripts execute getNFTIDs.cdc 0x72c1174eb3f03380 --network mainnet
+
 CNN)
   echo "CNN"
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet

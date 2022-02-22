@@ -38,6 +38,7 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
+import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 
 
@@ -165,6 +166,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
+                case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -1601,6 +1603,43 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [],
         metadata: metadata,
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x0b7f00d13cd033bd/contract/DayNFT
+pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "DayNFT",
+        address: 0x0b7f00d13cd033bd,
+        storage_path: "DayNFT.CollectionStoragePath",
+        public_path: "DayNFT.CollectionPublicPath",
+        public_collection_name: "DayNFT.CollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(DayNFT.CollectionPublicPath)
+        .borrow<&{DayNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDayNFT(id: id)!
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+            "date": nft!.dateStr
+        }
     )
 }
 
