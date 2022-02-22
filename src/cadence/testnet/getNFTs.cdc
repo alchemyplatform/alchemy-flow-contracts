@@ -38,7 +38,7 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
-import DayNFT from 0x4d2fe486b2e43e95
+import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 
 
@@ -1606,11 +1606,11 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/testnet/account/0x4d2fe486b2e43e95/contract/DayNFT
+// https://flow-view-source.com/testnet/account/0x0b7f00d13cd033bd/contract/DayNFT
 pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "DayNFT",
-        address: 0x4d2fe486b2e43e95,
+        address: 0x0b7f00d13cd033bd,
         storage_path: "DayNFT.CollectionStoragePath",
         public_path: "DayNFT.CollectionPublicPath",
         public_collection_name: "DayNFT.CollectionPublic",
