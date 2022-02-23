@@ -215,10 +215,56 @@ Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
+
 BarterYard)
   echo "Barter Yard Club"
   flow scripts execute getNFTIDs.cdc 0xa95b021cf8a30d80 --network mainnet
   ;;
+
+DayNFT)
+  echo "DayNFT"
+  flow scripts execute getNFTIDs.cdc 0x72c1174eb3f03380 --network mainnet
+
+CNN)
+  echo "CNN"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+Costacos_NFT)
+  echo "Costacos_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+Canes_Vault_NFT)
+  echo "Canes_Vault_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+AmericanAirlines_NFT)
+  echo "AmericanAirlines_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+The_Next_Cartel_NFT)
+  echo "The_Next_Cartel_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+Atheletes_Unlimited_NFT)
+  echo "Atheletes_Unlimited_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+Art_NFT)
+  echo "Art_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+DGD_NFT)
+  echo "DGD_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

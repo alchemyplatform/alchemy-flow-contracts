@@ -48,6 +48,14 @@ import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0xe1c34bb70fbb5357
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
+import DayNFT from 0x1600b04bf033fb99
+import Costacos_NFT from 0x329feb3ab062d289
+import Canes_Vault_NFT from 0x329feb3ab062d289
+import AmericanAirlines_NFT from 0x329feb3ab062d289
+import The_Next_Cartel_NFT from 0x329feb3ab062d289
+import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
+import Art_NFT from 0x329feb3ab062d289
+import DGD_NFT from 0x329feb3ab062d289
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -271,10 +279,51 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{Kicks.KicksCollectionPublic}>() {
         ids["NFTLX_ClosedSrc"] = col.getIDs()
     }
+    
     if let col = owner.getCapability(BarterYardPackNFT.CollectionPublicPath)
     .borrow<&{ BarterYardPackNFT.BarterYardPackNFTCollectionPublic }>() {
         ids["BarterYardPack"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(DayNFT.CollectionPublicPath)
+        .borrow<&{DayNFT.CollectionPublic}>() {
+            ids["DayNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Costacos_NFT.CollectionPublicPath)
+    .borrow<&{Costacos_NFT.Costacos_NFTCollectionPublic}>() {
+        ids["Costacos_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Canes_Vault_NFT.CollectionPublicPath)
+    .borrow<&{Canes_Vault_NFT.Canes_Vault_NFTCollectionPublic}>() {
+        ids["Canes_Vault_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(AmericanAirlines_NFT.CollectionPublicPath)
+    .borrow<&{AmericanAirlines_NFT.AmericanAirlines_NFTCollectionPublic}>() {
+        ids["AmericanAirlines_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(The_Next_Cartel_NFT.CollectionPublicPath)
+    .borrow<&{The_Next_Cartel_NFT.The_Next_Cartel_NFTCollectionPublic}>() {
+        ids["The_Next_Cartel_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Atheletes_Unlimited_NFT.CollectionPublicPath)
+    .borrow<&{Atheletes_Unlimited_NFT.Atheletes_Unlimited_NFTCollectionPublic}>() {
+        ids["Atheletes_Unlimited_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Art_NFT.CollectionPublicPath)
+    .borrow<&{Art_NFT.Art_NFTCollectionPublic}>() {
+        ids["Art_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(DGD_NFT.CollectionPublicPath)
+    .borrow<&{DGD_NFT.DGD_NFTCollectionPublic}>() {
+        ids["DGD_NFT"] = col.getIDs()
+    }    
 
     return ids
 }
