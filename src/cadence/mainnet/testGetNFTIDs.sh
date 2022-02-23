@@ -224,6 +224,7 @@ BarterYard)
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x72c1174eb3f03380 --network mainnet
+  ;;
 
 CNN)
   echo "CNN"

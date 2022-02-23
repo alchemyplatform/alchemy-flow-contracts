@@ -171,7 +171,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
-                
+
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1611,7 +1611,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
-  let contract = NFTContract(
+  let contract = NFTContractData(
         name: "BarterYardPack",
         address: 0xa95b021cf8a30d80,
         storage_path: "BarterYardPackNFT.CollectionStoragePath",
@@ -1645,6 +1645,7 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
       "pack": display.name
     },
   )
+}
 
 // https://flow-view-source.com/testnet/account/0x0b7f00d13cd033bd/contract/DayNFT
 pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
@@ -1704,7 +1705,7 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     var nftMetaData : {String:AnyStruct} = {}
     let nft = NFTContract.getNFTDataById(nftId: id)!
     if nft == nil { return nil }
-    
+
      let templateData = NFTContract.getTemplateById(templateId: nft!.templateID)
 
      return NFTData (

@@ -206,7 +206,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Atheletes_Unlimited_NFT": d = getAthletesUnlimitedNFT(owner: owner, id: id)
                 case "Art_NFT": d = getArtNFT(owner: owner, id: id)
                 case "DGD_NFT": d = getDGDNFT(owner: owner, id: id)
-                
+
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2109,6 +2109,7 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
       "pack": display.name
     },
   )
+}
 
 // https://flow-view-source.com/mainnet/account/0x1600b04bf033fb99/contract/DayNFT
 pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
@@ -2127,7 +2128,7 @@ pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowDayNFT(id: id)!
     if nft == nil { return nil }
-    
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2389,7 +2390,7 @@ pub fun getAthletesUnlimitedNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let seriesId = Atheletes_Unlimited_NFT.getSetSeriesId(setId: nft!.setId)!
     let nftEditions = Atheletes_Unlimited_NFT.getSetMaxEditions(setId: nft!.setId)!
     let externalTokenViewUrl = "https://nft.auprosports.com/tokens/".concat(nft!.id.toString())
-    
+
     var mimeType = "image"
     if setMeta!["image_file_type"]!.toLower() == "mp4" {
         mimeType = "video/mp4"
