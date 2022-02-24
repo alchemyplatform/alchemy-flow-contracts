@@ -17,6 +17,10 @@ MintStoreItem)
   echo "MintStoreItem"
   flow scripts execute getNFTIDs.cdc 0xb968bbed955def60 --network testnet
   ;;
+BarterYard)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTIDs.cdc 0x4300fc3a11778a9a --network testnet
+  ;;
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0x0add010813a8c23f --network testnet

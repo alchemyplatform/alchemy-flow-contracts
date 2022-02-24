@@ -38,6 +38,8 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
+import BarterYardPackNFT from 0x4300fc3a11778a9a
+import MetadataViews from 0x631e88ae7f1d7c20
 import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 
@@ -166,8 +168,10 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
+                case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
+
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -265,8 +269,8 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
-    let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
+
+    let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
@@ -310,8 +314,8 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
-    let metadata = Crave.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
+
+    let metadata = Crave.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
@@ -565,8 +569,8 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
-    
-    let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID) 
+
+    let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
@@ -1056,7 +1060,7 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     let title = "Goober #".concat(nft!.id.toString())
     let description = "Goober living in the party mansion"
     let external_domain_view_url = "https://partymansion.io/gooberz/".concat(nft!.id.toString())
-    
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1156,7 +1160,7 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.metadata!.link, mimetype: "video")],
         metadata: {
             "author": nft!.metadata!.author,
-            "edition": nft!.metadata!.edition   
+            "edition": nft!.metadata!.edition
         },
     )
 }
@@ -1287,7 +1291,7 @@ pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://testnet.bitku.art/#".concat(owner.address.toString()).concat("/").concat(nft!.id.toString()),
         token_uri: nil,
         media: [],
-        metadata: {            
+        metadata: {
             "text": nft!.text
         },
     )
@@ -1459,7 +1463,7 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: itemMetadata["itemVideo"]!.metadataValue, mimetype: "video"),
                 NFTMedia(uri: itemMetadata["itemImage"]!.metadataValue, mimetype: "image")],
         metadata: {
-            "name": nft!.name, 
+            "name": nft!.name,
             "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
             "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
             "coCreator": itemData.coCreator,
@@ -1495,7 +1499,7 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https:/www.zeedz.io",
         token_uri: nil,
         media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
-        metadata: {            
+        metadata: {
             "typeID": nft!.typeID,
             "evoultionStage": nft!.evolutionStage,
             "serialNumber": nft!.serialNumber,
@@ -1589,7 +1593,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata: {String: AnyStruct} = {
         "merchant": merchantData,
-        "edition": editionMetadata, 
+        "edition": editionMetadata,
         "nft": editionData!.metadata
     }
 
@@ -1604,6 +1608,43 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         media: [],
         metadata: metadata,
     )
+}
+
+pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
+  let contract = NFTContractData(
+        name: "BarterYardPack",
+        address: 0xa95b021cf8a30d80,
+        storage_path: "BarterYardPackNFT.CollectionStoragePath",
+        public_path: "BarterYardPackNFT.CollectionPublicPath",
+        public_collection_name: "BarterYardPackNFT.BarterYardPackNFTCollectionPublic",
+        external_domain: "https://barteryard.club"
+    )
+
+  let collection = owner.getCapability(BarterYardPackNFT.CollectionPublicPath)
+        .borrow<&{ BarterYardPackNFT.BarterYardPackNFTCollectionPublic }>()!
+  if collection == nil { return nil }
+
+  let nft = collection.borrowBarterYardPackNFT(id: id)!
+      // Get the basic display information for this NFT
+  let view = nft.resolveView(Type<MetadataViews.Display>())!
+  let display = view as! MetadataViews.Display
+  let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+  let packPartView = nft.resolveView(Type<BarterYardPackNFT.PackMetadataDisplay>())!
+  let packMetadata = packPartView as! BarterYardPackNFT.PackMetadataDisplay
+  let edition = packMetadata.edition
+  return NFTData(
+    contract: contract,
+    id: id,
+    uuid: nil,
+    title: display.name.concat(" #").concat(edition.toString()),
+    description: display.description,
+    external_domain_view_url: "https://barteryard.club/nft/".concat(id.toString()),
+    token_uri: nil,
+    media: [NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid), mimetype: "image")],
+    metadata: {
+      "pack": display.name
+    },
+  )
 }
 
 // https://flow-view-source.com/testnet/account/0x0b7f00d13cd033bd/contract/DayNFT
@@ -1664,7 +1705,7 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     var nftMetaData : {String:AnyStruct} = {}
     let nft = NFTContract.getNFTDataById(nftId: id)!
     if nft == nil { return nil }
-    
+
      let templateData = NFTContract.getTemplateById(templateId: nft!.templateID)
 
      return NFTData (

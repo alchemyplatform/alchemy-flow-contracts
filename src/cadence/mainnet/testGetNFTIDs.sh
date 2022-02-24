@@ -59,7 +59,7 @@ TFCItems)
 MintStoreItem)
   echo "MintStoreItem"
   flow scripts execute getNFTIDs.cdc 0x504eb7d5da2c1c4e --network mainnet
-  ;;  
+  ;;
 
 Gooberz)
   echo "Gooberz"
@@ -216,9 +216,15 @@ Kicks)
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
 
+BarterYard)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTIDs.cdc 0xa95b021cf8a30d80 --network mainnet
+  ;;
+
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x72c1174eb3f03380 --network mainnet
+  ;;
 
 CNN)
   echo "CNN"
