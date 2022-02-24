@@ -940,7 +940,7 @@ pub fun getMatrixWorldFlowFest(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "TopShot",
-        address: 0x0b2a3299cc857e29,
+        address: 0x877931736ee77cff,
         storage_path: "/storage/MomentCollection",
         public_path: "/public/MomentCollection",
         public_collection_name: "TopShot.MomentCollectionPublic",
