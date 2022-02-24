@@ -229,7 +229,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
 
     if let col = owner.getCapability(Kicks.CollectionPublicPath)
     .borrow<&{Kicks.KicksCollectionPublic}>() {
-        ids["NFTLX_ClosedSrc"] = col.getIDs()
+        ids["Kicks"] = col.getIDs()
     }
     if let col = owner.getCapability(DayNFT.CollectionPublicPath)
         .borrow<&{DayNFT.CollectionPublic}>() {
