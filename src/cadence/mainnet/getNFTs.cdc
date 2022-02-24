@@ -2556,6 +2556,7 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = nft!.getMetadata()!
+    let additional = metadata.getAdditional()
 
     return NFTData(
         contract: contract,
@@ -2566,10 +2567,10 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://bay.blocto.app/flow/gogoro/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [
-            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+            NFTMedia(uri: additional["mediaUrl"]!, mimetype: metadata.mediaType)
         ],
         metadata: {
-            "rarity": metadata.getAdditional()["rarity"]!,
+            "rarity": additional["rarity"]!,
             "editionNumber": nft!.editionNumber,
             "editionCount": metadata.itemCount
         }
