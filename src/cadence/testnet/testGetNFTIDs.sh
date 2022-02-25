@@ -31,11 +31,11 @@ DayNFT)
   ;;
 GogoroCollectible)
   echo "GogoroCollectible"
-  flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
   ;;
 YahooCollectible)
   echo "YahooCollectible"
-  flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
 *)
   echo "Unknown contract"
