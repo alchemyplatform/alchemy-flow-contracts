@@ -37,15 +37,12 @@ import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
-<<<<<<< HEAD
-=======
 import Kicks from 0xe861e151d3556d70
 import BarterYardPackNFT from 0x4300fc3a11778a9a
 import MetadataViews from 0x631e88ae7f1d7c20
 import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -170,14 +167,11 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ItemNFT": d = getItemNFT(owner: owner, id: id)
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
-<<<<<<< HEAD
-=======
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1480,11 +1474,7 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/testnet/account/0x2dda9145001182e0/contract/ZeedzINO
 pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
-<<<<<<< HEAD
-    let contract = NFTContract(
-=======
     let contract = NFTContractData(
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
         name: "ZeedzINO",
         address: 0x2dda9145001182e0,
         storage_path: "/storage/ZeedzINOCollection",
@@ -1509,23 +1499,16 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https:/www.zeedz.io",
         token_uri: nil,
         media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
-<<<<<<< HEAD
-        metadata: {            
-=======
         metadata: {
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
             "typeID": nft!.typeID,
             "evoultionStage": nft!.evolutionStage,
             "serialNumber": nft!.serialNumber,
-            "edition": nft!.edition,
-            "editionCap": nft!.editionCap,
+            "editionNumber": nft!.edition,
+            "editionCount": nft!.editionCap,
             "rarity": nft!.rarity,
             "carbonOffset": nft!.carbonOffset
         },
     )
-<<<<<<< HEAD
-}
-=======
 }
 
 // https://flow-view-source.com/testnet/account/0xe861e151d3556d70/contract/Kicks
@@ -1737,4 +1720,3 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: templateData.immutableData
     )
 }
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9

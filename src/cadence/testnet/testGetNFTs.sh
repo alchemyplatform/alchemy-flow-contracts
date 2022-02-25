@@ -9,8 +9,6 @@ ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2dda9145001182e0" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5042" }] } }] }]' --network testnet
   ;;
-<<<<<<< HEAD
-=======
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe861e151d3556d70" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network testnet
@@ -32,7 +30,6 @@ DayNFT)
 echo "DayNFT"
 flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1d1f11dcbae7f839" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DayNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;; 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 *)
   echo "Unknown contract"
   ;;

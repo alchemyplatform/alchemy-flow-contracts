@@ -40,14 +40,11 @@ import PackNFT from 0x4dfd62c88d1b6462
 import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
-<<<<<<< HEAD
-=======
 import Kicks from 0xe861e151d3556d70
 import BarterYardPackNFT from 0x4300fc3a11778a9a
 import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -230,8 +227,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["ZeedzINO"] = col.getIDs()
     }
 
-<<<<<<< HEAD
-=======
     if let col = owner.getCapability(Kicks.CollectionPublicPath)
     .borrow<&{Kicks.KicksCollectionPublic}>() {
         ids["Kicks"] = col.getIDs()
@@ -251,6 +246,5 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["BarterYardPack"] = col.getIDs()
     }
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
     return ids
 }

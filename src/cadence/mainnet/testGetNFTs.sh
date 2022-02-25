@@ -200,12 +200,6 @@ TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
-<<<<<<< HEAD
-ZeedzINO)
-  echo "ZeedzINO"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1c34bb70fbb5357" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
-  ;;
-=======
 
 Andbox_NFT)
   echo "Andbox_NFT"
@@ -272,7 +266,6 @@ DGD_NFT)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DGD_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "95991" }] } }] }]' --network mainnet
   ;;
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 *)
   echo "Unknown contract"
   ;;

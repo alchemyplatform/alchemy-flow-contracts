@@ -200,21 +200,16 @@ TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
   flow scripts execute getNFTIDs.cdc 0x9e03b1f871b3513 --network mainnet
   ;;
-<<<<<<< HEAD
-=======
 
 Andbox_NFT)
   echo "Andbox_NFT"
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
   ;;
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
   ;;
-<<<<<<< HEAD
-=======
 
 Kicks)
   echo "ClosedSrc - NFTLX"
@@ -271,7 +266,6 @@ DGD_NFT)
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
   ;;
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 *)
   echo "Unknown contract"
   ;;

@@ -44,9 +44,6 @@ import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
-<<<<<<< HEAD
-import ZeedzINO from 0xe1c34bb70fbb5357
-=======
 import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0xe1c34bb70fbb5357
 import Kicks from 0xf3cc54f4d91c2f6c
@@ -59,7 +56,6 @@ import The_Next_Cartel_NFT from 0x329feb3ab062d289
 import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
 import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -269,21 +265,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["TheFabricantS1ItemNFT"] = col.getIDs()
     }
 
-<<<<<<< HEAD
-=======
     if let col = owner.getCapability(Andbox_NFT.CollectionPublicPath)
         .borrow<&{Andbox_NFT.Andbox_NFTCollectionPublic}>() {
         ids["Andbox_NFT"] = col.getIDs()
     }
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
     if let col = owner.getCapability(ZeedzINO.CollectionPublicPath)
     .borrow<&{ZeedzINO.ZeedzCollectionPublic}>() {
         ids["ZeedzINO"] = col.getIDs()
     }
 
-<<<<<<< HEAD
-=======
     if let col = owner.getCapability(Kicks.CollectionPublicPath)
     .borrow<&{Kicks.KicksCollectionPublic}>() {
         ids["Kicks"] = col.getIDs()
@@ -334,6 +325,5 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["DGD_NFT"] = col.getIDs()
     }    
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
     return ids
 }

@@ -44,9 +44,6 @@ import AllDay from 0xe4cf4bdc1751c65d
 import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
-<<<<<<< HEAD
-import ZeedzINO from 0xe1c34bb70fbb5357
-=======
 import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0xe1c34bb70fbb5357
 import Kicks from 0xf3cc54f4d91c2f6c
@@ -61,7 +58,6 @@ import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
 import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -200,8 +196,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ItemNFT": d = getItemNFT(owner: owner, id: id)
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
-<<<<<<< HEAD
-=======
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT" : d = getDayNFT(owner: owner, id: id)
@@ -213,7 +207,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Art_NFT": d = getArtNFT(owner: owner, id: id)
                 case "DGD_NFT": d = getDGDNFT(owner: owner, id: id)
 
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2025,23 +2018,16 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https:/www.zeedz.io",
         token_uri: nil,
         media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
-<<<<<<< HEAD
-        metadata: {            
-=======
         metadata: {
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
             "typeID": nft!.typeID,
             "evoultionStage": nft!.evolutionStage,
             "serialNumber": nft!.serialNumber,
-            "edition": nft!.edition,
-            "editionCap": nft!.editionCap,
+            "editionNumber": nft!.edition,
+            "editionCount": nft!.editionCap,
             "rarity": nft!.rarity,
             "carbonOffset": nft!.carbonOffset
         },
     )
-<<<<<<< HEAD
-}
-=======
 }
 
 // https://flow-view-source.com/mainnet/account/0xf3cc54f4d91c2f6c/contract/Kicks
@@ -2546,4 +2532,3 @@ pub fun getDGDNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     )
 }
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9

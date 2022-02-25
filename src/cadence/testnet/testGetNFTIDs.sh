@@ -9,8 +9,6 @@ ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTIDs.cdc 0x2dda9145001182e0 --network testnet
   ;;
-<<<<<<< HEAD
-=======
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xe861e151d3556d70 --network testnet
@@ -31,7 +29,6 @@ DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
   ;;    
->>>>>>> fc382acce9a06f445dfeb713f4e3b905de8889a9
 *)
   echo "Unknown contract"
   ;;
