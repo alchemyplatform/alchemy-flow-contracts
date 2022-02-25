@@ -2021,13 +2021,13 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         description: nft!.description,
         external_domain_view_url: "https:/www.zeedz.io",
         token_uri: nil,
-        media: [NFTMedia(uri: nft!.imageURI, mimetype: "image")],
+        media: [NFTMedia(uri: "https://zeedz.mypinata.cloud/ipfs/".concat(nft!.imageURI), mimetype: "image")],
         metadata: {
             "typeID": nft!.typeID,
             "evoultionStage": nft!.evolutionStage,
             "serialNumber": nft!.serialNumber,
-            "edition": nft!.edition,
-            "editionCap": nft!.editionCap,
+            "editionNumber": nft!.edition,
+            "editionCount": nft!.editionCap,
             "rarity": nft!.rarity,
             "carbonOffset": nft!.carbonOffset
         },
