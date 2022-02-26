@@ -1999,7 +1999,7 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "ZeedzINO",
-        address:0x62b3063fbe672fc8,
+        address: 0x62b3063fbe672fc8,
         storage_path: "/storage/ZeedzINOCollection",
         public_path: "/public/ZeedzINOCollection",
         public_collection_name: "ZeedzINO.ZeedzCollectionPublic",
