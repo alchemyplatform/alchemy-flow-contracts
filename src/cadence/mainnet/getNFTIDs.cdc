@@ -45,7 +45,7 @@ import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 import Andbox_NFT from 0x329feb3ab062d289
-import ZeedzINO from 0xe1c34bb70fbb5357
+import ZeedzINO from 0x62b3063fbe672fc8
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
 import DayNFT from 0x1600b04bf033fb99
