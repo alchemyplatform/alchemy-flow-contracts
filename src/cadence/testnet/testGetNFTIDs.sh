@@ -28,7 +28,15 @@ NFTContract)
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
-  ;;    
+  ;;
+GogoroCollectible)
+  echo "GogoroCollectible"
+  flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
+  ;;
+YahooCollectible)
+  echo "YahooCollectible"
+  flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

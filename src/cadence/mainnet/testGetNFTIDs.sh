@@ -266,6 +266,16 @@ DGD_NFT)
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
   ;;
 
+GogoroCollectible)
+  echo "GogoroCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
+YahooCollectible)
+  echo "YahooCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

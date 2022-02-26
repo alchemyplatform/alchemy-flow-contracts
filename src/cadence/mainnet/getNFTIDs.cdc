@@ -56,6 +56,8 @@ import The_Next_Cartel_NFT from 0x329feb3ab062d289
 import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
 import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
+import GogoroCollectible from 0x8c9bbcdcd7514081
+import YahooCollectible from 0x758252ab932a3416
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -323,7 +325,17 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DGD_NFT.CollectionPublicPath)
     .borrow<&{DGD_NFT.DGD_NFTCollectionPublic}>() {
         ids["DGD_NFT"] = col.getIDs()
-    }    
+    }
+
+    if let col = owner.getCapability(GogoroCollectible.CollectionPublicPath)
+    .borrow<&{GogoroCollectible.CollectionPublic}>() {
+        ids["GogoroCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(YahooCollectible.CollectionPublicPath)
+    .borrow<&{YahooCollectible.CollectionPublic}>() {
+        ids["YahooCollectible"] = col.getIDs()
+    }
 
     return ids
 }
