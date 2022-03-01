@@ -45,7 +45,7 @@ import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 import Andbox_NFT from 0x329feb3ab062d289
-import ZeedzINO from 0xe1c34bb70fbb5357
+import ZeedzINO from 0x62b3063fbe672fc8
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
 import MetadataViews from 0x1d7e57aa55817448
@@ -1995,11 +1995,11 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0xe1c34bb70fbb5357/contract/ZeedzINO
+// https://flow-view-source.com/mainnet/account/0x62b3063fbe672fc8/contract/ZeedzINO
 pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "ZeedzINO",
-        address: 0xe1c34bb70fbb5357,
+        address: 0x62b3063fbe672fc8,
         storage_path: "/storage/ZeedzINOCollection",
         public_path: "/public/ZeedzINOCollection",
         public_collection_name: "ZeedzINO.ZeedzCollectionPublic",

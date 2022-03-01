@@ -208,7 +208,7 @@ Andbox_NFT)
 
 ZeedzINO)
   echo "ZeedzINO"
-  flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x62b3063fbe672fc8 --network mainnet
   ;;
 
 Kicks)
