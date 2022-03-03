@@ -520,7 +520,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             storage_path: "Everbloom.CollectionStoragePath",
             public_path: "Everbloom.CollectionPublicPath",
             public_collection_name: "Everbloom.PrintCollectionPublic",
-            external_domain: ""
+            external_domain: "https://web.everbloom.app/"
         )
         return NFTData(
             contract: contract,
@@ -529,7 +529,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             title: nil,
             description: nil,
             external_domain_view_url: nil,
-            token_uri: nil,
+            token_uri:  "https://everbloom-fcl-service.herokuapp.com/v1/nft/".concat(nft!.id.toString()),
             media: [],
             metadata: {},
         )
