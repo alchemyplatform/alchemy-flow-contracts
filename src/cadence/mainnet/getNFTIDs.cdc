@@ -58,6 +58,8 @@ import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
+import ARTIFACTPack from 0x24de869c5e40b2eb
+import ARTIFACT from 0x24de869c5e40b2eb
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -335,6 +337,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(YahooCollectible.CollectionPublicPath)
     .borrow<&{YahooCollectible.CollectionPublic}>() {
         ids["YahooCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ARTIFACTPack.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ARTIFACTPack"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ARTIFACT"] = col.getIDs()
     }
 
     return ids
