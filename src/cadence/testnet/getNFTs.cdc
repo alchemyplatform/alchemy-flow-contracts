@@ -1725,7 +1725,7 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x8c9bbcdcd7514081/contract/GogoroCollectible
 pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "GogoroCollectible",
         address: 0x8c9bbcdcd7514081,
         storage_path: "GogoroCollectible.CollectionStoragePath",
@@ -1765,7 +1765,7 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x758252ab932a3416/contract/YahooCollectible
 pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "YahooCollectible",
         address: 0x758252ab932a3416,
         storage_path: "YahooCollectible.CollectionStoragePath",
