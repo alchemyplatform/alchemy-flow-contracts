@@ -29,6 +29,10 @@ DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
   ;;
+NowggNFT)
+  echo "NowggNFT"
+  flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
+  ;;   
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet

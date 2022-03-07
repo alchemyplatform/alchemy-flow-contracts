@@ -42,8 +42,10 @@ import BarterYardPackNFT from 0x4300fc3a11778a9a
 import MetadataViews from 0x631e88ae7f1d7c20
 import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
+import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -172,6 +174,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
+                case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 default:
@@ -1798,6 +1801,55 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "rarity": metadata.getAdditional()["rarity"]!,
             "editionNumber": nft!.editionNumber,
             "editionCount": metadata.itemCount
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x1a3e64df3663edd3/contract/NowggNFT
+pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContractData(
+        name: "NowggNFT",
+        address: 0x85b8bbf926dcddfa,
+        storage_path: "NowggNFT.CollectionStoragePath",
+        public_path: "NowggNFT.CollectionPublicPath",
+        public_collection_name: "NowggNFT.NowggNFTCollectionPublic",
+        external_domain: "https://nft-engg.testngg.net/"
+    )
+
+    let col = owner.getCapability(NowggNFT.CollectionPublicPath)
+        .borrow<&{NowggNFT.NowggNFTCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowNowggNFT(id: id)
+    if nft == nil { return nil }
+    let nftInfo = nft!
+
+    let metadata = nftInfo.getMetadata()!
+    let nftTypeId = (metadata["nftTypeId"]! as! String)
+
+    let externalViewUrl = "https://nft-engg.testngg.net/nft/".concat(nftTypeId)
+
+    return NFTData(
+        contract: contract,
+        id: nftInfo.id,
+        uuid: nftInfo.uuid,
+        title: metadata["title"]! as? String,
+        description: metadata["description"]! as? String,
+        external_domain_view_url: externalViewUrl,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["displayUrl"]! as? String, mimetype: (metadata["displayUrlMediaType"]! as? String)),
+            NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
+        ],
+        metadata: {
+            "client_name": metadata["clientName"],
+            "nft_type_id": metadata["nftTypeId"],
+            "creator_name": metadata["creatorName"],
+            "client_id": metadata["clientId"],
+            "max_count": metadata["maxCount"],
+            "copy_number": metadata["copyNumber"]
         }
     )
 }
