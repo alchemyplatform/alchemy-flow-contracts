@@ -340,12 +340,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
 
     if let col = owner.getCapability(ARTIFACTPack.collectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{ARTIFACTPack.CollectionPublic}>() {
         ids["ARTIFACTPack"] = col.getIDs()
     }
     
     if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{ARTIFACT.CollectionPublic}>() {
         ids["ARTIFACT"] = col.getIDs()
     }
 
