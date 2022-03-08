@@ -46,8 +46,8 @@ import DayNFT from 0x0b7f00d13cd033bd
 import NFTContract from 0xed15722048e03cea
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
-import ARTIFACTPack from 0x163523ba2d1a51ea
-import ARTIFACT from 0x163523ba2d1a51ea
+import ARTIFACTPack from 0xd6b5d6d271a2b544
+import ARTIFACT from 0xd6b5d6d271a2b544
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -260,12 +260,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
 
     if let col = owner.getCapability(ARTIFACTPack.collectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{ARTIFACTPack.CollectionPublic}>() {
         ids["ARTIFACTPack"] = col.getIDs()
     }
     
     if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{ARTIFACT.CollectionPublic}>() {
         ids["ARTIFACT"] = col.getIDs()
     }
 

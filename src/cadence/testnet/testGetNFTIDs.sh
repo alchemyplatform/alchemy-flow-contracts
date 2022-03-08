@@ -39,11 +39,11 @@ YahooCollectible)
   ;;
 ARTIFACTPack)
   echo "ARTIFACTPack"
-  flow scripts execute getNFTIDs.cdc 0xcb8d1ea33aae1bdd --network testnet
+  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
   ;;
 ARTIFACT)
   echo "ARTIFACT"
-  flow scripts execute getNFTIDs.cdc 0xcb8d1ea33aae1bdd --network testnet
+  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
   ;;
 *)
   echo "Unknown contract"
