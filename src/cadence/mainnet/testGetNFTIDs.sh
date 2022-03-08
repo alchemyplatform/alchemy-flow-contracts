@@ -208,7 +208,7 @@ Andbox_NFT)
 
 ZeedzINO)
   echo "ZeedzINO"
-  flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x62b3063fbe672fc8 --network mainnet
   ;;
 
 Kicks)
@@ -264,6 +264,11 @@ Art_NFT)
 DGD_NFT)
   echo "DGD_NFT"
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+NowggNFT)
+  echo "NowggNFT"
+  flow scripts execute getNFTIDs.cdc 0xb759c620b47621d1 --network mainnet
   ;;
 
 GogoroCollectible)

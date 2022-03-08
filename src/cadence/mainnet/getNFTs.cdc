@@ -45,7 +45,7 @@ import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 import Andbox_NFT from 0x329feb3ab062d289
-import ZeedzINO from 0xe1c34bb70fbb5357
+import ZeedzINO from 0x62b3063fbe672fc8
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
 import MetadataViews from 0x1d7e57aa55817448
@@ -57,6 +57,7 @@ import The_Next_Cartel_NFT from 0x329feb3ab062d289
 import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
 import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
+import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
 import ARTIFACTPack from 0x24de869c5e40b2eb
@@ -210,6 +211,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Atheletes_Unlimited_NFT": d = getAthletesUnlimitedNFT(owner: owner, id: id)
                 case "Art_NFT": d = getArtNFT(owner: owner, id: id)
                 case "DGD_NFT": d = getDGDNFT(owner: owner, id: id)
+                case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
 
@@ -1997,11 +1999,11 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0xe1c34bb70fbb5357/contract/ZeedzINO
+// https://flow-view-source.com/mainnet/account/0x62b3063fbe672fc8/contract/ZeedzINO
 pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "ZeedzINO",
-        address: 0xe1c34bb70fbb5357,
+        address: 0x62b3063fbe672fc8,
         storage_path: "/storage/ZeedzINOCollection",
         public_path: "/public/ZeedzINOCollection",
         public_collection_name: "ZeedzINO.ZeedzCollectionPublic",
@@ -2618,6 +2620,56 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x85b8bbf926dcddfa/contract/NowggNFT
+pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "NowggNFT",
+        address: 0x85b8bbf926dcddfa,
+        storage_path: "NowggNFT.CollectionStoragePath",
+        public_path: "NowggNFT.CollectionPublicPath",
+        public_collection_name: "NowggNFT.NowggNFTCollectionPublic",
+        external_domain: "https://nft.now.gg/"
+    )
+
+    let col = owner.getCapability(NowggNFT.CollectionPublicPath)
+        .borrow<&{NowggNFT.NowggNFTCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowNowggNFT(id: id)
+
+    if nft == nil { return nil }
+
+    let nftInfo = nft!
+
+    let metadata = nftInfo.getMetadata()!
+    let nftTypeId = (metadata["nftTypeId"]! as! String)
+
+    let externalViewUrl = "https://nft.now.gg/nft/".concat(nftTypeId)
+
+    return NFTData(
+        contract: contract,
+        id: nftInfo.id,
+        uuid: nftInfo.uuid,
+        title: metadata["title"]! as? String,
+        description: metadata["description"]! as? String,
+        external_domain_view_url: externalViewUrl,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["displayUrl"]! as? String, mimetype: (metadata["displayUrlMediaType"]! as? String)),
+            NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
+        ],
+        metadata: {
+            "client_name": metadata["clientName"],
+            "nft_type_id": metadata["nftTypeId"],
+            "creator_name": metadata["creatorName"],
+            "client_id": metadata["clientId"],
+            "max_count": metadata["maxCount"],
+            "copy_number": metadata["copyNumber"]
+        }
+    )
+}
 
 // https://flow-view-source.com/mainnet/account/0x24de869c5e40b2eb/contract/ARTIFACT
 pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {

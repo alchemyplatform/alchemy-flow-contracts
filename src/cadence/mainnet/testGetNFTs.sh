@@ -208,7 +208,7 @@ Andbox_NFT)
 
 ZeedzINO)
   echo "ZeedzINO"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe1c34bb70fbb5357" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x62b3063fbe672fc8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
 ;;
 
 Kicks)
@@ -264,6 +264,11 @@ Art_NFT)
 DGD_NFT)
   echo "DGD_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DGD_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "95991" }] } }] }]' --network mainnet
+  ;;
+
+NowggNFT)
+  echo "NowggNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb759c620b47621d1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NowggNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "26514" }] } }] }]' --network mainnet
   ;;
 
 GogoroCollectible)

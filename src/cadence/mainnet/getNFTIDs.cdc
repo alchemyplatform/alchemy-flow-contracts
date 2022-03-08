@@ -45,7 +45,7 @@ import PackNFT from 0xe4cf4bdc1751c65d
 import ItemNFT from 0xfc91de5e6566cc7c
 import TheFabricantS1ItemNFT from 0x9e03b1f871b3513
 import Andbox_NFT from 0x329feb3ab062d289
-import ZeedzINO from 0xe1c34bb70fbb5357
+import ZeedzINO from 0x62b3063fbe672fc8
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
 import DayNFT from 0x1600b04bf033fb99
@@ -56,6 +56,7 @@ import The_Next_Cartel_NFT from 0x329feb3ab062d289
 import Atheletes_Unlimited_NFT from 0x329feb3ab062d289
 import Art_NFT from 0x329feb3ab062d289
 import DGD_NFT from 0x329feb3ab062d289
+import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
 import ARTIFACTPack from 0x24de869c5e40b2eb
@@ -327,6 +328,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DGD_NFT.CollectionPublicPath)
     .borrow<&{DGD_NFT.DGD_NFTCollectionPublic}>() {
         ids["DGD_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NowggNFT.CollectionPublicPath)
+    .borrow<&{NowggNFT.NowggNFTCollectionPublic}>() {
+        ids["NowggNFT"] = col.getIDs()
     }
 
     if let col = owner.getCapability(GogoroCollectible.CollectionPublicPath)
