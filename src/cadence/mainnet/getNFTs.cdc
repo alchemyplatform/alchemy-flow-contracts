@@ -61,7 +61,6 @@ import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
 
-
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -200,8 +199,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TheFabricantS1ItemNFT": d = getTheFabricantS1ItemNFT(owner: owner, id: id)
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
-<<<<<<< HEAD
-=======
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
                 case "DayNFT" : d = getDayNFT(owner: owner, id: id)
                 case "Costacos_NFT": d = getCostacosNFT(owner: owner, id: id)
@@ -214,8 +211,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
-
->>>>>>> c4f07239e60b9a2a218ff47acc1429c150b0ef7f
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2057,7 +2052,9 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    let metadata = nft!.getMetadata()
+    var metadata = nft!.getMetadata()
+    metadata["editionNumber"] = nft!.instanceID
+    metadata["editionCount"] = nft!.getBlueprint().numberMinted
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {

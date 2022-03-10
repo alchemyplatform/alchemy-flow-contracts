@@ -46,7 +46,6 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 
-
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -1534,7 +1533,9 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    let metadata = nft!.getMetadata()
+    var metadata = nft!.getMetadata()
+    metadata["editionNumber"] = nft!.instanceID
+    metadata["editionCount"] = nft!.getBlueprint().numberMinted
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {
