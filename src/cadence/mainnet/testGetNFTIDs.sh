@@ -83,7 +83,7 @@ GeniaceNFT)
 
 Everbloom)
   echo "Everbloom"
-  flow scripts execute getNFTIDs.cdc 0x6cced3c020fc5867 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x06193fb3f332748a --network mainnet
   ;;
 
 CricketMoments)
