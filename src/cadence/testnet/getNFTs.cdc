@@ -45,6 +45,7 @@ import NFTContract from 0xed15722048e03cea
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import SomePlaceCollectible from 0x0c153e28da9f988a
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -176,6 +177,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
+                case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1853,6 +1855,47 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "client_id": metadata["clientId"],
             "max_count": metadata["maxCount"],
             "copy_number": metadata["copyNumber"]
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x0c153e28da9f988a/contract/SomePlaceCollectible
+pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SomePlaceCollectible",
+        address: 0x0c153e28da9f988a,
+        storage_path: "SomePlaceCollectible.CollectionStoragePath",
+        public_path: "SomePlaceCollectible.CollectionPublicPath",
+        public_collection_name: "SomePlaceCollectible.CollectibleCollectionPublic",
+        external_domain: "https://some.place",
+    )
+
+    let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
+        .borrow<&{SomePlaceCollectible.CollectibleCollectionPublic}>()
+    if col == nil { return nil }
+
+    let optNft = col!.borrowCollectible(id: id)
+    if optNft == nil { return nil }
+    let nft = optNft!
+
+    let setID = nft.setID
+    let setMetadata = SomePlaceCollectible.getMetadataForSetID(setID: setID)!
+    let editionMetadata = SomePlaceCollectible.getMetadataForNFTByUUID(uuid: nft.id)!
+
+    return NFTData(
+        contract: contract,
+        id: nft.id,
+        uuid: nft.uuid,
+        title: editionMetadata.getMetadata()["title"] ?? setMetadata.getMetadata()["title"] ?? "",
+        description: editionMetadata.getMetadata()["description"] ?? setMetadata.getMetadata()["description"] ?? "",
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft.editionNumber,
+            "editionCount": setMetadata.getMaxNumberOfEditions()
         }
     )
 }
