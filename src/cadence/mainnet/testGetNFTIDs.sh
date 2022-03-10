@@ -281,6 +281,16 @@ YahooCollectible)
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

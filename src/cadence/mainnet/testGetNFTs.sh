@@ -281,6 +281,15 @@ YahooCollectible)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd9cccb588a70de71" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd9cccb588a70de71" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
