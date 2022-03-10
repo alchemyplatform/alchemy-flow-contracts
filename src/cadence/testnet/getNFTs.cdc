@@ -48,7 +48,6 @@ import YahooCollectible from 0x5d50ce3fd080edce
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
 
-
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -1537,7 +1536,11 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    let metadata = nft!.getMetadata()
+    var metadata = nft!.getMetadata()
+    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID }
+    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xe861e151d3556d70" }
+    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {

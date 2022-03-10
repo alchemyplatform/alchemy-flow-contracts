@@ -63,7 +63,6 @@ import YahooCollectible from 0x758252ab932a3416
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
 
-
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -216,7 +215,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
-
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -526,7 +524,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             storage_path: "Everbloom.CollectionStoragePath",
             public_path: "Everbloom.CollectionPublicPath",
             public_collection_name: "Everbloom.PrintCollectionPublic",
-            external_domain: ""
+            external_domain: "https://web.everbloom.app/"
         )
         return NFTData(
             contract: contract,
@@ -535,7 +533,7 @@ pub fun getEverbloom(owner: PublicAccount, id: UInt64): NFTData? {
             title: nil,
             description: nil,
             external_domain_view_url: nil,
-            token_uri: nil,
+            token_uri:  "https://everbloom-fcl-service.herokuapp.com/v1/nft/".concat(nft!.id.toString()),
             media: [],
             metadata: {},
         )
@@ -2058,7 +2056,11 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    let metadata = nft!.getMetadata()
+    var metadata = nft!.getMetadata()
+    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID }
+    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" }
+    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {

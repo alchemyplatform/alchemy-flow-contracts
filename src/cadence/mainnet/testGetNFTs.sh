@@ -83,7 +83,7 @@ GeniaceNFT)
 
 Everbloom)
   echo "Everbloom"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6cced3c020fc5867" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Everbloom" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5809" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x06193fb3f332748a" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Everbloom" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
 
 CricketMoments)
