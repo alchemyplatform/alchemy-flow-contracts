@@ -2055,7 +2055,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     var metadata = nft!.getMetadata()
     if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID }
     if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted }
-    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = Address(0xf3cc54f4d91c2f6c) }
     if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
     var media: [NFTMedia] = []
 
