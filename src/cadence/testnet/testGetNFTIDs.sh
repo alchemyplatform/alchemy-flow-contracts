@@ -32,7 +32,7 @@ DayNFT)
 NowggNFT)
   echo "NowggNFT"
   flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
-  ;; 
+  ;;
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
@@ -40,6 +40,10 @@ GogoroCollectible)
 YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0xe0e251b47ff622ba --network testnet
   ;;
 *)
   echo "Unknown contract"

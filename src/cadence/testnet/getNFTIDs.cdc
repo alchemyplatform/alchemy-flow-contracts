@@ -47,6 +47,7 @@ import NFTContract from 0xed15722048e03cea
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import RacingTime from 0xe0e251b47ff622ba
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -263,5 +264,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(RacingTime.CollectionPublicPath)
+    .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
+        ids["RacingTime"] = col.getIDs()
+    }
     return ids
 }

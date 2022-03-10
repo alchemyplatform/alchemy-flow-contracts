@@ -286,6 +286,11 @@ Kicks)
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
 
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
