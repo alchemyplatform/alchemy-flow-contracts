@@ -2702,14 +2702,16 @@ pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft.uuid,
         title: editionMetadata.getMetadata()["title"] ?? setMetadata.getMetadata()["title"] ?? "",
         description: editionMetadata.getMetadata()["description"] ?? setMetadata.getMetadata()["description"] ?? "",
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://some.place",
         token_uri: nil,
         media: [
             NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
         ],
         metadata: {
             "editionNumber": nft.editionNumber,
-            "editionCount": setMetadata.getMaxNumberOfEditions()
+            "editionCount": setMetadata.getMaxNumberOfEditions(),
+            "royaltyAddress": "0x8e2e0ebf3c03aa88",
+            "royaltyPercentage": "10.0"
         }
     )
 }
