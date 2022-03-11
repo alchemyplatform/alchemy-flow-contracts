@@ -1878,10 +1878,13 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrow(id: id)
     if nft == nil { return nil }
 
-    let metadata = nft!.data.metadata
+    var metadata = nft!.data.metadata
     let title = metadata["artifactName"]!
     let description = metadata["artifactShortDescription"]!
     let series = metadata["artifactLookupId"]!
+
+    metadata["editionNumber"] = metadata["artifactEditionNumber"]!
+    metadata["editionCount"] = metadata["artifactNumberOfEditions"]!
 
     return NFTData(
         contract: contract,
@@ -1922,7 +1925,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUri = ""
 
     let isOpen = nft!.isOpen
-    let metadata = nft!.metadata
+    var metadata = nft!.metadata
     var series = metadata["lookupId"]!
     var title = metadata["name"]!
 
@@ -1933,6 +1936,9 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
         description = metadata["descriptionUnopened"]!
         mediaUri = metadata["fileUriUnopened"]!
     }
+
+    metadata["editionNumber"] = nft!.edition.toString()
+    metadata["editionCount"] = metadata["numberOfEditions"]!
 
     return NFTData(
         contract: contract,
