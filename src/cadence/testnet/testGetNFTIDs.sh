@@ -48,7 +48,7 @@ ARTIFACTPack)
 ARTIFACT)
   echo "ARTIFACT"
   flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
-  
+  ;;
 NftReality)
   echo "NftReality"
   flow scripts execute getNFTIDs.cdc 0x73c43b6c0a8a5b5b --network testnet
