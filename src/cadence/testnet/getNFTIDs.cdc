@@ -47,6 +47,7 @@ import NFTContract from 0xed15722048e03cea
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import NftReality from 0xa3222e7505186595
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -261,6 +262,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(YahooCollectible.CollectionPublicPath)
     .borrow<&{YahooCollectible.CollectionPublic}>() {
         ids["YahooCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NftReality.CollectionPublicPath)
+    .borrow<&{NftReality.NftRealityCollectionPublic}>() {
+        ids["NftReality"] = col.getIDs()
     }
 
     return ids

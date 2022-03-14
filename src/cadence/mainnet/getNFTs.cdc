@@ -60,6 +60,7 @@ import DGD_NFT from 0x329feb3ab062d289
 import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
+import NftReality from 0x5892036f9111fbb8
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -211,6 +212,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
+                case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2667,6 +2669,53 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "client_id": metadata["clientId"],
             "max_count": metadata["maxCount"],
             "copy_number": metadata["copyNumber"]
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x5892036f9111fbb8/contract/NftReality
+pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "NftReality",
+        address: 0x5892036f9111fbb8,
+        storage_path: "NftReality.CollectionStoragePath",
+        public_path: "NftReality.CollectionPublicPath",
+        public_collection_name: "NftReality.NftRealityCollectionPublic",
+        external_domain: "nftreality.pl",
+    )
+
+    let col = owner.getCapability(NftReality.CollectionPublicPath)
+        .borrow<&{NftReality.NftRealityCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNftReality(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid).concat("/").concat(ipfsFile.path!), mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft!.unit,
+            "editionCount": nft!.totalUnits,
+            "company": nft!.metadata.company,
+            "role": nft!.metadata.role,
+            "description": nft!.metadata.description,
+            "artwork": nft!.metadata.artwork,
+            "logotype": nft!.metadata.logotype,
+            "creator": nft!.metadata.creator,
+            "creationDate": nft!.metadata.creationDate
         }
     )
 }
