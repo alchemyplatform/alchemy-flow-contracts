@@ -47,6 +47,7 @@ import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
+import NftReality from 0xa3222e7505186595
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -180,6 +181,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
+                case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
+
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -282,14 +285,16 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
-
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -327,14 +332,16 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
-
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -582,14 +589,16 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
-
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1952,5 +1961,52 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: mediaUri, mimetype: "image/png")
         ],
         metadata: metadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xa3222e7505186595/contract/NftReality
+pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "NftReality",
+        address: 0xa3222e7505186595,
+        storage_path: "NftReality.CollectionStoragePath",
+        public_path: "NftReality.CollectionPublicPath",
+        public_collection_name: "NftReality.NftRealityCollectionPublic",
+        external_domain: "nftreality.pl",
+    )
+
+    let col = owner.getCapability(NftReality.CollectionPublicPath)
+        .borrow<&{NftReality.NftRealityCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNftReality(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid).concat("/").concat(ipfsFile.path!), mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft!.unit,
+            "editionCount": nft!.totalUnits,
+            "company": nft!.metadata.company,
+            "role": nft!.metadata.role,
+            "description": nft!.metadata.description,
+            "artwork": nft!.metadata.artwork,
+            "logotype": nft!.metadata.logotype,
+            "creator": nft!.metadata.creator,
+            "creationDate": nft!.metadata.creationDate
+        }
     )
 }

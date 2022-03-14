@@ -295,6 +295,12 @@ ARTIFACT)
   echo "ARTIFACT"
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
   ;;
+  
+NftReality)
+  echo "NftReality"
+  flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

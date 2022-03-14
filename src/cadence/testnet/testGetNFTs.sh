@@ -49,6 +49,10 @@ ARTIFACT)
   echo "ARTIFACT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6bc26c5911f3b19d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "15" }] } }] }]' --network testnet
   ;;
+NftReality)
+  echo "NftReality"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x73c43b6c0a8a5b5b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NftReality" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
