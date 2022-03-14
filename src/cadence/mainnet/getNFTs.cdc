@@ -372,11 +372,14 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
 
@@ -448,14 +451,16 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
-
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -716,14 +721,16 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let scheme = metadataUrl.slice(from: 0, upTo: 7)
-        if scheme == "ipfs://" {
+        let ipfsScheme = "ipfs://"
+        let httpsScheme = "https://"
+        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
+        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
+        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = "ipfs://".concat(metadataUrl)
+            mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
-
     return NFTData(
         contract: contract,
         id: nft!.id,
