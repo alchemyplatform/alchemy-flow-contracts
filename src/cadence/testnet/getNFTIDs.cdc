@@ -48,6 +48,9 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import SomePlaceCollectible from 0x0c153e28da9f988a
+import ARTIFACTPack from 0xd6b5d6d271a2b544
+import ARTIFACT from 0xd6b5d6d271a2b544
+import NftReality from 0xa3222e7505186595
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -267,6 +270,21 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ARTIFACTPack.collectionPublicPath)
+    .borrow<&{ARTIFACTPack.CollectionPublic}>() {
+        ids["ARTIFACTPack"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
+    .borrow<&{ARTIFACT.CollectionPublic}>() {
+        ids["ARTIFACT"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(NftReality.CollectionPublicPath)
+    .borrow<&{NftReality.NftRealityCollectionPublic}>() {
+        ids["NftReality"] = col.getIDs()
     }
 
     return ids
