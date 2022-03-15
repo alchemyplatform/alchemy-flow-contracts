@@ -53,6 +53,10 @@ NftReality)
   echo "NftReality"
   flow scripts execute getNFTIDs.cdc 0x73c43b6c0a8a5b5b --network testnet
   ;;
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0xe0e251b47ff622ba --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

@@ -62,6 +62,7 @@ import YahooCollectible from 0x758252ab932a3416
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
+import RacingTime from 0x8d4fa88ffa2d9117
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -359,6 +360,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(NftReality.CollectionPublicPath)
     .borrow<&{NftReality.NftRealityCollectionPublic}>() {
         ids["NftReality"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(RacingTime.CollectionPublicPath)
+    .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
+        ids["RacingTime"] = col.getIDs()
     }
 
     return ids
