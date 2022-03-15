@@ -41,6 +41,10 @@ YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
+  ;;
 ARTIFACTPack)
   echo "ARTIFACTPack"
   flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet

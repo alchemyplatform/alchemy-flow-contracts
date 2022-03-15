@@ -286,6 +286,11 @@ Kicks)
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
   
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
 ARTIFACTPack)
   echo "ARTIFACTPack"
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet

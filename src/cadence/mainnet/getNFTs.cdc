@@ -60,6 +60,7 @@ import DGD_NFT from 0x329feb3ab062d289
 import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
+import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
@@ -215,7 +216,9 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
-                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
+                case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
+                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
+
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
@@ -2675,6 +2678,49 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "client_id": metadata["clientId"],
             "max_count": metadata["maxCount"],
             "copy_number": metadata["copyNumber"]
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x667a16294a089ef8/contract/SomePlaceCollectible
+pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "SomePlaceCollectible",
+        address: 0x667a16294a089ef8,
+        storage_path: "SomePlaceCollectible.CollectionStoragePath",
+        public_path: "SomePlaceCollectible.CollectionPublicPath",
+        public_collection_name: "SomePlaceCollectible.CollectibleCollectionPublic",
+        external_domain: "https://some.place",
+    )
+
+    let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
+        .borrow<&{SomePlaceCollectible.CollectibleCollectionPublic}>()
+    if col == nil { return nil }
+
+    let optNft = col!.borrowCollectible(id: id)
+    if optNft == nil { return nil }
+    let nft = optNft!
+
+    let setID = nft.setID
+    let setMetadata = SomePlaceCollectible.getMetadataForSetID(setID: setID)!
+    let editionMetadata = SomePlaceCollectible.getMetadataForNFTByUUID(uuid: nft.id)!
+
+    return NFTData(
+        contract: contract,
+        id: nft.id,
+        uuid: nft.uuid,
+        title: editionMetadata.getMetadata()["title"] ?? setMetadata.getMetadata()["title"] ?? "",
+        description: editionMetadata.getMetadata()["description"] ?? setMetadata.getMetadata()["description"] ?? "",
+        external_domain_view_url: "https://some.place",
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft.editionNumber,
+            "editionCount": setMetadata.getMaxNumberOfEditions(),
+            "royaltyAddress": "0x8e2e0ebf3c03aa88",
+            "royaltyPercentage": "10.0"
         }
     )
 }
