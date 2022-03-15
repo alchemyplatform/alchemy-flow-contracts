@@ -57,6 +57,10 @@ MatrixWorldAssetsNFT)
   echo "MatrixWorldAssetsNFT"
   flow scripts execute getNFTIDs.cdc 0xed2a0254c4130116 --network testnet
   ;;
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0xe0e251b47ff622ba --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
