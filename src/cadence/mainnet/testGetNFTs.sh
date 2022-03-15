@@ -296,6 +296,11 @@ NftReality)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5892036f9111fbb8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NftReality" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x70f9008528cf2a10" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MatrixWorldAssetsNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "306" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

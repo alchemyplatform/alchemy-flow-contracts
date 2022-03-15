@@ -301,6 +301,11 @@ NftReality)
   flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
   ;;
 
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTIDs.cdc 0x70f9008528cf2a10 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

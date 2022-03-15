@@ -62,6 +62,7 @@ import YahooCollectible from 0x758252ab932a3416
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
+import MatrixWorldAssetsNFT from 0xf20df769e658c257
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -359,6 +360,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(NftReality.CollectionPublicPath)
     .borrow<&{NftReality.NftRealityCollectionPublic}>() {
         ids["NftReality"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MatrixWorldAssetsNFT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MatrixWorldAssetsNFT"] = col.getIDs()
     }
 
     return ids
