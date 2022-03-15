@@ -215,7 +215,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
-                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
+                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
@@ -378,14 +378,11 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+            mediaUrl = "ipfs://".concat(metadataUrl)
         }
     }
 
@@ -457,16 +454,14 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+            mediaUrl = "ipfs://".concat(metadataUrl)
         }
     }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -727,16 +722,14 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
             mediaUrl = metadataUrl
         } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+            mediaUrl = "ipfs://".concat(metadataUrl)
         }
     }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2743,8 +2736,8 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     if col == nil { return nil }
 
     let nft = col!.borrow(id: id)
-    if nft == nil { 
-        return nil 
+    if nft == nil {
+        return nil
     }
 
     var description = ""
@@ -2780,7 +2773,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: metadata
     )
 }
-    
+
 // https://flow-view-source.com/mainnet/account/0x5892036f9111fbb8/contract/NftReality
 pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(

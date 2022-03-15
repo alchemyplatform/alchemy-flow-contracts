@@ -306,6 +306,11 @@ RacingTime)
   flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
   ;;
 
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

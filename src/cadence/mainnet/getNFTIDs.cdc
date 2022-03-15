@@ -351,12 +351,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{ARTIFACTPack.CollectionPublic}>() {
         ids["ARTIFACTPack"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
     .borrow<&{ARTIFACT.CollectionPublic}>() {
         ids["ARTIFACT"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(NftReality.CollectionPublicPath)
     .borrow<&{NftReality.NftRealityCollectionPublic}>() {
         ids["NftReality"] = col.getIDs()
