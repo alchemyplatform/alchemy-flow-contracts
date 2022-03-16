@@ -41,6 +41,26 @@ YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3b0f2d267cf8c8e9" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37379862" }] } }] }]' --network testnet
+  ;;
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6bc26c5911f3b19d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network testnet
+  ;;
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6bc26c5911f3b19d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "15" }] } }] }]' --network testnet
+  ;;
+NftReality)
+  echo "NftReality"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x73c43b6c0a8a5b5b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NftReality" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe0e251b47ff622ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RacingTime" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
