@@ -63,6 +63,7 @@ import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
+import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -368,6 +369,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["NftReality"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(MatrixWorldAssetsNFT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MatrixWorldAssetsNFT"] = col.getIDs()
+    }
+     
     if let col = owner.getCapability(RacingTime.CollectionPublicPath)
     .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
         ids["RacingTime"] = col.getIDs()

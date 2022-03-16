@@ -306,9 +306,9 @@ NftReality)
   flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
   ;;
 
-RacingTime)
-  echo "RacingTime"
-  flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTIDs.cdc 0x70f9008528cf2a10 --network mainnet
   ;;
 
 RacingTime)

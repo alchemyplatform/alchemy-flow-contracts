@@ -49,6 +49,7 @@ import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
 import NftReality from 0xa3222e7505186595
+import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
 
 pub struct NFTCollection {
@@ -185,6 +186,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
+                case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -2047,6 +2049,43 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "creator": nft!.metadata.creator,
             "creationDate": nft!.metadata.creationDate
         }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x95702b3642af3d0c/contract/MatrixWorldAssetsNFT
+pub fun getNftMatrixWorldAssetsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "MatrixWorldAssetsNFT",
+        address: 0x95702b3642af3d0c,
+        storage_path: "MatrixWorldAssetsNFT.collectionStoragePath",
+        public_path: "MatrixWorldAssetsNFT.collectionPublicPath",
+        public_collection_name: "NonFungibleToken.CollectionPublic, NonFungibleToken.Receiver, MatrixWorldAssetsNFT.Metadata", // interfaces required for initialization
+        external_domain: "https://matrixworld.org",
+    )
+
+    let col= owner
+        .getCapability(MatrixWorldAssetsNFT.collectionPublicPath)
+        .borrow<&{MatrixWorldAssetsNFT.Metadata, NonFungibleToken.CollectionPublic}>()
+        ?? panic("NFT Collection not found")
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    let metadata = col.getMetadata(id: id)
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: nft.uuid,
+        title: metadata["name"],
+        description: metadata["description"],
+        external_domain_view_url: "https://matrixworld.org/profile",
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["image"], mimetype: "image")
+        ],
+        metadata: metadata
     )
 }
 
