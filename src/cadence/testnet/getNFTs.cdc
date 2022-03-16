@@ -1597,23 +1597,16 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
 
-    let editionMetadata: {String: AnyStruct} = {
-           "editionID": editionData!.editionID,
-            "numberOfItemsMinted": editionData!.numberOfItemsMinted,
-            "printingLimit": editionData!.printingLimit!,
-            "editionNumber": nft!.data.editionNumber
-    }
-
-    let merchantData: {String: AnyStruct} = {
-        "merchantID": nft!.data.merchantID,
-        "merchantName": merchantName
-    }
-
-
-    let metadata: {String: AnyStruct} = {
-        "merchant": merchantData,
-        "edition": editionMetadata,
-        "nft": editionData!.metadata
+    let rawMetadata: {String: String} = {
+        "merchantID": nft!.data.merchantID.toString(),
+        "merchantName": merchantName,
+        "editionID": editionData!.editionID.toString(),
+        "numberOfItemsMinted": editionData!.numberOfItemsMinted.toString(),
+        "printingLimit": editionData!.printingLimit!.toString(),
+        "editionNumber": nft!.data.editionNumber.toString(),
+        "description": editionData!.metadata["description"]!,
+        "name":editionData!.metadata["name"]!,
+        "nftType":editionData!.metadata["description"]!
     }
 
      return NFTData(
@@ -1625,7 +1618,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [],
-        metadata: metadata,
+        metadata: rawMetadata,
     )
 }
 
