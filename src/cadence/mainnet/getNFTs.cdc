@@ -2053,10 +2053,6 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     var metadata = nft!.getMetadata()
-    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID }
-    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted }
-    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = Address(0xf3cc54f4d91c2f6c) }
-    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {
@@ -2068,6 +2064,18 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
             }
         }
     }
+
+    for key in metadata.keys {
+        if metadata[key]!.getType().isSubtype(of: Type<Number>()) {
+            metadata[key] = (metadata[key]! as! Number).toString()
+        } else if metadata[key]!.getType() != Type<String>() {
+            metadata.remove(key: key)
+        }
+    }
+    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID.toString() }
+    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" }
+    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
 
     return NFTData(
         contract: contract,
