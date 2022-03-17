@@ -280,12 +280,10 @@ pub fun getCnnNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -346,6 +344,11 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     metadata!.insert(key: "templateID", nft!.data.templateID.toString())
     metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -355,7 +358,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: metadata!["uri"],
         token_uri: nil,
         media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -619,8 +622,6 @@ pub fun getEternalShard(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: clipMetadata!["video_url"], mimetype: "video")],
         metadata: {
-            "clip": clipMetadata!,
-            "moment": momentMetadata!
         },
     )
 }
@@ -698,7 +699,7 @@ pub fun getVoucher(owner: PublicAccount, id: UInt64): NFTData? {
             "mediaURI": metadata!.mediaURI,
             "name": metadata!.name,
             "description": metadata!.description,
-            "typeID": nft!.typeID
+            "typeID": nft!.typeID.toString()
         },
     )
 }
@@ -850,10 +851,10 @@ pub fun getMusicBlock(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: token_uri,
         media: [],
         metadata: {
-            "creator": data.creator,
-            "cpower": data.cpower,
+            "creator": data.creator.toString(),
+            "cpower": data.cpower.toString(),
             "cid": data.cid,
-            "generation": data.generation
+            "generation": data.generation.toString()
         },
     )
 }
@@ -977,12 +978,10 @@ pub fun getRaceDay(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -1032,12 +1031,10 @@ pub fun getAndbox_NFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: setMeta!["image"], mimetype: mimeType),
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2084,6 +2081,9 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
             rawMetadata.insert(key: key, (metadata[key]! as! Number).toString())
         } else if metadata[key]!.getType() != Type<String>() {
             metadata.remove(key: key)
+        }
+        else if metadata[key]!.getType().isSubtype(of: Type<String>()) {
+            rawMetadata.insert(key: key, (metadata[key]! as! String))
         }
     }
     if (!metadata.containsKey("editionNumber")) { 
