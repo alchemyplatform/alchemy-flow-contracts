@@ -65,6 +65,10 @@ RacingTime)
   echo "RacingTime"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe0e251b47ff622ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RacingTime" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+Momentables)
+  echo "Momentables"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9f2eb43b6df02730" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Momentables" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "34" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

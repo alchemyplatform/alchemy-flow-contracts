@@ -310,7 +310,10 @@ MatrixWorldAssetsNFT)
   echo "MatrixWorldAssetsNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x70f9008528cf2a10" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MatrixWorldAssetsNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "306" }] } }] }]' --network mainnet
   ;;
-
+Momentables)
+  echo "Momentables"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xee54ca541c7b4893" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Momentables" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "85" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
