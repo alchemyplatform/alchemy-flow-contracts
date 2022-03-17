@@ -71,7 +71,7 @@ pub struct NFTData {
     pub let external_domain_view_url: String?
     pub let token_uri: String?
     pub let media: [NFTMedia?]
-    pub let metadata: {String: AnyStruct}
+    pub let metadata: {String: String}
 
     init(
         contract: NFTContractData,
@@ -82,7 +82,7 @@ pub struct NFTData {
         external_domain_view_url: String?,
         token_uri: String?,
         media: [NFTMedia?],
-        metadata: {String: AnyStruct}
+        metadata: {String: String}
     ) {
         self.contract = contract
         self.id = id
@@ -1724,7 +1724,7 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     let nfts = col!.getIDs()
     let nftData = col!.borrowNFT(id:id)
     if nfts == nil { return nil }
-    var nftMetaData : {String:AnyStruct} = {}
+    var nftMetaData : {String:String} = {}
     let nft = NFTContract.getNFTDataById(nftId: id)!
     if nft == nil { return nil }
 
@@ -1906,8 +1906,8 @@ pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
         ],
         metadata: {
-            "editionNumber": nft.editionNumber,
-            "editionCount": setMetadata.getMaxNumberOfEditions(),
+            "editionNumber": nft.editionNumber.toString(),
+            "editionCount": setMetadata.getMaxNumberOfEditions().toString(),
             "royaltyAddress": "0x0c153e28da9f988a",
             "royaltyPercentage": "10.0"
         }
@@ -1935,7 +1935,6 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     var metadata = nft!.data.metadata
     let title = metadata["artifactName"]!
     let description = metadata["artifactShortDescription"]!
-    let series = metadata["artifactLookupId"]!
 
     metadata["editionNumber"] = metadata["artifactEditionNumber"]!
     metadata["editionCount"] = metadata["artifactNumberOfEditions"]!
@@ -1948,7 +1947,7 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: title,
         description: description,
-        external_domain_view_url: "https://artifact.scmp.com/".concat(series),
+        external_domain_view_url: nil,
         token_uri: nil,
         media: [
             NFTMedia(uri: metadata["artifactFileUri"], mimetype: "video/mp4")

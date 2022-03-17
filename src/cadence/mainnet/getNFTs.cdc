@@ -86,7 +86,7 @@ pub struct NFTData {
     pub let external_domain_view_url: String?
     pub let token_uri: String?
     pub let media: [NFTMedia?]
-    pub let metadata: {String: AnyStruct}
+    pub let metadata: {String: String?}
 
     init(
         contract: NFTContract,
@@ -97,7 +97,7 @@ pub struct NFTData {
         external_domain_view_url: String?,
         token_uri: String?,
         media: [NFTMedia?],
-        metadata: {String: AnyStruct}
+        metadata: {String: String?}
     ) {
         self.contract = contract
         self.id = id
@@ -1089,12 +1089,10 @@ pub fun getRareRooms(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 
@@ -1433,6 +1431,16 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
     let description = "Goober living in the party mansion"
     let external_domain_view_url = "https://partymansion.io/gooberz/".concat(nft!.id.toString())
 
+    let rawMetadata: {String:String?} = {}
+
+    for key in nft!.data!.metadata!.keys {
+        if nft!.data!.metadata![key]!.getType().isSubtype(of: Type<Number>()) {
+            rawMetadata.insert(key: key, (nft!.data!.metadata![key]! as! Number).toString())
+        } else if nft!.data!.metadata![key]!.getType().isSubtype(of: Type<String>()) {
+            rawMetadata.insert(key: key, (nft!.data!.metadata![key]! as! String))
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1442,7 +1450,7 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: external_domain_view_url,
         token_uri: nil,
         media: [NFTMedia(uri: nft!.data!.uri, mimetype: "image")],
-        metadata: nft!.data!.metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -1469,7 +1477,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
 
-    let rawMetadata: {String: String} = {
+    let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
         "merchantName": merchantName,
         "editionID": editionData!.editionID.toString(),
@@ -1578,8 +1586,7 @@ pub fun getGeniaceNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "celebrityName": nft!.metadata!.celebrityName,
             "artist": nft!.metadata!.artist,
-            "rarity": getRarity(),
-            "data": nft!.metadata!.data
+            "rarity": getRarity()
         },
     )
 }
@@ -1613,7 +1620,7 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.metadata!.link, mimetype: "video")],
         metadata: {
             "author": nft!.metadata!.author,
-            "edition": nft!.metadata!.edition
+            "edition": nft!.metadata!.edition.toString()
         },
     )
 }
@@ -1786,7 +1793,7 @@ pub fun getMiamiNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: miamiData.mainVideo, mimetype: "video")],
         metadata: {
-            "creator": miamiData.creator,
+            "creator": miamiData.creator.toString(),
             "season": miamiData.season
         },
     )
@@ -1994,7 +2001,7 @@ pub fun getTheFabricantS1ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "name": nft!.name,
             "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
             "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
-            "coCreator": itemData.coCreator,
+            "coCreator": itemData.coCreator.toString(),
             "season": itemMetadata["season"]!.metadataValue
         }
     )
@@ -2028,13 +2035,13 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: "https://zeedz.mypinata.cloud/ipfs/".concat(nft!.imageURI), mimetype: "image")],
         metadata: {
-            "typeID": nft!.typeID,
-            "evoultionStage": nft!.evolutionStage,
+            "typeID": nft!.typeID.toString(),
+            "evoultionStage": nft!.evolutionStage.toString(),
             "serialNumber": nft!.serialNumber,
-            "editionNumber": nft!.edition,
-            "editionCount": nft!.editionCap,
+            "editionNumber": nft!.edition.toString(),
+            "editionCount": nft!.editionCap.toString(),
             "rarity": nft!.rarity,
-            "carbonOffset": nft!.carbonOffset
+            "carbonOffset": nft!.carbonOffset.toString()
         },
     )
 }
@@ -2058,6 +2065,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     var metadata = nft!.getMetadata()
+    var rawMetadata : {String: String?} = {}
     var media: [NFTMedia] = []
 
     if let mediaValue = metadata["media"] {
@@ -2073,14 +2081,27 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     for key in metadata.keys {
         if metadata[key]!.getType().isSubtype(of: Type<Number>()) {
             metadata[key] = (metadata[key]! as! Number).toString()
+            rawMetadata.insert(key: key, (metadata[key]! as! Number).toString())
         } else if metadata[key]!.getType() != Type<String>() {
             metadata.remove(key: key)
         }
     }
-    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.instanceID.toString() }
-    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() }
-    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" }
-    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
+    if (!metadata.containsKey("editionNumber")) { 
+        metadata["editionNumber"] = nft!.instanceID.toString() 
+        rawMetadata.insert(key: "editionNumber", nft!.instanceID.toString())
+    }
+    if (!metadata.containsKey("editionCount")) { 
+        metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() 
+        rawMetadata.insert(key: "editionCount", nft!.getBlueprint().numberMinted.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) { 
+        metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" 
+        rawMetadata.insert(key: "royaltyAddress", "0xf3cc54f4d91c2f6c")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) { 
+        metadata["royaltyPercentage"] = "5" 
+        rawMetadata.insert(key: "royaltyPercentage", "5")
+    }
 
     return NFTData(
         contract: contract,
@@ -2091,7 +2112,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: media,
-        metadata: metadata,
+        metadata: rawMetadata,
     )
 }
 
@@ -2215,12 +2236,10 @@ pub fun getCostacosNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2271,12 +2290,10 @@ pub fun getCanesVaultNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2320,12 +2337,10 @@ pub fun getAmericanAirlinesNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2376,12 +2391,10 @@ pub fun getTheNextCartelNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2432,12 +2445,10 @@ pub fun getAthletesUnlimitedNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2488,12 +2499,10 @@ pub fun getArtNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         },
     )
 }
@@ -2544,12 +2553,10 @@ pub fun getDGDNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: setMeta!["preview"], mimetype: "image")
         ],
         metadata: {
-            "set": setMeta!,
-            "series": seriesMeta!,
-            "edition": nft!.editionNum,
-            "max_editions": nftEditions!,
-            "set_id": nft!.setId,
-            "series_id": seriesId!
+            "edition": nft!.editionNum.toString(),
+            "max_editions": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         }
     )
 }
@@ -2588,8 +2595,8 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         ],
         metadata: {
             "rarity": additional["rarity"]!,
-            "editionNumber": nft!.editionNumber,
-            "editionCount": metadata.itemCount
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
         }
     )
 }
@@ -2627,8 +2634,8 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         ],
         metadata: {
             "rarity": metadata.getAdditional()["rarity"]!,
-            "editionNumber": nft!.editionNumber,
-            "editionCount": metadata.itemCount
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
         }
     )
 }
@@ -2674,12 +2681,6 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
         ],
         metadata: {
-            "client_name": metadata["clientName"],
-            "nft_type_id": metadata["nftTypeId"],
-            "creator_name": metadata["creatorName"],
-            "client_id": metadata["clientId"],
-            "max_count": metadata["maxCount"],
-            "copy_number": metadata["copyNumber"]
         }
     )
 }
@@ -2719,8 +2720,8 @@ pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
         ],
         metadata: {
-            "editionNumber": nft.editionNumber,
-            "editionCount": setMetadata.getMaxNumberOfEditions(),
+            "editionNumber": nft.editionNumber.toString(),
+            "editionCount": setMetadata.getMaxNumberOfEditions().toString(),
             "royaltyAddress": "0x8e2e0ebf3c03aa88",
             "royaltyPercentage": "10.0"
         }
@@ -2860,8 +2861,8 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid).concat("/").concat(ipfsFile.path!), mimetype: "image")
         ],
         metadata: {
-            "editionNumber": nft!.unit,
-            "editionCount": nft!.totalUnits,
+            "editionNumber": nft!.unit.toString(),
+            "editionCount": nft!.totalUnits.toString(),
             "company": nft!.metadata.company,
             "role": nft!.metadata.role,
             "description": nft!.metadata.description,
@@ -2938,9 +2939,9 @@ pub fun getRacingTimeNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: nft!.data!.ipfs, mimetype: "image")],
         metadata: {
-            "rewardID": nft!.data!.rewardID,
-            "typeID": nft!.data!.typeID,
-            "serialNumber": nft!.data!.serialNumber,
+            "rewardID": nft!.data!.rewardID.toString(),
+            "typeID": nft!.data!.typeID.toString(),
+            "serialNumber": nft!.data!.serialNumber.toString(),
             "ipfs": nft!.data!.ipfs
         }
     )
