@@ -298,6 +298,11 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -308,7 +313,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata,
     )
 }
 
@@ -345,6 +350,12 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
             mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
+
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -355,7 +366,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata,
     )
 }
 // https://flow-view-source.com/testnet/account/0xb45e7992680a0f7f/contract/CricketMoments
@@ -598,6 +609,11 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -608,7 +624,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata,
     )
 }
 

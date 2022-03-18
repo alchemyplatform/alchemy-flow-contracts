@@ -381,7 +381,6 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
-
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
@@ -391,6 +390,11 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         } else {
             mediaUrl = "ipfs://".concat(metadataUrl)
         }
+    }
+
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
     }
 
     return NFTData(
@@ -403,7 +407,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata,
     )
 }
 
@@ -469,6 +473,11 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -479,7 +488,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata,
     )
 }
 
@@ -735,6 +744,11 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    let outputMetadata: {String: String?} = {} 
+    for key in metadata!.keys {
+        outputMetadata[key] = metadata![key]
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -745,7 +759,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: outputMetadata!,
     )
 }
 
