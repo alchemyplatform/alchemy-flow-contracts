@@ -41,6 +41,18 @@ import ItemNFT from 0x716db717f9240d8a
 import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
+import BarterYardPackNFT from 0x4300fc3a11778a9a
+import DayNFT from 0x0b7f00d13cd033bd
+import NFTContract from 0xed15722048e03cea
+import NowggNFT from 0x1a3e64df3663edd3
+import GogoroCollectible from 0x5fc35f03a6f33561
+import YahooCollectible from 0x5d50ce3fd080edce
+import SomePlaceCollectible from 0x0c153e28da9f988a
+import ARTIFACTPack from 0xd6b5d6d271a2b544
+import ARTIFACT from 0xd6b5d6d271a2b544
+import NftReality from 0xa3222e7505186595
+import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
+import RacingTime from 0xe0e251b47ff622ba
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -179,7 +191,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(OneFootballCollectible.CollectionPublicPath)
     .borrow<&{OneFootballCollectible.OneFootballCollectibleCollectionPublic}>() {
         ids["OneFootballCollectible"] = col.getIDs()
-    } 
+    }
 
     if let col = owner.getCapability(TheFabricantMysteryBox_FF1.CollectionPublicPath)
     .borrow<&{TheFabricantMysteryBox_FF1.FabricantCollectionPublic}>() {
@@ -195,16 +207,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{HaikuNFT.HaikuCollectionPublic}>() {
         ids["Bitku"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(FlowChinaBadge.CollectionPublicPath)
     .borrow<&{FlowChinaBadge.FlowChinaBadgeCollectionPublic}>() {
         ids["FlowFans"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(AllDay.CollectionPublicPath)
         .borrow<&{AllDay.MomentNFTCollectionPublic}>() {
             ids["AllDay"] = col.getIDs()
-    } 
+    }
     if let col = owner.getCapability(PackNFT.CollectionPublicPath)
         .borrow<&{NonFungibleToken.CollectionPublic}>() {
             ids["PackNFT"] = col.getIDs()
@@ -213,7 +225,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(ItemNFT.CollectionPublicPath)
         .borrow<&{ItemNFT.ItemCollectionPublic}>() {
             ids["ItemNFT"] = col.getIDs()
-    } 
+    }
     if let col = owner.getCapability(TheFabricantS1ItemNFT.CollectionPublicPath)
         .borrow<&{TheFabricantS1ItemNFT.ItemCollectionPublic}>() {
             ids["TheFabricantS1ItemNFT"] = col.getIDs()
@@ -226,7 +238,66 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
 
     if let col = owner.getCapability(Kicks.CollectionPublicPath)
     .borrow<&{Kicks.KicksCollectionPublic}>() {
-        ids["NFTLX_ClosedSrc"] = col.getIDs()
+        ids["Kicks"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DayNFT.CollectionPublicPath)
+        .borrow<&{DayNFT.CollectionPublic}>() {
+            ids["DayNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NFTContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["NFTContract"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BarterYardPackNFT.CollectionPublicPath)
+    .borrow<&{ BarterYardPackNFT.BarterYardPackNFTCollectionPublic }>() {
+        ids["BarterYardPack"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NowggNFT.CollectionPublicPath)
+    .borrow<&{NowggNFT.NowggNFTCollectionPublic}>() {
+        ids["NowggNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(GogoroCollectible.CollectionPublicPath)
+    .borrow<&{GogoroCollectible.CollectionPublic}>() {
+        ids["GogoroCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(YahooCollectible.CollectionPublicPath)
+    .borrow<&{YahooCollectible.CollectionPublic}>() {
+        ids["YahooCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["SomePlaceCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ARTIFACTPack.collectionPublicPath)
+    .borrow<&{ARTIFACTPack.CollectionPublic}>() {
+        ids["ARTIFACTPack"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ARTIFACT.collectionPublicPath)
+    .borrow<&{ARTIFACT.CollectionPublic}>() {
+        ids["ARTIFACT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NftReality.CollectionPublicPath)
+    .borrow<&{NftReality.NftRealityCollectionPublic}>() {
+        ids["NftReality"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(MatrixWorldAssetsNFT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MatrixWorldAssetsNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(RacingTime.CollectionPublicPath)
+    .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
+        ids["RacingTime"] = col.getIDs()
     }
 
     return ids
