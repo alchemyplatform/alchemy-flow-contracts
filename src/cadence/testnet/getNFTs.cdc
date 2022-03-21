@@ -1687,7 +1687,10 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         "editionNumber": nft!.data.editionNumber.toString(),
         "description": editionData!.metadata["description"]!,
         "name":editionData!.metadata["name"]!,
-        "nftType":editionData!.metadata["description"]!
+        "nftType":editionData!.metadata["nftType"]!,
+        "editionCount": editionData!.printingLimit!.toString(),
+        "royaltyAddress": editionData!.metadata["royaltyAddress"],
+        "royaltyPercentage": editionData!.metadata["royaltyPercentage"]
     }
 
      return NFTData(
@@ -1698,7 +1701,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         description: description,
         external_domain_view_url: nil,
         token_uri: nil,
-        media: [],
+        media: [NFTMedia(uri: editionData!.metadata["mediaURL"], mimetype: editionData!.metadata["mimetype"])],
         metadata: rawMetadata,
     )
 }
