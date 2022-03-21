@@ -139,7 +139,7 @@ pub struct NFT {
     pub let external_domain_view_url: String? // api for nft view resource
     pub let media: Media? // media defined bellow used as avatar of nft
     pub let alternate_media: [Media?] // alternative media to the primary media above
-    pub let metadata: {String: AnyStruct} // all the metadata in raw
+    pub let metadata: {String: String?} // all the metadata in raw
 }
 ```
 

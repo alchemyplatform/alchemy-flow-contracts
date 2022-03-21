@@ -16,9 +16,9 @@ Starly)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd88dea66b28c8637" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "StarlyCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "752" }] } }] }]' --network mainnet
   ;;
 
-MyNft)
-  echo "Eternal"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1f56a1e665826a52" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Shard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6014" }] } }] }]' --network mainnet
+EternalShard)
+  echo "EternalShard"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1f56a1e665826a52" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "EternalShard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6014" }] } }] }]' --network mainnet
   ;;
 
 NyatheesOVO)
@@ -34,11 +34,6 @@ RaceDay_NFT)
 RareRooms_NFT)
   echo "RareRooms_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xc2f0dc51f05dc239" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RareRooms_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "50720" }] } }] }]' --network mainnet
-  ;;
-
-EternalShard)
-  echo "EternalShard"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1f56a1e665826a52" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "EternalShard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6014" }] } }] }]' --network mainnet
   ;;
 
 EternalMoment)
@@ -314,6 +309,12 @@ Momentables)
   echo "Momentables"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xee54ca541c7b4893" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Momentables" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "85" }] } }] }]' --network mainnet
   ;;
+
+TopShot)
+  echo "TopShot"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x7e53480dbbac19b4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TopShot" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "19102634" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
