@@ -1368,6 +1368,10 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = TopShot.getPlayMetaData(playID: nft!.data.playID)!
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
 
     return NFTData(
         contract: contract,
@@ -1378,7 +1382,7 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [],
-        metadata: metadata,
+        metadata: rawMetadata,
     )
 }
 
@@ -2822,6 +2826,11 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2833,7 +2842,7 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: metadata["artifactFileUri"], mimetype: "video/mp4")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
@@ -2878,6 +2887,12 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2889,7 +2904,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: mediaUri, mimetype: "image/png")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
@@ -2961,6 +2976,10 @@ pub fun getNftMatrixWorldAssetsNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = col.getMetadata(id: id)
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
 
     return NFTData(
         contract: contract,
@@ -2973,7 +2992,7 @@ pub fun getNftMatrixWorldAssetsNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: metadata["image"], mimetype: "image")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
