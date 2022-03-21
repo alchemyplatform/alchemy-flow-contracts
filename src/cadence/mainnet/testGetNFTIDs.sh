@@ -316,6 +316,11 @@ RacingTime)
   flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
   ;;
 
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x675d0b4a68754b6d --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

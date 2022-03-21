@@ -66,6 +66,7 @@ import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
+import DropzToken from 0x2ba17360b76f0143
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -223,6 +224,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
+                case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3031,6 +3033,43 @@ pub fun getRacingTimeNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "typeID": nft!.data!.typeID.toString(),
             "serialNumber": nft!.data!.serialNumber.toString(),
             "ipfs": nft!.data!.ipfs
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x2ba17360b76f0143/contract/DropzToken
+pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "DropzToken",
+        address: 0x2ba17360b76f0143,
+        storage_path: "DropzToken.CollectionStoragePath",
+        public_path: "DropzToken.CollectionPublicPath",
+        public_collection_name: "DropzToken.DropzTokenCollectionPublic",
+        external_domain: "https://dropznft.xyz"
+    )
+
+    let col = owner.getCapability(DropzToken.CollectionPublicPath)
+        .borrow<&{DropzToken.DropzTokenCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDropzToken(id: id)
+    if nft == nil { return nil }
+
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+    let thumbnail = display.thumbnail as! MetadataViews.IPFSFile
+    let metadata = nft!.resolveView(Type<DropzToken.IPFSTokenMetadata>())! as! DropzToken.IPFSTokenMetadata
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: metadata.uri(),
+        media: [NFTMedia(uri: thumbnail.uri(), mimetype: "image")],
+        metadata: {
+            "ipfs": metadata.uri()
         }
     )
 }

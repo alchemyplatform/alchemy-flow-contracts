@@ -65,6 +65,10 @@ RacingTime)
   echo "RacingTime"
   flow scripts execute getNFTIDs.cdc 0xe0e251b47ff622ba --network testnet
   ;;
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x439877bf53be43cf --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
