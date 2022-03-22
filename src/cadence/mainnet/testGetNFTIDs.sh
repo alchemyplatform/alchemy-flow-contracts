@@ -316,6 +316,16 @@ RacingTime)
   flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
   ;;
 
+GoatedGoats)
+  echo "GoatedGoats"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+GoatedGoatsTrait)
+  echo "GoatedGoatsTrait"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
