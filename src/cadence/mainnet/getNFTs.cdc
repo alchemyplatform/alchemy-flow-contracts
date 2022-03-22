@@ -3134,7 +3134,7 @@ pub fun getGoatedGoatsTrait(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x2ba17360b76f0143/contract/DropzToken
 pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
+    let contract = NFTContract(
         name: "DropzToken",
         address: 0x2ba17360b76f0143,
         storage_path: "DropzToken.CollectionStoragePath",
