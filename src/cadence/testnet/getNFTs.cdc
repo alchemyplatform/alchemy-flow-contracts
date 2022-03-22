@@ -254,6 +254,11 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     metadata!.insert(key: "templateID", nft!.data.templateID.toString())
     metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -263,7 +268,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: metadata!["uri"],
         token_uri: nil,
         media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -298,6 +303,11 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -308,7 +318,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -345,6 +355,12 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
             mediaUrl = ipfsPrefix.concat(metadataUrl)
         }
     }
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -355,7 +371,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeiedrlfjykj4svmaka7jdxnhr3osigtudyrhitxsf7ska5ljeiwlxa/Crave Critics Banner.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 // https://flow-view-source.com/testnet/account/0xb45e7992680a0f7f/contract/CricketMoments
@@ -443,6 +459,11 @@ pub fun getEternalMoment(owner: PublicAccount, id: UInt64): NFTData? {
     let metadata = Eternal.getPlayMetaData(playID: nft!.data.playID)
     if metadata == nil { return nil }
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -455,7 +476,7 @@ pub fun getEternalMoment(owner: PublicAccount, id: UInt64): NFTData? {
             uri: "https://gateway.pinata.cloud/ipfs/".concat(metadata!["Hash"]!),
             mimetype: "video"
         )],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -513,6 +534,11 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowFantastecNFT(id: id)
     if nft == nil { return nil }
 
+    let rawMetadata: {String:String?} = {}
+    for key in nft!.metadata!.keys {
+        rawMetadata.insert(key: key, nft!.metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -522,7 +548,7 @@ pub fun getFantastecNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [],
-        metadata: nft!.metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -735,7 +761,11 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowNFTItem(id: id)
     if nft == nil { return nil }
 
-    let meta = nft!.getMetadata()
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
 
     return NFTData(
         contract: contract,
@@ -743,10 +773,10 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: nil,
         description: nil,
-        external_domain_view_url: meta["url"],
+        external_domain_view_url: metadata["url"],
         token_uri: nil,
         media: [],
-        metadata: meta,
+        metadata: rawMetadata,
     )
 }
 
@@ -970,6 +1000,10 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = TopShot.getPlayMetaData(playID: nft!.data.playID)!
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
 
     return NFTData(
         contract: contract,
@@ -980,7 +1014,7 @@ pub fun getTopShot(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [],
-        metadata: metadata,
+        metadata: rawMetadata,
     )
 }
 
@@ -1006,6 +1040,10 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
 
     let URI = "https://www.flowns.org/api/fns?domain=".concat(name)
     let viewURL = "https://www.flowns.org/api/data?domain=".concat(name)
+    let rawMetadata: {String:String?} = {}
+    for key in nft!.getAllTexts().keys {
+        rawMetadata.insert(key: key,nft!.getAllTexts()[key])
+    }
 
     return NFTData(
         contract: contract,
@@ -1016,7 +1054,7 @@ pub fun getFlownsDomain(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: viewURL,
         token_uri: nil,
         media: [NFTMedia(uri: URI, mimetype: "image")],
-        metadata: nft!.getAllTexts(),
+        metadata: rawMetadata,
     )
 }
 
@@ -1040,6 +1078,10 @@ pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = nft!.getMetadata()
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
 
     return NFTData(
         contract: contract,
@@ -1050,7 +1092,7 @@ pub fun getTFCItems(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "thefootballclub.com",
         token_uri: nil,
         media: [NFTMedia(uri: metadata["URL"]!, mimetype: "image")],
-        metadata: metadata,
+        metadata: rawMetadata,
     )
 }
 
@@ -1207,6 +1249,11 @@ pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCryptoZooNFT(id: id)
     if nft == nil { return nil }
 
+    let rawMetadata: {String:String?} = {}
+    for key in nft!.getNFTTemplate()!.getMetadata()!.keys {
+        rawMetadata.insert(key: key, nft!.getNFTTemplate()!.getMetadata()![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -1216,7 +1263,7 @@ pub fun getInceptionAnimals(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!,
         media: [NFTMedia(uri: nft!.getNFTTemplate()!.getMetadata()["uri"]!, mimetype: nft!.getNFTTemplate()!.getMetadata()["mimetype"]!)],
-        metadata: nft!.getNFTTemplate()!.getMetadata()!,
+        metadata: rawMetadata,
     )
 }
 
@@ -1631,7 +1678,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
 
-    let rawMetadata: {String: String} = {
+    let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
         "merchantName": merchantName,
         "editionID": editionData!.editionID.toString(),
@@ -1640,7 +1687,10 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         "editionNumber": nft!.data.editionNumber.toString(),
         "description": editionData!.metadata["description"]!,
         "name":editionData!.metadata["name"]!,
-        "nftType":editionData!.metadata["description"]!
+        "nftType":editionData!.metadata["nftType"]!,
+        "editionCount": editionData!.printingLimit!.toString(),
+        "royaltyAddress": editionData!.metadata["royaltyAddress"],
+        "royaltyPercentage": editionData!.metadata["royaltyPercentage"]
     }
 
      return NFTData(
@@ -1651,7 +1701,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
         description: description,
         external_domain_view_url: nil,
         token_uri: nil,
-        media: [],
+        media: [NFTMedia(uri: editionData!.metadata["mediaURL"], mimetype: editionData!.metadata["mimetype"])],
         metadata: rawMetadata,
     )
 }
@@ -2002,6 +2052,11 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2013,7 +2068,7 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: metadata["artifactFileUri"], mimetype: "video/mp4")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
@@ -2058,6 +2113,11 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
 
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2069,7 +2129,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: mediaUri, mimetype: "image/png")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
@@ -2141,6 +2201,10 @@ pub fun getNftMatrixWorldAssetsNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = col.getMetadata(id: id)
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
 
     return NFTData(
         contract: contract,
@@ -2153,7 +2217,7 @@ pub fun getNftMatrixWorldAssetsNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [
             NFTMedia(uri: metadata["image"], mimetype: "image")
         ],
-        metadata: metadata
+        metadata: rawMetadata
     )
 }
 
