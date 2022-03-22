@@ -1982,49 +1982,6 @@ pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/testnet/account/0x0c153e28da9f988a/contract/SomePlaceCollectible
-pub fun getSomePlaceCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "SomePlaceCollectible",
-        address: 0x0c153e28da9f988a,
-        storage_path: "SomePlaceCollectible.CollectionStoragePath",
-        public_path: "SomePlaceCollectible.CollectionPublicPath",
-        public_collection_name: "SomePlaceCollectible.CollectibleCollectionPublic",
-        external_domain: "https://some.place",
-    )
-
-    let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
-        .borrow<&{SomePlaceCollectible.CollectibleCollectionPublic}>()
-    if col == nil { return nil }
-
-    let optNft = col!.borrowCollectible(id: id)
-    if optNft == nil { return nil }
-    let nft = optNft!
-
-    let setID = nft.setID
-    let setMetadata = SomePlaceCollectible.getMetadataForSetID(setID: setID)!
-    let editionMetadata = SomePlaceCollectible.getMetadataForNFTByUUID(uuid: nft.id)!
-
-    return NFTData(
-        contract: contract,
-        id: nft.id,
-        uuid: nft.uuid,
-        title: editionMetadata.getMetadata()["title"] ?? setMetadata.getMetadata()["title"] ?? "",
-        description: editionMetadata.getMetadata()["description"] ?? setMetadata.getMetadata()["description"] ?? "",
-        external_domain_view_url: "https://some.place",
-        token_uri: nil,
-        media: [
-            NFTMedia(uri: editionMetadata.getMetadata()["mediaURL"] ?? setMetadata.getMetadata()["mediaURL"] ?? "", mimetype: "image")
-        ],
-        metadata: {
-            "editionNumber": nft.editionNumber,
-            "editionCount": setMetadata.getMaxNumberOfEditions(),
-            "royaltyAddress": "0x0c153e28da9f988a",
-            "royaltyPercentage": "10.0"
-        }
-    )
-}
-
 // https://flow-view-source.com/testnet/account/0xd6b5d6d271a2b544/contract/ARTIFACT
 pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
