@@ -3039,7 +3039,6 @@ pub fun getRacingTimeNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x9d21537544d9123d/contract/Momentables
 pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
-
     let contract = NFTContract(
         name: "Momentables",
         address: 0x9d21537544d9123d,
@@ -3060,6 +3059,17 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     //let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
     let ipfsURL = "https://gateway.pinata.cloud/ipfs/".concat(nft!.imageCID);
 
+
+    let traits = nft!.getTraits();
+    let rawMetadata: {String:String?} = {}
+
+    for key in traits.keys {
+        let currentTrait = traits[key]!;
+        for currentTraitKey in currentTrait.keys{
+            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -3069,6 +3079,6 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
-        metadata: nft!.getTraits(),
+        metadata: rawMetadata
     )
 }
