@@ -315,6 +315,11 @@ TopShot)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x7e53480dbbac19b4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TopShot" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "19102634" }] } }] }]' --network mainnet
   ;;
 
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x675d0b4a68754b6d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DropzToken" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

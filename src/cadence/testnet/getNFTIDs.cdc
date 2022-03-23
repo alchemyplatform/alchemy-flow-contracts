@@ -54,6 +54,7 @@ import NftReality from 0xa3222e7505186595
 import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
 import Momentables from 0x9f2eb43b6df02730
+import DropzToken from 0xc74cca921807df36
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -304,6 +305,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Momentables.CollectionPublicPath)
     .borrow<&{Momentables.MomentablesCollectionPublic}>() {
         ids["Momentables"] = col.getIDs()
+    }
+       
+    if let col = owner.getCapability(DropzToken.CollectionPublicPath)
+    .borrow<&{DropzToken.DropzTokenCollectionPublic}>() {
+        ids["DropzToken"] = col.getIDs()
     }
 
     return ids

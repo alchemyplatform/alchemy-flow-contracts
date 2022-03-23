@@ -69,6 +69,10 @@ Momentables)
   echo "Momentables"
   flow scripts execute getNFTIDs.cdc 0x9f2eb43b6df02730 --network testnet
   ;;
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x439877bf53be43cf --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

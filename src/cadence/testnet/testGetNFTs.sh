@@ -69,6 +69,10 @@ Momentables)
   echo "Momentables"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9f2eb43b6df02730" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Momentables" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "34" }] } }] }]' --network testnet
   ;;
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x439877bf53be43cf" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DropzToken" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
