@@ -67,6 +67,8 @@ import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
 import Momentables from 0x9d21537544d9123d
+import GoatedGoats from 0x2068315349bdfce5
+import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 
 pub struct NFTCollection {
@@ -226,6 +228,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
                 case "Momentables": d = getMomentables(owner: owner, id: id)    
+                case "GoatedGoats": d = getGoatedGoats(owner: owner, id: id)
+                case "GoatedGoatsTrait": d = getGoatedGoatsTrait(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -3094,9 +3098,91 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x2068315349bdfce5/contract/GoatedGoats
+pub fun getGoatedGoats(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "GoatedGoats",
+        address: 0x2068315349bdfce5,
+        storage_path: "GoatedGoats.CollectionStoragePath",
+        public_path: "GoatedGoats.CollectionPublicPath",
+        public_collection_name: "GoatedGoats.GoatCollectionPublic",
+        external_domain: "https://goatedgoats.com/"
+    )
+
+    let col = owner.getCapability(GoatedGoats.CollectionPublicPath)
+        .borrow<&{MetadataViews.ResolverCollection,GoatedGoats.GoatCollectionPublic}>()
+    if col == nil { return nil }
+
+    let optNft = col!.borrowGoat(id: id)
+    if optNft == nil { return nil }
+    let nft = optNft!
+
+    let displayView = nft.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+
+    return NFTData(
+        contract: contract,
+        id: nft.id,
+        uuid: nft.uuid,
+        title: displayView.name,
+        description: displayView.description,
+        external_domain_view_url: "https://goatedgoats.com",
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://goatedgoats.mypinata.cloud/ipfs/".concat((displayView.thumbnail as! MetadataViews.IPFSFile).cid), mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft.goatID.toString(),
+            "editionCount": "10000",
+            "royaltyAddress": "0xd7081a5c66dc3e7f",
+            "royaltyPercentage": "5.0"
+        }
+    )
+ }
+
+// https://flow-view-source.com/mainnet/account/0x2068315349bdfce5/contract/GoatedGoatsTrait
+pub fun getGoatedGoatsTrait(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "GoatedGoatsTrait",
+        address: 0x2068315349bdfce5,
+        storage_path: "GoatedGoatsTrait.CollectionStoragePath",
+        public_path: "GoatedGoatsTrait.CollectionPublicPath",
+        public_collection_name: "GoatedGoatsTrait.TraitCollectionPublic",
+        external_domain: "https://goatedgoats.com/"
+    )
+
+    let col = owner.getCapability(GoatedGoatsTrait.CollectionPublicPath)
+        .borrow<&{MetadataViews.ResolverCollection,GoatedGoatsTrait.TraitCollectionPublic}>()
+    if col == nil { return nil }
+
+    let optNft = col!.borrowTrait(id: id)
+    if optNft == nil { return nil }
+    let nft = optNft!
+
+    let displayView = nft.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+
+    return NFTData(
+        contract: contract,
+        id: nft.id,
+        uuid: nft.uuid,
+        title: displayView.name,
+        description: displayView.description,
+        external_domain_view_url: "https://goatedgoats.com",
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://goatedgoats.mypinata.cloud/ipfs/".concat((displayView.thumbnail as! MetadataViews.IPFSFile).cid), mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft.id.toString(),
+            "editionCount": GoatedGoatsTrait.totalSupply.toString(),
+            "royaltyAddress": "0xd7081a5c66dc3e7f",
+            "royaltyPercentage": "5.0"
+        }
+    )
+ }
+
 // https://flow-view-source.com/mainnet/account/0x2ba17360b76f0143/contract/DropzToken
 pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
+    let contract = NFTContract(
         name: "DropzToken",
         address: 0x2ba17360b76f0143,
         storage_path: "DropzToken.CollectionStoragePath",
