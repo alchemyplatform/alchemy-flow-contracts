@@ -56,7 +56,6 @@ import RacingTime from 0xe0e251b47ff622ba
 import DropzToken from 0xc74cca921807df36
 
 
-
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
     let ids: {String: [UInt64]} = {}

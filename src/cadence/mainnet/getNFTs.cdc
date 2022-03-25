@@ -2769,6 +2769,12 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
         ],
         metadata: {
+            "clientName": metadata["clientName"]! as? String,
+            "nftTypeId": metadata["nftTypeId"]! as? String,
+            "creatorName": metadata["creatorName"]! as? String,
+            "clientId": metadata["clientId"]! as? String,
+            "maxCount": (metadata["maxCount"]! as? UInt64)!.toString(),
+            "copyNumber": (metadata["copyNumber"]! as? UInt64)!.toString()
         }
     )
 }
@@ -3165,57 +3171,6 @@ pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: thumbnail.uri(), mimetype: "image")],
         metadata: {
             "ipfs": metadata.uri()
-        }
-    )
-}
-
-// https://flow-view-source.com/mainnet/account/0x85b8bbf926dcddfa/contract/NowggNFT
-pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
-
-    let contract = NFTContract(
-        name: "NowggNFT",
-        address: 0x85b8bbf926dcddfa,
-        storage_path: "NowggNFT.CollectionStoragePath",
-        public_path: "NowggNFT.CollectionPublicPath",
-        public_collection_name: "NowggNFT.NowggNFTCollectionPublic",
-        external_domain: "https://nft.now.gg/"
-    )
-
-    let col = owner.getCapability(NowggNFT.CollectionPublicPath)
-        .borrow<&{NowggNFT.NowggNFTCollectionPublic}>()
-
-    if col == nil { return nil }
-
-    let nft = col!.borrowNowggNFT(id: id)
-
-    if nft == nil { return nil }
-
-    let nftInfo = nft!
-
-    let metadata = nftInfo.getMetadata()!
-    let nftTypeId = (metadata["nftTypeId"]! as! String)
-
-    let externalViewUrl = "https://nft.now.gg/nft/".concat(nftTypeId)
-
-    return NFTData(
-        contract: contract,
-        id: nftInfo.id,
-        uuid: nftInfo.uuid,
-        title: metadata["title"]! as? String,
-        description: metadata["description"]! as? String,
-        external_domain_view_url: externalViewUrl,
-        token_uri: nil,
-        media: [
-            NFTMedia(uri: metadata["displayUrl"]! as? String, mimetype: (metadata["displayUrlMediaType"]! as? String)),
-            NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
-        ],
-        metadata: {
-            "client_name": metadata["clientName"],
-            "nft_type_id": metadata["nftTypeId"],
-            "creator_name": metadata["creatorName"],
-            "client_id": metadata["clientId"],
-            "max_count": metadata["maxCount"],
-            "copy_number": metadata["copyNumber"]
         }
     )
 }
