@@ -32,7 +32,7 @@ DayNFT)
 NowggNFT)
   echo "NowggNFT"
   flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
-  ;;   
+  ;; 
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
@@ -40,6 +40,34 @@ GogoroCollectible)
 YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
+  ;;
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
+  ;;
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
+  ;;
+NftReality)
+  echo "NftReality"
+  flow scripts execute getNFTIDs.cdc 0x73c43b6c0a8a5b5b --network testnet
+  ;;
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTIDs.cdc 0xed2a0254c4130116 --network testnet
+  ;;
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0xe0e251b47ff622ba --network testnet
+  ;;
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x439877bf53be43cf --network testnet
   ;;
 *)
   echo "Unknown contract"

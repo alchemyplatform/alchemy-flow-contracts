@@ -83,7 +83,7 @@ GeniaceNFT)
 
 Everbloom)
   echo "Everbloom"
-  flow scripts execute getNFTIDs.cdc 0x6cced3c020fc5867 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x06193fb3f332748a --network mainnet
   ;;
 
 CricketMoments)
@@ -208,7 +208,7 @@ Andbox_NFT)
 
 ZeedzINO)
   echo "ZeedzINO"
-  flow scripts execute getNFTIDs.cdc 0xe1c34bb70fbb5357 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x62b3063fbe672fc8 --network mainnet
   ;;
 
 Kicks)
@@ -279,6 +279,56 @@ GogoroCollectible)
 YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
+Kicks)
+  echo "ClosedSrc - NFTLX"
+  flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
+  ;;
+  
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+  
+NftReality)
+  echo "NftReality"
+  flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
+  ;;
+
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTIDs.cdc 0x70f9008528cf2a10 --network mainnet
+  ;;
+
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
+  ;;
+
+GoatedGoats)
+  echo "GoatedGoats"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+GoatedGoatsTrait)
+  echo "GoatedGoatsTrait"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x675d0b4a68754b6d --network mainnet
   ;;
 
 *)
