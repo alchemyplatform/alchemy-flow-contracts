@@ -69,6 +69,11 @@ DropzToken)
   echo "DropzToken"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x439877bf53be43cf" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "DropzToken" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;;
+Necryptolis)
+  echo "Necryptolis"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x7116d5dba9264131" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "12" }] } }] }]' --network testnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

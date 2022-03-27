@@ -52,6 +52,7 @@ import NftReality from 0xa3222e7505186595
 import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
 import DropzToken from 0xc74cca921807df36
+import Necryptolis from 0x720bbc077f5b0bda
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -190,6 +191,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
+                case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2254,6 +2256,41 @@ pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: thumbnail.uri(), mimetype: "image")],
         metadata: {
             "ipfs": metadata.uri()
+        }
+    )
+}
+
+
+// https://flow-view-source.com/testnet/account/0x720bbc077f5b0bda/contract/Necryptolis
+pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Necryptolis",
+        address: 0x720bbc077f5b0bda,
+        storage_path: "Necryptolis.CollectionStoragePath",
+        public_path: "Necryptolis.CollectionPublicPath",
+        public_collection_name: "Necryptolis.NecryptolisCollectionPublic",
+        external_domain: "https://stage.necryptolis.com"
+    )
+
+    let col = owner.getCapability(Necryptolis.CollectionPublicPath)
+        .borrow<&{Necryptolis.NecryptolisCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCemeteryPlot(id: id)
+    if nft == nil { return nil }
+
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
+ 
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
+        metadata: {
         }
     )
 }
