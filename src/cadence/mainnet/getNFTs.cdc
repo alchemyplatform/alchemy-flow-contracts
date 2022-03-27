@@ -3198,7 +3198,7 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: display.name,
         description: display.description,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://www.necryptolis.com/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         metadata: {
