@@ -69,6 +69,7 @@ import Momentables from 0x9d21537544d9123d
 import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
+import Necryptolis from 0x718efe5e88fe48ea
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -401,6 +402,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DropzToken.CollectionPublicPath)
     .borrow<&{DropzToken.DropzTokenCollectionPublic}>() {
         ids["DropzToken"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Necryptolis.CollectionPublicPath)
+    .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
+        ids["Necryptolis"] = col.getIDs()
     }
 
     return ids

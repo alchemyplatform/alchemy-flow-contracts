@@ -73,6 +73,10 @@ DropzToken)
   echo "DropzToken"
   flow scripts execute getNFTIDs.cdc 0x439877bf53be43cf --network testnet
   ;;
+Necryptolis)
+  echo "Necryptolis"
+  flow scripts execute getNFTIDs.cdc 0x7116d5dba9264131 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

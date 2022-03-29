@@ -55,6 +55,7 @@ import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
 import Momentables from 0x9f2eb43b6df02730
 import DropzToken from 0xc74cca921807df36
+import Necryptolis from 0x720bbc077f5b0bda
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -310,6 +311,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DropzToken.CollectionPublicPath)
     .borrow<&{DropzToken.DropzTokenCollectionPublic}>() {
         ids["DropzToken"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Necryptolis.CollectionPublicPath)
+    .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
+        ids["Necryptolis"] = col.getIDs()
     }
 
     return ids
