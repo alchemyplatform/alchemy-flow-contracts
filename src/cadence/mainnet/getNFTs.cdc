@@ -2771,6 +2771,12 @@ pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: metadata["contentUrl"]! as? String, mimetype: (metadata["contentType"]! as? String))
         ],
         metadata: {
+            "clientName": metadata["clientName"]! as? String,
+            "nftTypeId": metadata["nftTypeId"]! as? String,
+            "creatorName": metadata["creatorName"]! as? String,
+            "clientId": metadata["clientId"]! as? String,
+            "maxCount": (metadata["maxCount"]! as? UInt64)!.toString(),
+            "copyNumber": (metadata["copyNumber"]! as? UInt64)!.toString()
         }
     )
 }
