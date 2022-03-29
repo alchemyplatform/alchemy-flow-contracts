@@ -66,6 +66,7 @@ import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
+import Momentables from 0x9d21537544d9123d
 import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
@@ -226,6 +227,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
+                case "Momentables": d = getMomentables(owner: owner, id: id)    
                 case "GoatedGoats": d = getGoatedGoats(owner: owner, id: id)
                 case "GoatedGoatsTrait": d = getGoatedGoatsTrait(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
@@ -3050,6 +3052,52 @@ pub fun getRacingTimeNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x9d21537544d9123d/contract/Momentables
+pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Momentables",
+        address: 0x9d21537544d9123d,
+        storage_path: "Momentables.CollectionStoragePath",
+        public_path: "Momentables.CollectionPublicPath",
+        public_collection_name: "Momentables.MomentablesCollectionPublic",
+        external_domain: "https://nextdecentrum.com"
+    )
+
+    let col = owner.getCapability(Momentables.CollectionPublicPath)
+        .borrow<&{Momentables.MomentablesCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowMomentables(id: id)
+    if nft == nil { return nil }
+
+    //let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+    let ipfsURL = "https://gateway.pinata.cloud/ipfs/".concat(nft!.imageCID);
+
+
+    let traits = nft!.getTraits();
+    let rawMetadata: {String:String?} = {}
+
+    for key in traits.keys {
+        let currentTrait = traits[key]!;
+        for currentTraitKey in currentTrait.keys{
+            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
+        }
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
+        metadata: rawMetadata
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0x2068315349bdfce5/contract/GoatedGoats
 pub fun getGoatedGoats(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
@@ -3089,7 +3137,7 @@ pub fun getGoatedGoats(owner: PublicAccount, id: UInt64): NFTData? {
             "royaltyPercentage": "5.0"
         }
     )
-}
+ }
 
 // https://flow-view-source.com/mainnet/account/0x2068315349bdfce5/contract/GoatedGoatsTrait
 pub fun getGoatedGoatsTrait(owner: PublicAccount, id: UInt64): NFTData? {
@@ -3130,7 +3178,7 @@ pub fun getGoatedGoatsTrait(owner: PublicAccount, id: UInt64): NFTData? {
             "royaltyPercentage": "5.0"
         }
     )
-}
+ }
 
 // https://flow-view-source.com/mainnet/account/0x2ba17360b76f0143/contract/DropzToken
 pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {

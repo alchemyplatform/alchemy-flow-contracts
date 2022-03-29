@@ -315,6 +315,10 @@ RacingTime)
   echo "RacingTime"
   flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
   ;;
+Momentables)
+  echo "Momentables"
+  flow scripts execute getNFTIDs.cdc 0xee54ca541c7b4893 --network mainnet
+  ;;
 
 GoatedGoats)
   echo "GoatedGoats"

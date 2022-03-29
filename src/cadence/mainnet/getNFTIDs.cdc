@@ -65,6 +65,7 @@ import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
+import Momentables from 0x9d21537544d9123d
 import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
@@ -380,6 +381,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(RacingTime.CollectionPublicPath)
     .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
         ids["RacingTime"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Momentables.CollectionPublicPath)
+    .borrow<&{Momentables.MomentablesCollectionPublic}>() {
+        ids["Momentables"] = col.getIDs()
     }
 
     if let col = owner.getCapability(GoatedGoats.CollectionPublicPath)

@@ -51,6 +51,7 @@ import ARTIFACT from 0xd6b5d6d271a2b544
 import NftReality from 0xa3222e7505186595
 import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
+import Momentables from 0x9f2eb43b6df02730
 import DropzToken from 0xc74cca921807df36
 
 pub struct NFTCollection {
@@ -189,6 +190,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
+                case "Momentables": d = getMomentables(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -2218,6 +2220,52 @@ pub fun getRacingTimeNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "serialNumber": nft!.data!.serialNumber.toString(),
             "ipfs": nft!.data!.ipfs
         }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x9f2eb43b6df02730/contract/Momentables
+pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContractData(
+        name: "Momentables",
+        address: 0x9f2eb43b6df02730,
+        storage_path: "Momentables.CollectionStoragePath",
+        public_path: "Momentables.CollectionPublicPath",
+        public_collection_name: "Momentables.MomentablesCollectionPublic",
+        external_domain: "https://nextdecentrum.com"
+    )
+
+    let col = owner.getCapability(Momentables.CollectionPublicPath)
+        .borrow<&{Momentables.MomentablesCollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowMomentables(id: id)
+    if nft == nil { return nil }
+
+    //let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+    let ipfsURL = "https://gateway.pinata.cloud/ipfs/".concat(nft!.imageCID);
+
+    let traits = nft!.getTraits();
+    let rawMetadata: {String:String?} = {}
+
+    for key in traits.keys {
+        let currentTrait = traits[key]!;
+        for currentTraitKey in currentTrait.keys{
+            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
+        }
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
+        metadata: rawMetadata
     )
 }
 
