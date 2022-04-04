@@ -342,7 +342,7 @@ Necryptolis)
 
 FLOAT)
   echo "FLOAT"
-  flow scripts execute getNFTIDs.cdc 0x2d4c3caffbeab845 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x92ba5cba77fc1e87 --network mainnet
   ;;
   
 *)
