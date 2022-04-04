@@ -2352,7 +2352,7 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 
-https://flow-view-source.com/testnet/account/0x0afe396ebc8eee65/contract/FLOAT
+//https://flow-view-source.com/testnet/account/0x0afe396ebc8eee65/contract/FLOAT
 pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "FLOAT",
