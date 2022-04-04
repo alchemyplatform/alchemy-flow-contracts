@@ -70,6 +70,8 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
+import FLOAT from 0x2d4c3caffbeab845
+
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -407,6 +409,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Necryptolis.CollectionPublicPath)
     .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
         ids["Necryptolis"] = col.getIDs()
+    }
+    
+    
+    if let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
+    .borrow<&{FLOAT.CollectionPublic}>() {
+        ids["FLOAT"] = col.getIDs()
     }
 
     return ids
