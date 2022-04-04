@@ -3274,7 +3274,7 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 
     let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
-        .borrow<&{FLOAT.CollectionPublic}>()
+        .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>()
     if col == nil { return nil }
 
     let float = col!.borrowFLOAT(id: id)
@@ -3288,15 +3288,16 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: float!.uuid,
         title: display.name,
         description: display.description,
-        external_domain_view_url: "https://floats.city/".concat(float!.eventHost.toString()).concat("/event/").concat(float!.eventId.toString()),
+        external_domain_view_url: "https://floats.city/".concat((float!.eventHost as Address).toString()).concat("/event/").concat(float!.eventId.toString()),
         token_uri: nil,
         media: [NFTMedia(uri: float!.eventImage, mimetype: "image")],
         metadata: {
             "eventName" : float!.eventName,
             "eventDescription" : float!.eventDescription,
-            "eventHost" : float!.eventHost.toString(),
+            "eventHost" : (float!.eventHost as Address).toString(),
             "eventId" : float!.eventId.toString(),
-            "eventImage" : float!.eventImage
+            "eventImage" : float!.eventImage,
+            "serial": float!.serial.toString()
         }
     )
 }
