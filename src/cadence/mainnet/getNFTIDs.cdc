@@ -412,7 +412,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
     
     if let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
-    .borrow<&{FLOAT.CollectionPublic}>() {
+    .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>() {
         ids["FLOAT"] = col.getIDs()
     }
 
