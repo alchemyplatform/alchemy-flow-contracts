@@ -337,7 +337,7 @@ Necryptolis)
 
 FLOAT)
   echo "FLOAT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2d4c3caffbeab845" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2d4c3caffbeab845" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
   
 *)
