@@ -77,7 +77,11 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x7116d5dba9264131" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "12" }] } }] }]' --network testnet
   ;;
-
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0afe396ebc8eee65" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+  
 *)
   echo "Unknown contract"
   ;;
