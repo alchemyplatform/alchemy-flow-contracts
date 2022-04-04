@@ -54,6 +54,7 @@ import RacingTime from 0xe0e251b47ff622ba
 import Momentables from 0x9f2eb43b6df02730
 import DropzToken from 0xc74cca921807df36
 import Necryptolis from 0x720bbc077f5b0bda
+import FLOAT from 0x2d4c3caffbeab845
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -194,6 +195,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Momentables": d = getMomentables(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
+                case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2345,6 +2347,46 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         metadata: {
+        }
+    )
+}
+
+
+https://flow-view-source.com/testnet/account/0x0afe396ebc8eee65/contract/FLOAT
+pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FLOAT",
+        address: 0x0afe396ebc8eee65,
+        storage_path: "FLOAT.FLOATCollectionStoragePath",
+        public_path: "FLOAT.FLOATCollectionPublicPath",
+        public_collection_name: "FLOAT.CollectionPublic",
+        external_domain: "https://floats.city/"
+    )
+
+    let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
+        .borrow<&{FLOAT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let float = col!.borrowFLOAT(id: id)
+    if float == nil { return nil }
+
+    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
+
+    return NFTData(
+        contract: contract,
+        id: float!.id,
+        uuid: float!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://floats.city/".concat(float!.eventHost.toString()).concat("/event/").concat(float!.eventId.toString())
+        token_uri: nil,
+        media: [NFTMedia(uri: float!.eventImage, mimetype: "image")],
+        metadata: {
+            "eventName" : float!.eventName,
+            "eventDescription" : float!.eventDescription,
+            "eventHost" : float!.eventHost,
+            "eventId" : float!.eventId,
+            "eventImage" : float!.eventImage
         }
     )
 }
