@@ -340,6 +340,11 @@ Necryptolis)
   flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
   ;;
 
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x2d4c3caffbeab845 --network mainnet
+  ;;
+  
 *)
   echo "Unknown contract"
   ;;
