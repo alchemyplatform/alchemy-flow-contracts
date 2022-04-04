@@ -2384,8 +2384,8 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "eventName" : float!.eventName,
             "eventDescription" : float!.eventDescription,
-            "eventHost" : float!.eventHost,
-            "eventId" : float!.eventId,
+            "eventHost" : float!.eventHost.toString(),
+            "eventId" : float!.eventId.toString(),
             "eventImage" : float!.eventImage
         }
     )
