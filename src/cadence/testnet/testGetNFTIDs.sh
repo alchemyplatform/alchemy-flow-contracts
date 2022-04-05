@@ -77,6 +77,11 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTIDs.cdc 0x7116d5dba9264131 --network testnet
   ;;
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTIDs.cdc 0x04625c28593d9408 --network testnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
