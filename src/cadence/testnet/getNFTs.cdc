@@ -1789,7 +1789,11 @@ pub fun getDayNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "message": nft!.title,
             "description": nft!.description,
             "thumbnail": nft!.thumbnail,
-            "date": nft!.dateStr
+            "date": nft!.dateStr,
+            "editionNumber": "1",
+            "editionCount": "1",
+            "royaltyAddress": "0x0b7f00d13cd033bd",
+            "royaltyPercentage": "5.0"
         }
     )
 }
