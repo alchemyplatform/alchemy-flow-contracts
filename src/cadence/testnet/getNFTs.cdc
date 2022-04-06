@@ -54,6 +54,7 @@ import RacingTime from 0xe0e251b47ff622ba
 import Momentables from 0x9f2eb43b6df02730
 import DropzToken from 0xc74cca921807df36
 import Necryptolis from 0x720bbc077f5b0bda
+import BreakingT_NFT from 0x04625c28593d9408
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -194,6 +195,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Momentables": d = getMomentables(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
+                case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
+
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2349,6 +2352,60 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         metadata: {
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x04625c28593d9408/contract/BreakingT_NFT
+pub fun getBreakingTNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "BreakingT_NFT",
+        address: 0x04625c28593d9408,
+        storage_path: "BreakingT_NFT.CollectionStoragePath",
+        public_path: "BreakingT_NFT.CollectionPublicPath",
+        public_collection_name: "BreakingT_NFT.BreakingT_NFT",
+        external_domain: "https://breakingt.com/",
+    )
+
+    let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
+        .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowBreakingT_NFT(id: id)
+    if nft == nil { return nil }
+
+    let setMeta = BreakingT_NFT.getSetMetadata(setId: nft!.setId)!
+    let seriesMeta = BreakingT_NFT.getSeriesMetadata(
+        seriesId: BreakingT_NFT.getSetSeriesId(setId: nft!.setId)!
+    )
+    let seriesId = BreakingT_NFT.getSetSeriesId(setId: nft!.setId)!
+    let nftEditions = BreakingT_NFT.getSetMaxEditions(setId: nft!.setId)!
+    let externalTokenViewUrl = "https://marketplace.breakingt.com/tokens/".concat(nft!.id.toString())
+
+    var mimeType = "image"
+    if setMeta!["image_file_type"]!.toLower() == "mp4" {
+        mimeType = "video/mp4"
+    } else if setMeta!["image_file_type"]!.toLower() == "glb" {
+        mimeType = "model/gltf-binary"
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: setMeta!["name"],
+        description: setMeta!["description"],
+        external_domain_view_url: externalTokenViewUrl,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: setMeta!["image"], mimetype: mimeType),
+            NFTMedia(uri: setMeta!["preview"], mimetype: "image")
+        ],
+        metadata: {
+            "editionNumber": nft!.editionNum.toString(),
+            "editionCount": nftEditions!.toString(),
+            "set_id": nft!.setId.toString(),
+            "series_id": seriesId!.toString()
         }
     )
 }
