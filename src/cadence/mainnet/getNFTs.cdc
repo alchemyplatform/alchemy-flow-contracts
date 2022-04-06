@@ -71,6 +71,7 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
+import LibraryPass from 0x4c4a03d405ed9520
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -233,6 +234,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "GoatedGoatsTrait": d = getGoatedGoatsTrait(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
+                case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3261,5 +3263,40 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         metadata: {
         }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x4c4a03d405ed9520/contract/LibraryPass
+pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "LibraryPass",
+        address: 0x4c4a03d405ed9520,
+        storage_path: "LibraryPass.CollectionPath",
+        public_path: "LibraryPass.CollectionPublicPath",
+        public_collection_name: "LibraryPass.CollectionPublic",
+        external_domain: "https://publishednft-35803.web.app/"
+    )
+
+    let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+        .borrow<&{LibraryPass.CollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowLibraryPassNFT(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata!["title"],
+        description: metadata!["description"],
+        external_domain_view_url: metadata!["uri"],
+        media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+        alternate_media: [],
+        metadata: metadata!,
     )
 }

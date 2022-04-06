@@ -335,6 +335,11 @@ Necryptolis)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa8faf3edb270f24e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "16" }] } }] }]' --network mainnet
   ;;
 
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4c4a03d405ed9520" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "LibraryPass" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

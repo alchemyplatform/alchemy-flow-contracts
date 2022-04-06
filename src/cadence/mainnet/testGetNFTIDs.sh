@@ -340,6 +340,11 @@ Necryptolis)
   flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
   ;;
 
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTIDs.cdc 0x4c4a03d405ed9520 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
