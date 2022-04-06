@@ -345,6 +345,11 @@ BreakingT_NFT)
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
   ;;
 
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x92ba5cba77fc1e87 --network mainnet
+  ;;
+  
 *)
   echo "Unknown contract"
   ;;

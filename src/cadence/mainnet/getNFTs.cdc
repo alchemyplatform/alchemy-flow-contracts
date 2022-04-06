@@ -71,8 +71,8 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
+import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
-
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -235,8 +235,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "GoatedGoatsTrait": d = getGoatedGoatsTrait(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
+                case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
-
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3268,6 +3268,47 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+//https://flow-view-source.com/mainnet/account/0x2d4c3caffbeab845/contract/FLOAT
+pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "FLOAT",
+        address: 0x2d4c3caffbeab845,
+        storage_path: "FLOAT.FLOATCollectionStoragePath",
+        public_path: "FLOAT.FLOATCollectionPublicPath",
+        public_collection_name: "FLOAT.CollectionPublic",
+        external_domain: "https://floats.city/"
+    )
+
+    let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
+        .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let float = col!.borrowFLOAT(id: id)
+    if float == nil { return nil }
+
+    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
+
+    return NFTData(
+        contract: contract,
+        id: float!.id,
+        uuid: float!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://floats.city/".concat((owner.address as Address).toString()).concat("/float/").concat(float!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: float!.eventImage, mimetype: "image")],
+        metadata: {
+            "eventName" : float!.eventName,
+            "eventDescription" : float!.eventDescription,
+            "eventHost" : (float!.eventHost as Address).toString(),
+            "eventId" : float!.eventId.toString(),
+            "eventImage" : float!.eventImage,
+            "serial": float!.serial.toString(),
+            "dateReceived": float!.dateReceived.toString()
+        }
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/BreakingT_NFT
 pub fun getBreakingTNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
@@ -3321,3 +3362,4 @@ pub fun getBreakingTNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     )
 }
+

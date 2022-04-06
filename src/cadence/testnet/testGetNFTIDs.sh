@@ -77,6 +77,10 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTIDs.cdc 0x7116d5dba9264131 --network testnet
   ;;
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x0afe396ebc8eee65 --network testnet
+  ;;
 BreakingT_NFT)
   echo "BreakingT_NFT"
   flow scripts execute getNFTIDs.cdc 0x04625c28593d9408 --network testnet
