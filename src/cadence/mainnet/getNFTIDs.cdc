@@ -71,7 +71,7 @@ import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
 import FLOAT from 0x2d4c3caffbeab845
-
+import BreakingT_NFT from 0x329feb3ab062d289
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -415,6 +415,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>() {
         ids["FLOAT"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
+    .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
+        ids["BreakingT_NFT"] = col.getIDs()
+    }  
 
     return ids
 }

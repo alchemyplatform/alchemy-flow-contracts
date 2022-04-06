@@ -340,6 +340,11 @@ FLOAT)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x92ba5cba77fc1e87" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "185466660" }] } }] }]' --network mainnet
   ;;
   
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BreakingT_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+  
 *)
   echo "Unknown contract"
   ;;

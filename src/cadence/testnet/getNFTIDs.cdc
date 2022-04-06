@@ -57,6 +57,8 @@ import Momentables from 0x9f2eb43b6df02730
 import DropzToken from 0xc74cca921807df36
 import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
+import BreakingT_NFT from 0x04625c28593d9408
+
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -323,5 +325,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["FLOAT"] = col.getIDs()
     }
     
+    if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
+    .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
+        ids["BreakingT_NFT"] = col.getIDs()
+    }
+
     return ids
 }
