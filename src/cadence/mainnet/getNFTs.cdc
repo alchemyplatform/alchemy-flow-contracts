@@ -2861,6 +2861,8 @@ pub fun getARTIFACT(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["editionCount"] = metadata["artifactNumberOfEditions"]!
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
+    metadata["rarity"] = metadata["artifactRarityLevel"]!
+    
 
     let rawMetadata: {String:String?} = {}
     for key in metadata.keys {
@@ -2922,6 +2924,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["editionCount"] = metadata["numberOfEditions"]!
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
+    metadata["rarity"] = metadata["artifactRarityLevel"]!
 
     let rawMetadata: {String:String?} = {}
     for key in metadata.keys {
