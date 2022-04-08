@@ -56,6 +56,7 @@ import DropzToken from 0xc74cca921807df36
 import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x04625c28593d9408
+import Owners from 0x890f42a0a872ae77
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -198,6 +199,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
+                case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2449,6 +2451,38 @@ pub fun getBreakingTNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "set_id": nft!.setId.toString(),
             "series_id": seriesId!.toString()
 
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x890f42a0a872ae77/contract/Owners
+pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Owners",
+        address: 0x890f42a0a872ae77,
+        storage_path: "/storage/OwnersCollection0x890f42a0a872ae77",
+        public_path: "Owners.CollectionPublicPath",
+        public_collection_name: "Owners.OwnersCollectionPublic",
+        external_domain: "https://nft-owners.jp"
+    )
+
+    let col = owner.getCapability(Owners.CollectionPublicPath)
+        .borrow<&{Owners.OwnersCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowOwners(id: id)
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nil,
+        title: nil,
+        description: nil,
+        external_domain_view_url: "https://stg.nft-owners.jp",
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://files.stg.nft-owners.jp/profile_images/".concat(nft!.twitterID.toString()).concat(".jpg"), mimetype: "image")],
+        metadata: {
+            "twitterID": nft!.twitterID.toString()
         }
     )
 }
