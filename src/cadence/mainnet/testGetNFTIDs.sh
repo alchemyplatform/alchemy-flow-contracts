@@ -339,12 +339,30 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
   ;;
+  
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
 
+<<<<<<< main
 LibraryPass)
   echo "LibraryPass"
   flow scripts execute getNFTIDs.cdc 0x4c4a03d405ed9520 --network mainnet
   ;;
 
+=======
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x92ba5cba77fc1e87 --network mainnet
+  ;;
+
+Owners)
+  echo "Owners"
+  flow scripts execute getNFTIDs.cdc 0x41cad19decccdf25 --network mainnet
+  ;;
+  
+>>>>>>> main
 *)
   echo "Unknown contract"
   ;;

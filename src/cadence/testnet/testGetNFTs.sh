@@ -77,7 +77,18 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x7116d5dba9264131" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "12" }] } }] }]' --network testnet
   ;;
-
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0afe396ebc8eee65" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x04625c28593d9408" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BreakingT_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "28149" }] } }] }]' --network testnet
+  ;;
+Owners)
+  echo "Owners"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x890f42a0a872ae77" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Owners" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

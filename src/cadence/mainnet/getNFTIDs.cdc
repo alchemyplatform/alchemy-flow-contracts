@@ -70,7 +70,13 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
+<<<<<<< main
 import LibraryPass from 0x4c4a03d405ed9520
+=======
+import FLOAT from 0x2d4c3caffbeab845
+import BreakingT_NFT from 0x329feb3ab062d289
+import Owners from 0x41cad19decccdf25
+>>>>>>> main
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -408,6 +414,21 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Necryptolis.CollectionPublicPath)
     .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
         ids["Necryptolis"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
+    .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>() {
+        ids["FLOAT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
+    .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
+        ids["BreakingT_NFT"] = col.getIDs()
+    }  
+
+    if let col = owner.getCapability(Owners.CollectionPublicPath)
+    .borrow<&{Owners.OwnersCollectionPublic}>() {
+        ids["Owners"] = col.getIDs()
     }
 
     if let col = owner.getCapability(LibraryPass.CollectionPublicPath)
