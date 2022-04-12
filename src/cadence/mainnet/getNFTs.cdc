@@ -3311,7 +3311,7 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
             "serial": float!.serial.toString(),
             "dateReceived": float!.dateReceived.toString(),
             "royaltyAddress": "0x5643fd47a29770e7",
-            "royaltyPercentage": "10.0"
+            "royaltyPercentage": "5.0"
         }
     )
 }
