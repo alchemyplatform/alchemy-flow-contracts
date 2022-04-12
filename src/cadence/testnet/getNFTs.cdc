@@ -278,6 +278,21 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+pub fun stringStartsWith(string: String, prefix: String): Bool {
+    let beginning = string.slice(from: 0, upTo: prefix.length)
+
+    let prefixArray = prefix.utf8
+    let beginningArray = beginning.utf8
+
+    for index, element in prefixArray {
+        if(beginningArray[index] != prefixArray[index]) {
+            return false
+        }
+    }
+
+    return true
+}
+
 // https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Beam
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -298,20 +313,31 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
-        } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+        }
+        else {
+            mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
 
+    var domainUrl: String? = nil
+    if metadata!["domainUrl"]  != nil {
+        let metadataDomainUrl = metadata!["domainUrl"]!
+        if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
+            domainUrl = metadataDomainUrl
+        }
+        else {
+            domainUrl = httpsScheme.concat(metadataDomainUrl)
+        }
+    }
+    
     let rawMetadata: {String:String?} = {}
     for key in metadata!.keys {
         rawMetadata.insert(key: key, metadata![key])
@@ -323,7 +349,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: metadata!["domainUrl"],
+        external_domain_view_url: domainUrl,
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
@@ -537,32 +563,48 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
-        } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+        }
+        else {
+            mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
+
+    var domainUrl: String? = nil
+    if metadata!["domainUrl"]  != nil {
+        let metadataDomainUrl = metadata!["domainUrl"]!
+        if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
+            domainUrl = metadataDomainUrl
+        }
+        else {
+            domainUrl = httpsScheme.concat(metadataDomainUrl)
+        }
+    }
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: metadata!["domainUrl"],
+        external_domain_view_url: domainUrl,
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
-    )
-}
+        metadata: rawMetadata,
+    )}
 
 // https://flow-view-source.com/testnet/account/0x336895dbe44c4b44/contract/KlktnNFT
 pub fun getKlktnNFT(owner: PublicAccount, id: UInt64): NFTData? {
