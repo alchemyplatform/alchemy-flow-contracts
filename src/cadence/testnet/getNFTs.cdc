@@ -1584,14 +1584,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/mainnet/account/0x20187093790b9aef/contract/MintStoreItem
 // https://flow-view-source.com/testnet/account/0x985d410b577fd4a1/contract/MintStoreItem
 pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "MintStoreItem",
-        address: 0x985d410b577fd4a1,
-        storage_path: "MintStoreItem.CollectionStoragePath",
-        public_path: "MintStoreItem.CollectionPublicPath",
-        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
-        external_domain: ""
-    )
+
 
     let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
         .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>()
@@ -1603,6 +1596,33 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let editionData = MintStoreItem.EditionData(editionID: nft!.data.editionID)!
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+
+
+    var external_domain = ""
+     switch merchantName {
+        case "Bulls":
+            external_domain =  "https://bulls.mint.store"
+            break;
+        case "Charlotte Hornets":
+            external_domain =  "https://hornets.mint.store"
+            break;
+        default:
+            external_domain =  ""
+     }
+
+     if editionData!.metadata["nftType"]! == "Type C" {
+         external_domain =  "https://misa.art/collections/nft"
+     }
+        
+    
+    let contract = NFTContractData(
+        name: merchantName,
+        address: 0x985d410b577fd4a1,
+        storage_path: "MintStoreItem.CollectionStoragePath",
+        public_path: "MintStoreItem.CollectionPublicPath",
+        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
+        external_domain: external_domain
+    )
 
     let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
