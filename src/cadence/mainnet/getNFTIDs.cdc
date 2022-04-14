@@ -65,6 +65,14 @@ import ARTIFACT from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
+import Momentables from 0x9d21537544d9123d
+import GoatedGoats from 0x2068315349bdfce5
+import GoatedGoatsTrait from 0x2068315349bdfce5
+import DropzToken from 0x2ba17360b76f0143
+import Necryptolis from 0x718efe5e88fe48ea
+import FLOAT from 0x2d4c3caffbeab845
+import BreakingT_NFT from 0x329feb3ab062d289
+import Owners from 0x41cad19decccdf25
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -377,6 +385,46 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(RacingTime.CollectionPublicPath)
     .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
         ids["RacingTime"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Momentables.CollectionPublicPath)
+    .borrow<&{Momentables.MomentablesCollectionPublic}>() {
+        ids["Momentables"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(GoatedGoats.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["GoatedGoats"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(GoatedGoatsTrait.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["GoatedGoatsTrait"] = col.getIDs()
+    }
+        
+    if let col = owner.getCapability(DropzToken.CollectionPublicPath)
+    .borrow<&{DropzToken.DropzTokenCollectionPublic}>() {
+        ids["DropzToken"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Necryptolis.CollectionPublicPath)
+    .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
+        ids["Necryptolis"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
+    .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>() {
+        ids["FLOAT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
+    .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
+        ids["BreakingT_NFT"] = col.getIDs()
+    }  
+
+    if let col = owner.getCapability(Owners.CollectionPublicPath)
+    .borrow<&{Owners.OwnersCollectionPublic}>() {
+        ids["Owners"] = col.getIDs()
     }
 
     return ids
