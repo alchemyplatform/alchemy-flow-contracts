@@ -315,7 +315,46 @@ RacingTime)
   echo "RacingTime"
   flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
   ;;
+Momentables)
+  echo "Momentables"
+  flow scripts execute getNFTIDs.cdc 0xee54ca541c7b4893 --network mainnet
+  ;;
 
+GoatedGoats)
+  echo "GoatedGoats"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+GoatedGoatsTrait)
+  echo "GoatedGoatsTrait"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x675d0b4a68754b6d --network mainnet
+  ;;
+
+Necryptolis)
+  echo "Necryptolis"
+  flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
+  ;;
+  
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x92ba5cba77fc1e87 --network mainnet
+  ;;
+
+Owners)
+  echo "Owners"
+  flow scripts execute getNFTIDs.cdc 0x41cad19decccdf25 --network mainnet
+  ;;
+  
 *)
   echo "Unknown contract"
   ;;
