@@ -2162,6 +2162,12 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     let traits = nft!.getTraits();
     let rawMetadata: {String:String?} = {}
 
+       // Core metadata attributes
+    rawMetadata.insert(key:"editionNumber", nft!.id.toString());
+    rawMetadata.insert(key:"editionCount", "7006");
+    rawMetadata.insert(key:"royaltyAddress", "0x9e1cf1801d78b2ed");
+    rawMetadata.insert(key:"royaltyPercentage", "10.1");
+
     for key in traits.keys {
         let currentTrait = traits[key]!;
         for currentTraitKey in currentTrait.keys{
