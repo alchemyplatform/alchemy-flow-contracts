@@ -57,7 +57,8 @@ import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
 import Metaverse from 0x161bcffdf67a19bc
-
+import VnMiss from 0x4fb7700ee1a19c44
+import AADigital from 0x03a4ea61342fcb6c
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -324,7 +325,17 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Metaverse.CollectionPublicPath)
     .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
         ids["Metaverse"] = col.getIDs()
-    } 
+    }
+
+    if let col = owner.getCapability(VnMiss.CollectionPublicPath)
+    .borrow<&{VnMiss.VnMissCollectionPublic}>() {
+        ids["VnMiss"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(AADigital.CollectionPublicPath)
+    .borrow<&{AADigital.AADigitalCollectionPublic}>() {
+        ids["AvatarArt"] = col.getIDs()
+    }
 
     return ids
 }

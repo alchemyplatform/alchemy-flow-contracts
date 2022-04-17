@@ -93,7 +93,14 @@ Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x161bcffdf67a19bc" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "168" }] } }] }]' --network testnet
   ;;
-
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "VnMiss" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "28" }] } }] }]' --network testnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xae12a483d2db4a63" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "121" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

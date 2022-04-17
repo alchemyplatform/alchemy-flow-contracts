@@ -359,6 +359,15 @@ Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
   ;;
+
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0xc925d811a14d3c21 --network mainnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0x80fd317af00c29fd --network mainnet
+  ;;
   
 *)
   echo "Unknown contract"

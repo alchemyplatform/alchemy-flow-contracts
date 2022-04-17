@@ -88,9 +88,18 @@ BreakingT_NFT)
 Owners)
   echo "Owners"
   flow scripts execute getNFTIDs.cdc 0x890f42a0a872ae77 --network testnet
+  ;;
 Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTIDs.cdc 0x161bcffdf67a19bc --network testnet
+  ;;
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0xae12a483d2db4a63 --network testnet
   ;;
 
 *)
