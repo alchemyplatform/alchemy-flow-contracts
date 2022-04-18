@@ -54,6 +54,7 @@ import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
+import Metaverse from 0x161bcffdf67a19bc
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -1626,14 +1627,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/mainnet/account/0x20187093790b9aef/contract/MintStoreItem
 // https://flow-view-source.com/testnet/account/0x985d410b577fd4a1/contract/MintStoreItem
 pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "MintStoreItem",
-        address: 0x985d410b577fd4a1,
-        storage_path: "MintStoreItem.CollectionStoragePath",
-        public_path: "MintStoreItem.CollectionPublicPath",
-        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
-        external_domain: ""
-    )
+
 
     let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
         .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>()
@@ -1645,6 +1639,33 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let editionData = MintStoreItem.EditionData(editionID: nft!.data.editionID)!
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+
+
+    var external_domain = ""
+     switch merchantName {
+        case "Bulls":
+            external_domain =  "https://bulls.mint.store"
+            break;
+        case "Charlotte Hornets":
+            external_domain =  "https://hornets.mint.store"
+            break;
+        default:
+            external_domain =  ""
+     }
+
+     if editionData!.metadata["nftType"]! == "Type C" {
+         external_domain =  "https://misa.art/collections/nft"
+     }
+        
+    
+    let contract = NFTContractData(
+        name: merchantName,
+        address: 0x985d410b577fd4a1,
+        storage_path: "MintStoreItem.CollectionStoragePath",
+        public_path: "MintStoreItem.CollectionPublicPath",
+        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
+        external_domain: external_domain
+    )
 
     let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
@@ -2183,6 +2204,12 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     let traits = nft!.getTraits();
     let rawMetadata: {String:String?} = {}
 
+       // Core metadata attributes
+    rawMetadata.insert(key:"editionNumber", nft!.id.toString());
+    rawMetadata.insert(key:"editionCount", "7006");
+    rawMetadata.insert(key:"royaltyAddress", "0x9e1cf1801d78b2ed");
+    rawMetadata.insert(key:"royaltyPercentage", "10.1");
+
     for key in traits.keys {
         let currentTrait = traits[key]!;
         for currentTraitKey in currentTrait.keys{
@@ -2400,5 +2427,36 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "twitterID": nft!.twitterID.toString()
         }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x161bcffdf67a19bc/contract/Metaverse
+pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Metaverse",
+        address: 0x161bcffdf67a19bc,
+        storage_path: "Metaverse.CollectionStoragePath",
+        public_path: "Metaverse.CollectionPublicPath",
+        public_collection_name: "Metaverse.MetaverseCollectionPublic",
+        external_domain: "https://ozonemetaverse.io"
+    )
+
+    let col = owner.getCapability(Metaverse.CollectionPublicPath)
+        .borrow<&{Metaverse.MetaverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMetaverse(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {}
     )
 }

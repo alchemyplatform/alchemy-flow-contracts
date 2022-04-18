@@ -56,6 +56,7 @@ import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
+import Metaverse from 0x161bcffdf67a19bc
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -319,6 +320,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{Owners.OwnersCollectionPublic}>() {
         ids["Owners"] = col.getIDs()
     }
+    
+    if let col = owner.getCapability(Metaverse.CollectionPublicPath)
+    .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
+        ids["Metaverse"] = col.getIDs()
+    } 
 
     return ids
 }

@@ -355,6 +355,11 @@ Owners)
   flow scripts execute getNFTIDs.cdc 0x41cad19decccdf25 --network mainnet
   ;;
 
+Metaverse)
+  echo "Metaverse"
+  flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

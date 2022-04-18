@@ -74,6 +74,7 @@ import Necryptolis from 0x718efe5e88fe48ea
 import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
+import Metaverse from 0xd756450f386fb4ac
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -239,6 +240,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
+                case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1587,14 +1589,7 @@ pub fun getGooberz(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/mainnet/account/0x20187093790b9aef/contract/MintStoreItem
 // https://flow-view-source.com/testnet/account/0x985d410b577fd4a1/contract/MintStoreItem
 pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
-        name: "MintStoreItem",
-        address: 0x20187093790b9aef,
-        storage_path: "MintStoreItem.CollectionStoragePath",
-        public_path: "MintStoreItem.CollectionPublicPath",
-        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
-        external_domain: ""
-    )
+
 
     let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
         .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>()
@@ -1606,6 +1601,33 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let editionData = MintStoreItem.EditionData(editionID: nft!.data.editionID)!
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+
+     var external_domain = ""
+     switch merchantName {
+        case "Bulls":
+            external_domain =  "https://bulls.mint.store"
+            break;
+        case "Charlotte Hornets":
+            external_domain =  "https://hornets.mint.store"
+            break;
+        default:
+            external_domain =  ""
+     }
+
+     if editionData!.metadata["nftType"]! == "Type C" {
+         external_domain =  "https://misa.art/collections/nft"
+     }
+        
+    
+    let contract = NFTContract(
+        name: merchantName,
+        address: 0x985d410b577fd4a1,
+        storage_path: "MintStoreItem.CollectionStoragePath",
+        public_path: "MintStoreItem.CollectionPublicPath",
+        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
+        external_domain: external_domain
+    )
+    
 
     let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
@@ -3147,6 +3169,13 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     let traits = nft!.getTraits();
     let rawMetadata: {String:String?} = {}
 
+    // Core metadata attributes
+    rawMetadata.insert(key:"editionNumber", nft!.id.toString());
+    rawMetadata.insert(key:"editionCount", "7006");
+    rawMetadata.insert(key:"royaltyAddress", "0x7dc1aa82a2f8d409");
+    rawMetadata.insert(key:"royaltyPercentage", "10.1");
+
+    // NFT Traits metadata
     for key in traits.keys {
         let currentTrait = traits[key]!;
         for currentTraitKey in currentTrait.keys{
@@ -3450,4 +3479,34 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0xd756450f386fb4ac/contract/Metaverse
+pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Metaverse",
+        address: 0xd756450f386fb4ac,
+        storage_path: "Metaverse.CollectionStoragePath",
+        public_path: "Metaverse.CollectionPublicPath",
+        public_collection_name: "Metaverse.MetaverseCollectionPublic",
+        external_domain: "https://ozonemetaverse.io"
+    )
+
+    let col = owner.getCapability(Metaverse.CollectionPublicPath)
+        .borrow<&{Metaverse.MetaverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMetaverse(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {}
+    )
+}
 
