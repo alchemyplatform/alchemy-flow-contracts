@@ -123,7 +123,7 @@ Xtingles)
 
 Beam)
   echo "Beam"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x13774a0e75c975d4" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Beam" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "14685" }] } }] }]' --network mainnet
+  flow scripts execute -l debug getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0a2b2b1cdbd59848" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Beam" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "14851" }] } }] }]' --network mainnet
   ;;
 
 Crave)
@@ -133,7 +133,7 @@ Crave)
 
 KOTD)
   echo "KOTD"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe4bf17ded24f783d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KOTD" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4877" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe9731837a1de398f" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "KOTD" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "10066" }] } }] }]' --network mainnet
   ;;
 
 InceptionAnimals)
@@ -168,8 +168,8 @@ MiamiNFT)
 
 Bitku)
   echo "Bitku"
-    flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf61e40c19db2a9e2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Bitku" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
-    ;;
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf61e40c19db2a9e2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Bitku" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
 
 FlowFans)
   echo "FlowFans"
@@ -204,7 +204,7 @@ Andbox_NFT)
 ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x62b3063fbe672fc8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
-;;
+  ;;
 
 Kicks)
   echo "ClosedSrc - NFTLX"
@@ -339,7 +339,7 @@ FLOAT)
   echo "FLOAT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x92ba5cba77fc1e87" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "185466660" }] } }] }]' --network mainnet
   ;;
-  
+
 BreakingT_NFT)
   echo "BreakingT_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x329feb3ab062d289" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BreakingT_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
@@ -352,7 +352,7 @@ Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd756450f386fb4ac" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
-  
+
 *)
   echo "Unknown contract"
   ;;
