@@ -57,7 +57,7 @@ import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
 import Metaverse from 0x161bcffdf67a19bc
-
+import SwaychainNFT from 0x5dfbd0d5aba6acf7
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -324,7 +324,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Metaverse.CollectionPublicPath)
     .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
         ids["Metaverse"] = col.getIDs()
-    } 
+    }
+
+    if let col = owner.getCapability(SwaychainNFT.SwaychainNFTCollectionPublic)
+    .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
+        ids["Swaychain"] = col.getIDs()
+    }
 
     return ids
 }

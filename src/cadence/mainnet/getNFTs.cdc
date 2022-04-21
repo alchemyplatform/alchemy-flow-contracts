@@ -75,6 +75,7 @@ import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
+import SwaychainNFT from 0xa4e9020ad21eb30b
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -241,6 +242,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
+                case "SwaychainNFT": d = getSwaychainNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3510,3 +3512,33 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/SwaychainNFT
+pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Swaychain",
+        address: 0x5dfbd0d5aba6acf7,
+        storage_path: "SwaychainNFT.CollectionStoragePath",
+        public_path: "SwaychainNFT.CollectionPublicPath",
+        public_collection_name: "ShawychainNFT.SwaychainNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
+        .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nil,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: {}
+    )
+}
