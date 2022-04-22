@@ -24,7 +24,7 @@ BarterYard)
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0x0add010813a8c23f --network testnet
-  ;;    
+  ;;
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet

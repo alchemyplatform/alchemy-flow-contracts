@@ -348,9 +348,16 @@ BreakingT_NFT)
 Owners)
   echo "Owners"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x41cad19decccdf25" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Owners" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+  
 Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd756450f386fb4ac" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
+NFTContract)
+  echo "NFTContract"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xcb5b64e4ae34e3ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "13" }] } }] }]' --network mainnet
   ;;
 
 *)
