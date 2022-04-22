@@ -37,7 +37,7 @@ flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x
 Output:
 
 ```
-Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTData(contract: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTContract(name: "Gaia", address: 0x8b148183c28ff88f, storage_path: "Gaia.CollectionStoragePath", public_path: "Gaia.CollectionPublicPath", public_collection_name: "Gaia.CollectionPublic", external_domain: "ballerz.xyz"), id: 1129, uuid: 74658161, title: "BALLER #1024", description: "A basketball-inspired generative NFT living on the Flow blockchain", external_domain_view_url: "/collection/ballerz//1024", media: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTMedia(uri: "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", mimetype: "image"), alternate_media: [], metadata: {"id": "1024", "body": "Human I", "team": "Los Angeles Knives", "accessories": "Pencil", "jersey": "Home", "hair": "Pink Pigtails", "role": "Player", "number": "67", "dunks": "85", "shooting": "85", "playmaking": "82", "defense": "87", "img": "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", "title": "BALLER #1024", "description": "A basketball-inspired generative NFT living on the Flow blockchain", "uri": "/collection/ballerz//1024"})]
+Result: [s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTData(contract: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTContractData(name: "Gaia", address: 0x8b148183c28ff88f, storage_path: "Gaia.CollectionStoragePath", public_path: "Gaia.CollectionPublicPath", public_collection_name: "Gaia.CollectionPublic", external_domain: "ballerz.xyz"), id: 1129, uuid: 74658161, title: "BALLER #1024", description: "A basketball-inspired generative NFT living on the Flow blockchain", external_domain_view_url: "/collection/ballerz//1024", media: s.1a80e96259b9dd336bf3c2527c515f2713e46b64b482de17986fd3c4af90b633.NFTMedia(uri: "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", mimetype: "image"), alternate_media: [], metadata: {"id": "1024", "body": "Human I", "team": "Los Angeles Knives", "accessories": "Pencil", "jersey": "Home", "hair": "Pink Pigtails", "role": "Player", "number": "67", "dunks": "85", "shooting": "85", "playmaking": "82", "defense": "87", "img": "ipfs://QmaUhmEgy5Znagz2ayY2uyn5Xdbsvzm8PkBM1GghtsXihv/1024.png", "title": "BALLER #1024", "description": "A basketball-inspired generative NFT living on the Flow blockchain", "uri": "/collection/ballerz//1024"})]
 ```
 
 ## Adding a new contract
@@ -83,7 +83,7 @@ The steps below explain how to create a pull request.
    // https://flow-view-source.com/mainnet/account/0x8b148183c28ff88f/contract/Gaia
    pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 
-       let contract = NFTContract(
+       let contract = NFTContractData(
            name: "Gaia",
            address: 0x8b148183c28ff88f,
            storage_path: "Gaia.CollectionPath",
