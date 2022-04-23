@@ -2,9 +2,7 @@ import NonFungibleToken from 0x631e88ae7f1d7c20
 import Gaia from 0xc523a8bbf10fc4a3
 import Beam from 0x6085ae87e78e1433
 import ChainmonstersRewards from 0x75783e3c937304a8
-import Crave from 0x6085ae87e78e1433
 import CricketMoments from 0xb45e7992680a0f7f
-import Everbloom from 0xf30d2f642de8c895
 import Shard from 0x7ff5f9ac593c3ee0
 import FantastecNFT from 0x7b4fab78fbddc57e
 import Vouchers from 0xe94a6e229293f196
@@ -43,7 +41,6 @@ import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
 import BarterYardPackNFT from 0x4300fc3a11778a9a
 import DayNFT from 0x0b7f00d13cd033bd
-import NFTContract from 0xed15722048e03cea
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
@@ -58,6 +55,8 @@ import DropzToken from 0xc74cca921807df36
 import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
+import Owners from 0x890f42a0a872ae77
+import Metaverse from 0x161bcffdf67a19bc
 
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -76,17 +75,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{Beam.BeamCollectionPublic}>() {
             ids["Beam"] = col.getIDs()
         }
-    if let col = owner.getCapability(Crave.CollectionPublicPath)
-        .borrow<&{Crave.CraveCollectionPublic}>() {
-            ids["Crave"] = col.getIDs()
-        }
     if let col = owner.getCapability(CricketMoments.CollectionPublicPath)
         .borrow<&{CricketMoments.CricketMomentsCollectionPublic}>() {
             ids["CricketMoments"] = col.getIDs()
-        }
-    if let col = owner.getCapability(Everbloom.CollectionPublicPath)
-        .borrow<&{Everbloom.PrintCollectionPublic}>() {
-            ids["Everbloom"] = col.getIDs()
         }
     if let col = owner.getCapability(/public/EternalShardCollection)
         .borrow<&{Shard.ShardCollectionPublic}>() {
@@ -250,11 +241,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
             ids["DayNFT"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(NFTContract.CollectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
-        ids["NFTContract"] = col.getIDs()
-    }
-
     if let col = owner.getCapability(BarterYardPackNFT.CollectionPublicPath)
     .borrow<&{ BarterYardPackNFT.BarterYardPackNFTCollectionPublic }>() {
         ids["BarterYardPack"] = col.getIDs()
@@ -329,6 +315,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
         ids["BreakingT_NFT"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(Owners.CollectionPublicPath)
+    .borrow<&{Owners.OwnersCollectionPublic}>() {
+        ids["Owners"] = col.getIDs()
+    }
+    
+    if let col = owner.getCapability(Metaverse.CollectionPublicPath)
+    .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
+        ids["Metaverse"] = col.getIDs()
+    } 
 
     return ids
 }

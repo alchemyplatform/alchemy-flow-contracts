@@ -72,6 +72,8 @@ import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
 import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
+import Owners from 0x41cad19decccdf25
+import Metaverse from 0xd756450f386fb4ac
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -419,6 +421,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
     .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
         ids["BreakingT_NFT"] = col.getIDs()
+    }  
+
+    if let col = owner.getCapability(Owners.CollectionPublicPath)
+    .borrow<&{Owners.OwnersCollectionPublic}>() {
+        ids["Owners"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Metaverse.CollectionPublicPath)
+    .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
+        ids["Metaverse"] = col.getIDs()
     }  
 
     return ids

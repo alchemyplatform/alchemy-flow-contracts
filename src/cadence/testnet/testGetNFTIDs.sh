@@ -85,6 +85,13 @@ BreakingT_NFT)
   echo "BreakingT_NFT"
   flow scripts execute getNFTIDs.cdc 0x04625c28593d9408 --network testnet
   ;;
+Owners)
+  echo "Owners"
+  flow scripts execute getNFTIDs.cdc 0x890f42a0a872ae77 --network testnet
+Metaverse)
+  echo "Metaverse"
+  flow scripts execute getNFTIDs.cdc 0x161bcffdf67a19bc --network testnet
+  ;;
 
 *)
   echo "Unknown contract"
