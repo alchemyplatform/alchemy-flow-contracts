@@ -74,7 +74,7 @@ import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
-import SwaychainNFT from 0x5dfbd0d5aba6acf7
+import SwaychainNFT from 0xa4e9020ad21eb30b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
