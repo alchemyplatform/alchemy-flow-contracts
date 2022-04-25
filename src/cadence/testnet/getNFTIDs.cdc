@@ -326,7 +326,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["Metaverse"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(SwaychainNFT.SwaychainNFTCollectionPublic)
+    if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
     .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
         ids["Swaychain"] = col.getIDs()
     }
