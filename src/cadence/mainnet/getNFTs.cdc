@@ -381,12 +381,16 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 pub fun stringStartsWith(string: String, prefix: String): Bool {
+    if(string.length < prefix.length) {
+        return false
+    }
+
     let beginning = string.slice(from: 0, upTo: prefix.length)
 
     let prefixArray = prefix.utf8
     let beginningArray = beginning.utf8
 
-    for index in prefixArray {
+    for index, element in prefixArray {
         if(beginningArray[index] != prefixArray[index]) {
             return false
         }
@@ -424,18 +428,18 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
 
     var domainUrl: String? = nil
-    if metadata!["domainUrl"]  != nil {
+    if metadata!["domainUrl"] != nil {
         let metadataDomainUrl = metadata!["domainUrl"]!
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -519,7 +523,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
@@ -530,7 +534,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -818,8 +822,8 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
-            mediaUrl = ipfsScheme.concat(metadataUrl)
+        else if metadataUrl.length > 0 {
+             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
 
@@ -829,7 +833,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
