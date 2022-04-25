@@ -195,6 +195,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
+                case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -285,7 +286,7 @@ pub fun stringStartsWith(string: String, prefix: String): Bool {
     let prefixArray = prefix.utf8
     let beginningArray = beginning.utf8
 
-    for index, element in prefixArray {
+    for index in prefixArray {
         if(beginningArray[index] != prefixArray[index]) {
             return false
         }
@@ -2432,7 +2433,7 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/testnet/account/0x161bcffdf67a19bc/contract/Metaverse
 pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "Metaverse",
         address: 0x161bcffdf67a19bc,
         storage_path: "Metaverse.CollectionStoragePath",

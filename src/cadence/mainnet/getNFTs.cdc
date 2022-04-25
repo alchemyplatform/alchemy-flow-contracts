@@ -386,7 +386,7 @@ pub fun stringStartsWith(string: String, prefix: String): Bool {
     let prefixArray = prefix.utf8
     let beginningArray = beginning.utf8
 
-    for index, element in prefixArray {
+    for index in prefixArray {
         if(beginningArray[index] != prefixArray[index]) {
             return false
         }
