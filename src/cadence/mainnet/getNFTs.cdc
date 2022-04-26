@@ -3526,7 +3526,7 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "NFTContract.CollectionStoragePath",
         public_path: "NFTContract.CollectionPublicPath",
         public_collection_name: "NFTContract.CollectionPublic",
-        external_domain: ""
+        external_domain: "https://nowwhere.io/"
     )
 
     let col = owner.getCapability(NFTContract.CollectionPublicPath)
@@ -3567,10 +3567,12 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
             "title" :  templateDescription["title"]! as? String,
             "mintType" :  templateDescription["mintType"]! as? String
         }
+    )
+}
 
 // https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/SwaychainNFT
 pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "Swaychain",
         address: 0x5dfbd0d5aba6acf7,
         storage_path: "SwaychainNFT.CollectionStoragePath",
