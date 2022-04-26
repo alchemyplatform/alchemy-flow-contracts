@@ -3534,11 +3534,16 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
         token_uri: nil,
-        media: [],
-        metadata: {}
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
     )
 }
