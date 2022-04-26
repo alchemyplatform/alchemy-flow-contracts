@@ -2508,7 +2508,7 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/testnet/account/0x5ab407dfb3bf35e8/contract/DooverseItems
 pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "DooverseItems",
         address: 0x5ab407dfb3bf35e8,
         storage_path: "DooverseItems.CollectionStoragePath",
@@ -2537,7 +2537,7 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         rawMetadata.insert(key: "editionCount", DooverseItems.totalSupply.toString())
     }
     if (!metadata.containsKey("royaltyAddress")) {
-        rawMetadata.insert(key: "royaltyAddress", "0x6b43b691ea37ee22")
+        rawMetadata.insert(key: "royaltyAddress", "0x8f4ef32a0ffb99a6")
     }
     if (!metadata.containsKey("royaltyPercentage")) {
         rawMetadata.insert(key: "royaltyPercentage", "5")

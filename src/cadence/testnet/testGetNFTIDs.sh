@@ -99,7 +99,7 @@ Swaychain)
   ;;
 Dooverse)
   echo "Dooverse" # TODO
-  flow scripts execute getNFTIDs.cdc 0x01cf0e2f2f715450 --network testnet
+  flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
   ;;
 
 *)

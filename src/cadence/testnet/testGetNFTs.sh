@@ -100,7 +100,7 @@ Swaychain)
   ;;
 Dooverse)
   echo "Dooverse" # TODO
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x01cf0e2f2f715450" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
   ;;
 
 *)
