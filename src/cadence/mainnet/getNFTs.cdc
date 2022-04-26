@@ -3558,7 +3558,7 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "DooverseItems",
-        address: 0x5ab407dfb3bf35e8,
+        address: 0x66ad29c7d7465437,
         storage_path: "DooverseItems.CollectionStoragePath",
         public_path: "DooverseItems.CollectionPublicPath",
         public_collection_name: "DooverseItems.DooverseItemsCollectionPublic",
