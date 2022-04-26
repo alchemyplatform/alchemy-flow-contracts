@@ -76,6 +76,7 @@ import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
 import NFTContract from 0x1e075b24abe6eca6
+import SwaychainNFT from 0xa4e9020ad21eb30b
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -243,6 +244,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
+                case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -383,6 +385,10 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 pub fun stringStartsWith(string: String, prefix: String): Bool {
+    if(string.length < prefix.length) {
+        return false
+    }
+
     let beginning = string.slice(from: 0, upTo: prefix.length)
 
     let prefixArray = prefix.utf8
@@ -426,18 +432,18 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
 
     var domainUrl: String? = nil
-    if metadata!["domainUrl"]  != nil {
+    if metadata!["domainUrl"] != nil {
         let metadataDomainUrl = metadata!["domainUrl"]!
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -521,7 +527,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
@@ -532,7 +538,7 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -820,8 +826,8 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
-            mediaUrl = ipfsScheme.concat(metadataUrl)
+        else if metadataUrl.length > 0 {
+             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
 
@@ -831,7 +837,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -2998,7 +3004,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["editionCount"] = metadata["numberOfEditions"]!
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
-    metadata["rarity"] = metadata["artifactRarityLevel"]!
+    metadata["rarity"] = metadata["rarityLevel"]!
 
     let rawMetadata: {String:String?} = {}
     for key in metadata.keys {
@@ -3562,5 +3568,38 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
             "mintType" :  templateDescription["mintType"]! as? String
         }
 
+// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/SwaychainNFT
+pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Swaychain",
+        address: 0x5dfbd0d5aba6acf7,
+        storage_path: "SwaychainNFT.CollectionStoragePath",
+        public_path: "SwaychainNFT.CollectionPublicPath",
+        public_collection_name: "ShawychainNFT.SwaychainNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
+        .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
     )
 }
