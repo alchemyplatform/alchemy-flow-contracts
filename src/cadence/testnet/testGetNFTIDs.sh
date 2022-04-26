@@ -93,6 +93,10 @@ Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTIDs.cdc 0x161bcffdf67a19bc --network testnet
   ;;
+Swaychain)
+  echo "Swaychain"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
 
 *)
   echo "Unknown contract"
