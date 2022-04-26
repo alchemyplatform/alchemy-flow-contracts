@@ -3544,13 +3544,19 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
 
     var templateDescription : {String:AnyStruct} = {}
     templateDescription = templateData.getImmutableData() as! {String: AnyStruct}
-
+    var extras : {String:AnyStruct} = {}
+    extras = templateDescription["extras"]! as! {String: AnyStruct}
+    var description:String?= nil;
+    if(extras["description"] != nil){
+        description = extras["description"]! as? String
+    } 
+    
     return NFTData (
         contract: contract,
         id: nftData.id,
         uuid: nftData.uuid,
         title: immutableData["title"]! as? String,
-        description: nil,
+        description: description,
         external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: immutableData["contectValue"]! as? String, mimetype: "image")],
@@ -3564,7 +3570,6 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
             "contectValue" :  templateDescription["contectValue"]! as? String,
             "nftType" :  templateDescription["nftType"]! as? String,
             "rarity" :  templateDescription["rarity"]! as? String,
-            "title" :  templateDescription["title"]! as? String,
             "mintType" :  templateDescription["mintType"]! as? String
         }
     )
