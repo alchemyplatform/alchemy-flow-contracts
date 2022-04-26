@@ -197,6 +197,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
+                case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -282,6 +283,10 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 pub fun stringStartsWith(string: String, prefix: String): Bool {
+    if(string.length < prefix.length) {
+        return false
+    }
+
     let beginning = string.slice(from: 0, upTo: prefix.length)
 
     let prefixArray = prefix.utf8
@@ -325,7 +330,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
@@ -336,8 +341,8 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
-            domainUrl = httpsScheme.concat(metadataDomainUrl)
+        else if metadataDomainUrl.length > 0 {
+             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
     
@@ -575,7 +580,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
         }
-        else {
+        else if metadataUrl.length > 0 {
             mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
@@ -586,7 +591,7 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
         if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
             domainUrl = metadataDomainUrl
         }
-        else {
+        else if metadataDomainUrl.length > 0 {
             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
@@ -2034,7 +2039,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["editionCount"] = metadata["numberOfEditions"]!
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
-    metadata["rarity"] = metadata["artifactRarityLevel"]!
+    metadata["rarity"] = metadata["rarityLevel"]!
 
     let rawMetadata: {String:String?} = {}
     for key in metadata.keys {
@@ -2434,7 +2439,7 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/testnet/account/0x161bcffdf67a19bc/contract/Metaverse
 pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "Metaverse",
         address: 0x161bcffdf67a19bc,
         storage_path: "Metaverse.CollectionStoragePath",
