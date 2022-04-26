@@ -76,6 +76,7 @@ import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import DooverseItems from 0x66ad29c7d7465437
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -243,6 +244,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
+                case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3549,5 +3551,55 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "description": nft!.description,
             "thumbnail": nft!.thumbnail,
         }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x66ad29c7d7465437/contract/DooverseItems
+pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "DooverseItems",
+        address: 0x5ab407dfb3bf35e8,
+        storage_path: "DooverseItems.CollectionStoragePath",
+        public_path: "DooverseItems.CollectionPublicPath",
+        public_collection_name: "DooverseItems.DooverseItemsCollectionPublic",
+        external_domain: "https://dooverse.io/"
+    )
+
+    let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+        .borrow<&{DooverseItems.DooverseItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDooverseItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("editionNumber")) {
+        rawMetadata.insert(key: "editionNumber", nft!.id.toString())
+    }
+    if (!metadata.containsKey("editionCount")) {
+        rawMetadata.insert(key: "editionCount", DooverseItems.totalSupply.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) {
+        rawMetadata.insert(key: "royaltyAddress", "0x6b43b691ea37ee22")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) {
+        rawMetadata.insert(key: "royaltyPercentage", "5")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Dooverse Items NFT",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
     )
 }

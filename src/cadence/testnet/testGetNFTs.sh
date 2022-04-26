@@ -98,7 +98,10 @@ Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Swaychain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
-
+Dooverse)
+  echo "Dooverse" # TODO
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x01cf0e2f2f715450" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 
 *)
   echo "Unknown contract"

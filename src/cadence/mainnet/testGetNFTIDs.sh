@@ -365,6 +365,11 @@ Swaychain)
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
   ;;
 
+Dooverse)
+  echo "Dooverse" # TODO
+  flow scripts execute getNFTIDs.cdc 0x01cf0e2f2f715450 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
