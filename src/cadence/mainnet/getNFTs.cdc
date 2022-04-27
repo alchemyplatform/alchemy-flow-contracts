@@ -3547,8 +3547,8 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     var extras : {String:AnyStruct} = {}
     extras = templateDescription["extras"]! as! {String: AnyStruct}
     var description:String?= nil;
-    if(extras["description"] != nil){
-        description = extras["description"]! as? String
+    if(extras["Description"] != nil){
+        description = extras["Description"]! as? String
     } 
     
     return NFTData (
