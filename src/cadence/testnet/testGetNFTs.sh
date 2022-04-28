@@ -89,6 +89,17 @@ Owners)
   echo "Owners"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x890f42a0a872ae77" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Owners" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+Metaverse)
+  echo "Metaverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x161bcffdf67a19bc" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "168" }] } }] }]' --network testnet
+  ;;
+
+Swaychain)
+  echo "Swaychain"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Swaychain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
+
 *)
   echo "Unknown contract"
   ;;
