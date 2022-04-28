@@ -76,7 +76,7 @@ import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
 import SwaychainNFT from 0xa4e9020ad21eb30b
-
+import TheFabricantS2ItemNFT from 0x7752ea736384322f
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -243,6 +243,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
+                case "TheFabricantS2ItemNFT": d = getTheFabricantS2ItemNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3547,7 +3548,49 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "name": nft!.name,
             "message": nft!.title,
             "description": nft!.description,
-            "thumbnail": nft!.thumbnail,
+            "thumbnail": nft!.thumbnail
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x7752ea736384322f/contract/TheFabricantS2ItemNFT
+pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "TheFabricantS2ItemNFT",
+        address: 0x7752ea736384322f,
+        storage_path: "TheFabricantS2ItemNFT.CollectionStoragePath",
+        public_path: "TheFabricantS2ItemNFT.CollectionPublicPath",
+        public_collection_name: "TheFabricantS2ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+        .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = TheFabricantS2ItemNFT.getItemData(id: itemDataID)
+    let itemMetadata = itemData.getMetadata()
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemMetadata["itemVideo"]!.metadataValue, mimetype: "video"),
+                NFTMedia(uri: itemMetadata["itemImage"]!.metadataValue, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
+            "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
+            "coCreator": itemData.coCreator.toString(),
+            "season": itemMetadata["season"]!.metadataValue
         }
     )
 }
