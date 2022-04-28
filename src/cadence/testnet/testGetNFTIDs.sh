@@ -97,6 +97,11 @@ Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
+  
+ MyNFT)
+  echo "MyNFT"
+  flow scripts execute getNFTIDs.cdc 0x9af2f3f3b56ce0e7 --network mainnet
+  ;;
 
 *)
   echo "Unknown contract"

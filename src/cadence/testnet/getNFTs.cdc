@@ -56,6 +56,7 @@ import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
 import Metaverse from 0x161bcffdf67a19bc
 import SwaychainNFT from 0x5dfbd0d5aba6acf7
+import MyNFT from 0x9af2f3f3b56ce0e7
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -198,6 +199,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
+                case "MyNFT": d = getSkyhorborNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2500,6 +2502,44 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "message": nft!.title,
             "description": nft!.description,
             "thumbnail": nft!.thumbnail,
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x33f44e504a396ba7/contract/MyNFT
+pub fun getSkyhorborNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Skyharbor.app",
+        address: 0x33f44e504a396ba7,
+        storage_path: "/storage/MyNFTCollection",
+        public_path: "/public/MyNFTCollection",
+        public_collection_name: "MyNFT.CollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(/public/MyNFTCollection)
+        .borrow<&{MyNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowReward(id: id)
+    if nft == nil { return nil }
+	
+	let setID = nft.setID
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+		metadata: {
+		"editionNumber": nft.editionNumber,
+		"editionCount": "0",
+		"royaltyAddress": "",
+		"royaltyPercentage": "0"
         }
     )
 }
