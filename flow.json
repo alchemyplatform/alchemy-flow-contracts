@@ -1,0 +1,28 @@
+{
+    "emulators": {
+        "default": {
+            "port": 3569,
+            "serviceAccount": "emulator-account"
+        }
+    },
+    "contracts": {
+        "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/testnet/AlchemyMetadataWrapper.cdc",
+        "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/mainnet/AlchemyMetadataWrapper.cdc"
+    },
+    "networks": {
+        "emulator": "127.0.0.1:3569",
+        "mainnet": "access.mainnet.nodes.onflow.org:9000",
+        "testnet": "access.devnet.nodes.onflow.org:9000"
+    },
+    "accounts": {
+        "emulator-account": {
+            "address": "0xf8d6e0586b0a20c7",
+            "key": "$FLOW_EMULATOR_PRIVATE_KEY"
+        }
+    },
+    "deployments": {
+        "emulator": {
+            "emulator-account": ["AlchemyMetadataWrapperTestnet"]
+        }
+    }
+}
