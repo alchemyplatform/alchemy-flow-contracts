@@ -365,6 +365,11 @@ Swaychain)
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
   ;;
 
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0xe413ceddca372042 --network mainnet
+  ;;
+
 VnMiss)
   echo "VnMiss"
   flow scripts execute getNFTIDs.cdc 0xc925d811a14d3c21 --network mainnet
@@ -374,7 +379,7 @@ AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTIDs.cdc 0x80fd317af00c29fd --network mainnet
   ;;
-  
+
 *)
   echo "Unknown contract"
   ;;

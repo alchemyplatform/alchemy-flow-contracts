@@ -97,6 +97,10 @@ Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0x2bcdfcf5d9e73154 --network testnet
+  ;;
 VnMiss)
   echo "VnMiss"
   flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
