@@ -128,7 +128,7 @@ Xtingles)
 
 Beam)
   echo "Beam"
-  flow scripts execute getNFTIDs.cdc 0x13774a0e75c975d4 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x0a2b2b1cdbd59848 --network mainnet
   ;;
 
 Crave)
@@ -138,7 +138,7 @@ Crave)
 
 KOTD)
   echo "KOTD"
-  flow scripts execute getNFTIDs.cdc 0xe4bf17ded24f783d --network mainnet
+  flow scripts execute getNFTIDs.cdc 0xe9731837a1de398f --network mainnet
   ;;
 
 InceptionAnimals)
@@ -173,8 +173,8 @@ MiamiNFT)
 
 Bitku)
   echo "Bitku"
-    flow scripts execute getNFTIDs.cdc 0xf61e40c19db2a9e2 --network mainnet
-    ;;
+  flow scripts execute getNFTIDs.cdc 0xf61e40c19db2a9e2 --network mainnet
+  ;;
 
 FlowFans)
   echo "FlowFans"
@@ -285,7 +285,7 @@ Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
-  
+
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
@@ -300,7 +300,7 @@ ARTIFACT)
   echo "ARTIFACT"
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
   ;;
-  
+
 NftReality)
   echo "NftReality"
   flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
@@ -339,7 +339,7 @@ Necryptolis)
   echo "Necryptolis"
   flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
   ;;
-  
+
 BreakingT_NFT)
   echo "BreakingT_NFT"
   flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
@@ -354,7 +354,7 @@ Owners)
   echo "Owners"
   flow scripts execute getNFTIDs.cdc 0x41cad19decccdf25 --network mainnet
   ;;
-  
+
 Metaverse)
   echo "Metaverse"
   flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
