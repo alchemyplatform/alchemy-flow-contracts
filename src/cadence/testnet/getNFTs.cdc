@@ -42,6 +42,7 @@ import DayNFT from 0x0b7f00d13cd033bd
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import YahooPartnersCollectible from 0x5d50ce3fd080edce
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -185,6 +186,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
+                case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
@@ -1822,11 +1824,11 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x758252ab932a3416/contract/YahooCollectible
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooCollectible
 pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "YahooCollectible",
-        address: 0x758252ab932a3416,
+        address: 0x5d50ce3fd080edce,
         storage_path: "YahooCollectible.CollectionStoragePath",
         public_path: "YahooCollectible.CollectionPublicPath",
         public_collection_name: "YahooCollectible.CollectionPublic",
@@ -1849,6 +1851,45 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: metadata.name,
         description: metadata.description,
         external_domain_view_url: "https://bay-staging.blocto.app/flow/yahoo/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooPartnersCollectible
+pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "YahooPartnersCollectible",
+        address: 0x5d50ce3fd080edce,
+        storage_path: "YahooPartnersCollectible.CollectionStoragePath",
+        public_path: "YahooPartnersCollectible.CollectionPublicPath",
+        public_collection_name: "YahooPartnersCollectible.CollectionPublic",
+        external_domain: "https://tw.yahoo.com/",
+    )
+
+    let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+        .borrow<&{YahooPartnersCollectible.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowYahooPartnersCollectible(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/yahoo-partners/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [
             NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
