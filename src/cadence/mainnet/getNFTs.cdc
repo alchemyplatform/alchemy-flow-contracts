@@ -77,6 +77,9 @@ import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
 import SwaychainNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
+import VnMiss from 0x7c11edb826692404
+import AADigital from 0x39eeb4ee6f30fc3f
+
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -244,6 +247,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
                 case "TheFabricantS2ItemNFT": d = getTheFabricantS2ItemNFT(owner: owner, id: id)
+                case "VnMiss": d = getVnMiss(owner: owner, id: id)
+                case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3591,6 +3596,100 @@ pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
             "coCreator": itemData.coCreator.toString(),
             "season": itemMetadata["season"]!.metadataValue
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x7c11edb826692404/contract/VnMiss
+pub fun getVnMiss(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "VnMiss",
+        address: 0x7c11edb826692404,
+        storage_path: "VnMiss.CollectionStoragePath",
+        public_path: "VnMiss.CollectionPublicPath",
+        public_collection_name: "VnMiss.VnMissCollectionPublic",
+        external_domain: "https://hoahauhoanvuvietnam.avatarart.io"
+    )
+
+    let col = owner.getCapability(VnMiss.CollectionPublicPath)
+        .borrow<&{VnMiss.VnMissCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowVnMiss(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+
+    let levelAsString = fun (level: UInt8): String {
+         switch level {
+            case VnMiss.Level.Bronze.rawValue:
+                return "Bronze"
+
+            case VnMiss.Level.Silver.rawValue:
+                return "Silver"
+
+            case VnMiss.Level.Diamond.rawValue:
+                return "Diamond"
+        }
+        return "Unknown"
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://avatarart.io/nfts/A.7c11edb826692404.VnMiss.NFT.".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
+        metadata: {
+            "name": display.name,
+            "level": levelAsString(nft!.level),
+            "editionNumber": nft!.id.toString(),
+            "editionCount": "14200",
+            "royaltyAddress": "0xe7da9bede73c8cc2",
+            "royaltyPercentage": "5.0"
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x39eeb4ee6f30fc3f/contract/AADigital
+pub fun getAvatarArt(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "AADigital",
+        address: 0x39eeb4ee6f30fc3f,
+        storage_path: "AADigital.CollectionStoragePath",
+        public_path: "AADigital.CollectionPublicPath",
+        public_collection_name: "AADigital.AADigitalCollectionPublic",
+        external_domain: "https://avatarart.io"
+    )
+
+    let col = owner.getCapability(AADigital.CollectionPublicPath)
+        .borrow<&{AADigital.AADigitalCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowAADigital(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://avatarart.io/nfts/A.39eeb4ee6f30fc3f.AADigital.NFT.".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://api.avatarart.io/upload".concat(display.thumbnail.uri()), mimetype: "image")],
+        metadata: {
+            "editionNumber": "1",
+            "editionCount": AADigital.totalSupply.toString(),
+            "royaltyAddress": "0xe7da9bede73c8cc2",
+            "royaltyPercentage": "5.0"
         }
     )
 }

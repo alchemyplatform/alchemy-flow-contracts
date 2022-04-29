@@ -365,6 +365,16 @@ TheFabricantS2ItemNFT)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe413ceddca372042" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4" }] } }] }]' --network mainnet
   ;;
 
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x80fd317af00c29fd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "VnMiss" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x80fd317af00c29fd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "103" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
