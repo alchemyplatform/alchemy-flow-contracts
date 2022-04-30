@@ -76,6 +76,9 @@ import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import TheFabricantS2ItemNFT from 0x7752ea736384322f
+import VnMiss from 0x7c11edb826692404
+import AADigital from 0x39eeb4ee6f30fc3f
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -443,6 +446,21 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
     .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
         ids["Swaychain"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+    .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
+        ids["TheFabricantS2ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(VnMiss.CollectionPublicPath)
+    .borrow<&{VnMiss.VnMissCollectionPublic}>() {
+        ids["VnMiss"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(AADigital.CollectionPublicPath)
+    .borrow<&{AADigital.AADigitalCollectionPublic}>() {
+        ids["AvatarArt"] = col.getIDs()
     }
 
     return ids
