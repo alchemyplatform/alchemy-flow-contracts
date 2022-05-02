@@ -20,6 +20,9 @@
                 "testnet": "0x631e88ae7f1d7c20"
             }
         },
+        "TestNFT": "./src/cadence/contracts/emulator/TestNFT.cdc",
+        "TestNFTWithViews": "./src/cadence/contracts/emulator/TestNFTWithViews.cdc",
+        "AlchemyMetadataWrapperEmulator": "./src/cadence/contracts/emulator/AlchemyMetadataWrapperEmulator.cdc",
         "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/testnet/AlchemyMetadataWrapper.cdc",
         "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/mainnet/AlchemyMetadataWrapper.cdc"
     },
@@ -39,7 +42,9 @@
             "emulator-account": [
                 "NonFungibleToken",
                 "MetadataViews",
-                "AlchemyMetadataWrapperTestnet"
+                "TestNFT",
+                "TestNFTWithViews",
+                "AlchemyMetadataWrapperEmulator"
             ]
         }
     }
