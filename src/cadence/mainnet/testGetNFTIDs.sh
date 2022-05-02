@@ -360,6 +360,10 @@ Metaverse)
   flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
   ;;
 
+NFTContract)
+  echo "NFTContract"
+  flow scripts execute getNFTIDs.cdc 0xcb5b64e4ae34e3ba --network mainnet
+  ;;
 Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
