@@ -2243,9 +2243,10 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    var metadata = nft!.getMetadata()
-    var rawMetadata : {String: String?} = {}
+    let rawMetadata = nft!.getMetadata()
+    var metadata: {String: String?} = {}
     var media: [NFTMedia] = []
+    let description = nft!.setID == 0 ? "Union Jordan 4 'Off Noir' x Nike Dunk" : nft!.description()
 
     if let mediaValue = metadata["media"] {
         if let supportedMedia = mediaValue as? {String: [String]} {
@@ -2257,46 +2258,31 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
-    for key in metadata.keys {
-        if metadata[key]!.getType().isSubtype(of: Type<Number>()) {
-            metadata[key] = (metadata[key]! as! Number).toString()
-            rawMetadata.insert(key: key, (metadata[key]! as! Number).toString())
-        } else if metadata[key]!.getType() != Type<String>() {
+    for key in rawMetadata.keys {
+        if rawMetadata[key]!.getType().isSubtype(of: Type<String>()) {
+            metadata[key] = rawMetadata[key]! as! String
+        } else if rawMetadata[key]!.getType().isSubtype(of: Type<Number>()) {
+            metadata[key] = (rawMetadata[key]! as! Number).toString()
+        } else if rawMetadata[key]!.getType() != Type<String>() {
             metadata.remove(key: key)
         }
-        else if metadata[key]!.getType().isSubtype(of: Type<String>()) {
-            rawMetadata.insert(key: key, (metadata![key]! as! String))
-        }
     }
-    if (!metadata.containsKey("editionNumber")) { 
-        let editionNum = nft!.setID == 0 ? nft!.id.toString()  : nft!.instanceID.toString() 
-        metadata["editionNumber"] = editionNum
-        rawMetadata.insert(key: "editionNumber", editionNum)
-    }
-    if (!metadata.containsKey("editionCount")) { 
-        let editionCount = Kicks.getSneakerSet(withID: nft!.setID)!.getTotalSupply().toString()
-        metadata["editionCount"] = editionCount
-        rawMetadata.insert(key: "editionCount", editionCount)
-    }
-    if (!metadata.containsKey("royaltyAddress")) { 
-        metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" 
-        rawMetadata.insert(key: "royaltyAddress", "0xf3cc54f4d91c2f6c")
-    }
-    if (!metadata.containsKey("royaltyPercentage")) { 
-        metadata["royaltyPercentage"] = "5" 
-        rawMetadata.insert(key: "royaltyPercentage", "5")
-    }
+
+    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.setID == 0 ? nft!.id.toString() : nft!.instanceID.toString()  }
+    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = Kicks.getSneakerSet(withID: nft!.setID)!.getTotalSupply().toString() }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" }
+    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nft!.name(),
-        description: nft!.description(),
+        description: description,
         external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: media,
-        metadata: rawMetadata,
+        metadata: metadata,
     )
 }
 
