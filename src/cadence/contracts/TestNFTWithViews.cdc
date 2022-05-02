@@ -31,9 +31,9 @@ pub contract TestNFTWithViews: NonFungibleToken {
     // NonFungibleToken Standard Fields
     // -----------------------------------------------------------------------
     pub var totalSupply: UInt64
-
-    access(self) var collectionMetadata: { String: String }
-    access(self) let idToMetadata: { UInt64: TestNFTWithViewsMetadata }
+    // For the sake of testing, making these public.
+    pub var collectionMetadata: { String: String }
+    pub let idToMetadata: { UInt64: TestNFTWithViewsMetadata }
 
     pub struct TestNFTWithViewsMetadata {
         pub let metadata: { String: String }
@@ -150,16 +150,17 @@ pub contract TestNFTWithViews: NonFungibleToken {
 
     // -----------------------------------------------------------------------
     // Admin Functions
+    // For the sake of testing, making these public.
     // -----------------------------------------------------------------------
-    access(account) fun setEditionMetadata(editionNumber: UInt64, metadata: {String: String}) {
+    pub fun setEditionMetadata(editionNumber: UInt64, metadata: {String: String}) {
         self.idToMetadata[editionNumber] = TestNFTWithViewsMetadata(metadata: metadata)
     }
 
-    access(account) fun setCollectionMetadata(metadata: {String: String}) {
+    pub fun setCollectionMetadata(metadata: {String: String}) {
         self.collectionMetadata = metadata
     }
 
-    access(account) fun mint(nftID: UInt64) : @NonFungibleToken.NFT {
+    pub fun mint(nftID: UInt64) : @NonFungibleToken.NFT {
         self.totalSupply = self.totalSupply + 1
         return <-create NFT(id: nftID)
     }
