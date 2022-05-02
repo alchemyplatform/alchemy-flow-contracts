@@ -104,6 +104,26 @@ transaction(recipient: Address) {
                 [adminAccount]
             );
         });
+
+        test("Should get NFT IDs for an account", async () => {
+            let res = await utils.runScript(
+                `
+import AlchemyMetadataWrapperEmulator from "../contracts/AlchemyMetadataWrapperEmulator.cdc"
+
+pub fun main(account: Address): {String: [UInt64]} {
+    return AlchemyMetadataWrapperEmulator.getNFTIDs(ownerAddress: account)
+}
+                `,
+                [accountA]
+            );
+            expect(Object.keys(res[0]).length).toBe(2);
+            expect(Object.keys(res[0]).includes("TestNFT")).toBe(true);
+            expect(Object.keys(res[0]).includes("TestNFTWithViews")).toBe(true);
+            expect(res[0]["TestNFT"].length).toBe(1);
+            expect(res[0]["TestNFTWithViews"].length).toBe(1);
+            expect(res[0]["TestNFT"].includes(1)).toBe(true);
+            expect(res[0]["TestNFTWithViews"].includes(1)).toBe(true);
+        });
     });
 });
 
