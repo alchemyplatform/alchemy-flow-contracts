@@ -6,6 +6,20 @@
         }
     },
     "contracts": {
+        "NonFungibleToken": {
+            "source": "./src/cadence/contracts/NonFungibleToken.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
+        "MetadataViews": {
+            "source": "./src/cadence/contracts/MetadataViews.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
         "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/testnet/AlchemyMetadataWrapper.cdc",
         "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/mainnet/AlchemyMetadataWrapper.cdc"
     },
@@ -22,7 +36,11 @@
     },
     "deployments": {
         "emulator": {
-            "emulator-account": ["AlchemyMetadataWrapperTestnet"]
+            "emulator-account": [
+                "NonFungibleToken",
+                "MetadataViews",
+                "AlchemyMetadataWrapperTestnet"
+            ]
         }
     }
 }
