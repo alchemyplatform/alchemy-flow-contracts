@@ -20,11 +20,11 @@
                 "testnet": "0x631e88ae7f1d7c20"
             }
         },
-        "TestNFT": "./src/cadence/contracts/emulator/TestNFT.cdc",
-        "TestNFTWithViews": "./src/cadence/contracts/emulator/TestNFTWithViews.cdc",
-        "AlchemyMetadataWrapperEmulator": "./src/cadence/contracts/emulator/AlchemyMetadataWrapperEmulator.cdc",
-        "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/testnet/AlchemyMetadataWrapper.cdc",
-        "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/mainnet/AlchemyMetadataWrapper.cdc"
+        "TestNFT": "./src/cadence/contracts/TestNFT.cdc",
+        "TestNFTWithViews": "./src/cadence/contracts/TestNFTWithViews.cdc",
+        "AlchemyMetadataWrapperEmulator": "./src/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
+        "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
+        "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
     },
     "networks": {
         "emulator": "127.0.0.1:3569",
@@ -34,7 +34,7 @@
     "accounts": {
         "emulator-account": {
             "address": "0xf8d6e0586b0a20c7",
-            "key": "$FLOW_EMULATOR_PRIVATE_KEY"
+            "key": "39594bc64959efa98a77207decc871513bc584140e11b899591f3dbdf9506b1e"
         }
     },
     "deployments": {

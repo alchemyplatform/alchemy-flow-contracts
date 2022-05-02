@@ -5,7 +5,7 @@
     This contract will be periodically updated based on new onboarding PRs and deployed.
     Any consumers calling the public methods below will retrieve the latest and greatest data.
 */
-pub contract AlchemyMetadataWrapper {
+pub contract AlchemyMetadataWrapperMainnet {
     // Copied over as-is from getNFT(ID)?s.cdc for backwards-compatability.
     pub struct NFTData {
         pub let contract: NFTContract

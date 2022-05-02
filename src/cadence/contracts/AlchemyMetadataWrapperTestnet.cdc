@@ -1,5 +1,5 @@
-import NonFungibleToken from "../NonFungibleToken.cdc"
-import MetadataViews from "../MetadataViews.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
+import MetadataViews from "./MetadataViews.cdc"
 
 // $BEGIN NFT addresses
 import Gaia from 0xc523a8bbf10fc4a3
@@ -69,7 +69,7 @@ import AADigital from 0x03a4ea61342fcb6c
     This contract will be periodically updated based on new onboarding PRs and deployed.
     Any consumers calling the public methods below will retrieve the latest and greatest data.
 */
-pub contract AlchemyMetadataWrapper {
+pub contract AlchemyMetadataWrapperTestnet {
     // Copied over as-is from getNFTs.cdc for backwards-compatability.
     pub struct NFTCollection {
         pub let owner: Address

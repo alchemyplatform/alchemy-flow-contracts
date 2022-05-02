@@ -1,5 +1,5 @@
-import NonFungibleToken from "../NonFungibleToken.cdc"
-import MetadataViews from "../MetadataViews.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
+import MetadataViews from "./MetadataViews.cdc"
 
 // $BEGIN NFT addresses
 import TestNFT from "./TestNFT.cdc"

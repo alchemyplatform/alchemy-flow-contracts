@@ -1,0 +1,13 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.17.10",
+        "@babel/preset-env": "^7.17.10",
+        "babel-jest": "^28.0.3",
+        "flow-js-testing": "^0.2.3-alpha.5",
+        "jest": "^28.0.3"
+    },
+    "scripts": {
+        "test": "jest --runInBand",
+        "testFile": "jest -- "
+    }
+}

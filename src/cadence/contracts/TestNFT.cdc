@@ -1,7 +1,7 @@
 /*
     A Fake NFT contract for emulator testing.
 */
-import NonFungibleToken from "../NonFungibleToken.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
 
 pub contract TestNFT: NonFungibleToken {
     // -----------------------------------------------------------------------
