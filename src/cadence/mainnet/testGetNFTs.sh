@@ -208,7 +208,7 @@ ZeedzINO)
 
 Kicks)
   echo "ClosedSrc - NFTLX"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf3cc54f4d91c2f6c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "99" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf3cc54f4d91c2f6c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "79" }] } }] }]' --network mainnet
   ;;
 
 BarterYard)

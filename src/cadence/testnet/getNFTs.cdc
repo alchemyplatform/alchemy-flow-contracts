@@ -1609,12 +1609,14 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
     if (!metadata.containsKey("editionNumber")) { 
-        metadata["editionNumber"] = nft!.instanceID.toString() 
-        rawMetadata.insert(key: "editionNumber", nft!.instanceID.toString())
+        let editionNum = nft!.setID == 0 ? nft!.id.toString()  : nft!.instanceID.toString() 
+        metadata["editionNumber"] = editionNum
+        rawMetadata.insert(key: "editionNumber", editionNum)
     }
     if (!metadata.containsKey("editionCount")) { 
-        metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() 
-        rawMetadata.insert(key: "editionCount", nft!.getBlueprint().numberMinted.toString())
+        let editionCount = Kicks.getSneakerSet(withID: nft!.setID)!.getTotalSupply().toString()
+        metadata["editionCount"] = editionCount
+        rawMetadata.insert(key: "editionCount", editionCount)
     }
     if (!metadata.containsKey("royaltyAddress")) { 
         metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" 

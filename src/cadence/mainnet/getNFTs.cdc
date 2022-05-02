@@ -2269,12 +2269,14 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
     if (!metadata.containsKey("editionNumber")) { 
-        metadata["editionNumber"] = nft!.instanceID.toString() 
-        rawMetadata.insert(key: "editionNumber", nft!.instanceID.toString())
+        let editionNum = nft!.setID == 0 ? nft!.id.toString()  : nft!.instanceID.toString() 
+        metadata["editionNumber"] = editionNum
+        rawMetadata.insert(key: "editionNumber", editionNum)
     }
     if (!metadata.containsKey("editionCount")) { 
-        metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() 
-        rawMetadata.insert(key: "editionCount", nft!.getBlueprint().numberMinted.toString())
+        let editionCount = Kicks.getSneakerSet(withID: nft!.setID)!.getTotalSupply().toString()
+        metadata["editionCount"] = editionCount
+        rawMetadata.insert(key: "editionCount", editionCount)
     }
     if (!metadata.containsKey("royaltyAddress")) { 
         metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" 
@@ -3596,7 +3598,7 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowNFT(id: id)
+    let nft = col!.borrowSwaychainNFT(id: id)
     if nft == nil { return nil }
 
     return NFTData(
@@ -3610,7 +3612,7 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
         metadata: {
             "name": nft!.name,
-            "message": nft!.title,
+            // "message": nft!.title,
             "description": nft!.description,
             "thumbnail": nft!.thumbnail
         }
@@ -3619,7 +3621,7 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x7752ea736384322f/contract/TheFabricantS2ItemNFT
 pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "TheFabricantS2ItemNFT",
         address: 0x7752ea736384322f,
         storage_path: "TheFabricantS2ItemNFT.CollectionStoragePath",
@@ -3661,7 +3663,7 @@ pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x7c11edb826692404/contract/VnMiss
 pub fun getVnMiss(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "VnMiss",
         address: 0x7c11edb826692404,
         storage_path: "VnMiss.CollectionStoragePath",
@@ -3716,7 +3718,7 @@ pub fun getVnMiss(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/mainnet/account/0x39eeb4ee6f30fc3f/contract/AADigital
 pub fun getAvatarArt(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "AADigital",
         address: 0x39eeb4ee6f30fc3f,
         storage_path: "AADigital.CollectionStoragePath",
