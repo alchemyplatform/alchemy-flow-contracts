@@ -1,7 +1,7 @@
 import { sendTransaction, executeScript, shallPass } from "flow-js-testing";
 
 export const runScript = async (code, args) => {
-    return await executeScript({ code: code, args: args });
+    return (await executeScript({ code: code, args: args }))[0];
 };
 
 export const runFailingScript = async (code, args) => {

@@ -3,6 +3,7 @@ import { deployContractByName, getAccountAddress } from "flow-js-testing";
 export async function createAccounts() {
     let adminAccount = await getAccountAddress("admin");
     let accountA = await getAccountAddress("a");
+    let accountB = await getAccountAddress("b");
     let addressMap = {
         NonFungibleToken: adminAccount,
         MetadataViews: adminAccount,
@@ -10,7 +11,7 @@ export async function createAccounts() {
         TestNFT: adminAccount,
         TestNFTWithViews: adminAccount,
     };
-    return { adminAccount, accountA, addressMap };
+    return { adminAccount, accountA, accountB, addressMap };
 }
 
 export async function deployContracts(accountA, addressMap) {

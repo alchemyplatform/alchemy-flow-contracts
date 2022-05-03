@@ -60,7 +60,7 @@ pub contract TestNFTWithViews: NonFungibleToken {
                         ipfsImage = MetadataViews.IPFSFile(cid: self.getMetadata()["thumbnailCID"]!, path: self.getMetadata()["thumbnailPath"])
                     }
                     return MetadataViews.Display(
-                        name: self.getMetadata()["name"] ?? "Test NFT ".concat(self.id.toString()),
+                        name: self.getMetadata()["name"] ?? "TestNFTWithViews ".concat(self.id.toString()),
                         description: self.getMetadata()["description"] ?? "No description set",
                         thumbnail: ipfsImage
                     )
