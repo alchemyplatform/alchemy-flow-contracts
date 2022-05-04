@@ -35,6 +35,10 @@
         "emulator-account": {
             "address": "0xf8d6e0586b0a20c7",
             "key": "39594bc64959efa98a77207decc871513bc584140e11b899591f3dbdf9506b1e"
+        },
+        "testnet-staging-account": {
+            "address": "0x05ff2c7b4c40de11",
+            "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY"
         }
     },
     "deployments": {
@@ -46,6 +50,9 @@
                 "TestNFTWithViews",
                 "AlchemyMetadataWrapperEmulator"
             ]
+        },
+        "testnet": {
+            "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"]
         }
     }
 }

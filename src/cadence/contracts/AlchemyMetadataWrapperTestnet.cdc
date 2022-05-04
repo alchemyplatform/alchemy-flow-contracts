@@ -26,11 +26,14 @@ import Eternal from 0x8da9b78f32f3ef50
 import GooberXContract from 0x9be1ec5be8738e13
 import MintStoreItem from 0x985d410b577fd4a1
 import TFCItems from 0x91a6217c3b70cae8
+import BnGNFTContract from 0xf7ebe30e2e33b1f2
 import GeniaceNFT from 0x99eb28310626e56a
 import Collectible from 0x85080f371da20cc1
 import CryptoZooNFT from 0xd60702f03bcafd46
+import OneFootballCollectible from 0x01984fb4ca279d9a
 import TheFabricantMysteryBox_FF1 from 0x716db717f9240d8a
 import DieselNFT from 0x716db717f9240d8a
+import MiamiNFT from 0x716db717f9240d8a
 import HaikuNFT from 0x824f612f78d34250
 import FlowChinaBadge from 0xb83e682ece5c8a50
 import AllDay from 0x4dfd62c88d1b6462
@@ -215,7 +218,6 @@ pub contract AlchemyMetadataWrapperTestnet {
                     case "FLOAT" : d = self.getFLOAT(owner: owner, id: id)
                     case "BreakingT_NFT": d = self.getBreakingTNFT(owner: owner, id: id)
                     case "Owners": d = self.getOwnersNFT(owner: owner, id: id)
-                    case "Swaychain": d = self.getSwaychainNFT(owner: owner, id: id)
                     case "Metaverse": d = self.getOzoneMetaverseNFT(owner: owner, id: id)
                     case "TheFabricantS2ItemNFT": d = self.getTheFabricantS2ItemNFT(owner: owner, id: id)
                     case "VnMiss": d = self.getVnMiss(owner: owner, id: id)
@@ -2785,42 +2787,6 @@ pub contract AlchemyMetadataWrapperTestnet {
             token_uri: nil,
             media: [],
             metadata: {}
-        )
-    }
-
-    // https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/SwaychainNFT
-    pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
-        let contract = NFTContract(
-            name: "Swaychain",
-            address: 0xa4e9020ad21eb30b,
-            storage_path: "SwaychainNFT.CollectionStoragePath",
-            public_path: "SwaychainNFT.CollectionPublicPath",
-            public_collection_name: "ShawychainNFT.SwaychainNFTCollectionPublic",
-            external_domain: "https://swaychain.com/"
-        )
-
-        let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
-            .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>()
-        if col == nil { return nil }
-
-        let nft = col!.borrowNFT(id: id)
-        if nft == nil { return nil }
-
-        return NFTData(
-            contract: contract,
-            id: nft!.id,
-            uuid: nft!.uuid,
-            title: nft!.name,
-            description: nft!.description,
-            external_domain_view_url: nft!.thumbnail,
-            token_uri: nil,
-            media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
-            metadata: {
-                "name": nft!.name,
-                "message": nft!.title,
-                "description": nft!.description,
-                "thumbnail": nft!.thumbnail
-            }
         )
     }
 
