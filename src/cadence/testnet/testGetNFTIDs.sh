@@ -113,10 +113,6 @@ AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTIDs.cdc 0xae12a483d2db4a63 --network testnet
   ;;
-MyNFT)
-  echo "MyNFT"
-  flow scripts execute getNFTIDs.cdc 0x9af2f3f3b56ce0e7 --network mainnet
-  ;;
 Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet

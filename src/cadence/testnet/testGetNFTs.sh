@@ -115,10 +115,6 @@ AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xae12a483d2db4a63" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "121" }] } }] }]' --network testnet
   ;;
-MyNFT)
-  echo "MyNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "179" }] } }] }]' --network mainnet
-  ;;
 Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
