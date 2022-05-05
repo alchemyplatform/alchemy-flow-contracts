@@ -281,6 +281,11 @@ YahooCollectible)
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
@@ -360,9 +365,33 @@ Metaverse)
   flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
   ;;
 
+NFTContract)
+  echo "NFTContract"
+  flow scripts execute getNFTIDs.cdc 0xcb5b64e4ae34e3ba --network mainnet
+  ;;
 Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
+  ;;
+
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0xe413ceddca372042 --network mainnet
+  ;;
+
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0xc925d811a14d3c21 --network mainnet
+  ;;
+
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0x80fd317af00c29fd --network mainnet
+  ;;
+
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
 *)

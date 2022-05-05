@@ -59,6 +59,7 @@ import DGD_NFT from 0x329feb3ab062d289
 import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
+import YahooPartnersCollectible from 0x758252ab932a3416
 import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
@@ -74,7 +75,12 @@ import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
+import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import TheFabricantS2ItemNFT from 0x7752ea736384322f
+import VnMiss from 0x7c11edb826692404
+import AADigital from 0x39eeb4ee6f30fc3f
+import DooverseItems from 0x66ad29c7d7465437
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -359,6 +365,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+    .borrow<&{YahooPartnersCollectible.CollectionPublic}>() {
+        ids["YahooPartnersCollectible"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -434,10 +445,33 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["Metaverse"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(NFTContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["NFTContract"] = col.getIDs()
+    }  
+
     if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
     .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
         ids["Swaychain"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+    .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
+        ids["TheFabricantS2ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(VnMiss.CollectionPublicPath)
+    .borrow<&{VnMiss.VnMissCollectionPublic}>() {
+        ids["VnMiss"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(AADigital.CollectionPublicPath)
+    .borrow<&{AADigital.AADigitalCollectionPublic}>() {
+        ids["AvatarArt"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Dooverse"] = col.getIDs()
+    }
     return ids
 }

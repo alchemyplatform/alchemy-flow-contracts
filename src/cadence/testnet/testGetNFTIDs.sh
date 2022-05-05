@@ -41,6 +41,10 @@ YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
@@ -97,7 +101,22 @@ Swaychain)
   echo "Swaychain"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
-
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0x2bcdfcf5d9e73154 --network testnet
+  ;;
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0xae12a483d2db4a63 --network testnet
+  ;;
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
