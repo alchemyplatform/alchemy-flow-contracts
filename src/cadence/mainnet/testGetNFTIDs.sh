@@ -281,6 +281,11 @@ YahooCollectible)
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
@@ -382,6 +387,11 @@ VnMiss)
 AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTIDs.cdc 0x80fd317af00c29fd --network mainnet
+  ;;
+
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
 *)
