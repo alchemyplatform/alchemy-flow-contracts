@@ -41,6 +41,10 @@ YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3b0f2d267cf8c8e9" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37379862" }] } }] }]' --network testnet
@@ -111,7 +115,10 @@ AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xae12a483d2db4a63" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "121" }] } }] }]' --network testnet
   ;;
-
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

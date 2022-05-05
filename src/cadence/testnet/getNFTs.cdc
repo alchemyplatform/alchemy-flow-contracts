@@ -42,6 +42,7 @@ import DayNFT from 0x0b7f00d13cd033bd
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import YahooPartnersCollectible from 0x5d50ce3fd080edce
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -59,6 +60,7 @@ import SwaychainNFT from 0x5dfbd0d5aba6acf7
 import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
+import DooverseItems from 0x5ab407dfb3bf35e8
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -187,6 +189,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
+                case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
@@ -199,11 +202,11 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
-                case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "TheFabricantS2ItemNFT": d = getTheFabricantS2ItemNFT(owner: owner, id: id)
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
+                case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1622,7 +1625,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: media,
-        metadata: rawMetadata,
+        metadata: metadata,
     )
 }
 
@@ -1815,11 +1818,11 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x758252ab932a3416/contract/YahooCollectible
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooCollectible
 pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "YahooCollectible",
-        address: 0x758252ab932a3416,
+        address: 0x5d50ce3fd080edce,
         storage_path: "YahooCollectible.CollectionStoragePath",
         public_path: "YahooCollectible.CollectionPublicPath",
         public_collection_name: "YahooCollectible.CollectionPublic",
@@ -1853,6 +1856,46 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     )
 }
+
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooPartnersCollectible
+pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "YahooPartnersCollectible",
+        address: 0x5d50ce3fd080edce,
+        storage_path: "YahooPartnersCollectible.CollectionStoragePath",
+        public_path: "YahooPartnersCollectible.CollectionPublicPath",
+        public_collection_name: "YahooPartnersCollectible.CollectionPublic",
+        external_domain: "https://tw.yahoo.com/",
+    )
+
+    let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+        .borrow<&{YahooPartnersCollectible.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowYahooPartnersCollectible(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/yahoo-partners/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
 
 // https://flow-view-source.com/testnet/account/0x1a3e64df3663edd3/contract/NowggNFT
 pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
@@ -2471,42 +2514,6 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/SwaychainNFT
-pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
-        name: "Swaychain",
-        address: 0xa4e9020ad21eb30b,
-        storage_path: "SwaychainNFT.CollectionStoragePath",
-        public_path: "SwaychainNFT.CollectionPublicPath",
-        public_collection_name: "ShawychainNFT.SwaychainNFTCollectionPublic",
-        external_domain: "https://swaychain.com/"
-    )
-
-    let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
-        .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>()
-    if col == nil { return nil }
-
-    let nft = col!.borrowNFT(id: id)
-    if nft == nil { return nil }
-
-    return NFTData(
-        contract: contract,
-        id: nft!.id,
-        uuid: nft!.uuid,
-        title: nft!.name,
-        description: nft!.description,
-        external_domain_view_url: nft!.thumbnail,
-        token_uri: nil,
-        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
-        metadata: {
-            "name": nft!.name,
-            "message": nft!.title,
-            "description": nft!.description,
-            "thumbnail": nft!.thumbnail
-        }
-    )
-}
-
 // https://flow-view-source.com/testnet/account/0x2a37a78609bba037/contract/TheFabricantS2ItemNFT
 pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -2640,5 +2647,55 @@ pub fun getAvatarArt(owner: PublicAccount, id: UInt64): NFTData? {
             "royaltyAddress": "0xe7da9bede73c8cc2",
             "royaltyPercentage": "5.0"
         }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x5ab407dfb3bf35e8/contract/DooverseItems
+pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "DooverseItems",
+        address: 0x5ab407dfb3bf35e8,
+        storage_path: "DooverseItems.CollectionStoragePath",
+        public_path: "DooverseItems.CollectionPublicPath",
+        public_collection_name: "DooverseItems.DooverseItemsCollectionPublic",
+        external_domain: "https://dooverse.io/"
+    )
+
+    let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+        .borrow<&{DooverseItems.DooverseItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDooverseItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("editionNumber")) {
+        rawMetadata.insert(key: "editionNumber", nft!.id.toString())
+    }
+    if (!metadata.containsKey("editionCount")) {
+        rawMetadata.insert(key: "editionCount", DooverseItems.totalSupply.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) {
+        rawMetadata.insert(key: "royaltyAddress", "0x8f4ef32a0ffb99a6")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) {
+        rawMetadata.insert(key: "royaltyPercentage", "5")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Dooverse Items NFT",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
     )
 }

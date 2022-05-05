@@ -44,6 +44,7 @@ import DayNFT from 0x0b7f00d13cd033bd
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import YahooPartnersCollectible from 0x5d50ce3fd080edce
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -61,6 +62,7 @@ import SwaychainNFT from 0x5dfbd0d5aba6acf7
 import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
+import DooverseItems from 0x5ab407dfb3bf35e8
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -264,6 +266,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+    .borrow<&{YahooPartnersCollectible.CollectionPublic}>() {
+        ids["YahooPartnersCollectible"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -329,11 +336,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["Metaverse"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
-    .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
-        ids["Swaychain"] = col.getIDs()
-    }
-
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
         .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
             ids["TheFabricantS2ItemNFT"] = col.getIDs()
@@ -347,6 +349,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(AADigital.CollectionPublicPath)
     .borrow<&{AADigital.AADigitalCollectionPublic}>() {
         ids["AvatarArt"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Dooverse"] = col.getIDs()
     }
 
     return ids

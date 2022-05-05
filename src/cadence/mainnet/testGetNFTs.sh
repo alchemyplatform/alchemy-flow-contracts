@@ -276,6 +276,11 @@ YahooCollectible)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bcda1de73a17d95" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "164763221" }] } }] }]' --network mainnet
@@ -378,6 +383,10 @@ VnMiss)
 AvatarArt)
   echo "AvatarArt"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x80fd317af00c29fd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "103" }] } }] }]' --network mainnet
+  ;;
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe2da33edc1c98983" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4566" }] } }] }]' --network mainnet
   ;;
 
 *)
