@@ -91,7 +91,7 @@ Owners)
   ;;
 Metaverse)
   echo "Metaverse"
-  flow scripts execute getNFTIDs.cdc 0x161bcffdf67a19bc --network testnet
+  flow scripts execute getNFTIDs.cdc 0x1500efa9e71dcd23 --network testnet
   ;;
 Swaychain)
   echo "Swaychain"
