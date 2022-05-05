@@ -6,6 +6,7 @@ export async function createAccounts() {
     let accountB = await getAccountAddress("b");
     let addressMap = {
         NonFungibleToken: adminAccount,
+        FungibleToken: adminAccount,
         MetadataViews: adminAccount,
         AlchemyMetadataWrapperEmulator: adminAccount,
         TestNFT: adminAccount,
@@ -17,6 +18,13 @@ export async function createAccounts() {
 export async function deployContracts(accountA, addressMap) {
     let [deploymentResult, error] = await deployContractByName({
         name: "NonFungibleToken",
+        to: accountA,
+        addressMap,
+    });
+    expect(error).toBe(null);
+
+    [deploymentResult, error] = await deployContractByName({
+        name: "FungibleToken",
         to: accountA,
         addressMap,
     });
