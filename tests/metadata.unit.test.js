@@ -4,7 +4,7 @@ import { createAccounts, deployContracts } from "./lib/common";
 import fs from "fs";
 import * as utils from "./lib/utils";
 
-const cadenceTestingSuite = describe("Metadata Tests", () => {
+const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
     let adminAccount,
         accountA,
         accountB,
