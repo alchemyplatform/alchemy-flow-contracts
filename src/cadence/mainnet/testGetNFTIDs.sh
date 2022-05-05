@@ -221,6 +221,12 @@ BarterYard)
   flow scripts execute getNFTIDs.cdc 0xa95b021cf8a30d80 --network mainnet
   ;;
 
+BarterYardClubWerewolf)
+  echo "Barter Yard Club Werewolf"
+  flow scripts execute getNFTIDs.cdc 0x28abb9f291cadaf2 --network mainnet
+  ;;
+
+
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x72c1174eb3f03380 --network mainnet
