@@ -7,7 +7,7 @@ const cadenceTestingSuite = describe("Contract Deployment Tests", () => {
         addressMap = null;
 
     beforeAll(async () => {
-        const basePath = path.resolve(__dirname, "../src/cadence");
+        const basePath = path.resolve(__dirname, "./cadence");
         const port = 8080;
         await init(basePath, { port });
         await emulator.start(port);

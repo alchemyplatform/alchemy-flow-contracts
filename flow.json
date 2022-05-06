@@ -7,29 +7,29 @@
     },
     "contracts": {
         "NonFungibleToken": {
-            "source": "./src/cadence/contracts/NonFungibleToken.cdc",
+            "source": "./tests/cadence/contracts/NonFungibleToken.cdc",
             "aliases": {
                 "mainnet": "0x1d7e57aa55817448",
                 "testnet": "0x631e88ae7f1d7c20"
             }
         },
         "FungibleToken": {
-            "source": "./src/cadence/contracts/FungibleToken.cdc",
+            "source": "./tests/cadence/contracts/FungibleToken.cdc",
             "aliases": {
                 "testnet": "0x9a0766d93b6608b7",
                 "mainnet": "0xf233dcee88fe0abe"
             }
         },
         "MetadataViews": {
-            "source": "./src/cadence/contracts/MetadataViews.cdc",
+            "source": "./tests/cadence/contracts/MetadataViews.cdc",
             "aliases": {
                 "mainnet": "0x1d7e57aa55817448",
                 "testnet": "0x631e88ae7f1d7c20"
             }
         },
-        "TestNFT": "./src/cadence/contracts/TestNFT.cdc",
-        "TestNFTWithViews": "./src/cadence/contracts/TestNFTWithViews.cdc",
-        "AlchemyMetadataWrapperEmulator": "./src/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
+        "TestNFT": "./tests/cadence/contracts/TestNFT.cdc",
+        "TestNFTWithViews": "./tests/cadence/contracts/TestNFTWithViews.cdc",
+        "AlchemyMetadataWrapperEmulator": "./tests/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
         "AlchemyMetadataWrapperTestnet": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
         "AlchemyMetadataWrapperMainnet": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
     },

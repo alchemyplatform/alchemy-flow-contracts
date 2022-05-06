@@ -11,22 +11,16 @@ const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
         addressMap = null;
 
     const getNFTIDs = fs.readFileSync(
-        path.resolve(
-            __dirname,
-            "../src/cadence/scripts/v2/emulator/getNFTIDs.cdc"
-        ),
+        path.resolve(__dirname, "./cadence/scripts/getNFTIDs.cdc"),
         "utf-8"
     );
     const getNFTs = fs.readFileSync(
-        path.resolve(
-            __dirname,
-            "../src/cadence/scripts/v2/emulator/getNFTs.cdc"
-        ),
+        path.resolve(__dirname, "./cadence/scripts/getNFTs.cdc"),
         "utf-8"
     );
 
     beforeAll(async () => {
-        const basePath = path.resolve(__dirname, "../src/cadence");
+        const basePath = path.resolve(__dirname, "./cadence");
         const port = 8080;
         await init(basePath, { port });
         await emulator.start(port);
