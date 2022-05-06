@@ -30,8 +30,8 @@
         "TestNFT": "./src/cadence/contracts/TestNFT.cdc",
         "TestNFTWithViews": "./src/cadence/contracts/TestNFTWithViews.cdc",
         "AlchemyMetadataWrapperEmulator": "./src/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
-        "AlchemyMetadataWrapperTestnet": "./src/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
-        "AlchemyMetadataWrapperMainnet": "./src/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
+        "AlchemyMetadataWrapperTestnet": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
+        "AlchemyMetadataWrapperMainnet": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
     },
     "networks": {
         "emulator": "127.0.0.1:3569",
