@@ -1,3 +1,5 @@
 # OS X
 .DS_Store
 generated/
+# Auto-generated for tests
+tests/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc

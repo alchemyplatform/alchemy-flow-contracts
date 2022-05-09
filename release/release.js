@@ -16,11 +16,21 @@ Object.defineProperty(String.prototype, "capitalize", {
 
 const generateContract = async (env) => {
     const getNFTIDs = fs.readFileSync(
-        path.resolve(__dirname, `./src/cadence/scripts/${env}/getNFTIDs.cdc`),
+        path.resolve(
+            __dirname,
+            `./${
+                env === "emulator" ? "tests" : "src"
+            }/cadence/scripts/${env}/getNFTIDs.cdc`
+        ),
         "utf-8"
     );
     const getNFTs = fs.readFileSync(
-        path.resolve(__dirname, `./src/cadence/scripts/${env}/getNFTs.cdc`),
+        path.resolve(
+            __dirname,
+            `./${
+                env === "emulator" ? "tests" : "src"
+            }/cadence/scripts/${env}/getNFTs.cdc`
+        ),
         "utf-8"
     );
     const cadenceContractTemplate = fs.readFileSync(
@@ -126,7 +136,9 @@ const generateContract = async (env) => {
     fs.writeFileSync(
         path.resolve(
             __dirname,
-            `./generated/cadence/contracts/AlchemyMetadataWrapper${env.capitalize()}.cdc`
+            `./${
+                env === "emulator" ? "tests" : "generated"
+            }/cadence/contracts/AlchemyMetadataWrapper${env.capitalize()}.cdc`
         ),
         generatedCadenceContract
     );
@@ -211,6 +223,7 @@ const diffDeployedContract = async (stack) => {
             name: "env",
             message: "Which env do you want to auto-generate a contract for?",
             choices: [
+                { title: "emulator", value: "emulator" },
                 { title: "testnet", value: "testnet" },
                 { title: "mainnet", value: "mainnet" },
             ],

@@ -1,7 +1,6 @@
 import path from "path";
 import { init, emulator } from "flow-js-testing";
 import { createAccounts, deployContracts } from "./lib/common";
-import fs from "fs";
 import * as utils from "./lib/utils";
 
 const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
@@ -10,14 +9,19 @@ const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
         accountB,
         addressMap = null;
 
-    const getNFTIDs = fs.readFileSync(
-        path.resolve(__dirname, "./cadence/scripts/getNFTIDs.cdc"),
-        "utf-8"
-    );
-    const getNFTs = fs.readFileSync(
-        path.resolve(__dirname, "./cadence/scripts/getNFTs.cdc"),
-        "utf-8"
-    );
+    const getNFTIDs = `
+    import AlchemyMetadataWrapperEmulator from "../../../contracts/AlchemyMetadataWrapperEmulator.cdc"
+
+    pub fun main(account: Address): {String: [UInt64]} {
+        return AlchemyMetadataWrapperEmulator.getNFTIDs(ownerAddress: account)
+    }`;
+    const getNFTs = `
+    import AlchemyMetadataWrapperEmulator from "../../../contracts/AlchemyMetadataWrapperEmulator.cdc"
+
+    pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [AlchemyMetadataWrapperEmulator.NFTData?] {
+        return AlchemyMetadataWrapperEmulator.getNFTs(ownerAddress: ownerAddress, ids: ids)
+    }
+    `;
 
     beforeAll(async () => {
         const basePath = path.resolve(__dirname, "./cadence");
