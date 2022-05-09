@@ -1,10 +1,8 @@
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import MetadataViews from "./MetadataViews.cdc"
 
-// $BEGIN NFT addresses
 import TestNFT from "./TestNFT.cdc"
 import TestNFTWithViews from "./TestNFTWithViews.cdc"
-// $END NFT addresses
 
 /*
     A wrapper contract around the script provided by the Alchemy GitHub respository.
@@ -109,10 +107,8 @@ pub contract AlchemyMetadataWrapperEmulator {
                 var d: NFTData? = nil
 
                 switch key {
-                    // $BEGIN getNFTs switch
                     case "TestNFT": d = self.getTestNFT(owner: owner, id: id)
                     case "TestNFTWithViews": d = self.getTestNFTWithViews(owner: owner, id: id)
-                    // $END getNFTs switch
                     default:
                         panic("adapter for NFT not found: ".concat(key))
                 }
@@ -128,7 +124,6 @@ pub contract AlchemyMetadataWrapperEmulator {
         let owner = getAccount(ownerAddress)
         let ids: {String: [UInt64]} = {}
 
-        // $BEGIN getNFTIDs
         if let col = owner.getCapability(TestNFT.CollectionPublicPath)
             .borrow<&{TestNFT.TestNFTCollectionPublic}>() {
                 ids["TestNFT"] = col.getIDs()
@@ -137,33 +132,10 @@ pub contract AlchemyMetadataWrapperEmulator {
             .borrow<&{TestNFTWithViews.TestNFTWithViewsCollectionPublic}>() {
                 ids["TestNFTWithViews"] = col.getIDs()
             }
-        // $END getNFTIDs
 
         return ids
 	}
 
-    // Helper functions
-    access(self) fun stringStartsWith(string: String, prefix: String): Bool {
-        if(string.length < prefix.length) {
-            return false
-        }
-
-        let beginning = string.slice(from: 0, upTo: prefix.length)
-
-        let prefixArray = prefix.utf8
-        let beginningArray = beginning.utf8
-
-        for index, element in prefixArray {
-            if(beginningArray[index] != prefixArray[index]) {
-                return false
-            }
-        }
-
-        return true
-    }
-
-
-    // $BEGIN getNFTs implementation
     pub fun getTestNFT(owner: PublicAccount, id: UInt64): NFTData? {
         let contract = NFTContractData(
             name: "TestNFT",
@@ -237,5 +209,4 @@ pub contract AlchemyMetadataWrapperEmulator {
             }
         )
     }
-    // $END getNFTs implementation
 }
