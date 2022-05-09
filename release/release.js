@@ -1,6 +1,9 @@
 import path from "path";
 import fs from "fs";
 import prompts from "prompts";
+import fcl from "@onflow/fcl";
+import colors from "colors";
+import * as Diff from "diff";
 const __dirname = path.resolve();
 
 // String helper function
@@ -11,8 +14,7 @@ Object.defineProperty(String.prototype, "capitalize", {
     enumerable: false,
 });
 
-const generateContract = async (stack) => {
-    const env = stack.slice(0, stack.indexOf("-"));
+const generateContract = async (env) => {
     const getNFTIDs = fs.readFileSync(
         path.resolve(__dirname, `./src/cadence/scripts/${env}/getNFTIDs.cdc`),
         "utf-8"
@@ -130,30 +132,104 @@ const generateContract = async (stack) => {
     );
 };
 
+const diffDeployedContract = async (stack) => {
+    const flowJson = JSON.parse(fs.readFileSync("./flow.json", "utf-8"));
+    let flowAccountAddress;
+    try {
+        flowAccountAddress = flowJson.accounts[`${stack}-account`].address;
+    } catch (err) {
+        console.error(
+            "Flow account has not been created or added to the flow.json yet."
+        );
+        return;
+    }
+    fcl.config.put(
+        "accessNode.api",
+        stack.startsWith("mainnet")
+            ? "https://access-mainnet-beta.onflow.org"
+            : "https://access-testnet.onflow.org"
+    );
+    const account = await fcl
+        .send([fcl.getAccount(flowAccountAddress)])
+        .then(fcl.decode);
+    const deployedContract =
+        account.contracts[
+            stack.startsWith("mainnet")
+                ? "AlchemyMetadataWrapperMainnet"
+                : "AlchemyMetadataWrapperTestnet"
+        ] || "";
+    let generatedContract;
+    try {
+        generatedContract = fs.readFileSync(
+            path.resolve(
+                __dirname,
+                `./generated/cadence/contracts/AlchemyMetadataWrapper${stack
+                    .split("-")[0]
+                    .capitalize()}.cdc`
+            ),
+            "utf-8"
+        );
+    } catch (err) {
+        console.error(
+            'Cannot load the local generated contract, please run the "Generate contract" command first.'
+        );
+        return;
+    }
+    const diff = Diff.diffLines(deployedContract, generatedContract);
+    let isDiff = false;
+    for (let i = 0; i < diff.length; i++) {
+        const color = diff[i].added
+            ? "green"
+            : diff[i].removed
+            ? "red"
+            : "grey";
+        if (diff[i].added || diff[i].removed) {
+            isDiff = true;
+            process.stdout.write(diff[i].value[color]);
+        }
+    }
+    if (!isDiff) {
+        console.log("No differences between deployed and generated contract.");
+    }
+};
+
 (async () => {
-    const response = await prompts({
-        type: "text",
-        name: "stack",
-        message:
-            "Which stack do you want to release (testnet-staging, testnet-production, mainnet-staging, mainnet-production)?",
-        validate: (value) =>
-            value.match(
-                /(testnet-staging|testnet-production|mainnet-staging|mainnet-production)/
-            ) === null
-                ? `Valid options are: testnet-staging, testnet-production, mainnet-staging, mainnet-production`
-                : true,
+    const { action } = await prompts({
+        type: "select",
+        name: "action",
+        message: "Which action do you want to perform?",
+        choices: [
+            { title: "Generate contract", value: "generate-contract" },
+            { title: "Diff deployed contract", value: "diff-contract" },
+            { title: "Deploy contract", value: "deploy-contract" },
+        ],
     });
 
-    const stack = response.stack;
-    if (stack === "testnet-staging") {
-        await generateContract(stack);
-    } else if (stack === "testnet-production") {
-        throw new Error("Not Implemented Yet");
-    } else if (stack === "mainnet-staging") {
-        throw new Error("Not Implemented Yet");
-    } else if (stack === "mainnet-production") {
-        throw new Error("Not Implemented Yet");
-    } else {
-        throw new Error(`Invalid Stack ${stack}`);
+    if (action === "generate-contract") {
+        const { env } = await prompts({
+            type: "select",
+            name: "env",
+            message: "Which env do you want to auto-generate a contract for?",
+            choices: [
+                { title: "testnet", value: "testnet" },
+                { title: "mainnet", value: "mainnet" },
+            ],
+        });
+        await generateContract(env);
+    } else if (action === "diff-contract") {
+        const { stack } = await prompts({
+            type: "select",
+            name: "stack",
+            message: "Which stack do you want to diff a contract against?",
+            choices: [
+                { title: "testnet-staging", value: "testnet-staging" },
+                { title: "testnet-production", value: "testnet-production" },
+                { title: "mainnet-staging", value: "mainnet-staging" },
+                { title: "mainnet-production", value: "mainnet-production" },
+            ],
+        });
+        await diffDeployedContract(stack);
+    } else if (action === "deploy-contract") {
+        throw new Error("TODO");
     }
 })();

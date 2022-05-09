@@ -6,6 +6,8 @@
         "@onflow/types": "^0.0.6",
         "babel-cli": "^6.26.0",
         "babel-jest": "^28.0.3",
+        "colors": "^1.4.0",
+        "diff": "^5.0.0",
         "flow-js-testing": "^0.2.3-alpha.5",
         "jest": "^28.0.3",
         "prompts": "^2.4.2"
@@ -16,6 +18,6 @@
         "testUnit": "jest --runInBand \"unit\"",
         "testRegression": "jest --runInBand \"regression\"",
         "testFile": "jest -- ",
-        "release": "babel-node release/updateContract.js"
+        "release": "babel-node release/release.js"
     }
 }
