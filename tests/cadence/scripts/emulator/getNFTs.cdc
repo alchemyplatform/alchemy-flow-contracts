@@ -1,7 +1,7 @@
-import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import MetadataViews from "../contracts/MetadataViews.cdc"
-import TestNFT from "../contracts/TestNFT.cdc"
-import TestNFTWithViews from "../contracts/TestNFTWithViews.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
+import MetadataViews from "./MetadataViews.cdc"
+import TestNFT from "./TestNFT.cdc"
+import TestNFTWithViews from "./TestNFTWithViews.cdc"
 
 pub struct NFTCollection {
     pub let owner: Address

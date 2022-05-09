@@ -1,6 +1,6 @@
-import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import TestNFT from "../contracts/TestNFT.cdc"
-import TestNFTWithViews from "../contracts/TestNFTWithViews.cdc"
+import NonFungibleToken from "./NonFungibleToken.cdc"
+import TestNFT from "./TestNFT.cdc"
+import TestNFTWithViews from "./TestNFTWithViews.cdc"
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
