@@ -55,6 +55,7 @@ import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
 import Metaverse from 0x161bcffdf67a19bc
+import TrartContractNFT from 0x4e024b8545e52d07
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -195,6 +196,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
+                case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2432,7 +2434,7 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 // https://flow-view-source.com/testnet/account/0x161bcffdf67a19bc/contract/Metaverse
 pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "Metaverse",
         address: 0x161bcffdf67a19bc,
         storage_path: "Metaverse.CollectionStoragePath",
@@ -2458,5 +2460,66 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [],
         metadata: {}
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4e024b8545e52d07/contract/TrartContractNFT
+pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TrartContractNFT",
+        address: 0x4e024b8545e52d07,
+        storage_path: "/storage/TrartContractNFTCollection",
+        public_path: "/public/TrartContractNFTCollection",
+        public_collection_name: "TrartContractNFT.ICardCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+        .borrow<&{TrartContractNFT.ICardCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCard(id: id)
+    if nft == nil { return nil }
+
+    let metadata = TrartContractNFT.getMetadataForCardID(cardID: nft!.id)!.data
+    let rawMetadata: {String:String?} = {
+        "editionNumber": metadata["SERIES ID"]??"",
+        "editionCount": metadata["TOTAL ISSUANCE"]??"",
+        "royaltyAddress": "",
+        "royaltyPercentage": ""
+    }
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+    var nftTitle: String? = metadata["NAME"]
+    if nftTitle == nil && metadata["CARD NUMBER"] != nil {
+       nftTitle = (metadata["CARD SERIES"]!=nil?metadata["CARD SERIES"]!.concat(" - "):"").concat(metadata["CARD NUMBER"]!)
+    }
+
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
+    var ipfsURL: String? = nil
+    let metadataUrl: String = metadata["URI"]?? metadata["URL"]?? ""
+
+    if metadataUrl.length > ipfsScheme.length && stringStartsWith(string: metadataUrl, prefix: ipfsScheme) {
+        ipfsURL = "https://trartgateway.mypinata.cloud/ipfs/".concat(metadataUrl.slice(from: ipfsScheme.length, upTo: metadataUrl.length));
+    } else if metadataUrl.length > httpsScheme.length &&stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
+        ipfsURL = metadataUrl
+    }
+   
+    let mediaArray:[NFTMedia] = ipfsURL!=nil?[NFTMedia(uri: ipfsURL, mimetype: "image")]:[]
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: nftTitle,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: mediaArray,
+        metadata: rawMetadata,
     )
 }

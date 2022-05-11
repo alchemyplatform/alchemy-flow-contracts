@@ -360,6 +360,11 @@ Metaverse)
   flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
   ;;
 
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTIDs.cdc 0x1c7ee996c28e0651 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

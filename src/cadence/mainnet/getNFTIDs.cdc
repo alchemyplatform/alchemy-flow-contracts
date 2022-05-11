@@ -74,6 +74,7 @@ import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
 import Metaverse from 0xd756450f386fb4ac
+import TrartContractNFT from 0x6f01a4b0046c1f87
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -431,7 +432,12 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Metaverse.CollectionPublicPath)
     .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
         ids["Metaverse"] = col.getIDs()
-    }  
+    }
+
+    if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+    .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
+        ids["TrartContractNFT"] = col.getIDs()
+    } 
 
     return ids
 }

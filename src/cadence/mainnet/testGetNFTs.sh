@@ -353,6 +353,11 @@ Metaverse)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd756450f386fb4ac" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1c7ee996c28e0651" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "110010300093" }] } }] }]' --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
