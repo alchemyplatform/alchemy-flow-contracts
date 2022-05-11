@@ -4,6 +4,7 @@ import prompts from "prompts";
 import fcl from "@onflow/fcl";
 import colors from "colors";
 import * as Diff from "diff";
+import { spawn } from "child_process";
 const __dirname = path.resolve();
 
 // String helper function
@@ -205,6 +206,40 @@ const diffDeployedContract = async (stack) => {
     }
 };
 
+const deployContract = async (stack) => {
+    if (stack.startsWith("mainnet")) {
+        console.error("Mainnet Deployments Not Supported Yet.");
+        return;
+    }
+    const contract = stack.startsWith("mainnet")
+        ? "AlchemyMetadataWrapperMainnet"
+        : "AlchemyMetadataWrapperTestnet";
+    let signer = `${stack}-account`;
+    const command = `flow accounts update-contract ${contract} ./generated/cadence/contracts/${contract}.cdc --signer ${signer} --network ${
+        stack.split("-")[0]
+    }`;
+    const { confirm } = await prompts({
+        type: "select",
+        name: "confirm",
+        message: `Execute - '${command}'?`,
+        choices: [
+            { title: "Yes", value: "yes" },
+            { title: "No", value: "no" },
+        ],
+    });
+    if (confirm === "yes") {
+        let commandParts = command.split(" ");
+        let spawnOut = spawn(commandParts[0], commandParts.slice(1));
+        spawnOut.stdout.on("data", function (data) {
+            process.stdout.write(data.toString());
+        });
+
+        spawnOut.stderr.on("data", function (data) {
+            process.stderr.write(data.toString());
+        });
+    }
+};
+
 (async () => {
     const { action } = await prompts({
         type: "select",
@@ -243,6 +278,17 @@ const diffDeployedContract = async (stack) => {
         });
         await diffDeployedContract(stack);
     } else if (action === "deploy-contract") {
-        throw new Error("TODO");
+        const { stack } = await prompts({
+            type: "select",
+            name: "stack",
+            message: "Which stack do you want to diff a contract against?",
+            choices: [
+                { title: "testnet-staging", value: "testnet-staging" },
+                { title: "testnet-production", value: "testnet-production" },
+                { title: "mainnet-staging", value: "mainnet-staging" },
+                { title: "mainnet-production", value: "mainnet-production" },
+            ],
+        });
+        await deployContract(stack);
     }
 })();
