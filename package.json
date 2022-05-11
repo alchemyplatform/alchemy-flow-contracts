@@ -1,0 +1,23 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.17.10",
+        "@babel/preset-env": "^7.17.10",
+        "@onflow/fcl": "^0.0.78",
+        "@onflow/types": "^0.0.6",
+        "babel-cli": "^6.26.0",
+        "babel-jest": "^28.0.3",
+        "colors": "^1.4.0",
+        "diff": "^5.0.0",
+        "flow-js-testing": "^0.2.3-alpha.5",
+        "jest": "^28.0.3",
+        "prompts": "^2.4.2"
+    },
+    "type": "module",
+    "scripts": {
+        "test": "jest --runInBand",
+        "testUnit": "jest --runInBand \"unit\"",
+        "testRegression": "jest --runInBand \"regression\"",
+        "testFile": "jest -- ",
+        "release": "babel-node release/release.js"
+    }
+}

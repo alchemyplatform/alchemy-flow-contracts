@@ -1,0 +1,66 @@
+{
+    "emulators": {
+        "default": {
+            "port": 3569,
+            "serviceAccount": "emulator-account"
+        }
+    },
+    "contracts": {
+        "NonFungibleToken": {
+            "source": "./tests/cadence/contracts/NonFungibleToken.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
+        "FungibleToken": {
+            "source": "./tests/cadence/contracts/FungibleToken.cdc",
+            "aliases": {
+                "testnet": "0x9a0766d93b6608b7",
+                "mainnet": "0xf233dcee88fe0abe"
+            }
+        },
+        "MetadataViews": {
+            "source": "./tests/cadence/contracts/MetadataViews.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
+        "TestNFT": "./tests/cadence/contracts/TestNFT.cdc",
+        "TestNFTWithViews": "./tests/cadence/contracts/TestNFTWithViews.cdc",
+        "AlchemyMetadataWrapperEmulator": "./tests/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
+        "AlchemyMetadataWrapperTestnet": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
+        "AlchemyMetadataWrapperMainnet": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
+    },
+    "networks": {
+        "emulator": "127.0.0.1:3569",
+        "mainnet": "access.mainnet.nodes.onflow.org:9000",
+        "testnet": "access.devnet.nodes.onflow.org:9000"
+    },
+    "accounts": {
+        "emulator-account": {
+            "address": "0xf8d6e0586b0a20c7",
+            "key": "39594bc64959efa98a77207decc871513bc584140e11b899591f3dbdf9506b1e"
+        },
+        "testnet-staging-account": {
+            "address": "0x05ff2c7b4c40de11",
+            "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY"
+        }
+    },
+    "deployments": {
+        "emulator": {
+            "emulator-account": [
+                "NonFungibleToken",
+                "FungibleToken",
+                "MetadataViews",
+                "TestNFT",
+                "TestNFTWithViews",
+                "AlchemyMetadataWrapperEmulator"
+            ]
+        },
+        "testnet": {
+            "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"]
+        }
+    }
+}
