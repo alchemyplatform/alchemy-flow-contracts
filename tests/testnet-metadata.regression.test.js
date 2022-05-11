@@ -12,17 +12,11 @@ import {
 const cadenceTestingSuite =
     describe("Testnet Metadata Regression Tests", () => {
         const testGetNFTIDsScript = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/testnet/testGetNFTIDs.sh"
-            ),
+            path.resolve(__dirname, "../src/cadence/testnet/testGetNFTIDs.sh"),
             "utf-8"
         );
         const getNFTIDsV1 = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/testnet/getNFTIDs.cdc"
-            ),
+            path.resolve(__dirname, "../src/cadence/testnet/getNFTIDs.cdc"),
             "utf-8"
         );
         const getNFTIDsStaging = fs.readFileSync(
@@ -34,17 +28,11 @@ const cadenceTestingSuite =
         );
 
         const testGetNFTsScript = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/testnet/testGetNFTs.sh"
-            ),
+            path.resolve(__dirname, "../src/cadence/testnet/testGetNFTs.sh"),
             "utf-8"
         );
         const getNFTsV1 = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/testnet/getNFTs.cdc"
-            ),
+            path.resolve(__dirname, "../src/cadence/testnet/getNFTs.cdc"),
             "utf-8"
         );
         const getNFTsStaging = fs.readFileSync(

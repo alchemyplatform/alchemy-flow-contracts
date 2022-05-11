@@ -20,7 +20,7 @@ const generateContract = async (env) => {
             __dirname,
             `./${
                 env === "emulator" ? "tests" : "src"
-            }/cadence/scripts/${env}/getNFTIDs.cdc`
+            }/cadence//${env}/getNFTIDs.cdc`
         ),
         "utf-8"
     );
@@ -29,7 +29,7 @@ const generateContract = async (env) => {
             __dirname,
             `./${
                 env === "emulator" ? "tests" : "src"
-            }/cadence/scripts/${env}/getNFTs.cdc`
+            }/cadence/${env}/getNFTs.cdc`
         ),
         "utf-8"
     );
