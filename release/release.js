@@ -215,7 +215,45 @@ const deployContract = async (stack) => {
         ? "AlchemyMetadataWrapperMainnet"
         : "AlchemyMetadataWrapperTestnet";
     let signer = `${stack}-account`;
-    const command = `flow accounts update-contract ${contract} ./generated/cadence/contracts/${contract}.cdc --signer ${signer} --network ${
+    const flowJson = JSON.parse(fs.readFileSync("./flow.json", "utf-8"));
+    let flowAccountAddress;
+    try {
+        flowAccountAddress = flowJson.accounts[signer].address;
+    } catch (err) {
+        console.error(
+            "Flow account has not been created or added to the flow.json yet."
+        );
+        return;
+    }
+    fcl.config.put(
+        "accessNode.api",
+        stack.startsWith("mainnet")
+            ? "https://access-mainnet-beta.onflow.org"
+            : "https://access-testnet.onflow.org"
+    );
+    if (
+        !fs.existsSync(
+            path.resolve(
+                __dirname,
+                `./generated/cadence/contracts/${contract}.cdc`
+            ),
+            "utf-8"
+        )
+    ) {
+        console.error(
+            'Cannot load the local generated contract, please run the "Generate contract" command first.'
+        );
+        return;
+    }
+
+    const account = await fcl
+        .send([fcl.getAccount(flowAccountAddress)])
+        .then(fcl.decode);
+    let flowCommand = "update-contract";
+    if (account.contracts[contract] === undefined) {
+        flowCommand = "add-contract";
+    }
+    const command = `flow accounts ${flowCommand} ${contract} ./generated/cadence/contracts/${contract}.cdc --signer ${signer} --network ${
         stack.split("-")[0]
     }`;
     const { confirm } = await prompts({

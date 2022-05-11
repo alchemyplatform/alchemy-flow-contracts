@@ -46,6 +46,10 @@
         "testnet-staging-account": {
             "address": "0x05ff2c7b4c40de11",
             "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY"
+        },
+        "testnet-production-account": {
+            "address": "0x89f6326ec81c244d",
+            "key": "$ALCHEMY_TESTNET_PRODUCTION_PRIVATE_KEY"
         }
     },
     "deployments": {
@@ -60,7 +64,8 @@
             ]
         },
         "testnet": {
-            "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"]
+            "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"],
+            "testnet-production-account": ["AlchemyMetadataWrapperTestnet"]
         }
     }
 }
