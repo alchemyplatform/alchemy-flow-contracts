@@ -2485,8 +2485,8 @@ pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let rawMetadata: {String:String?} = {
         "editionNumber": metadata["SERIES ID"]??"",
         "editionCount": metadata["TOTAL ISSUANCE"]??"",
-        "royaltyAddress": "",
-        "royaltyPercentage": ""
+        "royaltyAddress": "0x399169c5c83bf22d",
+        "royaltyPercentage": "2.5"
     }
     for key in metadata.keys {
         rawMetadata.insert(key: key, metadata[key])
