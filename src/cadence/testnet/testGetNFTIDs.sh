@@ -24,7 +24,7 @@ BarterYard)
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0x0add010813a8c23f --network testnet
-  ;;    
+  ;;
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
@@ -32,7 +32,7 @@ DayNFT)
 NowggNFT)
   echo "NowggNFT"
   flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
-  ;; 
+  ;;
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
@@ -116,6 +116,10 @@ AvatarArt)
 Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
+  ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x87ff916f3bbcf518 --network testnet
   ;;
 *)
   echo "Unknown contract"

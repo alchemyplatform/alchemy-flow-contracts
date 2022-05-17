@@ -394,6 +394,11 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x53cebd602474741e --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

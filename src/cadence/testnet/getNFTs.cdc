@@ -60,6 +60,7 @@ import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
+import SturdyItems from 0xfafb022e4e45634b
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -190,7 +191,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
-                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
+                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
@@ -206,6 +207,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -353,7 +355,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
              domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
-    
+
     let rawMetadata: {String:String?} = {}
     for key in metadata!.keys {
         rawMetadata.insert(key: key, metadata![key])
@@ -1660,8 +1662,8 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
      if editionData!.metadata["nftType"]! == "Type C" {
          external_domain =  "https://misa.art/collections/nft"
      }
-        
-    
+
+
     let contract = NFTContractData(
         name: merchantName,
         address: 0x985d410b577fd4a1,
@@ -2257,7 +2259,7 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     for key in traits.keys {
         let currentTrait = traits[key]!;
         for currentTraitKey in currentTrait.keys{
-            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
+            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey])
         }
     }
 
@@ -2330,8 +2332,8 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCemeteryPlot(id: id)
     if nft == nil { return nil }
 
-    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
- 
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2364,7 +2366,7 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
     let float = col!.borrowFLOAT(id: id)
     if float == nil { return nil }
 
-    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
+    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
 
     return NFTData(
         contract: contract,
@@ -2688,5 +2690,42 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xfafb022e4e45634b/contract/SturdyItems
+pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SturdyItems",
+        address: 0xfafb022e4e45634b,
+        storage_path: "SturdyItems.CollectionStoragePath",
+        public_path: "SturdyItems.CollectionPublicPath",
+        public_collection_name: "SturdyItems.SturdyItemsCollectionPublic",
+        external_domain: "https://sturdy.exchange/"
+    )
+
+    let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+        .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowSturdyItem(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.tokenTitle,
+        description: nft!.tokenDescription,
+        external_domain_view_url: "https://sturdy.exchange/secondary-sale/".concat(nft!.id.toString()),
+        token_uri: nft!.tokenURI,
+        media: [],
+        metadata: {
+          "typeID": nft!.typeID.toString(),
+          "artist": nft!.artist,
+          "editionCount": SturdyItems.totalSupply.toString(),
+          "secondaryRoyalty": nft!.secondaryRoyalty,
+          "platformMintedOn": nft!.platformMintedOn
+        }
     )
 }
