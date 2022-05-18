@@ -11,6 +11,16 @@ MatrixWorldFlowFestNFT)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5f14b7e68e0bc3c3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MatrixWorldFlowFestNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3296" }] } }] }]' --network mainnet
   ;;
 
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0d9bc5af3fc0c2e3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xfef48806337aabf1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
 Starly)
   echo "Starly"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd88dea66b28c8637" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "StarlyCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "752" }] } }] }]' --network mainnet

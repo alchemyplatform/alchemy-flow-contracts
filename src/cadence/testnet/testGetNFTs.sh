@@ -9,6 +9,14 @@ ZeedzINO)
   echo "ZeedzINO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2dda9145001182e0" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ZeedzINO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5042" }] } }] }]' --network testnet
   ;;
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb30ec2319df2aa30" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe861e151d3556d70" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Kicks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network testnet
