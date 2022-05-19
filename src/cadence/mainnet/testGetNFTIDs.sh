@@ -11,6 +11,16 @@ MatrixWorldFlowFestNFT)
   flow scripts execute getNFTIDs.cdc 0x5f14b7e68e0bc3c3 --network mainnet
   ;;
 
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTIDs.cdc 0x0d9bc5af3fc0c2e3 --network mainnet
+  ;;
+
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTIDs.cdc 0xfef48806337aabf1 --network mainnet
+  ;;
+
 Starly)
   echo "Starly"
   flow scripts execute getNFTIDs.cdc 0xd88dea66b28c8637 --network mainnet

@@ -23,6 +23,7 @@ import SportsIconCollectible from 0x8de96244f54db422
 import StarlyCard from 0x5b82f21c0edf76e3
 import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
+import TicalUniverse from 0xfef48806337aabf1
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
 import Domains from 0x233eb012d34b0070
@@ -182,6 +183,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TuneGO.CollectionPublicPath)
         .borrow<&{TuneGO.TuneGOCollectionPublic}>() {
             ids["TuneGO"] = col.getIDs()
+        }
+    if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
+            ids["TicalUniverse"] = col.getIDs()
         }
     if let col = owner.getCapability(MatrixWorldFlowFestNFT.CollectionPublicPath)
         .borrow<&{MatrixWorldFlowFestNFT.MatrixWorldFlowFestNFTCollectionPublic}>() {

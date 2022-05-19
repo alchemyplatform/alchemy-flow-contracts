@@ -23,6 +23,7 @@ import SportsIconCollectible from 0x8de96244f54db422
 import StarlyCard from 0x5b82f21c0edf76e3
 import CaaPass from 0x98c9c2e548b84d31
 import TuneGO from 0x0d9bc5af3fc0c2e3
+import TicalUniverse from 0xfef48806337aabf1
 import MatrixWorldFlowFestNFT from 0x2d2750f240198f91
 import TopShot from 0x0b2a3299cc857e29
 import Domains from 0x233eb012d34b0070
@@ -181,6 +182,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Gaia": d = getGaia(owner: owner, id: id)
                 case "TopShot": d = getTopShot(owner: owner, id: id)
                 case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
+                case "TuneGO": d = getTuneGO(owner: owner, id: id)
+                case "TicalUniverse": d = getTicalUniverse(owner: owner, id: id)
                 case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
                 case "EternalShard": d = getEternalShard(owner: owner, id: id)
                 case "Mynft": d = getMynft(owner: owner, id: id)
@@ -1385,7 +1388,7 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "TuneGO.CollectionStoragePath",
         public_path: "TuneGO.CollectionPublicPath",
         public_collection_name: "TuneGO.TuneGOCollectionPublic",
-        external_domain: ""
+        external_domain: "tunegonft.com"
     )
 
     let col = owner.getCapability(TuneGO.CollectionPublicPath)
@@ -1395,16 +1398,73 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
 
+    let data = nft!.data
+    let itemMetadata = TuneGO.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TuneGO.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [ NFTMedia(uri: itemMetadata["Media URL"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xfef48806337aabf1/contract/TicalUniverse
+pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TicalUniverse",
+        address: 0xfef48806337aabf1,
+        storage_path: "TicalUniverse.CollectionStoragePath",
+        public_path: "TicalUniverse.CollectionPublicPath",
+        public_collection_name: "TicalUniverse.TicalUniverseCollectionPublic",
+        external_domain: "tunegonft.com"
+    )
+
+    let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    let data = nft!.data
+    let itemMetadata = TicalUniverse.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TicalUniverse.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
+        token_uri: nil,
+        media: [ NFTMedia(uri: itemMetadata["Asset"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
     )
 }
 
