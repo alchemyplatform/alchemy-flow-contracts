@@ -1410,6 +1410,8 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     }
     rawMetadata["editionNumber"] = editionNumber.toString()
     rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x8039244113ff6251"
+    rawMetadata["royaltyPercentage"] = "5.0"
 
     return NFTData(
         contract: contract,
@@ -1454,6 +1456,8 @@ pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
     }
     rawMetadata["editionNumber"] = editionNumber.toString()
     rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x8039244113ff6251"
+    rawMetadata["royaltyPercentage"] = "5.0"
 
     return NFTData(
         contract: contract,
