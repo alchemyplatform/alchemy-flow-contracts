@@ -394,6 +394,10 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+CryptoPiggo)
+  echo "CryptoPiggo"
+  flow scripts execute getNFTIDs.cdc 0x8f6bf7a919bf4edb --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

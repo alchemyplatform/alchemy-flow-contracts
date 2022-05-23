@@ -388,6 +388,10 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe2da33edc1c98983" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4566" }] } }] }]' --network mainnet
   ;;
+CryptoPiggo)
+  echo "CryptoPiggo"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f6bf7a919bf4edb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "CryptoPiggo" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5607" }] } }] }]' --network mainnet
+  ;;
 
 *)
   echo "Unknown contract"

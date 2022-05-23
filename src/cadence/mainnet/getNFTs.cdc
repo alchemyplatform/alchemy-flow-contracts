@@ -82,6 +82,7 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+import CryptoPiggo from 0xd3df824bf81910a4
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -255,6 +256,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "CryptoPiggo": d = getCryptoPiggoNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3828,6 +3830,56 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: "Dooverse Items NFT",
         description: nil,
         external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xd3df824bf81910a4/contract/CryptoPiggo
+pub fun getCryptoPiggoNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "CryptoPiggo",
+        address: 0xd3df824bf81910a4,
+        storage_path: "CryptoPiggo.CollectionStoragePath",
+        public_path: "CryptoPiggo.CollectionPublicPath",
+        public_collection_name: "CryptoPiggo.CryptoPiggoCollectionPublic",
+        external_domain: "https://rareworx.com/piggo/details/"
+    )
+
+    let col = owner.getCapability(CryptoPiggo.CollectionPublicPath)
+        .borrow<&{CryptoPiggo.CryptoPiggoCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("name")) {
+        rawMetadata.insert(key: "name", "CryptoPiggo #".concat(nft!.id.toString()))
+    }
+    if (!metadata.containsKey("image")) {
+        rawMetadata.insert(key: "image", "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png"))
+    }
+    if (!metadata.containsKey("url")) {
+        rawMetadata.insert(key: "url", "https://rareworx.com/piggo/details/".concat(nft!.id.toString()))
+    }
+    if (!metadata.containsKey("contentType")) {
+        rawMetadata.insert(key: "contentType", "image")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "CryptoPiggo",
+        description: metadata["description"] ?? nil,
+        external_domain_view_url: "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png"),
         token_uri: nil,
         media: [],
         metadata: rawMetadata
