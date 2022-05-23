@@ -82,6 +82,7 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+import SturdyItems from 0x427ceada271aa0b1
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -255,6 +256,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3828,6 +3830,54 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: "Dooverse Items NFT",
         description: nil,
         external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x427ceada271aa0b1/contract/SturdyItems
+pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SturdyItems",
+        address: 0x427ceada271aa0b1,
+        storage_path: "SturdyItems.CollectionStoragePath",
+        public_path: "SturdyItems.CollectionPublicPath",
+        public_collection_name: "SturdyItems.SturdyItemsCollectionPublic",
+        external_domain: "https://hoodlumsnft.com/"
+    )
+
+    let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+        .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowSturdyItem(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+
+    rawMetadata.insert(key: "id", nft!.id.toString())
+    rawMetadata.insert(key: "typeID", nft!.typeID.toString())
+    rawMetadata.insert(key: "tokenURI", nft!.tokenTitle)
+    rawMetadata.insert(key: "tokenDescription", nft!.tokenDescription)
+    rawMetadata.insert(key: "artist", nft!.artist)
+    rawMetadata.insert(key: "secondaryRoyalty", nft!.secondaryRoyalty)
+    rawMetadata.insert(key: "platformMintedOn", nft!.platformMintedOn)
+
+    let isHoodlum = nft!.tokenTitle.slice(from: 0, upTo: 7) == "HOODLUM"
+    var external_domain_view_url : String? = nil 
+    if isHoodlum {
+        let hoodlumId = nft!.tokenTitle.slice(from: 8, upTo: nft!.tokenTitle.length)
+        external_domain_view_url = "https://hoodlumsnft.com/_next/image?url=%2Fthumbs%2FsomeHoodlum_".concat(hoodlumId).concat(".png&w=1920&q=75")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "SturdyItems",
+        description: nft!.tokenDescription,
+        external_domain_view_url: external_domain_view_url,
         token_uri: nil,
         media: [],
         metadata: rawMetadata
