@@ -82,6 +82,7 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+import BarterYardClubWerewolf from  0x28abb9f291cadaf2
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -255,6 +256,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "BarterYardClubWerewolf": d = getBarterYardClubWerewolfNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3828,6 +3830,55 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: "Dooverse Items NFT",
         description: nil,
         external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x28abb9f291cadaf2/contract/BarterYardClubWerewolf
+pub fun getBarterYardClubWerewolfNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "BarterYardClubWerewolf",
+        address: 0x28abb9f291cadaf2,
+        storage_path: "BarterYardClubWerewolf.CollectionStoragePath",
+        public_path: "BarterYardClubWerewolf.CollectionPublicPath",
+        public_collection_name: "MetadataViews.ResolverCollection",
+        external_domain: "https://www.barteryard.club"
+    )
+
+    var col = owner.getCapability(BarterYardClubWerewolf.CollectionPublicPath)
+        .borrow<&{MetadataViews.ResolverCollection}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowViewResolver(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+    let completeDisplayView = nft!.resolveView(Type<BarterYardClubWerewolf.CompleteDisplay>())
+    let completeDisplay = completeDisplayView! as! BarterYardClubWerewolf.CompleteDisplay
+    rawMetadata.insert(key: "name", completeDisplay.name)
+    rawMetadata.insert(key: "description", completeDisplay.description)
+    rawMetadata.insert(key: "thumbnail", completeDisplay.thumbnail.cid)
+    rawMetadata.insert(key: "dayImage", completeDisplay.dayImage.cid)
+    rawMetadata.insert(key: "nightImage", completeDisplay.nightImage.cid)
+    rawMetadata.insert(key: "animation", completeDisplay.animation.cid)
+
+
+    let ref = owner.getCapability(BarterYardClubWerewolf.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>() 
+    
+    if ref == nil { return nil }
+
+    let uuid = ref!.borrowNFT(id: id).uuid
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: uuid,
+        title: "BarterYardClubWerewolf",
+        description: completeDisplay.description,
+        external_domain_view_url: completeDisplay.thumbnail.cid,
         token_uri: nil,
         media: [],
         metadata: rawMetadata

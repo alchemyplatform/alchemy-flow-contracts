@@ -394,6 +394,11 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+BarterYardClubWerewolf)
+  echo "BarterYardClubWerewolf"
+  flow scripts execute getNFTIDs.cdc 0x28abb9f291cadaf2 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

@@ -388,7 +388,10 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe2da33edc1c98983" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4566" }] } }] }]' --network mainnet
   ;;
-
+BarterYardClubWerewolf)
+  echo "BarterYardClubWerewolf"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x28abb9f291cadaf2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardClubWerewolf" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3183" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
