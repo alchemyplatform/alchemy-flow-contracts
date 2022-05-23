@@ -389,6 +389,10 @@ Dooverse)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe2da33edc1c98983" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4566" }] } }] }]' --network mainnet
   ;;
 
+UFC_NFT)
+  echo "UFC_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x32441817bc2bbe9c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "UFC_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "269720" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

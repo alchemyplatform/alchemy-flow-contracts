@@ -82,6 +82,7 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+import UFC_NFT from 0x329feb3ab062d289
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -255,6 +256,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "UFC_NFT": d = getUFCNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3830,6 +3832,43 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/UFC_NFT
+pub fun getUFCNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "UFC_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "UFC_NFT.CollectionStoragePath",
+        public_path: "UFC_NFT.CollectionPublicPath",
+        public_collection_name: "UFC_NFT.UFC_NFTCollectionPublic",
+        external_domain: "https://www.ufcstrike.com"
+    )
+
+    let col = owner.getCapability(UFC_NFT.CollectionPublicPath)
+        .borrow<&{UFC_NFT.UFC_NFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowUFC_NFT(id: id)
+    if nft == nil { return nil }
+
+    var metadata = UFC_NFT.getSetMetadata(setId: nft!.setId)! 
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "UFC_NFT",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata["image"]!, mimetype: "video" )],
         metadata: rawMetadata
     )
 }

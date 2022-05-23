@@ -394,6 +394,10 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+UFC_NFT)
+  echo "UFC_NFT"
+  flow scripts execute getNFTIDs.cdc 0x32441817bc2bbe9c --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
