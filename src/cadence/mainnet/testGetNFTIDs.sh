@@ -394,6 +394,10 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+MotoGPCard)
+  echo "MotoGPCard"
+  flow scripts execute getNFTIDs.cdc 0x5deee05d29fb867c --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
