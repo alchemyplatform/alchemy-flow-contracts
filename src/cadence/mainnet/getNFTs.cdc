@@ -82,6 +82,7 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+import Evolution from 0xf4264ac8f3256818
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -255,6 +256,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "Evolution": d = getEvolutionNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3828,6 +3830,53 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         title: "Dooverse Items NFT",
         description: nil,
         external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xf4264ac8f3256818/contract/Evolution
+pub fun getEvolutionNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Evolution",
+        address: 0xf4264ac8f3256818,
+        storage_path: "/storage/f4264ac8f3256818_Evolution_Collection",
+        public_path: "/public/f4264ac8f3256818_Evolution_Collection",
+        public_collection_name: "Evolution.EvolutionCollectionPublic",
+        external_domain: "https://www.evolution-collect.com/"
+    )
+
+    let col = owner.getCapability(/public/f4264ac8f3256818_Evolution_Collection)
+        .borrow<&{Evolution.EvolutionCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Evolution.getItemMetadata(itemId: nft!.data.itemId)!
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("name")) {
+        rawMetadata.insert(key: "name", metadata["Title"]!.concat(" #").concat(nft!.data.serialNumber.toString()))
+    }
+    if (!metadata.containsKey("image")) {
+        rawMetadata.insert(key: "image", "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString()))
+    }
+    if (!metadata.containsKey("contentType")) {
+        rawMetadata.insert(key: "contentType", "video")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Evolution",
+        description: nil,
+        external_domain_view_url: "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString()),
         token_uri: nil,
         media: [],
         metadata: rawMetadata
