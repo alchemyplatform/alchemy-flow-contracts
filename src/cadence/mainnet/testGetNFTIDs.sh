@@ -128,7 +128,7 @@ Xtingles)
 
 Beam)
   echo "Beam"
-  flow scripts execute getNFTIDs.cdc 0x13774a0e75c975d4 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x0a2b2b1cdbd59848 --network mainnet
   ;;
 
 Crave)
@@ -138,7 +138,7 @@ Crave)
 
 KOTD)
   echo "KOTD"
-  flow scripts execute getNFTIDs.cdc 0xe4bf17ded24f783d --network mainnet
+  flow scripts execute getNFTIDs.cdc 0xe9731837a1de398f --network mainnet
   ;;
 
 InceptionAnimals)
@@ -173,8 +173,8 @@ MiamiNFT)
 
 Bitku)
   echo "Bitku"
-    flow scripts execute getNFTIDs.cdc 0xf61e40c19db2a9e2 --network mainnet
-    ;;
+  flow scripts execute getNFTIDs.cdc 0xf61e40c19db2a9e2 --network mainnet
+  ;;
 
 FlowFans)
   echo "FlowFans"
@@ -281,14 +281,117 @@ YahooCollectible)
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
   ;;
 
+SomePlaceCollectible)
+  echo "SomePlaceCollectible"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+ARTIFACTPack)
+  echo "ARTIFACTPack"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
+ARTIFACT)
+  echo "ARTIFACT"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
 NftReality)
   echo "NftReality"
   flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet
+  ;;
+
+MatrixWorldAssetsNFT)
+  echo "MatrixWorldAssetsNFT"
+  flow scripts execute getNFTIDs.cdc 0x70f9008528cf2a10 --network mainnet
+  ;;
+
+RacingTime)
+  echo "RacingTime"
+  flow scripts execute getNFTIDs.cdc 0x8d4fa88ffa2d9117 --network mainnet
+  ;;
+Momentables)
+  echo "Momentables"
+  flow scripts execute getNFTIDs.cdc 0xee54ca541c7b4893 --network mainnet
+  ;;
+
+GoatedGoats)
+  echo "GoatedGoats"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+GoatedGoatsTrait)
+  echo "GoatedGoatsTrait"
+  flow scripts execute getNFTIDs.cdc 0x4bcda1de73a17d95 --network mainnet
+  ;;
+
+DropzToken)
+  echo "DropzToken"
+  flow scripts execute getNFTIDs.cdc 0x675d0b4a68754b6d --network mainnet
+  ;;
+
+Necryptolis)
+  echo "Necryptolis"
+  flow scripts execute getNFTIDs.cdc 0xa8faf3edb270f24e --network mainnet
+  ;;
+
+BreakingT_NFT)
+  echo "BreakingT_NFT"
+  flow scripts execute getNFTIDs.cdc 0x329feb3ab062d289 --network mainnet
+  ;;
+
+FLOAT)
+  echo "FLOAT"
+  flow scripts execute getNFTIDs.cdc 0x92ba5cba77fc1e87 --network mainnet
+  ;;
+
+Owners)
+  echo "Owners"
+  flow scripts execute getNFTIDs.cdc 0x41cad19decccdf25 --network mainnet
+  ;;
+
+Metaverse)
+  echo "Metaverse"
+  flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
+  ;;
+
+NFTContract)
+  echo "NFTContract"
+  flow scripts execute getNFTIDs.cdc 0xcb5b64e4ae34e3ba --network mainnet
+  ;;
+Swaychain)
+  echo "Swaychain"
+  flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
+  ;;
+
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0xe413ceddca372042 --network mainnet
+  ;;
+
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0xc925d811a14d3c21 --network mainnet
+  ;;
+
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0x80fd317af00c29fd --network mainnet
+  ;;
+
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
 *)
