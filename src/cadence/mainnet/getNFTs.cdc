@@ -3084,7 +3084,9 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
     let display = displayView as! MetadataViews.Display
-    let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+
+    let metadataView = nft!.resolveView(Type<NftReality.NftRealityMetadataView>())!
+    let metadata = metadataView as! NftReality.NftRealityMetadataView
 
     return NFTData(
         contract: contract,
@@ -3095,18 +3097,18 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [
-            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid).concat("/").concat(ipfsFile.path!), mimetype: "image")
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.artwork).concat("/").concat("artwork"), mimetype: "image")
         ],
         metadata: {
-            "editionNumber": nft!.unit.toString(),
-            "editionCount": nft!.totalUnits.toString(),
-            "company": nft!.metadata.company,
-            "role": nft!.metadata.role,
-            "description": nft!.metadata.description,
-            "artwork": nft!.metadata.artwork,
-            "logotype": nft!.metadata.logotype,
-            "creator": nft!.metadata.creator,
-            "creationDate": nft!.metadata.creationDate
+            "editionNumber": metadata.unit.toString(),
+            "editionCount": metadata.totalUnits.toString(),
+            "company": metadata.company,
+            "role": metadata.role,
+            "description": metadata.description,
+            "artwork": metadata.artwork,
+            "logotype": metadata.logotype,
+            "creator": metadata.creator,
+            "creationDate": metadata.creationDate
         }
     )
 }
