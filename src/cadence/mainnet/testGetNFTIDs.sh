@@ -322,7 +322,7 @@ RacingTime)
   ;;
 Momentables)
   echo "Momentables"
-  flow scripts execute getNFTIDs.cdc 0xee54ca541c7b4893 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0xab67ebb860262f30 --network mainnet
   ;;
 
 GoatedGoats)
