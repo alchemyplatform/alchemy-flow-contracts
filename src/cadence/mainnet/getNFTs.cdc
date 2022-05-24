@@ -376,6 +376,22 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     metadata!.insert(key: "templateID", nft!.data.templateID.toString())
     metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
 
+    var url="http://ongaia.com/ballerz/".concat(metadata!["id"]!)
+    var name=metadata!["title"]!
+
+    if let seriesFullName=metadata!["series"] {
+
+        if seriesFullName=="Shareef O\u{2019}Neal - Basketball" {
+            //If the series is basketball with shareef we can do this
+            url="http://ongaia.com/sharef/".concat(id.toString())
+            name=metadata!["title"]!.concat(" #").concat(nft!.data.mintNumber.toString())
+        }else if seriesFullName=="Bryson DeChambeau - Vegas, Baby!" {
+            //For golf there is yet another way
+            url="http://ongaia.com/bryson/".concat(nft!.data.mintNumber.toString())
+            name=metadata!["title"]!.concat(" #").concat(nft!.data.mintNumber.toString())
+        }
+    }
+
     let rawMetadata: {String:String?} = {}
     for key in metadata!.keys {
         rawMetadata.insert(key: key, metadata![key])
@@ -387,9 +403,9 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: metadata!["uri"],
+        external_domain_view_url: url,
         token_uri: nil,
-        media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
+        media: [NFTMedia(uri: url, mimetype: "image")],
         metadata: rawMetadata,
     )
 }
