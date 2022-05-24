@@ -394,6 +394,10 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+PartyMansionDrinksContract)
+  echo "PartyMansionDrinksContract"
+  flow scripts execute getNFTIDs.cdc 0xd575156f50620f91 --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
