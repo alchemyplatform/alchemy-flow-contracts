@@ -3566,13 +3566,11 @@ pub fun getSkyhorborNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 
     let col = owner.getCapability(/public/MyNFTCollection)
-        .borrow<&{MyNFT.CollectionPublic}>()
+        .borrow<&MyNFT.Collection{NonFungibleToken.CollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowReward(id: id)
-    if nft == nil { return nil }
-	
-	let setID = nft.setID
+    let nft = col!.borrowEntireNFT(id: id)
+    if nft == nil { return nil }	
 
     return NFTData(
         contract: contract,

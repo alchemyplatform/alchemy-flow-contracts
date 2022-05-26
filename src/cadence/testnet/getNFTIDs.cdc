@@ -333,7 +333,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
 
    if let col = owner.getCapability(/public/MyNFTCollection)
-   .borrow<&{MyNFT.CollectionPublic}>() {
+   .borrow<&MyNFT.Collection{NonFungibleToken.CollectionPublic}>() {
        ids["MyNFT"] = col.getIDs()
    }
 

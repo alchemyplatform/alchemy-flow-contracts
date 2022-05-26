@@ -367,7 +367,7 @@ Swaychain)
   
 MyNFT)
   echo "MyNFT"
-  flow scripts execute getNFTIDs.cdc 0x33f44e504a396ba7 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x5affd8c030ae5761 --network mainnet
   ;;
 
 *)
