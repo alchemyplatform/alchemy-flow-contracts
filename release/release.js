@@ -207,10 +207,6 @@ const diffDeployedContract = async (stack) => {
 };
 
 const deployContract = async (stack) => {
-    if (stack.startsWith("mainnet")) {
-        console.error("Mainnet Deployments Not Supported Yet.");
-        return;
-    }
     const contract = stack.startsWith("mainnet")
         ? "AlchemyMetadataWrapperMainnet"
         : "AlchemyMetadataWrapperTestnet";
@@ -319,7 +315,7 @@ const deployContract = async (stack) => {
         const { stack } = await prompts({
             type: "select",
             name: "stack",
-            message: "Which stack do you want to diff a contract against?",
+            message: "Which stack do you want to deploy a contract against?",
             choices: [
                 { title: "testnet-staging", value: "testnet-staging" },
                 { title: "testnet-production", value: "testnet-production" },

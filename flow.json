@@ -45,11 +45,24 @@
         },
         "testnet-staging-account": {
             "address": "0x05ff2c7b4c40de11",
-            "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY"
+            "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY",
+            "chain": "flow-testnet"
         },
         "testnet-production-account": {
             "address": "0x89f6326ec81c244d",
-            "key": "$ALCHEMY_TESTNET_PRODUCTION_PRIVATE_KEY"
+            "key": "$ALCHEMY_TESTNET_PRODUCTION_PRIVATE_KEY",
+            "chain": "flow-testnet"
+        },
+        "mainnet-staging-account": {
+            "address": "0xeb8cb4c3157d5dac",
+            "key": {
+                "type": "google-kms",
+                "index": 0,
+                "signatureAlgorithm": "ECDSA_P256",
+                "hashAlgorithm": "SHA2_256",
+                "resourceID": "projects/dl-flow-admin/locations/global/keyRings/nft-metadata/cryptoKeys/alchemy-wrapper-mainnet-staging/cryptoKeyVersions/1"
+            },
+            "chain": "flow-mainnet"
         }
     },
     "deployments": {
@@ -66,6 +79,9 @@
         "testnet": {
             "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"],
             "testnet-production-account": ["AlchemyMetadataWrapperTestnet"]
+        },
+        "mainnet": {
+            "mainnet-staging-account": ["AlchemyMetadataWrapperMainnet"]
         }
     }
 }
