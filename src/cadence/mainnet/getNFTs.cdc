@@ -3244,7 +3244,7 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: nft!.name,
         description: nft!.description,
-        external_domain_view_url: ipfsURL,
+        external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
         metadata: rawMetadata
