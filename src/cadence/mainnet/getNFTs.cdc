@@ -3873,15 +3873,19 @@ pub fun getCryptoPiggoNFT(owner: PublicAccount, id: UInt64): NFTData? {
         rawMetadata.insert(key: "contentType", "image")
     }
 
+    let external_domain_view_url = "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png")
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: "CryptoPiggo",
         description: metadata["description"] ?? nil,
-        external_domain_view_url: "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png"),
+        external_domain_view_url: "https://rareworx.com/piggo/details/".concat(nft!.id.toString()),
         token_uri: nil,
-        media: [],
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
         metadata: rawMetadata
     )
 }
