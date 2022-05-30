@@ -3875,7 +3875,7 @@ pub fun getMotoGPCardNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: "MotoGPCard",
         description: metadata.description,
-        external_domain_view_url: "https://motogp-ignition.com/",
+        external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri:metadata.imageUrl, mimetype: "image")],
         metadata: rawMetadata
