@@ -397,6 +397,11 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         rawMetadata.insert(key: key, metadata![key])
     }
 
+    let media = [NFTMedia(uri: url, mimetype: "image")]
+    if metadata!["img"] != nil {
+        media.append(NFTMedia(uri: metadata!["img"]!, mimetype: "image"))
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -405,7 +410,7 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
         description: metadata!["description"],
         external_domain_view_url: url,
         token_uri: nil,
-        media: [NFTMedia(uri: url, mimetype: "image")],
+        media: media,
         metadata: rawMetadata,
     )
 }
