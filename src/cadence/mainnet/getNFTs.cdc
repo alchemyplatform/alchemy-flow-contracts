@@ -3880,9 +3880,11 @@ pub fun getPartyMansionDrinksContractNFT(owner: PublicAccount, id: UInt64): NFTD
         uuid: nft!.uuid,
         title: "PartyMansionDrinksContract",
         description: nft!.description(),
-        external_domain_view_url: nft!.imageCID(),
+        external_domain_view_url: nil,
         token_uri: nil,
-        media: [],
+        media: [
+            NFTMedia(uri: "ipfs://".concat(nft!.imageCID()), mimetype: "image")
+        ],
         metadata: rawMetadata
     )
 }
