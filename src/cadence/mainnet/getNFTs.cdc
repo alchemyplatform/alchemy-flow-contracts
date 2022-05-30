@@ -3870,15 +3870,19 @@ pub fun getEvolutionNFT(owner: PublicAccount, id: UInt64): NFTData? {
         rawMetadata.insert(key: "contentType", "video")
     }
 
+    let external_domain_view_url = "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString())
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: "Evolution",
         description: nil,
-        external_domain_view_url: "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString()),
+        external_domain_view_url: "https://www.evolution-collect.com/",
         token_uri: nil,
-        media: [],
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "video")
+        ],
         metadata: rawMetadata
     )
 }
