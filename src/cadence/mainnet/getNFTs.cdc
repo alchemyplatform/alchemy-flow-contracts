@@ -3877,9 +3877,11 @@ pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: "SturdyItems",
         description: nft!.tokenDescription,
-        external_domain_view_url: external_domain_view_url,
+        external_domain_view_url: "https://hoodlumsnft.com/",
         token_uri: nil,
-        media: [],
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
         metadata: rawMetadata
     )
 }
