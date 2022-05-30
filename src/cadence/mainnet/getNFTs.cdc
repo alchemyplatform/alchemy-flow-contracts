@@ -3196,7 +3196,7 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "Momentables.CollectionStoragePath",
         public_path: "Momentables.CollectionPublicPath",
         public_collection_name: "Momentables.MomentablesCollectionPublic",
-        external_domain: "https://nextdecentrum.com"
+        external_domain: "https://www.cryptopharaohs.world/"
     )
 
     let col = owner.getCapability(Momentables.CollectionPublicPath)
@@ -3219,6 +3219,10 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     rawMetadata.insert(key:"editionCount", "7006");
     rawMetadata.insert(key:"royaltyAddress", "0x7dc1aa82a2f8d409");
     rawMetadata.insert(key:"royaltyPercentage", "10.1");
+    rawMetadata.insert(key:"momentableId", nft!.momentableId);
+    rawMetadata.insert(key:"name", nft!.name);
+    rawMetadata.insert(key:"description", nft!.description);
+    rawMetadata.insert(key:"directoryPath", nft!.directoryPath);
 
     // NFT Traits metadata
     for key in traits.keys {
@@ -3226,6 +3230,12 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         for currentTraitKey in currentTrait.keys{
             rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
         }
+    }
+
+    let momentableCollectionDetails = nft!.getMomentableCollectionDetails()
+    for key in momentableCollectionDetails.keys {
+        let currentTrait = momentableCollectionDetails[key]!;
+        rawMetadata.insert(key:"momentableCollectionDetails-".concat(key),currentTrait) 
     }
 
     return NFTData(
