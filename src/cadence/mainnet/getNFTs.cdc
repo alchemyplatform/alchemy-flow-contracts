@@ -3866,7 +3866,7 @@ pub fun getUFCNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: "UFC_NFT",
         description: nil,
-        external_domain_view_url: metadata["image"]!,
+        external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: metadata["image"]!, mimetype: "video" )],
         metadata: rawMetadata
