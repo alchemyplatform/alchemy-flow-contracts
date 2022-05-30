@@ -3878,7 +3878,7 @@ pub fun getEvolutionNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: "Evolution",
         description: nil,
-        external_domain_view_url: "https://www.evolution-collect.com/",
+        external_domain_view_url: nil ,
         token_uri: nil,
         media: [
             NFTMedia(uri: external_domain_view_url, mimetype: "video")
