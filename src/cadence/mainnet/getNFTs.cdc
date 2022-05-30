@@ -3893,9 +3893,12 @@ pub fun getMomentsNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: "Jambb Moments",
         description: nil,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://www.jambb.com/",
         token_uri: nil,
-        media: [],
+        media: [
+            NFTMedia(uri: metadata.previewImage, mimetype: "image") ,
+            NFTMedia(uri: metadata.videoURI, mimetype: "video")
+        ],
         metadata: rawMetadata
     )
 }
