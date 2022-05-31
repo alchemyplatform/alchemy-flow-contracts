@@ -1543,7 +1543,7 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{ZeedzINO.ZeedzCollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowZeedle(id: id)!
+    let nft = col!.borrowZeedle(id: id)
     if nft == nil { return nil }
 
     return NFTData(
