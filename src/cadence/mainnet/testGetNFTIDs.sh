@@ -362,7 +362,7 @@ Owners)
 
 Metaverse)
   echo "Metaverse"
-  flow scripts execute getNFTIDs.cdc 0xd756450f386fb4ac --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x256599e1b091be12 --network mainnet
   ;;
 
 NFTContract)

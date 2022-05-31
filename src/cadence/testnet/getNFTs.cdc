@@ -55,7 +55,7 @@ import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
-import Metaverse from 0x161bcffdf67a19bc
+import Metaverse from 0x1500efa9e71dcd23
 import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
@@ -2474,11 +2474,11 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/testnet/account/0x161bcffdf67a19bc/contract/Metaverse
+// https://flow-view-source.com/testnet/account/0x1500efa9e71dcd23/contract/Metaverse
 pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "Metaverse",
-        address: 0x161bcffdf67a19bc,
+        address: 0x1500efa9e71dcd23,
         storage_path: "Metaverse.CollectionStoragePath",
         public_path: "Metaverse.CollectionPublicPath",
         public_collection_name: "Metaverse.MetaverseCollectionPublic",
@@ -2492,16 +2492,25 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowMetaverse(id: id)
     if nft == nil { return nil }
 
+    let metadata = nft!.getMetadata()
+    if metadata == nil { return nil }
+
+    let rawMetadata: {String: String?} = {}
+
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata["name"],
+        description: metadata["description"],
+        external_domain_view_url: metadata["url"],
         token_uri: nil,
-        media: [],
-        metadata: {}
+        media: [NFTMedia(uri: metadata["mediaURI"], mimetype: metadata["mediaType"])],
+        metadata: rawMetadata
     )
 }
 
