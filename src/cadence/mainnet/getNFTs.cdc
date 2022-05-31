@@ -3211,22 +3211,7 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     let ipfsURL = "https://gateway.pinata.cloud/ipfs/".concat(nft!.imageCID);
 
 
-    let traits = nft!.getTraits();
-    let rawMetadata: {String:String?} = {}
-
-    // Core metadata attributes
-    rawMetadata.insert(key:"editionNumber", nft!.id.toString());
-    rawMetadata.insert(key:"editionCount", "7006");
-    rawMetadata.insert(key:"royaltyAddress", "0x7dc1aa82a2f8d409");
-    rawMetadata.insert(key:"royaltyPercentage", "10.1");
-
-    // NFT Traits metadata
-    for key in traits.keys {
-        let currentTrait = traits[key]!;
-        for currentTraitKey in currentTrait.keys{
-            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
-        }
-    }
+    // let traits = nft!.getTraits();
 
     return NFTData(
         contract: contract,
@@ -3237,7 +3222,12 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
-        metadata: rawMetadata
+        metadata: {
+            "editionNumber": nft!.id.toString(),
+            "editionCount": "7006",
+            "royaltyAddress": "0x7dc1aa82a2f8d409",
+            "royaltyPercentage": "10.0"
+        }
     )
 }
 
