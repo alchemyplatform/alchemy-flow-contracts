@@ -82,9 +82,13 @@ import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
+<<<<<<< HEAD
 import TrartContractNFT from 0x6f01a4b0046c1f87
 import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
+=======
+import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
+>>>>>>> 2a168a9dd3343e754dcaa36d36d8b75cac438775
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -260,8 +264,12 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+<<<<<<< HEAD
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
+=======
+                case "PartyMansionDrinksContract": d = getPartyMansionDrinksContractNFT(owner: owner, id: id)
+>>>>>>> 2a168a9dd3343e754dcaa36d36d8b75cac438775
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3902,6 +3910,7 @@ pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+<<<<<<< HEAD
 // https://flow-view-source.com/mainnet/account/0x6f01a4b0046c1f87/contract/TrartContractNFT
 pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -3949,10 +3958,50 @@ pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
     }
 
     let mediaArray:[NFTMedia] = ipfsURL!=nil?[NFTMedia(uri: ipfsURL, mimetype: "image")]:[]
+=======
+// https://flow-view-source.com/mainnet/account/0x34f2bf4a80bb0f69/contract/PartyMansionDrinksContract
+pub fun getPartyMansionDrinksContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "PartyMansionDrinksContract",
+        address: 0x34f2bf4a80bb0f69,
+        storage_path: "PartyMansionDrinksContract.CollectionStoragePath",
+        public_path: "PartyMansionDrinksContract.CollectionPublicPath",
+        public_collection_name: "PartyMansionDrinksContract.DrinkCollectionPublic",
+        external_domain: "https://partymansion.io"
+    )
+
+    let col = owner.getCapability(PartyMansionDrinksContract.CollectionPublicPath)
+        .borrow<&{PartyMansionDrinksContract.DrinkCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDrink(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+
+    rawMetadata.insert(key: "id", nft!.id.toString())
+    rawMetadata.insert(key: "name", nft!.data.title)
+    rawMetadata.insert(key: "originalOwner", nft!.originalOwner.toString())
+    rawMetadata.insert(key: "description", nft!.description())
+    rawMetadata.insert(key: "imageCID", nft!.imageCID())
+    rawMetadata.insert(key: "drinkID", nft!.data.drinkID.toString())
+    rawMetadata.insert(key: "collectionID", nft!.data.collectionID.toString())
+    rawMetadata.insert(key: "rarity", nft!.data.rarity.toString())
+    rawMetadata.insert(key: "drinkID", nft!.data.drinkID.toString())
+
+    for d in nft!.data.metadata.keys {
+        if nft!.data.metadata[d]!.getType() == Type<String>() {
+            let s = nft!.data.metadata[d]! as! String
+            rawMetadata.insert(key: d, s)
+        }
+    }
+
+>>>>>>> 2a168a9dd3343e754dcaa36d36d8b75cac438775
 
     return NFTData(
         contract: contract,
         id: nft!.id,
+<<<<<<< HEAD
         uuid: nft!.id,
         title: nftTitle,
         description: nil,
@@ -3997,5 +4046,16 @@ pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
           "secondaryRoyalty": nft!.secondaryRoyalty,
           "platformMintedOn": nft!.platformMintedOn
         }
+=======
+        uuid: nft!.uuid,
+        title: "PartyMansionDrinksContract",
+        description: nft!.description(),
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "ipfs://".concat(nft!.imageCID()), mimetype: "image")
+        ],
+        metadata: rawMetadata
+>>>>>>> 2a168a9dd3343e754dcaa36d36d8b75cac438775
     )
 }
