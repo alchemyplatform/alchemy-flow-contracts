@@ -394,6 +394,24 @@ Dooverse)
   flow scripts execute getNFTIDs.cdc 0xe2da33edc1c98983 --network mainnet
   ;;
 
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTIDs.cdc 0x1c7ee996c28e0651 --network mainnet
+  ;;
+
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x53cebd602474741e --network mainnet
+  ;;
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTIDs.cdc 0x0d9bc5af3fc0c2e3 --network mainnet
+  ;;
+
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTIDs.cdc 0xfef48806337aabf1 --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

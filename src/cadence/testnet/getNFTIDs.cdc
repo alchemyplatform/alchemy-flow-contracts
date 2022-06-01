@@ -15,7 +15,8 @@ import RCRDSHPNFT from 0x95d41a94b49a1ed1
 import SportsIconCollectible from 0xc2824327396d3a39
 import StarlyCard from 0x697d72a988a77070
 import CaaPass from 0xa8b1239250f8d342
-import TuneGO from 0x2b0150231c047a8c
+import TuneGO from 0xb30ec2319df2aa30
+import TicalUniverse from 0x5511546363e3daa2
 import MatrixWorldFlowFestNFT from 0xe2f1b000e0203c1d
 import TopShot from 0x877931736ee77cff
 import Domains from 0xb05b2abb42335e88
@@ -62,6 +63,8 @@ import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
+import TrartContractNFT from 0x4e024b8545e52d07
+import SturdyItems from 0xfafb022e4e45634b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -353,6 +356,17 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Dooverse"] = col.getIDs()
     }
-
+    if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+    .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
+        ids["TrartContractNFT"] = col.getIDs()
+    } 
+    if let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+    .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>() {
+        ids["SturdyItems"] = col.getIDs()
+    }
+    if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
+            ids["TicalUniverse"] = col.getIDs()
+    }
     return ids
 }
