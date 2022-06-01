@@ -121,6 +121,10 @@ TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
   ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x87ff916f3bbcf518 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

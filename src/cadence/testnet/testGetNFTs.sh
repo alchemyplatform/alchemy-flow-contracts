@@ -123,6 +123,10 @@ TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3e100699f7218d1d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "160020100019" }] } }] }]' --network testnet
   ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x87ff916f3bbcf518" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1571" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

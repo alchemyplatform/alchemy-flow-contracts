@@ -83,6 +83,7 @@ import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
 import TrartContractNFT from 0x6f01a4b0046c1f87
+import SturdyItems from 0x427ceada271aa0b1
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -257,6 +258,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
+                case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3892,5 +3894,42 @@ pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: mediaArray,
         metadata: rawMetadata,
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x427ceada271aa0b1/contract/SturdyItems
+pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SturdyItems",
+        address: 0x427ceada271aa0b1,
+        storage_path: "SturdyItems.CollectionStoragePath",
+        public_path: "SturdyItems.CollectionPublicPath",
+        public_collection_name: "SturdyItems.SturdyItemsCollectionPublic",
+        external_domain: "https://sturdy.exchange/"
+    )
+
+    let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+        .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowSturdyItem(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.tokenTitle,
+        description: nft!.tokenDescription,
+        external_domain_view_url: "https://sturdy.exchange/secondary-sale/".concat(nft!.id.toString()),
+        token_uri: nft!.tokenURI,
+        media: [],
+        metadata: {
+          "typeID": nft!.typeID.toString(),
+          "artist": nft!.artist,
+          "editionCount": SturdyItems.totalSupply.toString(),
+          "secondaryRoyalty": nft!.secondaryRoyalty,
+          "platformMintedOn": nft!.platformMintedOn
+        }
     )
 }

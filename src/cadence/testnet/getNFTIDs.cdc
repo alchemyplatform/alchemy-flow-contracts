@@ -63,6 +63,7 @@ import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
+import SturdyItems from 0xfafb022e4e45634b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -358,6 +359,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
         ids["TrartContractNFT"] = col.getIDs()
     } 
-
+    if let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+    .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>() {
+        ids["SturdyItems"] = col.getIDs()
+    }
     return ids
 }
