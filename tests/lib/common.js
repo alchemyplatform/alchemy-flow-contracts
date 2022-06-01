@@ -8,7 +8,7 @@ export async function createAccounts() {
         NonFungibleToken: adminAccount,
         FungibleToken: adminAccount,
         MetadataViews: adminAccount,
-        AlchemyMetadataWrapperEmulator: adminAccount,
+        AlchemyMetadataWrapperEmulatorShard1: adminAccount,
         TestNFT: adminAccount,
         TestNFTWithViews: adminAccount,
     };
@@ -53,7 +53,7 @@ export async function deployContracts(accountA, addressMap) {
 
     // This one needs to be deployed after the NFTs above.
     [deploymentResult, error] = await deployContractByName({
-        name: "AlchemyMetadataWrapperEmulator",
+        name: "AlchemyMetadataWrapperEmulatorShard1",
         to: accountA,
         addressMap,
     });

@@ -114,7 +114,9 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorV1 = err.message.match(/^\s*error: (.*)/);
+                        errorV1 = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
                     try {
                         scriptResponseStaging = await fcl.decode(
@@ -124,10 +126,15 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorStaging = err.message.match(/^\s*error: (.*)/);
+                        errorStaging = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
-                    expect(scriptResponseV1).toEqual(scriptResponseStaging);
-                    expect(errorV1).toEqual(errorStaging);
+                    if (errorV1 || errorStaging) {
+                        expect(errorV1).toEqual(errorStaging);
+                    } else {
+                        expect(scriptResponseV1).toEqual(scriptResponseStaging);
+                    }
                 },
                 10000
             );
@@ -167,7 +174,9 @@ const cadenceTestingSuite =
                             await fcl.send([fcl.script(getNFTsV1), fclArgs])
                         );
                     } catch (err) {
-                        errorV1 = err.message.match(/^\s*error: (.*)/);
+                        errorV1 = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
                     try {
                         scriptResponseStaging = await fcl.decode(
@@ -177,16 +186,21 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorStaging = err.message.match(/^\s*error: (.*)/);
+                        errorStaging = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
-                    expect(scriptResponseV1).toEqual(scriptResponseStaging);
-                    expect(errorV1).toEqual(errorStaging);
+                    if (errorV1 || errorStaging) {
+                        expect(errorV1).toEqual(errorStaging);
+                    } else {
+                        expect(scriptResponseV1).toEqual(scriptResponseStaging);
+                    }
                 },
                 10000
             );
 
             test.each(totalGetNFTIDsTestCases)(
-                "Testing: getNFTIDs - Should be consistent between staging and production - %s",
+                "Testnet: getNFTIDs - Should be consistent between staging and production - %s",
                 async (name) => {
                     const address = getNFTIDsContractToAddresses[name];
                     if (address === undefined) {
@@ -206,7 +220,9 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorStaging = err.message.match(/^\s*error: (.*)/);
+                        errorStaging = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
                     try {
                         scriptResponseProduction = await fcl.decode(
@@ -216,12 +232,17 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorProduction = err.message.match(/^\s*error: (.*)/);
+                        errorProduction = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
-                    expect(scriptResponseStaging).toEqual(
-                        scriptResponseProduction
-                    );
-                    expect(errorStaging).toEqual(errorProduction);
+                    if (errorStaging || errorProduction) {
+                        expect(errorStaging).toEqual(errorProduction);
+                    } else {
+                        expect(scriptResponseStaging).toEqual(
+                            scriptResponseProduction
+                        );
+                    }
                 },
                 10000
             );
@@ -264,7 +285,9 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorStaging = err.message.match(/^\s*error: (.*)/);
+                        errorStaging = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
                     try {
                         scriptResponseProduction = await fcl.decode(
@@ -274,12 +297,17 @@ const cadenceTestingSuite =
                             ])
                         );
                     } catch (err) {
-                        errorProduction = err.message.match(/^\s*error: (.*)/);
+                        errorProduction = err.message
+                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
+                            .trim();
                     }
-                    expect(scriptResponseStaging).toEqual(
-                        scriptResponseProduction
-                    );
-                    expect(errorStaging).toEqual(errorProduction);
+                    if (errorStaging || errorProduction) {
+                        expect(errorStaging).toEqual(errorProduction);
+                    } else {
+                        expect(scriptResponseStaging).toEqual(
+                            scriptResponseProduction
+                        );
+                    }
                 },
                 10000
             );

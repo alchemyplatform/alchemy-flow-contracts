@@ -5,7 +5,10 @@ import fcl from "@onflow/fcl";
 import colors from "colors";
 import * as Diff from "diff";
 import { spawn } from "child_process";
+import splitArray from "split-array";
 const __dirname = path.resolve();
+
+const SHARD_SIZE = 25;
 
 // String helper function
 Object.defineProperty(String.prototype, "capitalize", {
@@ -14,6 +17,12 @@ Object.defineProperty(String.prototype, "capitalize", {
     },
     enumerable: false,
 });
+
+const getLocalContracts = (env) => {
+    return fs
+        .readdirSync("./generated/cadence/contracts/")
+        .filter((file) => file.toLowerCase().includes(env));
+};
 
 const generateContract = async (env) => {
     const getNFTIDs = fs.readFileSync(
@@ -42,38 +51,172 @@ const generateContract = async (env) => {
         "utf-8"
     );
     // Import statements from the scripts
-    const addresses = new Set();
-    for (let match of getNFTIDs.matchAll(/\s*(import .*)/g)) {
+    const nftContractImports = {};
+    const allContractNames = new Set();
+    const mainImports = new Set();
+    for (let match of getNFTIDs.matchAll(/\s*(import (.*)\s*from\s*.*)/g)) {
         let [full, key, value] = match;
         const importStatement = key.trim();
-        addresses.add(importStatement);
+        if (
+            importStatement.includes("NonFungibleToken") ||
+            importStatement.includes("MetadataViews")
+        ) {
+            mainImports.add(importStatement);
+        } else {
+            allContractNames.add(value.trim());
+            nftContractImports[value.trim()] = importStatement;
+        }
     }
-    for (let match of getNFTs.matchAll(/\s*(import .*)/g)) {
-        let [full, key] = match;
+    for (let match of getNFTs.matchAll(/\s*(import (.*)\s*from\s*.*)/g)) {
+        let [full, key, value] = match;
         const importStatement = key.trim();
-        addresses.add(importStatement);
+        if (
+            importStatement.includes("NonFungibleToken") ||
+            importStatement.includes("MetadataViews")
+        ) {
+            mainImports.add(importStatement);
+        } else {
+            allContractNames.add(value.trim());
+            nftContractImports[value.trim()] = importStatement;
+        }
     }
-    // First add all imports
-    let generatedCadenceContract = cadenceContractTemplate.replace(
-        /\${Begin NFT addresses}(.|\n)*\${End NFT addresses}/,
-        [...addresses].sort().join("\n")
-    );
-
-    // Update Contract name
-    generatedCadenceContract = generatedCadenceContract.replace(
-        "${Env}",
-        env.capitalize()
-    );
-
-    // Add structs
-    const structs = [];
-    for (let match of getNFTs.matchAll(
-        /(pub\s*struct\s*[A-z0-9]+?\s*\{(?:[^}{]+|\{(?:[^}{]+|\{[^}{]*\})*\})*\})/g
+    // Shard based on number of imports (due to https://github.com/onflow/flow-go/issues/2275)
+    let shard = 1;
+    for (let shardedContractNames of splitArray(
+        Object.keys(nftContractImports),
+        SHARD_SIZE
     )) {
-        let [full, key] = match;
-        structs.push(
-            key
-                .trim()
+        // First add all imports
+        let generatedCadenceContract = cadenceContractTemplate.replace(
+            /\${Begin NFT addresses}(.|\n)*\${End NFT addresses}/,
+            [
+                ...shardedContractNames.map((name) => nftContractImports[name]),
+                ...mainImports,
+            ]
+                .sort()
+                .join("\n")
+        );
+
+        const name = `${env.capitalize()}Shard${shard++}`;
+        // Update Contract name
+        generatedCadenceContract = generatedCadenceContract.replace(
+            "${Env}",
+            name
+        );
+
+        // Add structs
+        const structs = [];
+        for (let match of getNFTs.matchAll(
+            /(pub\s*struct\s*[A-z0-9]+?\s*\{(?:[^}{]+|\{(?:[^}{]+|\{[^}{]*\})*\})*\})/g
+        )) {
+            let [full, key] = match;
+            structs.push(
+                key
+                    .trim()
+                    .split("\n")
+                    // Make indendations
+                    .map((str) => {
+                        return "    " + str;
+                    })
+                    .join("\n")
+            );
+        }
+        generatedCadenceContract = generatedCadenceContract.replace(
+            /\${Begin Structs}(.|\n)*\${End Structs}/,
+            [...structs].join("\n\n")
+        );
+
+        // Only pull ones we care about.
+        const getNFTsMethods = {};
+        for (let match of getNFTs.matchAll(
+            /(pub fun (.*)\((.|\n)*?}?)(?=(pub fun|^\/\/|$))/g
+        )) {
+            let [full, method, name] = match;
+            if (name === "main") {
+                // Don't reference this as we include it in the next block of code.
+                continue;
+            }
+            // Add methods that include the sharded contract names
+            if (
+                shardedContractNames.some((n) =>
+                    method.match(
+                        new RegExp(`(?<!\\/\\/.*|".*)\\b${n}\\b\\.`, "m")
+                    )
+                ) ||
+                // Utility method.
+                name === "stringStartsWith"
+            ) {
+                getNFTsMethods[name] = method.replace(
+                    new RegExp(`(?<!pub fun\\s+)(stringStartsWith)\\b`, "g"),
+                    "self.$&"
+                );
+            }
+        }
+
+        // Add main getNFTs method
+        generatedCadenceContract = generatedCadenceContract.replace(
+            /\${Begin getNFTs}(.|\n)*\${End getNFTs}/,
+            getNFTs
+                // Change the method name
+                .match(/(pub fun main(.|\n)*?^}$)/m)[0]
+                .replace("main", "getNFTs")
+                // Update references to include .self
+                .replace(
+                    new RegExp(
+                        `(?<!pub fun\\s+)(${Object.keys(getNFTsMethods).join(
+                            "|"
+                        )})\\b`,
+                        "g"
+                    ),
+                    "self.$&"
+                )
+                .split("\n")
+                // Make indendations and change unused methods.
+                .map((str) => {
+                    if (
+                        str.includes("case") &&
+                        !Object.keys(getNFTsMethods).some((method) =>
+                            str.includes(method)
+                        )
+                    ) {
+                        return "    " + str.split(":")[0] + ": continue";
+                    } else {
+                        return "    " + str;
+                    }
+                })
+                .join("\n")
+                .concat("\n\n")
+                .concat(
+                    Object.values(getNFTsMethods)
+                        .join("\n\n")
+                        .split("\n")
+                        // Make indendations
+                        .map((str) => {
+                            return "    " + str;
+                        })
+                        .join("\n")
+                )
+        );
+
+        // Add main getNFTIDs method
+        generatedCadenceContract = generatedCadenceContract.replace(
+            /\${Begin getNFTIDs}(.|\n)*\${End getNFTIDs}/,
+            getNFTIDs
+                .match(/(pub fun main(.|\n)*?^}$)/m)[0]
+                .replace("main", "getNFTIDs")
+                // Remove unused methods
+                .replace(
+                    new RegExp(
+                        `(if let((?!${[...allContractNames]
+                            .filter((name) =>
+                                shardedContractNames.includes(name)
+                            )
+                            .map((name) => `\\b${name}\\.`)
+                            .join("|")}).|\\n)*?)(?=(if let|return))`,
+                        "gm"
+                    ),
+                    ""
+                )
                 .split("\n")
                 // Make indendations
                 .map((str) => {
@@ -81,72 +224,22 @@ const generateContract = async (env) => {
                 })
                 .join("\n")
         );
+        // Save the generated contract
+        fs.writeFileSync(
+            path.resolve(
+                __dirname,
+                `./${
+                    env === "emulator" ? "tests" : "generated"
+                }/cadence/contracts/AlchemyMetadataWrapper${name}.cdc`
+            ),
+            generatedCadenceContract
+        );
     }
-    generatedCadenceContract = generatedCadenceContract.replace(
-        /\${Begin Structs}(.|\n)*\${End Structs}/,
-        [...structs].join("\n\n")
-    );
-
-    const getNFTsMethods = [];
-    for (let match of getNFTs.matchAll(/pub fun (.*)\(/g)) {
-        let [full, key] = match;
-        if (key === "main") {
-            // Don't reference this.
-            continue;
-        }
-        getNFTsMethods.push(key);
-    }
-
-    // Add main getNFTs method
-    generatedCadenceContract = generatedCadenceContract.replace(
-        /\${Begin getNFTs}(.|\n)*\${End getNFTs}/,
-        getNFTs
-            // Change the method name
-            .match(/(pub fun main(.|\n)*^}$)/m)[0]
-            .replace("main", "getNFTs")
-            // Update references to include .self
-            .replace(
-                new RegExp(
-                    `(?<!pub fun\\s+)(${getNFTsMethods.join("|")})\\b`,
-                    "g"
-                ),
-                "self.$&"
-            )
-            .split("\n")
-            // Make indendations
-            .map((str) => {
-                return "    " + str;
-            })
-            .join("\n")
-    );
-
-    // Add main getNFTIDs method
-    generatedCadenceContract = generatedCadenceContract.replace(
-        /\${Begin getNFTIDs}(.|\n)*\${End getNFTIDs}/,
-        getNFTIDs
-            .match(/(pub fun main(.|\n)*?^}$)/m)[0]
-            .replace("main", "getNFTIDs")
-            .split("\n")
-            // Make indendations
-            .map((str) => {
-                return "    " + str;
-            })
-            .join("\n")
-    );
-    // Save the generated contract
-    fs.writeFileSync(
-        path.resolve(
-            __dirname,
-            `./${
-                env === "emulator" ? "tests" : "generated"
-            }/cadence/contracts/AlchemyMetadataWrapper${env.capitalize()}.cdc`
-        ),
-        generatedCadenceContract
-    );
 };
 
 const diffDeployedContract = async (stack) => {
     const flowJson = JSON.parse(fs.readFileSync("./flow.json", "utf-8"));
+    const env = stack.split("-")[0];
     let flowAccountAddress;
     try {
         flowAccountAddress = flowJson.accounts[`${stack}-account`].address;
@@ -165,20 +258,24 @@ const diffDeployedContract = async (stack) => {
     const account = await fcl
         .send([fcl.getAccount(flowAccountAddress)])
         .then(fcl.decode);
-    const deployedContract =
-        account.contracts[
-            stack.startsWith("mainnet")
-                ? "AlchemyMetadataWrapperMainnet"
-                : "AlchemyMetadataWrapperTestnet"
-        ] || "";
+    const { contract } = await prompts({
+        type: "select",
+        name: "contract",
+        message: "Which contract do you want to diff against?",
+        choices: getLocalContracts(env).map((contract) => {
+            return {
+                title: contract,
+                value: contract,
+            };
+        }),
+    });
+    const deployedContract = account.contracts[contract.split(".")[0]] || "";
     let generatedContract;
     try {
         generatedContract = fs.readFileSync(
             path.resolve(
                 __dirname,
-                `./generated/cadence/contracts/AlchemyMetadataWrapper${stack
-                    .split("-")[0]
-                    .capitalize()}.cdc`
+                `./generated/cadence/contracts/${contract}`
             ),
             "utf-8"
         );
@@ -207,9 +304,18 @@ const diffDeployedContract = async (stack) => {
 };
 
 const deployContract = async (stack) => {
-    const contract = stack.startsWith("mainnet")
-        ? "AlchemyMetadataWrapperMainnet"
-        : "AlchemyMetadataWrapperTestnet";
+    const env = stack.split("-")[0];
+    const { contract } = await prompts({
+        type: "select",
+        name: "contract",
+        message: "Which contract do you want to deploy against?",
+        choices: getLocalContracts(env).map((contract) => {
+            return {
+                title: contract,
+                value: contract,
+            };
+        }),
+    });
     let signer = `${stack}-account`;
     const flowJson = JSON.parse(fs.readFileSync("./flow.json", "utf-8"));
     let flowAccountAddress;
@@ -231,7 +337,7 @@ const deployContract = async (stack) => {
         !fs.existsSync(
             path.resolve(
                 __dirname,
-                `./generated/cadence/contracts/${contract}.cdc`
+                `./generated/cadence/contracts/${contract}`
             ),
             "utf-8"
         )
@@ -246,10 +352,12 @@ const deployContract = async (stack) => {
         .send([fcl.getAccount(flowAccountAddress)])
         .then(fcl.decode);
     let flowCommand = "update-contract";
-    if (account.contracts[contract] === undefined) {
+    if (account.contracts[contract.split(".")[0]] === undefined) {
         flowCommand = "add-contract";
     }
-    const command = `flow accounts ${flowCommand} ${contract} ./generated/cadence/contracts/${contract}.cdc --signer ${signer} --network ${
+    const command = `flow accounts ${flowCommand} ${
+        contract.split(".")[0]
+    } ./generated/cadence/contracts/${contract} --signer ${signer} --network ${
         stack.split("-")[0]
     }`;
     const { confirm } = await prompts({

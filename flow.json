@@ -29,9 +29,14 @@
         },
         "TestNFT": "./tests/cadence/contracts/TestNFT.cdc",
         "TestNFTWithViews": "./tests/cadence/contracts/TestNFTWithViews.cdc",
-        "AlchemyMetadataWrapperEmulator": "./tests/cadence/contracts/AlchemyMetadataWrapperEmulator.cdc",
-        "AlchemyMetadataWrapperTestnet": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnet.cdc",
-        "AlchemyMetadataWrapperMainnet": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnet.cdc"
+        "AlchemyMetadataWrapperEmulatorShard1": "./tests/cadence/contracts/AlchemyMetadataWrapperEmulatorShard1.cdc",
+        "AlchemyMetadataWrapperTestnetShard1": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard1.cdc",
+        "AlchemyMetadataWrapperTestnetShard2": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard2.cdc",
+        "AlchemyMetadataWrapperTestnetShard3": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard3.cdc",
+        "AlchemyMetadataWrapperMainnetShard1": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard1.cdc",
+        "AlchemyMetadataWrapperMainnetShard2": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard2.cdc",
+        "AlchemyMetadataWrapperMainnetShard3": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard3.cdc",
+        "AlchemyMetadataWrapperMainnetShard4": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard4.cdc"
     },
     "networks": {
         "emulator": "127.0.0.1:3569",
@@ -63,6 +68,17 @@
                 "resourceID": "projects/dl-flow-admin/locations/global/keyRings/nft-metadata/cryptoKeys/alchemy-wrapper-mainnet-staging/cryptoKeyVersions/1"
             },
             "chain": "flow-mainnet"
+        },
+        "mainnet-production-account": {
+            "address": "0xb9ebc59e88fe0803",
+            "key": {
+                "type": "google-kms",
+                "index": 0,
+                "signatureAlgorithm": "ECDSA_P256",
+                "hashAlgorithm": "SHA2_256",
+                "resourceID": "projects/dl-flow-admin/locations/global/keyRings/nft-metadata/cryptoKeys/alchemy-wrapper-mainnet-production/cryptoKeyVersions/1"
+            },
+            "chain": "flow-mainnet"
         }
     },
     "deployments": {
@@ -73,15 +89,34 @@
                 "MetadataViews",
                 "TestNFT",
                 "TestNFTWithViews",
-                "AlchemyMetadataWrapperEmulator"
+                "AlchemyMetadataWrapperEmulatorShard1"
             ]
         },
         "testnet": {
-            "testnet-staging-account": ["AlchemyMetadataWrapperTestnet"],
-            "testnet-production-account": ["AlchemyMetadataWrapperTestnet"]
+            "testnet-staging-account": [
+                "AlchemyMetadataWrapperTestnetShard1",
+                "AlchemyMetadataWrapperTestnetShard2",
+                "AlchemyMetadataWrapperTestnetShard3"
+            ],
+            "testnet-production-account": [
+                "AlchemyMetadataWrapperTestnetShard1",
+                "AlchemyMetadataWrapperTestnetShard2",
+                "AlchemyMetadataWrapperTestnetShard3"
+            ]
         },
         "mainnet": {
-            "mainnet-staging-account": ["AlchemyMetadataWrapperMainnet"]
+            "mainnet-staging-account": [
+                "AlchemyMetadataWrapperMainnetShard1",
+                "AlchemyMetadataWrapperMainnetShard2",
+                "AlchemyMetadataWrapperMainnetShard3",
+                "AlchemyMetadataWrapperMainnetShard4"
+            ],
+            "mainnet-production-account": [
+                "AlchemyMetadataWrapperMainnetShard1",
+                "AlchemyMetadataWrapperMainnetShard2",
+                "AlchemyMetadataWrapperMainnetShard3",
+                "AlchemyMetadataWrapperMainnetShard4"
+            ]
         }
     }
 }

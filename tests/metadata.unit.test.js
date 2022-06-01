@@ -10,16 +10,16 @@ const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
         addressMap = null;
 
     const getNFTIDs = `
-    import AlchemyMetadataWrapperEmulator from "../../../contracts/AlchemyMetadataWrapperEmulator.cdc"
+    import AlchemyMetadataWrapperEmulatorShard1 from "../../../contracts/AlchemyMetadataWrapperEmulatorShard1.cdc"
 
     pub fun main(account: Address): {String: [UInt64]} {
-        return AlchemyMetadataWrapperEmulator.getNFTIDs(ownerAddress: account)
+        return AlchemyMetadataWrapperEmulatorShard1.getNFTIDs(ownerAddress: account)
     }`;
     const getNFTs = `
-    import AlchemyMetadataWrapperEmulator from "../../../contracts/AlchemyMetadataWrapperEmulator.cdc"
+    import AlchemyMetadataWrapperEmulatorShard1 from "../../../contracts/AlchemyMetadataWrapperEmulatorShard1.cdc"
 
-    pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [AlchemyMetadataWrapperEmulator.NFTData?] {
-        return AlchemyMetadataWrapperEmulator.getNFTs(ownerAddress: ownerAddress, ids: ids)
+    pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [AlchemyMetadataWrapperEmulatorShard1.NFTData?] {
+        return AlchemyMetadataWrapperEmulatorShard1.getNFTs(ownerAddress: ownerAddress, ids: ids)
     }
     `;
 
@@ -47,10 +47,10 @@ const cadenceTestingSuite = describe("Metadata Unit Tests", () => {
         test("Should setup test NFT collections", async () => {
             let res = await utils.runScript(
                 `
-import AlchemyMetadataWrapperEmulator from "../contracts/AlchemyMetadataWrapperEmulator.cdc"
+import AlchemyMetadataWrapperEmulatorShard1 from "../contracts/AlchemyMetadataWrapperEmulatorShard1.cdc"
 
 pub fun main(account: Address): {String: [UInt64]} {
-    return AlchemyMetadataWrapperEmulator.getNFTIDs(ownerAddress: account)
+    return AlchemyMetadataWrapperEmulatorShard1.getNFTIDs(ownerAddress: account)
 }
                 `,
                 [accountA]
