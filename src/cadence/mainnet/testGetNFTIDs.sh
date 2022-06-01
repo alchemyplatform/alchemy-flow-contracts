@@ -411,9 +411,15 @@ TuneGO)
 TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTIDs.cdc 0xfef48806337aabf1 --network mainnet
+  ;;
+
 PartyMansionDrinksContract)
   echo "PartyMansionDrinksContract"
   flow scripts execute getNFTIDs.cdc 0xd575156f50620f91 --network mainnet
+  ;;
+CryptoPiggo)
+  echo "CryptoPiggo"
+  flow scripts execute getNFTIDs.cdc 0x8f6bf7a919bf4edb --network mainnet
   ;;
 *)
   echo "Unknown contract"

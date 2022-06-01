@@ -86,6 +86,7 @@ import TrartContractNFT from 0x6f01a4b0046c1f87
 import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
 import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
+import CryptoPiggo from 0xd3df824bf81910a4
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -264,6 +265,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "PartyMansionDrinksContract": d = getPartyMansionDrinksContractNFT(owner: owner, id: id)
+                case "CryptoPiggo": d = getCryptoPiggoNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3606,7 +3608,7 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = nft!.getMetadata()
     if metadata == nil { return nil }
-    
+
     let rawMetadata: {String: String?} = {}
     for key in metadata.keys {
         rawMetadata.insert(key: key, metadata[key])
@@ -4042,6 +4044,61 @@ pub fun getPartyMansionDrinksContractNFT(owner: PublicAccount, id: UInt64): NFTD
         token_uri: nil,
         media: [
             NFTMedia(uri: "ipfs://".concat(nft!.imageCID()), mimetype: "image")
+        ],
+        metadata: rawMetadata
+    )
+}
+
+
+// https://flow-view-source.com/mainnet/account/0xd3df824bf81910a4/contract/CryptoPiggo
+pub fun getCryptoPiggoNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "CryptoPiggo",
+        address: 0xd3df824bf81910a4,
+        storage_path: "CryptoPiggo.CollectionStoragePath",
+        public_path: "CryptoPiggo.CollectionPublicPath",
+        public_collection_name: "CryptoPiggo.CryptoPiggoCollectionPublic",
+        external_domain: "https://rareworx.com/piggo/details/"
+    )
+
+    let col = owner.getCapability(CryptoPiggo.CollectionPublicPath)
+        .borrow<&{CryptoPiggo.CryptoPiggoCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("name")) {
+        rawMetadata.insert(key: "name", "CryptoPiggo #".concat(nft!.id.toString()))
+    }
+    if (!metadata.containsKey("image")) {
+        rawMetadata.insert(key: "image", "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png"))
+    }
+    if (!metadata.containsKey("url")) {
+        rawMetadata.insert(key: "url", "https://rareworx.com/piggo/details/".concat(nft!.id.toString()))
+    }
+    if (!metadata.containsKey("contentType")) {
+        rawMetadata.insert(key: "contentType", "image")
+    }
+
+    let external_domain_view_url = "https://s3.us-west-2.amazonaws.com/crypto-piggo.nft/piggo-".concat(nft!.id.toString()).concat(".png")
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "CryptoPiggo",
+        description: metadata["description"] ?? nil,
+        external_domain_view_url: "https://rareworx.com/piggo/details/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
         ],
         metadata: rawMetadata
     )
