@@ -84,6 +84,7 @@ import AADigital from 0x39eeb4ee6f30fc3f
 import DooverseItems from 0x66ad29c7d7465437
 import TrartContractNFT from 0x6f01a4b0046c1f87
 import SturdyItems from 0x427ceada271aa0b1
+import TicalUniverse from 0xfef48806337aabf1
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -241,6 +242,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
+                case "TuneGO": d = getTuneGO(owner: owner, id: id)
+                case "TicalUniverse": d = getTicalUniverse(owner: owner, id: id)
                 case "RacingTime": d = getRacingTimeNFT(owner: owner, id: id)
                 case "Momentables": d = getMomentables(owner: owner, id: id)    
                 case "GoatedGoats": d = getGoatedGoats(owner: owner, id: id)
@@ -1389,7 +1392,7 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "TuneGO.CollectionStoragePath",
         public_path: "TuneGO.CollectionPublicPath",
         public_collection_name: "TuneGO.TuneGOCollectionPublic",
-        external_domain: ""
+        external_domain: "tunegonft.com"
     )
 
     let col = owner.getCapability(TuneGO.CollectionPublicPath)
@@ -1399,16 +1402,77 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
 
+    let data = nft!.data
+    let itemMetadata = TuneGO.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TuneGO.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x8039244113ff6251"
+    rawMetadata["royaltyPercentage"] = "5.0"
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [ NFTMedia(uri: itemMetadata["Media URL"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xfef48806337aabf1/contract/TicalUniverse
+pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TicalUniverse",
+        address: 0xfef48806337aabf1,
+        storage_path: "TicalUniverse.CollectionStoragePath",
+        public_path: "TicalUniverse.CollectionPublicPath",
+        public_collection_name: "TicalUniverse.TicalUniverseCollectionPublic",
+        external_domain: "tunegonft.com"
+    )
+
+    let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    let data = nft!.data
+    let itemMetadata = TicalUniverse.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TicalUniverse.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x8039244113ff6251"
+    rawMetadata["royaltyPercentage"] = "5.0"
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
+        token_uri: nil,
+        media: [ NFTMedia(uri: itemMetadata["Asset"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
     )
 }
 
