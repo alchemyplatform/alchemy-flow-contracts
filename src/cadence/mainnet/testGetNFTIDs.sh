@@ -429,6 +429,11 @@ Evolution)
   flow scripts execute getNFTIDs.cdc 0x5159075e4cd4324c --network mainnet
   ;;
 
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x31b0a36cfd6899fe --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
