@@ -87,6 +87,7 @@ import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
 import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import CryptoPiggo from 0xd3df824bf81910a4
+import Evolution from 0xf4264ac8f3256818
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -266,6 +267,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "PartyMansionDrinksContract": d = getPartyMansionDrinksContractNFT(owner: owner, id: id)
                 case "CryptoPiggo": d = getCryptoPiggoNFT(owner: owner, id: id)
+                case "Evolution": d = getEvolutionNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4099,6 +4101,57 @@ pub fun getCryptoPiggoNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [
             NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xf4264ac8f3256818/contract/Evolution
+pub fun getEvolutionNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Evolution",
+        address: 0xf4264ac8f3256818,
+        storage_path: "/storage/f4264ac8f3256818_Evolution_Collection",
+        public_path: "/public/f4264ac8f3256818_Evolution_Collection",
+        public_collection_name: "Evolution.EvolutionCollectionPublic",
+        external_domain: "https://www.evolution-collect.com/"
+    )
+
+    let col = owner.getCapability(/public/f4264ac8f3256818_Evolution_Collection)
+        .borrow<&{Evolution.EvolutionCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Evolution.getItemMetadata(itemId: nft!.data.itemId)!
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("name")) {
+        rawMetadata.insert(key: "name", metadata["Title"]!.concat(" #").concat(nft!.data.serialNumber.toString()))
+    }
+    if (!metadata.containsKey("image")) {
+        rawMetadata.insert(key: "image", "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString()))
+    }
+    if (!metadata.containsKey("contentType")) {
+        rawMetadata.insert(key: "contentType", "video")
+    }
+
+    let external_domain_view_url = "https://storage.viv3.com/0xf4264ac8f3256818/mv/".concat(nft!.data.itemId.toString())
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Evolution",
+        description: nil,
+        external_domain_view_url: nil ,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "video")
         ],
         metadata: rawMetadata
     )

@@ -403,6 +403,7 @@ SturdyItems)
   echo "SturdyItems"
   flow scripts execute getNFTIDs.cdc 0x53cebd602474741e --network mainnet
   ;;
+
 TuneGO)
   echo "TuneGO"
   flow scripts execute getNFTIDs.cdc 0x0d9bc5af3fc0c2e3 --network mainnet
@@ -417,10 +418,17 @@ PartyMansionDrinksContract)
   echo "PartyMansionDrinksContract"
   flow scripts execute getNFTIDs.cdc 0xd575156f50620f91 --network mainnet
   ;;
+
 CryptoPiggo)
   echo "CryptoPiggo"
   flow scripts execute getNFTIDs.cdc 0x8f6bf7a919bf4edb --network mainnet
   ;;
+
+Evolution)
+  echo "Evolution"
+  flow scripts execute getNFTIDs.cdc 0x5159075e4cd4324c --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
