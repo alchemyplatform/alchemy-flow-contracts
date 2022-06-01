@@ -87,7 +87,6 @@ import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
 import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import Evolution from 0xf4264ac8f3256818
-import SturdyItems from 0x427ceada271aa0b1
 
 import Moments from 0xd4ad4740ee426334
 
@@ -512,10 +511,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(/public/f4264ac8f3256818_Evolution_Collection)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Evolution"] = col.getIDs()
-    }
-    if let col = owner.getCapability(SturdyItems.CollectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
-        ids["SturdyItems"] = col.getIDs()
     }
     if let col = owner.getCapability(Moments.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {

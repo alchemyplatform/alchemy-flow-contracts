@@ -421,14 +421,12 @@ PartyMansionDrinksContract)
   echo "PartyMansionDrinksContract"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd575156f50620f91" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "PartyMansionDrinksContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "21" }] } }] }]' --network mainnet
   ;;
-SturdyItems)
-  echo "SturdyItems"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x31b0a36cfd6899fe" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2734" }] } }] }]' --network mainnet
-  ;;
+
 Moments)
   echo "Moments"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe8f02654e1a75428" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Moments" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "102723" }] } }] }]' --network mainnet
   ;;
+
 MotoGPCard)
   echo "MotoGPCard"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5deee05d29fb867c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MotoGPCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37966" }] } }] }]' --network mainnet
