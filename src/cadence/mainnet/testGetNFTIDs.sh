@@ -444,6 +444,10 @@ MotoGPCard)
   flow scripts execute getNFTIDs.cdc 0x5deee05d29fb867c --network mainnet
   ;;
 
+UFC_NFT)
+  echo "UFC_NFT"
+  flow scripts execute getNFTIDs.cdc 0x32441817bc2bbe9c --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

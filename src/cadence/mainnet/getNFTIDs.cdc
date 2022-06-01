@@ -92,6 +92,7 @@ import SturdyItems from 0x427ceada271aa0b1
 import Moments from 0xd4ad4740ee426334
 
 import MotoGPCard from 0xa49cc0ee46c54bfb
+import UFC_NFT from 0x329feb3ab062d289
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -519,6 +520,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Moments.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Moments"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(UFC_NFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["UFC_NFT"] = col.getIDs()
     }
     return ids
 }

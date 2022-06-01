@@ -91,6 +91,7 @@ import Evolution from 0xf4264ac8f3256818
 import SturdyItems from 0x427ceada271aa0b1
 import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
+import UFC_NFT from 0x329feb3ab062d289
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -274,6 +275,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "Moments": d = getMomentsNFT(owner: owner, id: id)
                 case "MotoGPCard": d = getMotoGPCardNFT(owner: owner, id: id)
+                case "UFC_NFT": d = getUFCNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4322,6 +4324,43 @@ pub fun getMotoGPCardNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri:metadata.imageUrl, mimetype: "image")],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x329feb3ab062d289/contract/UFC_NFT
+pub fun getUFCNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "UFC_NFT",
+        address: 0x329feb3ab062d289,
+        storage_path: "UFC_NFT.CollectionStoragePath",
+        public_path: "UFC_NFT.CollectionPublicPath",
+        public_collection_name: "UFC_NFT.UFC_NFTCollectionPublic",
+        external_domain: "https://www.ufcstrike.com"
+    )
+
+    let col = owner.getCapability(UFC_NFT.CollectionPublicPath)
+        .borrow<&{UFC_NFT.UFC_NFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowUFC_NFT(id: id)
+    if nft == nil { return nil }
+
+    var metadata = UFC_NFT.getSetMetadata(setId: nft!.setId)!
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "UFC_NFT",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata["image"]!, mimetype: "video" )],
         metadata: rawMetadata
     )
 }

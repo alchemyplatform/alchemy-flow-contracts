@@ -433,6 +433,10 @@ MotoGPCard)
   echo "MotoGPCard"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5deee05d29fb867c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MotoGPCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37966" }] } }] }]' --network mainnet
   ;;
+UFC_NFT)
+  echo "UFC_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x32441817bc2bbe9c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "UFC_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "269720" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
