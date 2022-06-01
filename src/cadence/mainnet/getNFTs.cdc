@@ -90,6 +90,7 @@ import CryptoPiggo from 0xd3df824bf81910a4
 import Evolution from 0xf4264ac8f3256818
 import SturdyItems from 0x427ceada271aa0b1
 import Moments from 0xd4ad4740ee426334
+import MotoGPCard from 0xa49cc0ee46c54bfb
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -272,6 +273,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Evolution": d = getEvolutionNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "Moments": d = getMomentsNFT(owner: owner, id: id)
+                case "MotoGPCard": d = getMotoGPCardNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4274,6 +4276,52 @@ pub fun getMomentsNFT(owner: PublicAccount, id: UInt64): NFTData? {
             NFTMedia(uri: metadata.previewImage, mimetype: "image") ,
             NFTMedia(uri: metadata.videoURI, mimetype: "video")
         ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xa49cc0ee46c54bfb/contract/MotoGPCard
+pub fun getMotoGPCardNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "MotoGPCard",
+        address: 0xa49cc0ee46c54bfb,
+        storage_path: "/storage/motogpCardCollection",
+        public_path: "/public/motogpCardCollection",
+        public_collection_name: "MotoGPCard.ICardCollectionPublic",
+        external_domain: "https://motogp-ignition.com/"
+    )
+
+    let col = owner.getCapability(/public/motogpCardCollection)
+        .borrow<&{MotoGPCard.ICardCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCard(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getCardMetadata()!
+    let rawMetadata: {String : String?} = {}
+
+    for key in metadata.data.keys {
+        rawMetadata[key] = metadata.data[key]
+    }
+
+    rawMetadata.insert(key: "cardID", metadata.cardID.toString())
+
+    rawMetadata.insert(key: "name", metadata.name)
+
+    rawMetadata.insert(key: "description", metadata.description)
+
+    rawMetadata.insert(key: "imageUrl", metadata.imageUrl)
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "MotoGPCard",
+        description: metadata.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri:metadata.imageUrl, mimetype: "image")],
         metadata: rawMetadata
     )
 }

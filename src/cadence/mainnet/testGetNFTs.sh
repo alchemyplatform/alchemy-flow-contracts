@@ -406,6 +406,7 @@ SturdyItems)
 echo "SturdyItems"
 flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x53cebd602474741e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9069" }] } }] }]' --network mainnet
 ;;
+
 TuneGO)
 echo "TuneGO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0d9bc5af3fc0c2e3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
@@ -427,6 +428,10 @@ SturdyItems)
 Moments)
   echo "Moments"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe8f02654e1a75428" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Moments" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "102723" }] } }] }]' --network mainnet
+  ;;
+MotoGPCard)
+  echo "MotoGPCard"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5deee05d29fb867c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MotoGPCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37966" }] } }] }]' --network mainnet
   ;;
 *)
   echo "Unknown contract"

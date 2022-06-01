@@ -438,6 +438,12 @@ Moments)
   echo "Moments"
   flow scripts execute getNFTIDs.cdc 0xe8f02654e1a75428 --network mainnet
   ;;
+
+MotoGPCard)
+  echo "MotoGPCard"
+  flow scripts execute getNFTIDs.cdc 0x5deee05d29fb867c --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

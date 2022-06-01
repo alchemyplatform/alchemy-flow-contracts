@@ -91,6 +91,7 @@ import SturdyItems from 0x427ceada271aa0b1
 
 import Moments from 0xd4ad4740ee426334
 
+import MotoGPCard from 0xa49cc0ee46c54bfb
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -482,6 +483,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Dooverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(/public/motogpCardCollection)
+    .borrow<&{MotoGPCard.ICardCollectionPublic}>() {
+        ids["MotoGPCard"] = col.getIDs()
     }
     if let col = owner.getCapability(PartyMansionDrinksContract.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
