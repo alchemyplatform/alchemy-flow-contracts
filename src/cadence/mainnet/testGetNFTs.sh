@@ -388,24 +388,52 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe2da33edc1c98983" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4566" }] } }] }]' --network mainnet
   ;;
-
+CryptoPiggo)
+  echo "CryptoPiggo"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f6bf7a919bf4edb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "CryptoPiggo" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5607" }] } }] }]' --network mainnet
+  ;;
 TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1c7ee996c28e0651" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "110010300093" }] } }] }]' --network mainnet
   ;;
 
-SturdyItems)
-  echo "SturdyItems"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x53cebd602474741e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9069" }] } }] }]' --network mainnet
+Evolution)
+  echo "Evolution"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5159075e4cd4324c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Evolution" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "8460" }] } }] }]' --network mainnet
   ;;
+
+SturdyItems)
+echo "SturdyItems"
+flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x53cebd602474741e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9069" }] } }] }]' --network mainnet
+;;
+
 TuneGO)
-  echo "TuneGO"
+echo "TuneGO"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0d9bc5af3fc0c2e3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
 
 TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xfef48806337aabf1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+
+PartyMansionDrinksContract)
+  echo "PartyMansionDrinksContract"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd575156f50620f91" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "PartyMansionDrinksContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "21" }] } }] }]' --network mainnet
+  ;;
+
+Moments)
+  echo "Moments"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe8f02654e1a75428" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Moments" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "102723" }] } }] }]' --network mainnet
+  ;;
+
+MotoGPCard)
+  echo "MotoGPCard"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5deee05d29fb867c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MotoGPCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37966" }] } }] }]' --network mainnet
+  ;;
+UFC_NFT)
+  echo "UFC_NFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x32441817bc2bbe9c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "UFC_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "269720" }] } }] }]' --network mainnet
   ;;
 *)
   echo "Unknown contract"
