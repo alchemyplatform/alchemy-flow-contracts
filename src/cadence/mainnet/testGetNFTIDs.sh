@@ -434,6 +434,10 @@ SturdyItems)
   flow scripts execute getNFTIDs.cdc 0x31b0a36cfd6899fe --network mainnet
   ;;
 
+Moments)
+  echo "Moments"
+  flow scripts execute getNFTIDs.cdc 0xe8f02654e1a75428 --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

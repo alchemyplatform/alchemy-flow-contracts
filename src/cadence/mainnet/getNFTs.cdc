@@ -89,6 +89,7 @@ import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import CryptoPiggo from 0xd3df824bf81910a4
 import Evolution from 0xf4264ac8f3256818
 import SturdyItems from 0x427ceada271aa0b1
+import Moments from 0xd4ad4740ee426334
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -270,6 +271,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "CryptoPiggo": d = getCryptoPiggoNFT(owner: owner, id: id)
                 case "Evolution": d = getEvolutionNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
+                case "Moments": d = getMomentsNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4204,6 +4206,73 @@ pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [
             NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xd4ad4740ee426334/contract/Moments
+pub fun getMomentsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Jambb Moments",
+        address: 0xd4ad4740ee426334,
+        storage_path: "Moments.CollectionStoragePath",
+        public_path: "Moments.CollectionPublicPath",
+        public_collection_name: "Moments.CollectionPublic",
+        external_domain: "https://www.jambb.com/"
+    )
+
+    let col = owner.getCapability(Moments.CollectionPublicPath)
+        .borrow<&{Moments.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMoment(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.contentCredits.keys {
+        rawMetadata[key] = metadata.contentCredits[key]
+    }
+
+        rawMetadata.insert(key: "id", metadata.id.toString())
+        rawMetadata.insert(key: "serialNumber", metadata.serialNumber.toString())
+        rawMetadata.insert(key: "contentID", metadata.contentID.toString())
+        rawMetadata.insert(key: "contentCreator", metadata.contentCreator.toString())
+        rawMetadata.insert(key: "contentName", metadata.contentName)
+        rawMetadata.insert(key: "contentDescription", metadata.contentDescription)
+        rawMetadata.insert(key: "previewImage", metadata.previewImage)
+        rawMetadata.insert(key: "videoURI", metadata.videoURI)
+        rawMetadata.insert(key: "videoHash", metadata.videoHash)
+        rawMetadata.insert(key: "seriesID", metadata.seriesID.toString())
+        rawMetadata.insert(key: "seriesName", metadata.seriesName)
+        rawMetadata.insert(key: "seriesArt", metadata.seriesArt)
+        rawMetadata.insert(key: "seriesDescription", metadata.seriesDescription)
+        rawMetadata.insert(key: "setID", metadata.setID.toString())
+        rawMetadata.insert(key: "setName", metadata.setName)
+        rawMetadata.insert(key: "setArt", metadata.setArt)
+        rawMetadata.insert(key: "setDescription", metadata.setDescription)
+        if metadata.retired {
+            rawMetadata.insert(key: "retired", "true")
+        } else {
+            rawMetadata.insert(key: "retired", "false")
+        }
+        rawMetadata.insert(key: "contentEditionID", metadata.contentEditionID.toString())
+        rawMetadata.insert(key: "rarity", metadata.rarity)
+        rawMetadata.insert(key: "run", metadata.run.toString())
+
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Jambb Moments",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata.previewImage, mimetype: "image") ,
+            NFTMedia(uri: metadata.videoURI, mimetype: "video")
         ],
         metadata: rawMetadata
     )
