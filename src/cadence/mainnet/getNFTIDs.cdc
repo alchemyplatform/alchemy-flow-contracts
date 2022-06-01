@@ -84,6 +84,7 @@ import DooverseItems from 0x66ad29c7d7465437
 import TrartContractNFT from 0x6f01a4b0046c1f87
 import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
+import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -475,6 +476,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Dooverse"] = col.getIDs()
+    }    
+    if let col = owner.getCapability(PartyMansionDrinksContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["PartyMansionDrinksContract"] = col.getIDs()
     }
     if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
     .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
