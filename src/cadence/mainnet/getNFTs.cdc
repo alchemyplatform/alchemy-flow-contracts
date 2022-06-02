@@ -1870,7 +1870,7 @@ pub fun getXtinglesNFT(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nil,
+        uuid: nft!.uuid,
         title: nft!.metadata!.name,
         description: nft!.metadata!.description,
         external_domain_view_url: nil,
@@ -2083,7 +2083,7 @@ pub fun getBitku(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nil,
+        uuid: nft!.uuid,
         title: nil,
         description: nft!.text,
         external_domain_view_url: "https://bitku.art/#".concat(owner.address.toString()).concat("/").concat(nft!.id.toString()),
@@ -2147,7 +2147,7 @@ pub fun getAllDay(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nil,
+        uuid: nft!.uuid,
         title: "Moment".concat(nft!.id.toString()).concat("-Edition").concat(nft!.editionID.toString()).concat("-SerialNumber").concat(nft!.serialNumber.toString()),
         description: nil,
         external_domain_view_url: nil,
@@ -2178,7 +2178,7 @@ pub fun getAllDayPackNFT(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nil,
+        uuid: nft!.uuid,
         title: nil,
         description: nil,
         external_domain_view_url: nil,
@@ -2395,7 +2395,7 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
   return NFTData(
     contract: contract,
     id: id,
-    uuid: nil,
+    uuid: nft.uuid,
     title: display.name.concat(" #").concat(edition.toString()),
     description: display.description,
     external_domain_view_url: "https://barteryard.club/nft/".concat(id.toString()),
