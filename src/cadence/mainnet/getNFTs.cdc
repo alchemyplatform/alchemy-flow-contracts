@@ -376,19 +376,30 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     metadata!.insert(key: "templateID", nft!.data.templateID.toString())
     metadata!.insert(key: "mintNumber", nft!.data.mintNumber.toString())
 
-    var url="http://ongaia.com/ballerz/".concat(metadata!["id"]!)
-    var name=metadata!["title"]!
+    //For ballerz we can do this...
+    var url="http://ongaia.com/"
+    var name=metadata["title"]!
 
-    if let seriesFullName=metadata!["series"] {
-
-        if seriesFullName=="Shareef O\u{2019}Neal - Basketball" {
-            //If the series is basketball with shareef we can do this
-            url="http://ongaia.com/sharef/".concat(id.toString())
-            name=metadata!["title"]!.concat(" #").concat(nft!.data.mintNumber.toString())
-        }else if seriesFullName=="Bryson DeChambeau - Vegas, Baby!" {
+    if let seriesFullName=metadata["series"] {
+        if seriesFullName=="Bryson DeChambeau - Vegas, Baby!" {
             //For golf there is yet another way
-            url="http://ongaia.com/bryson/".concat(nft!.data.mintNumber.toString())
-            name=metadata!["title"]!.concat(" #").concat(nft!.data.mintNumber.toString())
+            url="http://ongaia.com/bryson/".concat(nft.data.mintNumber.toString())
+            name=metadata["title"]!.concat(" #").concat(nft.data.mintNumber.toString())
+        } else {
+            //If the series is basketball with shareef we can do this
+            url="http://ongaia.com/shareef/nft/".concat(id.toString())
+            name=metadata["title"]!.concat(" #").concat(nft.data.mintNumber.toString())
+        }
+    }
+
+    let newCollections= ["ballerz", "sneakerz"]
+    if let mid = metadata["id"] {
+        if let uri = metadata["uri"] {
+            for c in newCollections {
+                if uri == "/collection/".concat(c).concat("//").concat(mid) {
+                    url="http://ongaia.com/".concat(c).concat("/").concat(mid)
+                }
+            }
         }
     }
 
