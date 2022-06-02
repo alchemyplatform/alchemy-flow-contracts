@@ -3975,6 +3975,7 @@ pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+
 // https://flow-view-source.com/mainnet/account/0x427ceada271aa0b1/contract/SturdyItems
 pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -3992,6 +3993,26 @@ pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let nft = col!.borrowSturdyItem(id: id)
     if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.tokenTitle,
+        description: nft!.tokenDescription,
+        external_domain_view_url: "https://sturdy.exchange/secondary-sale/".concat(nft!.id.toString()),
+        token_uri: nft!.tokenURI,
+        media: [],
+        metadata: {
+          "typeID": nft!.typeID.toString(),
+          "artist": nft!.artist,
+          "editionCount": SturdyItems.totalSupply.toString(),
+          "secondaryRoyalty": nft!.secondaryRoyalty,
+          "platformMintedOn": nft!.platformMintedOn
+        }
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0x34f2bf4a80bb0f69/contract/PartyMansionDrinksContract
 pub fun getPartyMansionDrinksContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -4034,18 +4055,6 @@ pub fun getPartyMansionDrinksContractNFT(owner: PublicAccount, id: UInt64): NFTD
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nft!.tokenTitle,
-        description: nft!.tokenDescription,
-        external_domain_view_url: "https://sturdy.exchange/secondary-sale/".concat(nft!.id.toString()),
-        token_uri: nft!.tokenURI,
-        media: [],
-        metadata: {
-          "typeID": nft!.typeID.toString(),
-          "artist": nft!.artist,
-          "editionCount": SturdyItems.totalSupply.toString(),
-          "secondaryRoyalty": nft!.secondaryRoyalty,
-          "platformMintedOn": nft!.platformMintedOn
-        }
         title: "PartyMansionDrinksContract",
         description: nft!.description(),
         external_domain_view_url: nil,
