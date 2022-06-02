@@ -218,7 +218,7 @@ BarterYard)
 
 BarterYardClubWerewolf)
   echo "Barter Yard Club"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x28abb9f291cadaf2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardClubWerewolf" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "4078" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x28abb9f291cadaf2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardClubWerewolf" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3359" }] } }] }]' --network mainnet
   ;;
 
 DayNFT)

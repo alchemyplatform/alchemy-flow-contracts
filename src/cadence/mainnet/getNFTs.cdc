@@ -2291,7 +2291,7 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: metadata,
     )
 }
-
+// https://flow-view-source.com/mainnet/account/0x28abb9f291cadaf2/contract/BarterYardClubWerewolf
 pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
   let contract = NFTContractData(
         name: "BarterYardPack",
