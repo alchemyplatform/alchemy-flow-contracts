@@ -4272,13 +4272,14 @@ pub fun getMotoGPCardNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     rawMetadata.insert(key: "imageUrl", metadata.imageUrl)
 
+     let address=owner.address!
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: "MotoGPCard",
         description: metadata.description,
-        external_domain_view_url: nil,
+        external_domain_view_url: "https://motogp-ignition.com/nft/card/".concat(id.toString()).concat("?owner=").concat(address.toString()),
         token_uri: nil,
         media: [NFTMedia(uri:metadata.imageUrl, mimetype: "image")],
         metadata: rawMetadata
