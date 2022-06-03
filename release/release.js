@@ -211,7 +211,7 @@ const generateContract = async (env) => {
                             .filter((name) =>
                                 shardedContractNames.includes(name)
                             )
-                            .map((name) => `\\b${name}\\.`)
+                            .map((name) => `\\b${name}\\b`)
                             .join("|")}).|\\n)*?)(?=(if let|return))`,
                         "gm"
                     ),
