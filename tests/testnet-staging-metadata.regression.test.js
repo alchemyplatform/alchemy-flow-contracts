@@ -26,13 +26,6 @@ const cadenceTestingSuite =
             ),
             "utf-8"
         );
-        const getNFTIDsProduction = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/v2/testnet/production/getNFTIDs.cdc"
-            ),
-            "utf-8"
-        );
 
         const testGetNFTsScript = fs.readFileSync(
             path.resolve(__dirname, "../src/cadence/testnet/testGetNFTs.sh"),
@@ -46,13 +39,6 @@ const cadenceTestingSuite =
             path.resolve(
                 __dirname,
                 "../src/cadence/scripts/v2/testnet/staging/getNFTs.cdc"
-            ),
-            "utf-8"
-        );
-        const getNFTsProduction = fs.readFileSync(
-            path.resolve(
-                __dirname,
-                "../src/cadence/scripts/v2/testnet/production/getNFTs.cdc"
             ),
             "utf-8"
         );
@@ -194,119 +180,6 @@ const cadenceTestingSuite =
                         expect(errorV1).toEqual(errorStaging);
                     } else {
                         expect(scriptResponseV1).toEqual(scriptResponseStaging);
-                    }
-                },
-                10000
-            );
-
-            test.each(totalGetNFTIDsTestCases)(
-                "Testnet: getNFTIDs - Should be consistent between staging and production - %s",
-                async (name) => {
-                    const address = getNFTIDsContractToAddresses[name];
-                    if (address === undefined) {
-                        // Associated test was not implemented.  "Pass" the test for now until we improve coverage.
-                        // console.warn(`${name} lacking test coverage.`);
-                        return;
-                    }
-                    let errorStaging,
-                        errorProduction,
-                        scriptResponseStaging,
-                        scriptResponseProduction;
-                    try {
-                        scriptResponseStaging = await fcl.decode(
-                            await fcl.send([
-                                fcl.script(getNFTIDsStaging),
-                                fcl.args([fcl.arg(address, Address)]),
-                            ])
-                        );
-                    } catch (err) {
-                        errorStaging = err.message
-                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
-                            .trim();
-                    }
-                    try {
-                        scriptResponseProduction = await fcl.decode(
-                            await fcl.send([
-                                fcl.script(getNFTIDsProduction),
-                                fcl.args([fcl.arg(address, Address)]),
-                            ])
-                        );
-                    } catch (err) {
-                        errorProduction = err.message
-                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
-                            .trim();
-                    }
-                    if (errorStaging || errorProduction) {
-                        expect(errorStaging).toEqual(errorProduction);
-                    } else {
-                        expect(scriptResponseStaging).toEqual(
-                            scriptResponseProduction
-                        );
-                    }
-                },
-                10000
-            );
-
-            test.each(totalGetNFTsTestCases)(
-                "Testnet: getNFTs - Should be consistent between staging and production - %s",
-                async (name) => {
-                    const args = getNFTsArgs[name];
-                    if (args === undefined) {
-                        // Associated test was not implemented.  "Pass" the test for now until we improve coverage.
-                        // console.warn(`${name} lacking test coverage.`);
-                        return;
-                    }
-                    const fclArgs = fcl.args([
-                        fcl.arg(args[0].value, Address),
-                        fcl.arg(
-                            args[1].value.map((raw) => {
-                                return {
-                                    key: raw.key.value,
-                                    value: raw.value.value.map((rawValue) =>
-                                        parseInt(rawValue.value)
-                                    ),
-                                };
-                            }),
-                            Dictionary({
-                                key: tString,
-                                value: tArray(UInt64),
-                            })
-                        ),
-                    ]);
-                    let errorStaging,
-                        errorProduction,
-                        scriptResponseStaging,
-                        scriptResponseProduction;
-                    try {
-                        scriptResponseStaging = await fcl.decode(
-                            await fcl.send([
-                                fcl.script(getNFTsStaging),
-                                fclArgs,
-                            ])
-                        );
-                    } catch (err) {
-                        errorStaging = err.message
-                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
-                            .trim();
-                    }
-                    try {
-                        scriptResponseProduction = await fcl.decode(
-                            await fcl.send([
-                                fcl.script(getNFTsProduction),
-                                fclArgs,
-                            ])
-                        );
-                    } catch (err) {
-                        errorProduction = err.message
-                            .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
-                            .trim();
-                    }
-                    if (errorStaging || errorProduction) {
-                        expect(errorStaging).toEqual(errorProduction);
-                    } else {
-                        expect(scriptResponseStaging).toEqual(
-                            scriptResponseProduction
-                        );
                     }
                 },
                 10000
