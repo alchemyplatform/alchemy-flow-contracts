@@ -8,6 +8,7 @@ import {
     String as tString,
     UInt64,
 } from "@onflow/types";
+import { validate } from "./lib/utils";
 
 const cadenceTestingSuite =
     describe("Mainnet Metadata Regression Tests", () => {
@@ -188,11 +189,12 @@ const cadenceTestingSuite =
                             .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
                             .trim();
                     }
-                    if (errorV1 || errorStaging) {
-                        expect(errorV1).toEqual(errorStaging);
-                    } else {
-                        expect(scriptResponseV1).toEqual(scriptResponseStaging);
-                    }
+                    validate(
+                        scriptResponseV1,
+                        scriptResponseStaging,
+                        errorV1,
+                        errorStaging
+                    );
                 },
                 10000
             );
@@ -275,11 +277,12 @@ const cadenceTestingSuite =
                             .match(/\[Error Code.*\](.*(\s*error: (.*))?)/m)[0]
                             .trim();
                     }
-                    if (errorV1 || errorStaging) {
-                        expect(errorV1).toEqual(errorStaging);
-                    } else {
-                        expect(scriptResponseV1).toEqual(scriptResponseStaging);
-                    }
+                    validate(
+                        scriptResponseV1,
+                        scriptResponseStaging,
+                        errorV1,
+                        errorStaging
+                    );
                 },
                 10000
             );
