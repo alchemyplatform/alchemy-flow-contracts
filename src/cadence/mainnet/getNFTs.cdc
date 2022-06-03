@@ -2291,7 +2291,8 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: metadata,
     )
 }
-// https://flow-view-source.com/mainnet/account/0x28abb9f291cadaf2/contract/BarterYardClubWerewolf
+
+// https://flow-view-source.com/testnet/account/0xa95b021cf8a30d80/contract/BarterYardPackNFT
 pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
   let contract = NFTContractData(
         name: "BarterYardPack",
@@ -2328,7 +2329,7 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
     },
   )
 }
-
+// https://flow-view-source.com/mainnet/account/0x28abb9f291cadaf2/contract/BarterYardClubWerewolf
 pub fun getBarterYardClubWerewolf(owner: PublicAccount, id: UInt64): NFTData? {
   let contract = NFTContractData(
         name: "BarterYardClubWerewolf",
