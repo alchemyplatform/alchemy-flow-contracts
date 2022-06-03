@@ -382,6 +382,57 @@ const deployContract = async (stack) => {
     }
 };
 
+const generateReadme = async () => {
+    const flowJson = JSON.parse(fs.readFileSync("./flow.json", "utf-8"));
+    let readme = "";
+    for (let stack of ["testnet", "mainnet"]) {
+        readme = readme.concat(`# ${stack.capitalize()} Supported Contracts\n`);
+        readme = readme.concat("| Contract Name | Contract Address |\n");
+        readme = readme.concat("| ------------- | ---------------- |\n");
+
+        let flowAccountAddress;
+        try {
+            flowAccountAddress =
+                flowJson.accounts[`${stack}-production-account`].address;
+        } catch (err) {
+            console.error(
+                "Flow account has not been created or added to the flow.json yet."
+            );
+            return;
+        }
+        fcl.config.put(
+            "accessNode.api",
+            stack === "mainnet"
+                ? "https://access-mainnet-beta.onflow.org"
+                : "https://access-testnet.onflow.org"
+        );
+        const account = await fcl
+            .send([fcl.getAccount(flowAccountAddress)])
+            .then(fcl.decode);
+        for (let contract of Object.keys(account.contracts).filter((c) =>
+            c.includes("Shard")
+        )) {
+            const data = account.contracts[contract];
+            for (let match of data.matchAll(
+                /\s*(import (.*)\s*from\s*(.*))/g
+            )) {
+                let [full, m, name, address] = match;
+                if (
+                    !name.includes("NonFungibleToken") &&
+                    !name.includes("MetadataViews")
+                ) {
+                    readme = readme.concat(`| ${name} | ${address} |\n`);
+                }
+            }
+        }
+        readme = readme.concat("\n");
+    }
+    fs.writeFileSync(
+        path.resolve(__dirname, "./SUPPORTED_CONTRACTS.md"),
+        readme
+    );
+};
+
 (async () => {
     const { action } = await prompts({
         type: "select",
@@ -391,6 +442,7 @@ const deployContract = async (stack) => {
             { title: "Generate contract", value: "generate-contract" },
             { title: "Diff deployed contract", value: "diff-contract" },
             { title: "Deploy contract", value: "deploy-contract" },
+            { title: "Update readme", value: "update-readme" },
         ],
     });
 
@@ -432,5 +484,14 @@ const deployContract = async (stack) => {
             ],
         });
         await deployContract(stack);
+    } else if (action === "update-readme") {
+        const { confirmed } = await prompts({
+            type: "confirm",
+            name: "confirmed",
+            message: "Generate the README with supported NFT collections?",
+        });
+        if (confirmed) {
+            await generateReadme();
+        }
     }
 })();
