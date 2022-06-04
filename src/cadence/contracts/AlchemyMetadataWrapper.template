@@ -1,0 +1,23 @@
+// AUTO-GENERATED CONTRACT
+${Begin NFT addresses}
+${End NFT addresses}
+
+/*
+    A wrapper contract around the script provided by the Alchemy GitHub respository.
+    Allows for on-chain storage of NFT Metadata, allowing consumers to query upon.
+    This contract will be periodically updated based on new onboarding PRs and deployed.
+    Any consumers calling the public methods below will retrieve the latest and greatest data.
+*/
+pub contract AlchemyMetadataWrapper${Env} {
+    // Structs copied over as-is from getNFT(ID)?s.cdc for backwards-compatability.
+${Begin Structs}
+${End Structs}
+    
+    // Same method signature as getNFTs.cdc for backwards-compatability.
+${Begin getNFTs}
+${End getNFTs}
+
+    // Same method signature as getNFTIDs.cdc for backwards-compatability.
+${Begin getNFTIDs}
+${End getNFTIDs}
+}
