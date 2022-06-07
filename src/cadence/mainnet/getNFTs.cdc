@@ -3616,11 +3616,6 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = nft!.getMetadata()
     if metadata == nil { return nil }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 70b08be832599eb0df388997dc9cc133a0e5c8cd
     let rawMetadata: {String: String?} = {}
     for key in metadata.keys {
         rawMetadata.insert(key: key, metadata[key])

@@ -59,10 +59,6 @@ import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
 import Metaverse from 0x1500efa9e71dcd23
-<<<<<<< HEAD
-import SwaychainNFT from 0x5dfbd0d5aba6acf7
-=======
->>>>>>> 70b08be832599eb0df388997dc9cc133a0e5c8cd
 import TheFabricantS2ItemNFT from 0x2a37a78609bba037
 import VnMiss from 0x4fb7700ee1a19c44
 import AADigital from 0x03a4ea61342fcb6c
