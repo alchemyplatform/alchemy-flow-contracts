@@ -1,7 +1,6 @@
 import NonFungibleToken from 0x631e88ae7f1d7c20
 import Gaia from 0xc523a8bbf10fc4a3
 import Beam from 0x6085ae87e78e1433
-import ChainmonstersRewards from 0x75783e3c937304a8
 import CricketMoments from 0xb45e7992680a0f7f
 import Shard from 0x7ff5f9ac593c3ee0
 import FantastecNFT from 0x7b4fab78fbddc57e
@@ -11,7 +10,6 @@ import KlktnNFT from 0x336895dbe44c4b44
 import MusicBlock from 0xeb3241ad7d7881db
 import Mynft from 0x1eced429f2012ef0
 import NyatheesOVO from 0xacf3dfa413e00f9f
-import RCRDSHPNFT from 0x95d41a94b49a1ed1
 import SportsIconCollectible from 0xc2824327396d3a39
 import StarlyCard from 0x697d72a988a77070
 import CaaPass from 0xa8b1239250f8d342
@@ -70,10 +68,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
     let ids: {String: [UInt64]} = {}
 
-    if let col = owner.getCapability(/public/ChainmonstersRewardCollection)
-        .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>() {
-            ids["ChainmonstersRewards"] = col.getIDs()
-        }
     if let col = owner.getCapability(Gaia.CollectionPublicPath)
         .borrow<&{Gaia.CollectionPublic}>() {
             ids["Gaia"] = col.getIDs()
@@ -117,10 +111,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(NyatheesOVO.CollectionPublicPath)
         .borrow<&{NyatheesOVO.NFTCollectionPublic}>() {
             ids["NyatheesOVO"] = col.getIDs()
-        }
-    if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
-        .borrow<&{NonFungibleToken.CollectionPublic}>() {
-            ids["RCRDSHPNFT"] = col.getIDs()
         }
     if let col = owner.getCapability(SportsIconCollectible.CollectionPublicPath)
         .borrow<&{SportsIconCollectible.CollectibleCollectionPublic}>() {
