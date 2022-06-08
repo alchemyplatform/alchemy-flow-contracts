@@ -95,7 +95,7 @@ Owners)
   ;;
 Metaverse)
   echo "Metaverse"
-  flow scripts execute getNFTIDs.cdc 0x1500efa9e71dcd23 --network testnet
+  flow scripts execute getNFTIDs.cdc 0x161bcffdf67a19bc --network testnet
   ;;
 Swaychain)
   echo "Swaychain"
@@ -117,21 +117,13 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
   ;;
-TrartContractNFT)
-  echo "TrartContractNFT"
-  flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network mainnet
   ;;
-SturdyItems)
-  echo "SturdyItems"
-  flow scripts execute getNFTIDs.cdc 0x87ff916f3bbcf518 --network testnet
-  ;;
-TuneGO)
-  echo "TuneGO"
-  flow scripts execute getNFTIDs.cdc 0xb30ec2319df2aa30 --network testnet
-  ;;
-TicalUniverse)
-  echo "TicalUniverse"
-  flow scripts execute getNFTIDs.cdc 0x5511546363e3daa2 --network testnet
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network mainnet
   ;;
 *)
   echo "Unknown contract"
