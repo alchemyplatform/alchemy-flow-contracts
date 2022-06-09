@@ -3519,10 +3519,22 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = nft!.getMetadata()
     if metadata == nil { return nil }
-
     let rawMetadata: {String: String?} = {}
     for key in metadata.keys {
         rawMetadata.insert(key: key, metadata[key])
+    }
+
+    if (!metadata.containsKey("editionNumber")) {
+        rawMetadata.insert(key: "editionNumber", nft!.id.toString())
+    }
+    if (!metadata.containsKey("editionCount")) {
+        rawMetadata.insert(key: "editionCount", Metaverse.totalSupply.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) {
+        rawMetadata.insert(key: "royaltyAddress", "0xbf8ada6bb945651f")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) {
+        rawMetadata.insert(key: "royaltyPercentage", "10.0")
     }
 
     return NFTData(
@@ -3533,7 +3545,10 @@ pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
         description: metadata["description"],
         external_domain_view_url: metadata["url"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata["mediaURI"], mimetype: metadata["mediaType"])],
+        media: [
+            NFTMedia(uri: metadata["videoUrl"], mimetype: metadata["videoMimeType"]),
+            NFTMedia(uri: metadata["imageUrl"], mimetype: metadata["imageMimeType"])
+        ],
         metadata: rawMetadata
     )
 }
