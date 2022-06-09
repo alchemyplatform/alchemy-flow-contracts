@@ -99,7 +99,7 @@ Owners)
   ;;
 Metaverse)
   echo "Metaverse"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x161bcffdf67a19bc" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "168" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1500efa9e71dcd23" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "518" }] } }] }]' --network testnet
   ;;
 
 Swaychain)
@@ -122,6 +122,22 @@ AvatarArt)
 Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
+  ;;
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3e100699f7218d1d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "160020100019" }] } }] }]' --network testnet
+  ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x87ff916f3bbcf518" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1571" }] } }] }]' --network testnet
+  ;;
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb30ec2319df2aa30" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;;
 *)
   echo "Unknown contract"
