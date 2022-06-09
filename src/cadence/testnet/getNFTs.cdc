@@ -63,6 +63,9 @@ import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
 
+import Gear from 0x8c7e52f597aa6117
+import ProShop_5 from 0x8c7e52f597aa6117
+
 pub struct NFTCollection {
     pub let owner: Address
     pub let nfts: [NFTData]
@@ -210,6 +213,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "Gear": d = getGear(owner: owner, id: id)
+                case "ProShop_5": d = getProShop5(owner: owner, id: id)
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 default:
@@ -2869,4 +2874,68 @@ pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
         media: [ NFTMedia(uri: itemMetadata["Asset"]!, mimetype: "video/mp4") ],
         metadata: rawMetadata
     )
+}
+
+// https://flow-view-source.com/testnet/account/0x8c7e52f597aa6117/contract/Gear
+pub fun getGear(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Gear",
+        address: 0x8c7e52f597aa6117,
+        storage_path: "Gear.CollectionStoragePath",
+        public_path: "Gear.CollectionPublicPath",
+        public_collection_name: "Gear.GearCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(Gear.CollectionPublicPath)
+        .borrow<&{Gear.GearCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowGear(id: id)
+    if nft == nil { return nil }
+
+    let gearSku = Gear.gearSKUs[nft.skuId]
+    var gearSkuMeta = gearSku!.metadata
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: gearSkuMeta!["title"],
+        description: gearSkuMeta!["description"],
+        external_domain_view_url: gearSkuMeta!["domain_url"],
+        token_uri: Gear.baseURI,
+        media: [NFTMedia(uri: gearSkuMeta!["img"], mimetype: "image")],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x8c7e52f597aa6117/contract/ProShop_5
+pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ProShop_5",
+        address: 0x8c7e52f597aa6117,
+        storage_path: "ProShop_5.CollectionStoragePath",
+        public_path: "ProShop_5.CollectionPublicPath",
+        public_collection_name: "ProShop_5.ProShopCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(ProShop_5.CollectionPublicPath)!.borrow<&{ProShop_5.ProShopCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowProShop(id: id)
+    if nft == nil { return nil }
+    let metadata = nft!.metadata
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: metadata!["description"],
+        external_domain_view_url: metadata!["domain_url"],
+        token_uri: ProShop_5.baseURI,
+        media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
+        metadata: {},
+     )
 }
