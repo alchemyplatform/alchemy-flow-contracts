@@ -65,6 +65,9 @@ import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
 
+import Gear from 0x8c7e52f597aa6117
+import ProShop_5 from 0x8c7e52f597aa6117
+
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
     let ids: {String: [UInt64]} = {}
@@ -352,6 +355,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Dooverse"] = col.getIDs()
     }
+    if let col = owner.getCapability(Gear.CollectionPublicPath)
+    .borrow<&{Gear.GearCollectionPublic}>() {
+        ids["Gear"] = col.getIDs()
+    }
+    if let col = owner.getCapability(ProShop_5.CollectionPublicPath)
+    .borrow<&{ProShop_5.ProShopCollectionPublic}>() {
+        ids["ProShop_5"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
     .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
         ids["TrartContractNFT"] = col.getIDs()
