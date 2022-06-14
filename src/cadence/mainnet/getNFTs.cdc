@@ -76,6 +76,7 @@ import Owners from 0x41cad19decccdf25
 import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import QRLNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -3690,6 +3691,42 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if col == nil { return nil }
 
     let nft = col!.borrowSwaychainNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            // "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/QRLNFT
+pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "QRL",
+        address: 0x5dfbd0d5aba6acf7,
+        storage_path: "QRLNFT.CollectionStoragePath",
+        public_path: "QRLNFT.CollectionPublicPath",
+        public_collection_name: "ShawychainNFT.QRLNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+        .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowQRLNFT(id: id)
     if nft == nil { return nil }
 
     return NFTData(

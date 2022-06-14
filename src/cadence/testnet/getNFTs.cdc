@@ -62,6 +62,7 @@ import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
+import QRLNFT from 0x5dfbd0d5aba6acf7
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -212,6 +213,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
+                case "QRL": d = getQRLNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -2868,5 +2870,41 @@ pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [ NFTMedia(uri: itemMetadata["Asset"]!, mimetype: "video/mp4") ],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "QRL",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "QRLNFT.CollectionStoragePath",
+        public_path: "QRLNFT.CollectionPublicPath",
+        public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+        .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
     )
 }
