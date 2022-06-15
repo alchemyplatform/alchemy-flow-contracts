@@ -9,6 +9,12 @@ import splitArray from "split-array";
 const __dirname = path.resolve();
 
 const SHARD_SIZE = 25;
+// These "pass" the import test but stil fail, manually remove them for now.
+const DENY_LIST = {
+    emulator: [],
+    testnet: ["SturdyItems", "Metaverse"],
+    mainnet: [],
+};
 
 // String helper function
 Object.defineProperty(String.prototype, "capitalize", {
@@ -22,6 +28,34 @@ const getLocalContracts = (env) => {
     return fs
         .readdirSync("./generated/cadence/contracts/")
         .filter((file) => file.toLowerCase().includes(env));
+};
+
+const isContractValid = async (env, importStatement) => {
+    if (env === "emulator") {
+        return true;
+    }
+    fcl.config.put(
+        "accessNode.api",
+        env === "mainnet"
+            ? "https://access-mainnet-beta.onflow.org"
+            : "https://access-testnet.onflow.org"
+    );
+    try {
+        // Check if the contract is valid with Secure Cadence.
+        await fcl.send([
+            fcl.script(
+                `
+${importStatement} 
+pub fun main(): Bool { 
+    return true 
+}`
+            ),
+            fcl.args(),
+        ]);
+        return true;
+    } catch (err) {
+        return false;
+    }
 };
 
 const generateContract = async (env) => {
@@ -54,6 +88,7 @@ const generateContract = async (env) => {
     const nftContractImports = {};
     const allContractNames = new Set();
     const mainImports = new Set();
+    const validContracts = new Set();
     for (let match of getNFTIDs.matchAll(/\s*(import (.*)\s*from\s*.*)/g)) {
         let [full, key, value] = match;
         const importStatement = key.trim();
@@ -80,17 +115,31 @@ const generateContract = async (env) => {
             nftContractImports[value.trim()] = importStatement;
         }
     }
+    for (let name of [...allContractNames]) {
+        if (
+            (await isContractValid(env, nftContractImports[name])) &&
+            !DENY_LIST[env].includes(name)
+        ) {
+            validContracts.add(name);
+        }
+    }
+
     // Shard based on number of imports (due to https://github.com/onflow/flow-go/issues/2275)
     let shard = 1;
     for (let shardedContractNames of splitArray(
         Object.keys(nftContractImports),
         SHARD_SIZE
     )) {
+        let validShardedContractNames = shardedContractNames
+            // Only include valid contracts.
+            .filter((name) => validContracts.has(name));
         // First add all imports
         let generatedCadenceContract = cadenceContractTemplate.replace(
             /\${Begin NFT addresses}(.|\n)*\${End NFT addresses}/,
             [
-                ...shardedContractNames.map((name) => nftContractImports[name]),
+                ...validShardedContractNames.map(
+                    (name) => nftContractImports[name]
+                ),
                 ...mainImports,
             ]
                 .sort()
@@ -138,7 +187,7 @@ const generateContract = async (env) => {
             }
             // Add methods that include the sharded contract names
             if (
-                shardedContractNames.some((n) =>
+                validShardedContractNames.some((n) =>
                     method.match(
                         new RegExp(`(?<!\\/\\/.*|".*)\\b${n}\\b\\.`, "m")
                     )
@@ -207,10 +256,7 @@ const generateContract = async (env) => {
                 // Remove unused methods
                 .replace(
                     new RegExp(
-                        `(if let((?!${[...allContractNames]
-                            .filter((name) =>
-                                shardedContractNames.includes(name)
-                            )
+                        `(if let((?!${[...validShardedContractNames]
                             .map((name) => `\\b${name}\\b`)
                             .join("|")}).|\\n)*?)(?=(if let|return))`,
                         "gm"
