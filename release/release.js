@@ -13,7 +13,7 @@ const SHARD_SIZE = 25;
 const DENY_LIST = {
     emulator: [],
     testnet: ["SturdyItems", "Metaverse"],
-    mainnet: [],
+    mainnet: ["SturdyItems", "CryptoPiggo", "TheFabricantS1ItemNFT", "ItemNFT"],
 };
 
 // String helper function
