@@ -15,7 +15,8 @@ import RCRDSHPNFT from 0x95d41a94b49a1ed1
 import SportsIconCollectible from 0xc2824327396d3a39
 import StarlyCard from 0x697d72a988a77070
 import CaaPass from 0xa8b1239250f8d342
-import TuneGO from 0x2b0150231c047a8c
+import TuneGO from 0xb30ec2319df2aa30
+import TicalUniverse from 0x5511546363e3daa2
 import MatrixWorldFlowFestNFT from 0xe2f1b000e0203c1d
 import TopShot from 0x877931736ee77cff
 import Domains from 0xb05b2abb42335e88
@@ -44,6 +45,7 @@ import DayNFT from 0x0b7f00d13cd033bd
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import YahooPartnersCollectible from 0x5d50ce3fd080edce
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -56,8 +58,13 @@ import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
-import Metaverse from 0x161bcffdf67a19bc
-import SwaychainNFT from 0x5dfbd0d5aba6acf7
+import Metaverse from 0x1500efa9e71dcd23
+import TheFabricantS2ItemNFT from 0x2a37a78609bba037
+import VnMiss from 0x4fb7700ee1a19c44
+import AADigital from 0x03a4ea61342fcb6c
+import DooverseItems from 0x5ab407dfb3bf35e8
+import TrartContractNFT from 0x4e024b8545e52d07
+import SturdyItems from 0xfafb022e4e45634b
 import MyNFT from 0x9af2f3f3b56ce0e7
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
@@ -262,6 +269,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+    .borrow<&{YahooPartnersCollectible.CollectionPublic}>() {
+        ids["YahooPartnersCollectible"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -327,15 +339,39 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["Metaverse"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
-    .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
-        ids["Swaychain"] = col.getIDs()
+    if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+        .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
+            ids["TheFabricantS2ItemNFT"] = col.getIDs()
     }
 
-   if let col = owner.getCapability(/public/MyNFTCollection)
-   .borrow<&MyNFT.Collection{NonFungibleToken.CollectionPublic}>() {
-       ids["MyNFT"] = col.getIDs()
-   }
+    if let col = owner.getCapability(VnMiss.CollectionPublicPath)
+    .borrow<&{VnMiss.VnMissCollectionPublic}>() {
+        ids["VnMiss"] = col.getIDs()
+    }
 
+    if let col = owner.getCapability(AADigital.CollectionPublicPath)
+    .borrow<&{AADigital.AADigitalCollectionPublic}>() {
+        ids["AvatarArt"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Dooverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+    .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
+        ids["TrartContractNFT"] = col.getIDs()
+    } 
+    if let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+    .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>() {
+        ids["SturdyItems"] = col.getIDs()
+    }
+    if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
+            ids["TicalUniverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(/public/MyNFTCollection)
+        .borrow<&MyNFT.Collection{NonFungibleToken.CollectionPublic}>() {
+            ids["MyNFT"] = col.getIDs()
+   }
     return ids
 }

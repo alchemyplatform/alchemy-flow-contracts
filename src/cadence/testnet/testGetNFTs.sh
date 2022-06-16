@@ -41,6 +41,10 @@ YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3b0f2d267cf8c8e9" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37379862" }] } }] }]' --network testnet
@@ -91,7 +95,7 @@ Owners)
   ;;
 Metaverse)
   echo "Metaverse"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x161bcffdf67a19bc" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "168" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1500efa9e71dcd23" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Metaverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "518" }] } }] }]' --network testnet
   ;;
 
 Swaychain)
@@ -99,11 +103,42 @@ Swaychain)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Swaychain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2bcdfcf5d9e73154" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS2ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "VnMiss" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "28" }] } }] }]' --network testnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xae12a483d2db4a63" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "AvatarArt" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "121" }] } }] }]' --network testnet
+  ;;
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
+  ;;
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3e100699f7218d1d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "160020100019" }] } }] }]' --network testnet
+  ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x87ff916f3bbcf518" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SturdyItems" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1571" }] } }] }]' --network testnet
+  ;;
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb30ec2319df2aa30" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TuneGO" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
 MyNFT)
   echo "MyNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "128" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "179" }] } }] }]' --network testnet
   ;;
-
 *)
   echo "Unknown contract"
   ;;
