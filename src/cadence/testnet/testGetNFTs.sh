@@ -49,6 +49,10 @@ YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xeec852ceb51a5fb3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BlindBoxRedeemVoucher" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3b0f2d267cf8c8e9" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37379862" }] } }] }]' --network testnet

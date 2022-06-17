@@ -43,6 +43,7 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -193,6 +194,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
+                case "BlindBoxRedeemVoucher": d = getBlindBoxRedeemVoucherNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
@@ -1888,6 +1890,45 @@ pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTDat
         title: metadata.name,
         description: metadata.description,
         external_domain_view_url: "https://bay-staging.blocto.app/flow/yahoo-partners/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xb073f87f88ee7449/contract/BlindBoxRedeemVoucher
+pub fun getBlindBoxRedeemVoucherNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "BlindBoxRedeemVoucher",
+        address: 0x5d50ce3fd080edce,
+        storage_path: "BlindBoxRedeemVoucher.CollectionStoragePath",
+        public_path: "BlindBoxRedeemVoucher.CollectionPublicPath",
+        public_collection_name: "BlindBoxRedeemVoucher.CollectionPublic",
+        external_domain: "https://flow.com/",
+    )
+
+    let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+        .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowBlindBoxRedeemVoucher(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/blindbox-voucher/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [
             NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
