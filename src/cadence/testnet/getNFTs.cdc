@@ -1906,7 +1906,7 @@ pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTDat
 pub fun getBlindBoxRedeemVoucherNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "BlindBoxRedeemVoucher",
-        address: 0x5d50ce3fd080edce,
+        address: 0xb073f87f88ee7449,
         storage_path: "BlindBoxRedeemVoucher.CollectionStoragePath",
         public_path: "BlindBoxRedeemVoucher.CollectionPublicPath",
         public_collection_name: "BlindBoxRedeemVoucher.CollectionPublic",
