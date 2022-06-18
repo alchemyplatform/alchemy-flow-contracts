@@ -45,6 +45,7 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -267,6 +268,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
     .borrow<&{YahooPartnersCollectible.CollectionPublic}>() {
         ids["YahooPartnersCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+    .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>() {
+        ids["BlindBoxRedeemVoucher"] = col.getIDs()
     }
 
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)

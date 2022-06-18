@@ -49,6 +49,10 @@ YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0xeec852ceb51a5fb3 --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
