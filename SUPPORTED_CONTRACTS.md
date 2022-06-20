@@ -17,9 +17,9 @@
 | Vouchers  | 0xe94a6e229293f196 |
 | AllDay  | 0x4dfd62c88d1b6462 |
 | BarterYardClubWerewolf  | 0x195caada038c5806 |
+| BlindBoxRedeemVoucher  | 0xb073f87f88ee7449 |
 | GogoroCollectible  | 0x5fc35f03a6f33561 |
 | HaikuNFT  | 0x824f612f78d34250 |
-| NftReality  | 0xa3222e7505186595 |
 | NowggNFT  | 0x1a3e64df3663edd3 |
 | PackNFT  | 0x4dfd62c88d1b6462 |
 | YahooCollectible  | 0x5d50ce3fd080edce |
@@ -28,8 +28,10 @@
 | DooverseItems  | 0x5ab407dfb3bf35e8 |
 | FLOAT  | 0x0afe396ebc8eee65 |
 | Momentables  | 0x9f2eb43b6df02730 |
+| NftReality  | 0xa3222e7505186595 |
 | Owners  | 0x890f42a0a872ae77 |
 | TheFabricantS2ItemNFT  | 0x2a37a78609bba037 |
+| VnMiss  | 0x4fb7700ee1a19c44 |
 
 # Mainnet Supported Contracts
 | Contract Name | Contract Address |
@@ -49,6 +51,7 @@
 | Mynft  | 0xf6fcbef550d97aa5 |
 | RaceDay_NFT  | 0x329feb3ab062d289 |
 | RareRooms_NFT  | 0x329feb3ab062d289 |
+| Shard  | 0x82b54037a8f180cf |
 | StarlyCard  | 0x5b82f21c0edf76e3 |
 | TopShot  | 0x0b2a3299cc857e29 |
 | TuneGO  | 0x0d9bc5af3fc0c2e3 |
@@ -74,6 +77,7 @@
 | AmericanAirlines_NFT  | 0x329feb3ab062d289 |
 | Art_NFT  | 0x329feb3ab062d289 |
 | Atheletes_Unlimited_NFT  | 0x329feb3ab062d289 |
+| BlindBoxRedeemVoucher  | 0x910514afa41bfeac |
 | BreakingT_NFT  | 0x329feb3ab062d289 |
 | DGD_NFT  | 0x329feb3ab062d289 |
 | FLOAT  | 0x2d4c3caffbeab845 |
@@ -81,19 +85,23 @@
 | GoatedGoatsTrait  | 0x2068315349bdfce5 |
 | GogoroCollectible  | 0x8c9bbcdcd7514081 |
 | MatrixWorldAssetsNFT  | 0xf20df769e658c257 |
+| Metaverse  | 0x256599e1b091be12 |
 | Momentables  | 0x9d21537544d9123d |
-| NFTContract  | 0x1e075b24abe6eca6 |
 | NftReality  | 0x5892036f9111fbb8 |
 | NowggNFT  | 0x85b8bbf926dcddfa |
+| SomePlaceCollectible  | 0x667a16294a089ef8 |
 | The_Next_Cartel_NFT  | 0x329feb3ab062d289 |
 | YahooCollectible  | 0x758252ab932a3416 |
 | YahooPartnersCollectible  | 0x758252ab932a3416 |
+| AADigital  | 0x39eeb4ee6f30fc3f |
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
+| NFTContract  | 0x1e075b24abe6eca6 |
 | PartyMansionDrinksContract  | 0x34f2bf4a80bb0f69 |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
 | UFC_NFT  | 0x329feb3ab062d289 |
+| VnMiss  | 0x7c11edb826692404 |
 

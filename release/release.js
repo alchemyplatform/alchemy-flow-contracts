@@ -12,7 +12,7 @@ const SHARD_SIZE = 25;
 // These "pass" the import test but stil fail, manually remove them for now.
 const DENY_LIST = {
     emulator: [],
-    testnet: ["SturdyItems", "Metaverse"],
+    testnet: ["SturdyItems", "Metaverse", "AADigital"],
     mainnet: [
         "SturdyItems",
         "CryptoPiggo",
