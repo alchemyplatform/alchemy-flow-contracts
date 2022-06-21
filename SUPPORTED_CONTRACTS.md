@@ -30,6 +30,7 @@
 | Momentables  | 0x9f2eb43b6df02730 |
 | NftReality  | 0xa3222e7505186595 |
 | Owners  | 0x890f42a0a872ae77 |
+| QRLNFT  | 0x5dfbd0d5aba6acf7 |
 | TheFabricantS2ItemNFT  | 0x2a37a78609bba037 |
 | VnMiss  | 0x4fb7700ee1a19c44 |
 
@@ -64,6 +65,7 @@
 | Costacos_NFT  | 0x329feb3ab062d289 |
 | DayNFT  | 0x1600b04bf033fb99 |
 | DieselNFT  | 0x497153c597783bc3 |
+| GeniaceNFT  | 0xabda6627c70c7f52 |
 | GooberXContract  | 0x34f2bf4a80bb0f69 |
 | HaikuNFT  | 0xf61e40c19db2a9e2 |
 | MiamiNFT  | 0x429a19abea586a3e |
@@ -100,6 +102,7 @@
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
 | NFTContract  | 0x1e075b24abe6eca6 |
 | PartyMansionDrinksContract  | 0x34f2bf4a80bb0f69 |
+| QRLNFT  | 0xa4e9020ad21eb30b |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
 | UFC_NFT  | 0x329feb3ab062d289 |
