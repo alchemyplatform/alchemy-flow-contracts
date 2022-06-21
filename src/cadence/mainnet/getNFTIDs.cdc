@@ -76,6 +76,7 @@ import Owners from 0x41cad19decccdf25
 import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import QRLNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -461,6 +462,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
     .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
         ids["Swaychain"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+    .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
+        ids["QRL"] = col.getIDs()
     }
 
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
