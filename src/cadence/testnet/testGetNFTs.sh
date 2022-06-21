@@ -111,6 +111,12 @@ Swaychain)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Swaychain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "QRL" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
+
 TheFabricantS2ItemNFT)
   echo "TheFabricantS2ItemNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2bcdfcf5d9e73154" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS2ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet

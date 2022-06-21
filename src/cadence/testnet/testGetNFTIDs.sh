@@ -141,6 +141,10 @@ TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTIDs.cdc 0x5511546363e3daa2 --network testnet
   ;;
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

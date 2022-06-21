@@ -65,6 +65,7 @@ import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
+import QRLNFT from 0x5dfbd0d5aba6acf7
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -369,6 +370,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
         .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
             ids["TicalUniverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+    .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
+        ids["QRL"] = col.getIDs()
     }
     return ids
 }
