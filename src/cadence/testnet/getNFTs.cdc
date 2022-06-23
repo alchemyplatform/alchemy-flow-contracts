@@ -43,6 +43,7 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -62,7 +63,7 @@ import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
-
+import QRLNFT from 0x5dfbd0d5aba6acf7
 import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
 
@@ -196,6 +197,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
                 case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
+                case "BlindBoxRedeemVoucher": d = getBlindBoxRedeemVoucherNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
@@ -217,6 +219,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ProShop_5": d = getProShop5(owner: owner, id: id)
                 case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
+                case "QRL": d = getQRLNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -1905,6 +1908,45 @@ pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTDat
     )
 }
 
+// https://flow-view-source.com/testnet/account/0xb073f87f88ee7449/contract/BlindBoxRedeemVoucher
+pub fun getBlindBoxRedeemVoucherNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "BlindBoxRedeemVoucher",
+        address: 0xb073f87f88ee7449,
+        storage_path: "BlindBoxRedeemVoucher.CollectionStoragePath",
+        public_path: "BlindBoxRedeemVoucher.CollectionPublicPath",
+        public_collection_name: "BlindBoxRedeemVoucher.CollectionPublic",
+        external_domain: "https://flow.com/",
+    )
+
+    let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+        .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowBlindBoxRedeemVoucher(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/blindbox-voucher/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
 
 // https://flow-view-source.com/testnet/account/0x1a3e64df3663edd3/contract/NowggNFT
 pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
@@ -2927,7 +2969,8 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowProShop(id: id)
     if nft == nil { return nil }
     let metadata = nft!.metadata
-    return NFTData(
+    
+     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
@@ -2938,4 +2981,40 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
         metadata: {},
      )
+}
+     
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "QRL",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "QRLNFT.CollectionStoragePath",
+        public_path: "QRLNFT.CollectionPublicPath",
+        public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+        .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
+    )
 }

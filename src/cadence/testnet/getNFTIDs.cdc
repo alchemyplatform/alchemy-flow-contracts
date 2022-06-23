@@ -45,6 +45,7 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -64,6 +65,7 @@ import AADigital from 0x03a4ea61342fcb6c
 import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
+import QRLNFT from 0x5dfbd0d5aba6acf7
 
 import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
@@ -272,6 +274,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooPartnersCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+    .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>() {
+        ids["BlindBoxRedeemVoucher"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -375,6 +382,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
         .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
             ids["TicalUniverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+    .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
+        ids["QRL"] = col.getIDs()
     }
     return ids
 }

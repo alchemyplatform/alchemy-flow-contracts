@@ -58,6 +58,7 @@ import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
 import YahooPartnersCollectible from 0x758252ab932a3416
+import BlindBoxRedeemVoucher from 0x910514afa41bfeac
 import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
@@ -75,6 +76,7 @@ import Owners from 0x41cad19decccdf25
 import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
+import QRLNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -372,6 +374,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooPartnersCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+    .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>() {
+        ids["BlindBoxRedeemVoucher"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -455,6 +462,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
     .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
         ids["Swaychain"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+    .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
+        ids["QRL"] = col.getIDs()
     }
 
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)

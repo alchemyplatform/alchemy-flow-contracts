@@ -292,6 +292,11 @@ YahooPartnersCollectible)
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
 Kicks)
   echo "ClosedSrc - NFTLX"
   flow scripts execute getNFTIDs.cdc 0xf3cc54f4d91c2f6c --network mainnet
@@ -375,8 +380,14 @@ NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0xcb5b64e4ae34e3ba --network mainnet
   ;;
+
 Swaychain)
   echo "Swaychain"
+  flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
+  ;;
+
+QRL)
+  echo "QRL"
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
   ;;
 

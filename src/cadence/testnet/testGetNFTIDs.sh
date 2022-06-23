@@ -49,6 +49,10 @@ YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0xeec852ceb51a5fb3 --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
@@ -144,6 +148,10 @@ TuneGO)
 TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTIDs.cdc 0x5511546363e3daa2 --network testnet
+  ;;
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
 *)
   echo "Unknown contract"
