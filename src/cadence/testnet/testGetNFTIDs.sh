@@ -125,6 +125,14 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
   ;;
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
 TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
