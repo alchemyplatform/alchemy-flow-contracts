@@ -141,6 +141,10 @@ QRL)
   echo "QRL"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

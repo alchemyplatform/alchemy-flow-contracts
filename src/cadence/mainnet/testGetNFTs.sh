@@ -375,6 +375,11 @@ QRL)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "QRL" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Maxar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xcb5b64e4ae34e3ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "13" }] } }] }]' --network mainnet

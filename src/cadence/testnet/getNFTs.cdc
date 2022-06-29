@@ -2908,3 +2908,39 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     )
 }
+
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
+pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Maxar",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "MaxarNFT.CollectionStoragePath",
+        public_path: "MaxarNFT.CollectionPublicPath",
+        public_collection_name: "MaxarNFT.MaxarNFTCollectionPublic",
+        external_domain: "https://nft.maxar.com/"
+    )
+
+    let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+        .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
+    )
+}
