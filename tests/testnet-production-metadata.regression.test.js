@@ -138,7 +138,7 @@ const cadenceTestingSuite =
                         );
                     }
                 },
-                10000
+                20000
             );
 
             test.each(totalGetNFTsTestCases)(
@@ -203,7 +203,7 @@ const cadenceTestingSuite =
                         );
                     }
                 },
-                10000
+                20000
             );
         });
     });
