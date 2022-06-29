@@ -198,7 +198,7 @@ ItemNFT)
 
 TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
-  flow scripts execute getNFTIDs.cdc 0x9e03b1f871b3513 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x09e03b1f871b3513 --network mainnet
   ;;
 
 Andbox_NFT)

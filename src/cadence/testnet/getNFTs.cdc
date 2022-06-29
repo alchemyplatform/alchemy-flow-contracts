@@ -2985,7 +2985,7 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
      
 // https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
 pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContract(
+    let contract = NFTContractData(
         name: "QRL",
         address: 0xa4e9020ad21eb30b,
         storage_path: "QRLNFT.CollectionStoragePath",
@@ -2998,7 +2998,7 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowNFT(id: id)
+    let nft = col!.borrowQRLNFT(id: id)
     if nft == nil { return nil }
 
     return NFTData(
@@ -3012,9 +3012,9 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
         metadata: {
             "name": nft!.name,
-            "message": nft!.title,
+            // "message": nft!.title,
             "description": nft!.description,
-            "thumbnail": nft!.thumbnail,
+            "thumbnail": nft!.thumbnail
         }
     )
 }
