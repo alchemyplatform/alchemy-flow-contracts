@@ -13,11 +13,15 @@
 | MintStoreItem  | 0x985d410b577fd4a1 |
 | StarlyCard  | 0x697d72a988a77070 |
 | TFCItems  | 0x91a6217c3b70cae8 |
+| TicalUniverse  | 0x5511546363e3daa2 |
 | TopShot  | 0x877931736ee77cff |
+| TuneGO  | 0xb30ec2319df2aa30 |
 | Vouchers  | 0xe94a6e229293f196 |
 | AllDay  | 0x4dfd62c88d1b6462 |
 | BarterYardClubWerewolf  | 0x195caada038c5806 |
 | BlindBoxRedeemVoucher  | 0xb073f87f88ee7449 |
+| Collectible  | 0x85080f371da20cc1 |
+| CryptoZooNFT  | 0xd60702f03bcafd46 |
 | GogoroCollectible  | 0x5fc35f03a6f33561 |
 | HaikuNFT  | 0x824f612f78d34250 |
 | NowggNFT  | 0x1a3e64df3663edd3 |
@@ -32,6 +36,7 @@
 | Owners  | 0x890f42a0a872ae77 |
 | QRLNFT  | 0x5dfbd0d5aba6acf7 |
 | TheFabricantS2ItemNFT  | 0x2a37a78609bba037 |
+| TrartContractNFT  | 0x4e024b8545e52d07 |
 | VnMiss  | 0x4fb7700ee1a19c44 |
 
 # Mainnet Supported Contracts
@@ -62,9 +67,12 @@
 | BarterYardClubWerewolf  | 0x28abb9f291cadaf2 |
 | BarterYardPackNFT  | 0xa95b021cf8a30d80 |
 | Canes_Vault_NFT  | 0x329feb3ab062d289 |
+| Collectible  | 0xf5b0eb433389ac3f |
 | Costacos_NFT  | 0x329feb3ab062d289 |
+| CryptoZooNFT  | 0x8ea44ab931cac762 |
 | DayNFT  | 0x1600b04bf033fb99 |
 | DieselNFT  | 0x497153c597783bc3 |
+| FlowChinaBadge  | 0x99fed1e8da4c3431 |
 | GeniaceNFT  | 0xabda6627c70c7f52 |
 | GooberXContract  | 0x34f2bf4a80bb0f69 |
 | HaikuNFT  | 0xf61e40c19db2a9e2 |
@@ -105,6 +113,7 @@
 | QRLNFT  | 0xa4e9020ad21eb30b |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
+| TrartContractNFT  | 0x6f01a4b0046c1f87 |
 | UFC_NFT  | 0x329feb3ab062d289 |
 | VnMiss  | 0x7c11edb826692404 |
 
