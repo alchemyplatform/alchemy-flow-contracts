@@ -91,6 +91,9 @@ import Evolution from 0xf4264ac8f3256818
 import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
+import Flovatar from 0x921ea449dffec68a
+import FlovatarComponent from 0x921ea449dffec68a
+import FlovatarComponentTemplate from 0x921ea449dffec68a
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -4382,3 +4385,91 @@ pub fun getUFCNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: rawMetadata
     )
 }
+
+// https://flow-view-source.com/mainnet/account/0x921ea449dffec68a/contract/Flovatar
+pub fun getFlovatarNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Flovatar",
+        address: 0x921ea449dffec68a,
+        storage_path: "Flovatar.CollectionStoragePath",
+        public_path: "Flovatar.CollectionPublicPath",
+        public_collection_name: "Flovatar.CollectionPublic",
+        external_domain: "https://www.flovatar.com"
+    )
+
+    let col = owner.getCapability(Flovatar.CollectionPublicPath)
+        .borrow<&{Flovatar.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlovatar(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+    let metadata = nft!.getMetadata()
+    rawMetadata["series"] = metadata.series.toString()
+    rawMetadata["combination"] = metadata.combination
+    rawMetadata["creatorAddress"] = metadata.creatorAddress.toString()
+    rawMetadata["rareCount"] = metadata.rareCount.toString()
+    rawMetadata["epicCount"] = metadata.epicCount.toString()
+    rawMetadata["legendaryCount"] = metadata.legendaryCount.toString()
+    rawMetadata["accessoryId"] = nft!.getAccessory() != nil  ? nft!.getAccessory().toString() : ""
+    rawMetadata["hatId"] = nft!.getHat() != nil  ? nft!.getHat().toString() : ""
+    rawMetadata["eyeglassesId"] = nft!.getEyeglasses() != nil ? nft!.getEyeglasses().toString() : ""
+    rawMetadata["backgroundId"] = nft!.getBackground() != nil  ? nft!.getBackground().toString() : ""
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: "Flovatar",
+        description: nil,
+        external_domain_view_url: "https://flovatar.com/flovatars/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://flovatar.com/api/image/".concat(nft!.id.toString()), mimetype: "video" )],
+        metadata: rawMetadata
+    )
+}
+
+
+
+// https://flow-view-source.com/mainnet/account/0x921ea449dffec68a/contract/FlovatarComponent
+pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+        .borrow<&{FlovatarComponent.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowComponent(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+    let componentTemplate = FlovatarComponentTemplate.getComponentTemplate(id: nft!.templateId)!
+    rawMetadata["templateId"] = componentTemplate.id
+    rawMetadata["name"] = componentTemplate.name
+    rawMetadata["description"] = componentTemplate.description
+    rawMetadata["category"] = componentTemplate.category
+    rawMetadata["rarity"] = componentTemplate.rarity
+
+
+    let contract = NFTContractData(
+        name: "Flovatar Flobit - ".concat(componentTemplate.name),
+        address: 0x921ea449dffec68a,
+        storage_path: "FlovatarComponent.CollectionStoragePath",
+        public_path: "FlovatarComponent.CollectionPublicPath",
+        public_collection_name: "FlovatarComponent.CollectionPublic",
+        external_domain: "https://www.flovatar.com"
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.mint,
+        uuid: nft!.id,
+        title: "Flovatar Flobit",
+        description: nil,
+        external_domain_view_url: "https://flovatar.com/components/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
+        metadata: rawMetadata
+    )
+}
+
