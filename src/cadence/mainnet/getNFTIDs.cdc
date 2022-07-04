@@ -87,6 +87,8 @@ import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
 import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import Evolution from 0xf4264ac8f3256818
+import FlovatarComponent from 0x921ea449dffec68a
+import FlovatarComponentTemplate from 0x921ea449dffec68a
 
 import Moments from 0xd4ad4740ee426334
 
@@ -524,5 +526,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["UFC_NFT"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(Flovatar.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flovatar"] = col.getIDs()
+    }
+
     return ids
 }
