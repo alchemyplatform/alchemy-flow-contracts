@@ -531,6 +531,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Flovatar"] = col.getIDs()
     }
+    if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["FlovatarComponent"] = col.getIDs()
+    }
 
     return ids
 }
