@@ -3029,7 +3029,7 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
 pub fun getFlovatarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "Flovatar",
-        address: 0x921ea449dffec68a,
+        address: 0x9392a4a7c3f49a0b,
         storage_path: "Flovatar.CollectionStoragePath",
         public_path: "Flovatar.CollectionPublicPath",
         public_collection_name: "Flovatar.CollectionPublic",
@@ -3091,8 +3091,8 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 
     let contract = NFTContractData(
-        name: "Flovatar Flobit - ".concat(componentTemplate.name),
-        address: 0x921ea449dffec68a,
+        name: "FlovatarComponent",
+        address: 0x9392a4a7c3f49a0b,
         storage_path: "FlovatarComponent.CollectionStoragePath",
         public_path: "FlovatarComponent.CollectionPublicPath",
         public_collection_name: "FlovatarComponent.CollectionPublic",

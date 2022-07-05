@@ -4454,7 +4454,7 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 
     let contract = NFTContractData(
-        name: "Flovatar Flobit - ".concat(componentTemplate.name),
+        name: "FlovatarComponent",
         address: 0x921ea449dffec68a,
         storage_path: "FlovatarComponent.CollectionStoragePath",
         public_path: "FlovatarComponent.CollectionPublicPath",
