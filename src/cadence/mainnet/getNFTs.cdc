@@ -1253,18 +1253,29 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowStarlyCard(id: id)
     if nft == nil { return nil }
 
+    let metadata = nft!.getMetadata()!
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata.card.title,
+        description: metadata.card.description,
+        external_domain_view_url: metadata.url,
         token_uri: nil,
-        media: [],
+        media: [NFTMedia(uri: metadata.card.mediaSizes[0].url, mimetype: metadata.card.mediaType)],
         metadata: {
-            "id": nft!.starlyID
-        },
+            "id": nft!.starlyID,
+            "rarity": metadata.card.rarity,
+            "collectionID": metadata.collection.id,
+            "collectionTitle": metadata.collection.title,
+            "cardID": metadata.card.id.toString(),
+            "edition": metadata.edition.toString(),
+            "editions": metadata.card.editions.toString(),
+            "previewUrl": metadata.previewUrl,
+            "creatorName": metadata.collection.creator.name,
+            "creatorUsername": metadata.collection.creator.username
+        }
     )
 }
 
@@ -4454,7 +4465,7 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
 
     let contract = NFTContractData(
-        name: "FlovatarComponent",
+        name: "Flovatar Flobit - ".concat(componentTemplate.name),
         address: 0x921ea449dffec68a,
         storage_path: "FlovatarComponent.CollectionStoragePath",
         public_path: "FlovatarComponent.CollectionPublicPath",

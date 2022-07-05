@@ -89,9 +89,7 @@ import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import Evolution from 0xf4264ac8f3256818
 import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
-
 import Moments from 0xd4ad4740ee426334
-
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
 
