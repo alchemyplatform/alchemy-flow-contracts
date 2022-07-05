@@ -21,10 +21,14 @@ BarterYard)
   echo "Barter Yard Club"
   flow scripts execute getNFTIDs.cdc 0x4300fc3a11778a9a --network testnet
   ;;
+BarterYardClubWerewolf)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTIDs.cdc 0x195caada038c5806 --network testnet
+  ;;
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0x0add010813a8c23f --network testnet
-  ;;    
+  ;;
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
@@ -32,7 +36,7 @@ DayNFT)
 NowggNFT)
   echo "NowggNFT"
   flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
-  ;; 
+  ;;
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
@@ -44,6 +48,10 @@ YahooCollectible)
 YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0xeec852ceb51a5fb3 --network testnet
   ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
@@ -117,6 +125,14 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
   ;;
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
 TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
@@ -133,9 +149,13 @@ TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTIDs.cdc 0x5511546363e3daa2 --network testnet
   ;;
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
 MyNFT)
   echo "MyNFT"
-  flow scripts execute getNFTIDs.cdc 0x9af2f3f3b56ce0e7 --network testnet
+  flow scripts execute getNFTIDs.cdc 0xadb237cb752bac09 --network testnet
   ;;
 *)
   echo "Unknown contract"

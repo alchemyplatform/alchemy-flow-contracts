@@ -193,7 +193,7 @@ ItemNFT)
 
 TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x09e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
 
 Andbox_NFT)
@@ -214,6 +214,11 @@ Kicks)
 BarterYard)
   echo "Barter Yard Club"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa95b021cf8a30d80" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "365" }] } }] }]' --network mainnet
+  ;;
+
+BarterYardClubWerewolf)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x28abb9f291cadaf2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BarterYardClubWerewolf" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3359" }] } }] }]' --network mainnet
   ;;
 
 DayNFT)
@@ -279,6 +284,11 @@ YahooCollectible)
 YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BlindBoxRedeemVoucher" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
 SomePlaceCollectible)
@@ -365,6 +375,11 @@ Swaychain)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Swaychain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "QRL" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xcb5b64e4ae34e3ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "13" }] } }] }]' --network mainnet
@@ -437,7 +452,7 @@ UFC_NFT)
   ;;
 MyNFT)
   echo "MyNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5affd8c030ae5761" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "436" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5affd8c030ae5761" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "214" }] } }] }]' --network mainnet
   ;;
 *)
   echo "Unknown contract"

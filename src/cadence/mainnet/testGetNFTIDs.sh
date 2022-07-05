@@ -198,7 +198,7 @@ ItemNFT)
 
 TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
-  flow scripts execute getNFTIDs.cdc 0x9e03b1f871b3513 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x09e03b1f871b3513 --network mainnet
   ;;
 
 Andbox_NFT)
@@ -220,6 +220,12 @@ BarterYard)
   echo "Barter Yard Club"
   flow scripts execute getNFTIDs.cdc 0xa95b021cf8a30d80 --network mainnet
   ;;
+
+BarterYardClubWerewolf)
+  echo "Barter Yard Club Werewolf"
+  flow scripts execute getNFTIDs.cdc 0x28abb9f291cadaf2 --network mainnet
+  ;;
+
 
 DayNFT)
   echo "DayNFT"
@@ -283,6 +289,11 @@ YahooCollectible)
 
 YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
@@ -369,8 +380,14 @@ NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0xcb5b64e4ae34e3ba --network mainnet
   ;;
+
 Swaychain)
   echo "Swaychain"
+  flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
+  ;;
+
+QRL)
+  echo "QRL"
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
   ;;
 
