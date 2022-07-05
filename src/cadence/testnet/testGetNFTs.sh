@@ -157,6 +157,14 @@ TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;;
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flovatar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "33270" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

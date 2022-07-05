@@ -278,6 +278,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Moments": d = getMomentsNFT(owner: owner, id: id)
                 case "MotoGPCard": d = getMotoGPCardNFT(owner: owner, id: id)
                 case "UFC_NFT": d = getUFCNFT(owner: owner, id: id)
+                case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
+                case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }

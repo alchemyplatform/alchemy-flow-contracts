@@ -69,6 +69,8 @@ import QRLNFT from 0x5dfbd0d5aba6acf7
 
 import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
+import Flovatar from 0x9392a4a7c3f49a0b
+import FlovatarComponent from 0x9392a4a7c3f49a0b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -387,5 +389,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
         ids["QRL"] = col.getIDs()
     }
+
+    if let col = owner.getCapability(Flovatar.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flovatar"] = col.getIDs()
+    }
+    if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["FlovatarComponent"] = col.getIDs()
+    }
+
     return ids
 }

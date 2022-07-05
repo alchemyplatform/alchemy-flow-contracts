@@ -450,6 +450,14 @@ UFC_NFT)
   echo "UFC_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x32441817bc2bbe9c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "UFC_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "269720" }] } }] }]' --network mainnet
   ;;
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2a0eccae942667be" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flovatar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network mainnet
+  ;;
+Flovatar)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2a0eccae942667be" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "440" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
