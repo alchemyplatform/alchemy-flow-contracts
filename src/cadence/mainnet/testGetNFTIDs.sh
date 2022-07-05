@@ -460,6 +460,16 @@ UFC_NFT)
   echo "UFC_NFT"
   flow scripts execute getNFTIDs.cdc 0x32441817bc2bbe9c --network mainnet
   ;;
+
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
+  ;;
+
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
