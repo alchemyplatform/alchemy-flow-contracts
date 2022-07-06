@@ -196,7 +196,7 @@ const cadenceTestingSuite =
                         errorStaging
                     );
                 },
-                10000
+                20000
             );
 
             test.each(totalGetNFTsTestCases)(
@@ -284,7 +284,7 @@ const cadenceTestingSuite =
                         errorStaging
                     );
                 },
-                10000
+                20000
             );
 
             console.log(

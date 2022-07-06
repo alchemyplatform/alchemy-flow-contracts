@@ -13,7 +13,7 @@ MatrixWorldFlowFestNFT)
 
 Starly)
   echo "Starly"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd88dea66b28c8637" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "StarlyCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "752" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xd88dea66b28c8637" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "StarlyCard" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "6656" }] } }] }]' --network mainnet
   ;;
 
 EternalShard)
@@ -193,7 +193,7 @@ ItemNFT)
 
 TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x9e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x09e03b1f871b3513" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS1ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
   ;;
 
 Andbox_NFT)
@@ -284,6 +284,11 @@ YahooCollectible)
 YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  ;;
+
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x0957f404ff7463ed" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BlindBoxRedeemVoucher" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 
 SomePlaceCollectible)
@@ -449,6 +454,14 @@ MotoGPCard)
 UFC_NFT)
   echo "UFC_NFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x32441817bc2bbe9c" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "UFC_NFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "269720" }] } }] }]' --network mainnet
+  ;;
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2a0eccae942667be" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flovatar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network mainnet
+  ;;
+Flovatar)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2a0eccae942667be" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "440" }] } }] }]' --network mainnet
   ;;
 *)
   echo "Unknown contract"

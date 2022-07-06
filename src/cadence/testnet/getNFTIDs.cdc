@@ -45,6 +45,7 @@ import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
 import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -66,6 +67,10 @@ import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
 import QRLNFT from 0x5dfbd0d5aba6acf7
 import Maxar from 0x5dfbd0d5aba6acf7
+import Gear from 0x8c7e52f597aa6117
+import ProShop_5 from 0x8c7e52f597aa6117
+import Flovatar from 0x9392a4a7c3f49a0b
+import FlovatarComponent from 0x9392a4a7c3f49a0b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -271,6 +276,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooPartnersCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+    .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>() {
+        ids["BlindBoxRedeemVoucher"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -354,6 +364,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Dooverse"] = col.getIDs()
     }
+    if let col = owner.getCapability(Gear.CollectionPublicPath)
+    .borrow<&{Gear.GearCollectionPublic}>() {
+        ids["Gear"] = col.getIDs()
+    }
+    if let col = owner.getCapability(ProShop_5.CollectionPublicPath)
+    .borrow<&{ProShop_5.ProShopCollectionPublic}>() {
+        ids["ProShop_5"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
     .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
         ids["TrartContractNFT"] = col.getIDs()
@@ -374,5 +393,14 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
         ids["Maxar"] = col.getIDs()
     }
+    if let col = owner.getCapability(Flovatar.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flovatar"] = col.getIDs()
+    }
+    if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["FlovatarComponent"] = col.getIDs()
+    }
+
     return ids
 }

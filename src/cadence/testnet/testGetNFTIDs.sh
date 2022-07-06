@@ -49,6 +49,10 @@ YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
   ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0xeec852ceb51a5fb3 --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTIDs.cdc 0x3b0f2d267cf8c8e9 --network testnet
@@ -121,6 +125,14 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
   ;;
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
 TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
@@ -144,6 +156,13 @@ QRL)
 Maxar)
   echo "Maxar"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
+  ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
   ;;
 *)
   echo "Unknown contract"

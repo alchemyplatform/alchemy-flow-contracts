@@ -198,7 +198,7 @@ ItemNFT)
 
 TheFabricantS1ItemNFT)
   echo "TheFabricantS1ItemNFT"
-  flow scripts execute getNFTIDs.cdc 0x9e03b1f871b3513 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0x09e03b1f871b3513 --network mainnet
   ;;
 
 Andbox_NFT)
@@ -289,6 +289,11 @@ YahooCollectible)
 
 YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
+  ;;
+
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
   flow scripts execute getNFTIDs.cdc 0x0957f404ff7463ed --network mainnet
   ;;
 
@@ -459,6 +464,16 @@ MotoGPCard)
 UFC_NFT)
   echo "UFC_NFT"
   flow scripts execute getNFTIDs.cdc 0x32441817bc2bbe9c --network mainnet
+  ;;
+
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
+  ;;
+
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
 *)
   echo "Unknown contract"

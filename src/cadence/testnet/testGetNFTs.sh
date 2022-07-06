@@ -49,6 +49,10 @@ YahooPartnersCollectible)
   echo "YahooPartnersCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x66ca989c2cd296fb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "YahooPartnersCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xeec852ceb51a5fb3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "BlindBoxRedeemVoucher" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3b0f2d267cf8c8e9" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SomePlaceCollectible" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "37379862" }] } }] }]' --network testnet
@@ -117,7 +121,6 @@ Maxar)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Maxar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
-
 TheFabricantS2ItemNFT)
   echo "TheFabricantS2ItemNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2bcdfcf5d9e73154" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TheFabricantS2ItemNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
@@ -134,6 +137,14 @@ Dooverse)
   echo "Dooverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8f4ef32a0ffb99a6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Dooverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "823" }] } }] }]' --network testnet
   ;;
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8c7e52f597aa6117" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Gear" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x8c7e52f597aa6117" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ProShop_5" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
 TrartContractNFT)
   echo "TrartContractNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3e100699f7218d1d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TrartContractNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "160020100019" }] } }] }]' --network testnet
@@ -149,6 +160,14 @@ TuneGO)
 TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flovatar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "33270" }] } }] }]' --network testnet
   ;;
 *)
   echo "Unknown contract"
