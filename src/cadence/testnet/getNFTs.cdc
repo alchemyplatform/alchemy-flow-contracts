@@ -2999,6 +2999,37 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {},
      )
 }
+
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "QRL",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "QRLNFT.CollectionStoragePath",
+        public_path: "QRLNFT.CollectionPublicPath",
+        public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+        .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowQRLNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+	@@ -3028,14 +3028,13 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail
+        }
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
 pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
