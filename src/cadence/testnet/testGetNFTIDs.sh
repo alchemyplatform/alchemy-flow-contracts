@@ -59,11 +59,19 @@ SomePlaceCollectible)
   ;;
 ARTIFACTPack)
   echo "ARTIFACTPack"
-  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
+  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
   ;;
 ARTIFACT)
   echo "ARTIFACT"
-  flow scripts execute getNFTIDs.cdc 0x6bc26c5911f3b19d --network testnet
+  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
+  ;;
+ARTIFACTPackV2)
+  echo "ARTIFACTPackV2"
+  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
+  ;;
+ARTIFACTV2)
+  echo "ARTIFACTV2"
+  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
   ;;
 NftReality)
   echo "NftReality"
