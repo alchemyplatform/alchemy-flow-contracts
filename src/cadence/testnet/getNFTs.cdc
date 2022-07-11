@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import MetaPanda from 0x26e7006d6734ba69
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -225,6 +226,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "MetaPanda": d = getMetaPandaNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3119,6 +3121,46 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://flovatar.com/components/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x26e7006d6734ba69/contract/MetaPanda
+pub fun getMetaPandaNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "MetaPanda",
+        address: 0x26e7006d6734ba69,
+        storage_path: "MetaPanda.CollectionStoragePath",
+        public_path: "MetaPanda.CollectionPublicPath",
+        public_collection_name: "MetaPanda.Collection",
+        external_domain: "https://metapandaclub.com/"
+    )
+
+    let col = owner.getCapability(MetaPanda.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    let external_domain_view_url = "https://s3.us-west-2.amazonaws.com/nft.pandas/".concat(nft!.id.toString()).concat(".png")
+    let rawMetadata: {String : String?} = {}
+    rawMetadata.insert(key: "name", "MetaPanda #".concat(nft!.id.toString()))
+    rawMetadata.insert(key: "image", external_domain_view_url)
+    rawMetadata.insert(key: "url", "https://rareworx.com/piggo/details/".concat(nft!.id.toString()))
+    rawMetadata.insert(key: "contentType", "image")
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "MetaPanda",
+        description: nil,
+        external_domain_view_url: external_domain_view_url,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
         metadata: rawMetadata
     )
 }

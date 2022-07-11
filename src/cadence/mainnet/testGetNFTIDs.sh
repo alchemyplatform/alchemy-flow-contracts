@@ -470,6 +470,10 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTIDs.cdc 0xf2af175e411dfff8 --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
