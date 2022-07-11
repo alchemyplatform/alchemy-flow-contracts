@@ -4510,7 +4510,6 @@ pub fun getMetaPandaNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let rawMetadata: {String : String?} = {}
     rawMetadata.insert(key: "name", "MetaPanda #".concat(nft!.id.toString()))
     rawMetadata.insert(key: "image", external_domain_view_url)
-    rawMetadata.insert(key: "url", external_domain_view_url)
     rawMetadata.insert(key: "contentType", "image")
 
     return NFTData(
