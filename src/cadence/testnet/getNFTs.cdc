@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import ByteNextMedalNFT from 0x734061e710725233
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -225,6 +226,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3119,6 +3121,43 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: "https://flovatar.com/components/".concat(nft!.id.toString()),
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x734061e710725233/contract/ByteNextMedalNFT
+pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ByteNextMedalNFT",
+        address: 0x734061e710725233,
+        storage_path: "ByteNextMedalNFT.CollectionStoragePath",
+        public_path: "ByteNextMedalNFT.CollectionPublicPath",
+        public_collection_name: "ByteNextMedalNFT.CollectionPublic",
+        external_domain: "https://app.bytenext.io"
+    )
+
+    let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+        .borrow<&{ByteNextMedalNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMedalNFT(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String} = {}
+    let metadata = nft!.getMetadata()
+    rawMetadata["name"] = metadata.name ?? ""
+    rawMetadata["level"] = metadata.level ?? ""
+    rawMetadata["metaURI"] = metadata.metaURI ?? ""
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: rawMetadata["name"],
+        description: rawMetadata["name"],
+        external_domain_view_url: metadata.metaURI,
+        token_uri: nil,
+        media: [NFTMedia(uri: metadata.metaURI, mimetype: "image")],
         metadata: rawMetadata
     )
 }

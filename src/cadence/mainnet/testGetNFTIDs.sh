@@ -470,6 +470,12 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
+
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTIDs.cdc 0x3f9d4046fcd6fce3 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
