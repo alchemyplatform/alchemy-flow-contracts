@@ -94,6 +94,7 @@ import UFC_NFT from 0x329feb3ab062d289
 import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
 import FlovatarComponentTemplate from 0x921ea449dffec68a
+import MonoCatMysteryBox from 0x8529aaf64c168952
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -280,6 +281,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "UFC_NFT": d = getUFCNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "MonoCatMysteryBox": d = getMonoCatMysteryBoxNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4483,6 +4485,40 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x8529aaf64c168952/contract/MonoCatMysteryBox
+pub fun GetMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
+        .borrow<&{MonoCatMysteryBox.CollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCatMysteryBox(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCatMysteryBox",
+        address: 0x8529aaf64c168952,
+        storage_path: "MonoCatMysteryBox.CollectionStoragePath",
+        public_path: "MonoCatMysteryBox.CollectionPublicPath",
+        public_collection_name: "MonoCatMysteryBox.Collection",
+        external_domain: "https://mono.fun"
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.getRawMetadata()["uuid"],
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://static.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "image/png"),
+            NFTMedia(uri: "https://static.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "video/mp4")
+        ],
+        metadata: nft!.getRawMetadata()
     )
 }
 

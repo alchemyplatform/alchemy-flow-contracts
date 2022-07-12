@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import MonoCatMysteryBox from 0xa01dd6e82b7352be
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -3120,5 +3121,39 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xa01dd6e82b7352be/contract/MonoCatMysteryBox
+pub fun GetMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
+        .borrow<&{MonoCatMysteryBox.CollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCatMysteryBox(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCatMysteryBox",
+        address: 0xa01dd6e82b7352be,
+        storage_path: "MonoCatMysteryBox.CollectionStoragePath",
+        public_path: "MonoCatMysteryBox.CollectionPublicPath",
+        public_collection_name: "MonoCatMysteryBox.Collection",
+        external_domain: "https://uat.mono.fun"
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.getRawMetadata()["uuid"],
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "image/png"),
+            NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "video/mp4")
+        ],
+        metadata: nft!.getRawMetadata()
     )
 }

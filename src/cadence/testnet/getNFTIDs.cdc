@@ -71,6 +71,7 @@ import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
+import MonoCatMysteryBox from 0xa01dd6e82b7352be
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -397,6 +398,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["FlovatarComponent"] = col.getIDs()
+    }
+    if let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MonoCatMysteryBox"] = col.getIDs()
     }
 
     return ids

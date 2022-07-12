@@ -165,6 +165,10 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "33270" }] } }] }]' --network testnet
   ;;
+MonoCatMysteryBox)
+  echo "MonoCatMysteryBox"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x22f42e263c42d7bd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MonoCatMysteryBox" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

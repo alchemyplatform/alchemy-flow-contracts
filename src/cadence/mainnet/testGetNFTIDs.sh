@@ -470,6 +470,10 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
+MonoCatMysteryBox)
+  echo "MonoCatMysteryBox"
+  flow scripts execute getNFTIDs.cdc 0x8529aaf64c168952 --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
