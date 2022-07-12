@@ -92,6 +92,7 @@ import FlovatarComponent from 0x921ea449dffec68a
 import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
+import MaxarNFT from 0xa4e9020ad21eb30b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -467,6 +468,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
     .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
         ids["QRL"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+    .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
+        ids["Maxar"] = col.getIDs()
     }
 
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
