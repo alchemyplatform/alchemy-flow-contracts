@@ -4573,7 +4573,7 @@ pub fun getTopTNFT(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "TopTCollection.CollectionStoragePath",
         public_path: "TopTCollection.CollectionPublicPath",
         public_collection_name: "TopTCollection.TopTCollectionPublic",
-        external_domain: "https://app.topt.io" // not available yet
+        external_domain: "https://topt.io" // not available yet
     )
 
     let col = owner.getCapability(TopTCollection.CollectionPublicPath)
