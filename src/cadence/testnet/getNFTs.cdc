@@ -225,7 +225,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
-                case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -3021,13 +3021,17 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     return NFTData(
-	@@ -3028,14 +3028,13 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
         media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
         metadata: {
             "name": nft!.name,
-            "message": nft!.title,
-            "description": nft!.description,
-            "thumbnail": nft!.thumbnail
+            "description": nft!.description
         }
     )
 }
@@ -3094,10 +3098,10 @@ pub fun getFlovatarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     rawMetadata["rareCount"] = metadata.rareCount.toString()
     rawMetadata["epicCount"] = metadata.epicCount.toString()
     rawMetadata["legendaryCount"] = metadata.legendaryCount.toString()
-    rawMetadata["accessoryId"] = nft!.getAccessory() != nil  ? nft!.getAccessory().toString() : ""
-    rawMetadata["hatId"] = nft!.getHat() != nil  ? nft!.getHat().toString() : ""
-    rawMetadata["eyeglassesId"] = nft!.getEyeglasses() != nil ? nft!.getEyeglasses().toString() : ""
-    rawMetadata["backgroundId"] = nft!.getBackground() != nil  ? nft!.getBackground().toString() : ""
+    rawMetadata["accessoryId"] = nft!.getAccessory() != nil  ? nft!.getAccessory()!.toString() : ""
+    rawMetadata["hatId"] = nft!.getHat() != nil  ? nft!.getHat()!.toString() : ""
+    rawMetadata["eyeglassesId"] = nft!.getEyeglasses() != nil ? nft!.getEyeglasses()!.toString() : ""
+    rawMetadata["backgroundId"] = nft!.getBackground() != nil  ? nft!.getBackground()!.toString() : ""
 
     return NFTData(
         contract: contract,
@@ -3126,7 +3130,7 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let rawMetadata: {String : String?} = {}
     let componentTemplate = FlovatarComponentTemplate.getComponentTemplate(id: nft!.templateId)!
-    rawMetadata["templateId"] = componentTemplate.id
+    rawMetadata["templateId"] = componentTemplate.id.toString()
     rawMetadata["name"] = componentTemplate.name
     rawMetadata["description"] = componentTemplate.description
     rawMetadata["category"] = componentTemplate.category
@@ -3175,9 +3179,9 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let rawMetadata: {String : String} = {}
     let metadata = nft!.getMetadata()
-    rawMetadata["name"] = metadata.name ?? ""
-    rawMetadata["level"] = metadata.level ?? ""
-    rawMetadata["metaURI"] = metadata.metaURI ?? ""
+    rawMetadata["name"] = metadata["name"] ?? ""
+    rawMetadata["level"] = metadata["level"] ?? ""
+    rawMetadata["metaURI"] = metadata["metaURI"] ?? ""
 
     return NFTData(
         contract: contract,
@@ -3185,9 +3189,9 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: rawMetadata["name"],
         description: rawMetadata["name"],
-        external_domain_view_url: metadata.metaURI,
+        external_domain_view_url: rawMetadata["metaURI"],
         token_uri: nil,
-        media: [NFTMedia(uri: metadata.metaURI, mimetype: "image")],
+        media: [NFTMedia(uri: rawMetadata["metaURI"], mimetype: "image")],
         metadata: rawMetadata
     )
 }
