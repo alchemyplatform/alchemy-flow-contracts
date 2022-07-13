@@ -380,6 +380,11 @@ QRL)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "QRL" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa4e9020ad21eb30b" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Maxar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
+
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xcb5b64e4ae34e3ba" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "NFTContract" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "13" }] } }] }]' --network mainnet
@@ -461,6 +466,9 @@ Flovatar)
 MetaPanda)
   echo "MetaPanda"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf2af175e411dfff8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MetaPanda" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1793" }] } }] }]' --network mainnet
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3f9d4046fcd6fce3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9999" }] } }] }]' --network mainnet
   ;;
 *)
   echo "Unknown contract"
