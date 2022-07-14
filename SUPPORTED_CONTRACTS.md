@@ -60,7 +60,6 @@
 | RaceDay_NFT  | 0x329feb3ab062d289 |
 | RareRooms_NFT  | 0x329feb3ab062d289 |
 | Shard  | 0x82b54037a8f180cf |
-| SportsIconCollectible  | 0x8de96244f54db422 |
 | StarlyCard  | 0x5b82f21c0edf76e3 |
 | TopShot  | 0x0b2a3299cc857e29 |
 | TuneGO  | 0x0d9bc5af3fc0c2e3 |
@@ -100,7 +99,6 @@
 | MatrixWorldAssetsNFT  | 0xf20df769e658c257 |
 | Metaverse  | 0x256599e1b091be12 |
 | Momentables  | 0x9d21537544d9123d |
-| Necryptolis  | 0x718efe5e88fe48ea |
 | NftReality  | 0x5892036f9111fbb8 |
 | NowggNFT  | 0x85b8bbf926dcddfa |
 | SomePlaceCollectible  | 0x667a16294a089ef8 |
@@ -108,13 +106,8 @@
 | YahooCollectible  | 0x758252ab932a3416 |
 | YahooPartnersCollectible  | 0x758252ab932a3416 |
 | AADigital  | 0x39eeb4ee6f30fc3f |
-| ByteNextMedalNFT  | 0x3b16cb9f5c036412 |
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
-| Flovatar  | 0x921ea449dffec68a |
-| FlovatarComponent  | 0x921ea449dffec68a |
-| FlovatarComponentTemplate  | 0x921ea449dffec68a |
-| MaxarNFT  | 0xa4e9020ad21eb30b |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
 | NFTContract  | 0x1e075b24abe6eca6 |
