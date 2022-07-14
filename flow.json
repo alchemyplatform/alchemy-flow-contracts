@@ -1,0 +1,122 @@
+{
+    "emulators": {
+        "default": {
+            "port": 3569,
+            "serviceAccount": "emulator-account"
+        }
+    },
+    "contracts": {
+        "NonFungibleToken": {
+            "source": "./tests/cadence/contracts/NonFungibleToken.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
+        "FungibleToken": {
+            "source": "./tests/cadence/contracts/FungibleToken.cdc",
+            "aliases": {
+                "testnet": "0x9a0766d93b6608b7",
+                "mainnet": "0xf233dcee88fe0abe"
+            }
+        },
+        "MetadataViews": {
+            "source": "./tests/cadence/contracts/MetadataViews.cdc",
+            "aliases": {
+                "mainnet": "0x1d7e57aa55817448",
+                "testnet": "0x631e88ae7f1d7c20"
+            }
+        },
+        "TestNFT": "./tests/cadence/contracts/TestNFT.cdc",
+        "TestNFTWithViews": "./tests/cadence/contracts/TestNFTWithViews.cdc",
+        "AlchemyMetadataWrapperEmulatorShard1": "./tests/cadence/contracts/AlchemyMetadataWrapperEmulatorShard1.cdc",
+        "AlchemyMetadataWrapperTestnetShard1": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard1.cdc",
+        "AlchemyMetadataWrapperTestnetShard2": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard2.cdc",
+        "AlchemyMetadataWrapperTestnetShard3": "./generated/cadence/contracts/AlchemyMetadataWrapperTestnetShard3.cdc",
+        "AlchemyMetadataWrapperMainnetShard1": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard1.cdc",
+        "AlchemyMetadataWrapperMainnetShard2": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard2.cdc",
+        "AlchemyMetadataWrapperMainnetShard3": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard3.cdc",
+        "AlchemyMetadataWrapperMainnetShard4": "./generated/cadence/contracts/AlchemyMetadataWrapperMainnetShard4.cdc"
+    },
+    "networks": {
+        "emulator": "127.0.0.1:3569",
+        "mainnet": "access.mainnet.nodes.onflow.org:9000",
+        "testnet": "access.devnet.nodes.onflow.org:9000"
+    },
+    "accounts": {
+        "emulator-account": {
+            "address": "0xf8d6e0586b0a20c7",
+            "key": "39594bc64959efa98a77207decc871513bc584140e11b899591f3dbdf9506b1e"
+        },
+        "testnet-staging-account": {
+            "address": "0x05ff2c7b4c40de11",
+            "key": "$ALCHEMY_TESTNET_STAGING_PRIVATE_KEY",
+            "chain": "flow-testnet"
+        },
+        "testnet-production-account": {
+            "address": "0x89f6326ec81c244d",
+            "key": "$ALCHEMY_TESTNET_PRODUCTION_PRIVATE_KEY",
+            "chain": "flow-testnet"
+        },
+        "mainnet-staging-account": {
+            "address": "0xeb8cb4c3157d5dac",
+            "key": {
+                "type": "google-kms",
+                "index": 0,
+                "signatureAlgorithm": "ECDSA_P256",
+                "hashAlgorithm": "SHA2_256",
+                "resourceID": "projects/dl-flow-admin/locations/global/keyRings/nft-metadata/cryptoKeys/alchemy-wrapper-mainnet-staging/cryptoKeyVersions/1"
+            },
+            "chain": "flow-mainnet"
+        },
+        "mainnet-production-account": {
+            "address": "0xb9ebc59e88fe0803",
+            "key": {
+                "type": "google-kms",
+                "index": 0,
+                "signatureAlgorithm": "ECDSA_P256",
+                "hashAlgorithm": "SHA2_256",
+                "resourceID": "projects/dl-flow-admin/locations/global/keyRings/nft-metadata/cryptoKeys/alchemy-wrapper-mainnet-production/cryptoKeyVersions/1"
+            },
+            "chain": "flow-mainnet"
+        }
+    },
+    "deployments": {
+        "emulator": {
+            "emulator-account": [
+                "NonFungibleToken",
+                "FungibleToken",
+                "MetadataViews",
+                "TestNFT",
+                "TestNFTWithViews",
+                "AlchemyMetadataWrapperEmulatorShard1"
+            ]
+        },
+        "testnet": {
+            "testnet-staging-account": [
+                "AlchemyMetadataWrapperTestnetShard1",
+                "AlchemyMetadataWrapperTestnetShard2",
+                "AlchemyMetadataWrapperTestnetShard3"
+            ],
+            "testnet-production-account": [
+                "AlchemyMetadataWrapperTestnetShard1",
+                "AlchemyMetadataWrapperTestnetShard2",
+                "AlchemyMetadataWrapperTestnetShard3"
+            ]
+        },
+        "mainnet": {
+            "mainnet-staging-account": [
+                "AlchemyMetadataWrapperMainnetShard1",
+                "AlchemyMetadataWrapperMainnetShard2",
+                "AlchemyMetadataWrapperMainnetShard3",
+                "AlchemyMetadataWrapperMainnetShard4"
+            ],
+            "mainnet-production-account": [
+                "AlchemyMetadataWrapperMainnetShard1",
+                "AlchemyMetadataWrapperMainnetShard2",
+                "AlchemyMetadataWrapperMainnetShard3",
+                "AlchemyMetadataWrapperMainnetShard4"
+            ]
+        }
+    }
+}

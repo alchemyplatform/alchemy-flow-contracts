@@ -1,7 +1,6 @@
 import NonFungibleToken from 0x631e88ae7f1d7c20
 import Gaia from 0xc523a8bbf10fc4a3
 import Beam from 0x6085ae87e78e1433
-import ChainmonstersRewards from 0x75783e3c937304a8
 import CricketMoments from 0xb45e7992680a0f7f
 import Shard from 0x7ff5f9ac593c3ee0
 import FantastecNFT from 0x7b4fab78fbddc57e
@@ -11,11 +10,11 @@ import KlktnNFT from 0x336895dbe44c4b44
 import MusicBlock from 0xeb3241ad7d7881db
 import Mynft from 0x1eced429f2012ef0
 import NyatheesOVO from 0xacf3dfa413e00f9f
-import RCRDSHPNFT from 0x95d41a94b49a1ed1
 import SportsIconCollectible from 0xc2824327396d3a39
 import StarlyCard from 0x697d72a988a77070
 import CaaPass from 0xa8b1239250f8d342
-import TuneGO from 0x2b0150231c047a8c
+import TuneGO from 0xb30ec2319df2aa30
+import TicalUniverse from 0x5511546363e3daa2
 import MatrixWorldFlowFestNFT from 0xe2f1b000e0203c1d
 import TopShot from 0x877931736ee77cff
 import Domains from 0xb05b2abb42335e88
@@ -37,11 +36,14 @@ import TheFabricantS1ItemNFT from 0x716db717f9240d8a
 import ZeedzINO from 0x2dda9145001182e0
 import Kicks from 0xe861e151d3556d70
 import BarterYardPackNFT from 0x4300fc3a11778a9a
+import BarterYardClubWerewolf from 0x195caada038c5806
 import MetadataViews from 0x631e88ae7f1d7c20
 import DayNFT from 0x0b7f00d13cd033bd
 import NowggNFT from 0x1a3e64df3663edd3
 import GogoroCollectible from 0x5fc35f03a6f33561
 import YahooCollectible from 0x5d50ce3fd080edce
+import YahooPartnersCollectible from 0x5d50ce3fd080edce
+import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xd6b5d6d271a2b544
 import ARTIFACT from 0xd6b5d6d271a2b544
@@ -54,6 +56,20 @@ import Necryptolis from 0x720bbc077f5b0bda
 import FLOAT from 0x0afe396ebc8eee65
 import BreakingT_NFT from 0x04625c28593d9408
 import Owners from 0x890f42a0a872ae77
+import Metaverse from 0x1500efa9e71dcd23
+import TheFabricantS2ItemNFT from 0x2a37a78609bba037
+import VnMiss from 0x4fb7700ee1a19c44
+import AADigital from 0x03a4ea61342fcb6c
+import DooverseItems from 0x5ab407dfb3bf35e8
+import TrartContractNFT from 0x4e024b8545e52d07
+import SturdyItems from 0xfafb022e4e45634b
+import QRLNFT from 0x5dfbd0d5aba6acf7
+import Gear from 0x8c7e52f597aa6117
+import ProShop_5 from 0x8c7e52f597aa6117
+import Flovatar from 0x9392a4a7c3f49a0b
+import FlovatarComponent from 0x9392a4a7c3f49a0b
+import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import ByteNextMedalNFT from 0x734061e710725233
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -146,10 +162,11 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
             var d: NFTData? = nil
 
             switch key {
-                case "ChainmonstersRewards": d = getChainmonstersRewardNFT(owner: owner, id: id)
                 case "Gaia": d = getGaia(owner: owner, id: id)
                 case "TopShot": d = getTopShot(owner: owner, id: id)
                 case "MatrixWorldFlowFestNFT": d = getMatrixWorldFlowFest(owner: owner, id: id)
+                case "TuneGO": d = getTuneGO(owner: owner, id: id)
+                case "TicalUniverse": d = getTicalUniverse(owner: owner, id: id)
                 case "StarlyCard": d = getStarlyCard(owner: owner, id: id)
                 case "EternalShard": d = getEternalShard(owner: owner, id: id)
                 case "Mynft": d = getMynft(owner: owner, id: id)
@@ -178,12 +195,15 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "ZeedzINO" : d = getZeedzINO(owner: owner, id: id)
                 case "Kicks" : d = getKicksSneaker(owner: owner, id: id)
                 case "BarterYardPack": d = getBarterYardPack(owner: owner, id: id)
+                case "BarterYardClubWerewolf": d = getBarterYardClubWerewolf(owner: owner, id: id)
                 case "DayNFT": d = getDayNFT(owner: owner, id: id)
                 case "NowggNFT": d = getNowggNFT(owner: owner, id: id)
                 case "GogoroCollectible": d = getGogoroCollectibleNFT(owner: owner, id: id)
                 case "YahooCollectible": d = getYahooCollectibleNFT(owner: owner, id: id)
+                case "YahooPartnersCollectible": d = getYahooPartnersCollectibleNFT(owner: owner, id: id)
+                case "BlindBoxRedeemVoucher": d = getBlindBoxRedeemVoucherNFT(owner: owner, id: id)
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
-                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)                
+                case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
@@ -194,6 +214,19 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
                 case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
+                case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
+                case "TheFabricantS2ItemNFT": d = getTheFabricantS2ItemNFT(owner: owner, id: id)
+                case "VnMiss": d = getVnMiss(owner: owner, id: id)
+                case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
+                case "Dooverse": d = getDooverseNFT(owner: owner, id: id)
+                case "Gear": d = getGear(owner: owner, id: id)
+                case "ProShop_5": d = getProShop5(owner: owner, id: id)
+                case "TrartContractNFT": d = getTrartContractNFT(owner: owner, id: id)
+                case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
+                case "QRL": d = getQRLNFT(owner: owner, id: id)
+                case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
+                case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -202,37 +235,6 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
     }
 
     return NFTs
-}
-
-// https://flow-view-source.com/testnet/account/0x75783e3c937304a8/contract/ChainmonstersRewards
-pub fun getChainmonstersRewardNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "ChainmonstersRewards",
-        address: 0x93615d25d14fa337,
-        storage_path: "/storage/ChainmonstersRewardCollection",
-        public_path: "/public/ChainmonstersRewardCollection",
-        public_collection_name: "ChainmonstersRewards.ChainmonstersRewardCollectionPublic",
-        external_domain: ""
-    )
-
-    let col = owner.getCapability(/public/ChainmonstersRewardCollection)
-        .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>()
-    if col == nil { return nil }
-
-    let nft = col!.borrowReward(id: id)
-    if nft == nil { return nil }
-
-    return NFTData(
-        contract: contract,
-        id: nft!.id,
-        uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
-        token_uri: nil,
-        media: [],
-        metadata: {},
-    )
 }
 
 // https://flow-view-source.com/testnet/account/0xc523a8bbf10fc4a3/contract/Gaia
@@ -278,6 +280,25 @@ pub fun getGaia(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+pub fun stringStartsWith(string: String, prefix: String): Bool {
+    if(string.length < prefix.length) {
+        return false
+    }
+
+    let beginning = string.slice(from: 0, upTo: prefix.length)
+
+    let prefixArray = prefix.utf8
+    let beginningArray = beginning.utf8
+
+    for index, element in prefixArray {
+        if(beginningArray[index] != prefixArray[index]) {
+            return false
+        }
+    }
+
+    return true
+}
+
 // https://flow-view-source.com/testnet/account/0x6085ae87e78e1433/contract/Beam
 pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -298,17 +319,28 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = Beam.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
-        } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+        }
+        else if metadataUrl.length > 0 {
+            mediaUrl = ipfsScheme.concat(metadataUrl)
+        }
+    }
+
+    var domainUrl: String? = nil
+    if metadata!["domainUrl"]  != nil {
+        let metadataDomainUrl = metadata!["domainUrl"]!
+        if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
+            domainUrl = metadataDomainUrl
+        }
+        else if metadataDomainUrl.length > 0 {
+             domainUrl = httpsScheme.concat(metadataDomainUrl)
         }
     }
 
@@ -323,7 +355,7 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: metadata!["domainUrl"],
+        external_domain_view_url: domainUrl,
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeichtxzrocxo7ec5qybfxxlyod5bbymblitjwb2aalv2iyhe42pk4e/Frightclub.jpg", mimetype:"image/jpeg")],
@@ -537,30 +569,47 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
 
     let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
 
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
         let metadataUrl = metadata!["mediaUrl"]!
-        let ipfsScheme = "ipfs://"
-        let httpsScheme = "https://"
-        let ipfsPrefix = metadataUrl.slice(from: 0, upTo: ipfsScheme.length)
-        let httpsPrefix = metadataUrl.slice(from: 0, upTo: httpsScheme.length)
-        if ipfsPrefix == ipfsScheme || httpsPrefix == httpsScheme {
+        if stringStartsWith(string: metadataUrl, prefix: ipfsScheme) || stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
             mediaUrl = metadataUrl
-        } else {
-            mediaUrl = ipfsPrefix.concat(metadataUrl)
+        }
+        else if metadataUrl.length > 0 {
+            mediaUrl = ipfsScheme.concat(metadataUrl)
         }
     }
+
+    var domainUrl: String? = nil
+    if metadata!["domainUrl"]  != nil {
+        let metadataDomainUrl = metadata!["domainUrl"]!
+        if stringStartsWith(string: metadataDomainUrl, prefix: httpsScheme) {
+            domainUrl = metadataDomainUrl
+        }
+        else if metadataDomainUrl.length > 0 {
+            domainUrl = httpsScheme.concat(metadataDomainUrl)
+        }
+    }
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata!.keys {
+        rawMetadata.insert(key: key, metadata![key])
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: metadata!["title"],
         description: metadata!["description"],
-        external_domain_view_url: metadata!["domainUrl"],
+        external_domain_view_url: domainUrl,
         token_uri: nil,
         media: [NFTMedia(uri: mediaUrl, mimetype: metadata!["mediaType"]),
             NFTMedia(uri: "ipfs://bafybeidy62mofvdpzr5gujq57kcpm27pciqx33pahxbfuwgzea646k2nay/s1_poster.jpg", mimetype:"image/jpeg")],
-        metadata: metadata!,
+        metadata: rawMetadata,
     )
 }
 
@@ -706,37 +755,6 @@ pub fun getNyatheesOVO(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/testnet/account/0x95d41a94b49a1ed1/contract/RCRDSHPNFT
-pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "RCRDSHPNFT",
-        address: 0x6c3ff40b90b928ab,
-        storage_path: "RCRDSHPNFT.collectionStoragePath",
-        public_path: "RCRDSHPNFT.collectionPublicPath",
-        public_collection_name: "NonFungibleToken.CollectionPublic",
-        external_domain: ""
-    )
-
-    let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
-        .borrow<&{NonFungibleToken.CollectionPublic}>()
-    if col == nil { return nil }
-
-    let nft = col!.borrowNFT(id: id)
-    if nft == nil { return nil }
-
-    return NFTData(
-        contract: contract,
-        id: nft!.id,
-        uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
-        token_uri: nil,
-        media: [],
-        metadata: {},
-    )
-}
-
 // https://flow-view-source.com/testnet/account/0xc2824327396d3a39/contract/SportsIconCollectible
 pub fun getSportsIconCollectible(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -786,18 +804,29 @@ pub fun getStarlyCard(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowStarlyCard(id: id)
     if nft == nil { return nil }
 
+    let metadata = nft!.getMetadata()!
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: metadata.card.title,
+        description: metadata.card.description,
+        external_domain_view_url: metadata.url,
         token_uri: nil,
-        media: [],
+        media: [NFTMedia(uri: metadata.card.mediaSizes[0].url, mimetype: metadata.card.mediaType)],
         metadata: {
-            "id": nft!.starlyID
-        },
+            "id": nft!.starlyID,
+            "rarity": metadata.card.rarity,
+            "collectionID": metadata.collection.id,
+            "collectionTitle": metadata.collection.title,
+            "cardID": metadata.card.id.toString(),
+            "edition": metadata.edition.toString(),
+            "editions": metadata.card.editions.toString(),
+            "previewUrl": metadata.previewUrl,
+            "creatorName": metadata.collection.creator.name,
+            "creatorUsername": metadata.collection.creator.username
+        }
     )
 }
 
@@ -842,15 +871,15 @@ pub fun getCaaPass(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/testnet/account/0x2b0150231c047a8c/contract/TuneGO
+// https://flow-view-source.com/testnet/account/0xb30ec2319df2aa30/contract/TuneGO
 pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "TuneGO",
-        address: 0x0d9bc5af3fc0c2e3,
+        address: 0xb30ec2319df2aa30,
         storage_path: "TuneGO.CollectionStoragePath",
         public_path: "TuneGO.CollectionPublicPath",
         public_collection_name: "TuneGO.TuneGOCollectionPublic",
-        external_domain: ""
+        external_domain: "tunegonft.com"
     )
 
     let col = owner.getCapability(TuneGO.CollectionPublicPath)
@@ -860,16 +889,31 @@ pub fun getTuneGO(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCollectible(id: id)
     if nft == nil { return nil }
 
+    let data = nft!.data
+    let itemMetadata = TuneGO.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TuneGO.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x3691a2fcb9626f20"
+    rawMetadata["royaltyPercentage"] = "5.0"
+
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: nil,
-        description: nil,
-        external_domain_view_url: nil,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
         token_uri: nil,
-        media: [],
-        metadata: {},
+        media: [ NFTMedia(uri: itemMetadata["Media URL"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
     )
 }
 
@@ -1484,7 +1528,7 @@ pub fun getZeedzINO(owner: PublicAccount, id: UInt64): NFTData? {
         .borrow<&{ZeedzINO.ZeedzCollectionPublic}>()
     if col == nil { return nil }
 
-    let nft = col!.borrowZeedle(id: id)!
+    let nft = col!.borrowZeedle(id: id)
     if nft == nil { return nil }
 
     return NFTData(
@@ -1526,9 +1570,10 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowSneaker(id: id)
     if nft == nil { return nil }
 
-    var metadata = nft!.getMetadata()
-    var rawMetadata : {String: String?} = {}
+    let rawMetadata = nft!.getMetadata()
+    var metadata: {String: String?} = {}
     var media: [NFTMedia] = []
+    let description = nft!.setID == 0 ? "Union Jordan 4 'Off Noir' x Nike Dunk" : nft!.description()
 
     if let mediaValue = metadata["media"] {
         if let supportedMedia = mediaValue as? {String: [String]} {
@@ -1540,58 +1585,38 @@ pub fun getKicksSneaker(owner: PublicAccount, id: UInt64): NFTData? {
         }
     }
 
-    for key in metadata.keys {
-        if metadata[key]!.getType().isSubtype(of: Type<Number>()) {
-            metadata[key] = (metadata[key]! as! Number).toString()
-            rawMetadata.insert(key: key, (metadata[key]! as! Number).toString())
-        } else if metadata[key]!.getType() != Type<String>() {
+    for key in rawMetadata.keys {
+        if rawMetadata[key]!.getType().isSubtype(of: Type<String>()) {
+            metadata[key] = rawMetadata[key]! as! String
+        } else if rawMetadata[key]!.getType().isSubtype(of: Type<Number>()) {
+            metadata[key] = (rawMetadata[key]! as! Number).toString()
+        } else if rawMetadata[key]!.getType() != Type<String>() {
             metadata.remove(key: key)
         }
-        else if metadata[key]!.getType().isSubtype(of: Type<String>()) {
-            rawMetadata.insert(key: key, (metadata[key]! as! String))
-        }
     }
-    if (!metadata.containsKey("editionNumber")) { 
-        metadata["editionNumber"] = nft!.instanceID.toString() 
-        rawMetadata.insert(key: "editionNumber", nft!.instanceID.toString())
-    }
-    if (!metadata.containsKey("editionCount")) { 
-        metadata["editionCount"] = nft!.getBlueprint().numberMinted.toString() 
-        rawMetadata.insert(key: "editionCount", nft!.getBlueprint().numberMinted.toString())
-    }
-    if (!metadata.containsKey("royaltyAddress")) { 
-        metadata["royaltyAddress"] = "0xf3cc54f4d91c2f6c" 
-        rawMetadata.insert(key: "royaltyAddress", "0xf3cc54f4d91c2f6c")
-    }
-    if (!metadata.containsKey("royaltyPercentage")) { 
-        metadata["royaltyPercentage"] = "5" 
-        rawMetadata.insert(key: "royaltyPercentage", "5")
-    }
+
+    if (!metadata.containsKey("editionNumber")) { metadata["editionNumber"] = nft!.setID == 0 ? nft!.id.toString() : nft!.instanceID.toString()  }
+    if (!metadata.containsKey("editionCount")) { metadata["editionCount"] = Kicks.getSneakerSet(withID: nft!.setID)!.getTotalSupply().toString() }
+    if (!metadata.containsKey("royaltyAddress")) { metadata["royaltyAddress"] = "0xe861e151d3556d70" }
+    if (!metadata.containsKey("royaltyPercentage")) { metadata["royaltyPercentage"] = "5" }
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
         title: nft!.name(),
-        description: nft!.description(),
+        description: description,
         external_domain_view_url: "https://www.nftlx.io/nft/".concat(nft!.id.toString()),
         token_uri: nil,
         media: media,
-        metadata: rawMetadata,
+        metadata: metadata,
     )
 }
 
 // https://flow-view-source.com/mainnet/account/0x20187093790b9aef/contract/MintStoreItem
 // https://flow-view-source.com/testnet/account/0x985d410b577fd4a1/contract/MintStoreItem
 pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
-    let contract = NFTContractData(
-        name: "MintStoreItem",
-        address: 0x985d410b577fd4a1,
-        storage_path: "MintStoreItem.CollectionStoragePath",
-        public_path: "MintStoreItem.CollectionPublicPath",
-        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
-        external_domain: ""
-    )
+
 
     let col = owner.getCapability(MintStoreItem.CollectionPublicPath)
         .borrow<&{MintStoreItem.MintStoreItemCollectionPublic}>()
@@ -1603,6 +1628,33 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     let editionData = MintStoreItem.EditionData(editionID: nft!.data.editionID)!
     let description = editionData!.metadata["description"]!;
     let merchantName = MintStoreItem.getMerchant(merchantID:nft!.data.merchantID)!
+
+
+    var external_domain = ""
+     switch merchantName {
+        case "Bulls":
+            external_domain =  "https://bulls.mint.store"
+            break;
+        case "Charlotte Hornets":
+            external_domain =  "https://hornets.mint.store"
+            break;
+        default:
+            external_domain =  ""
+     }
+
+     if editionData!.metadata["nftType"]! == "Type C" {
+         external_domain =  "https://misa.art/collections/nft"
+     }
+
+
+    let contract = NFTContractData(
+        name: merchantName,
+        address: 0x985d410b577fd4a1,
+        storage_path: "MintStoreItem.CollectionStoragePath",
+        public_path: "MintStoreItem.CollectionPublicPath",
+        public_collection_name: "MintStoreItem.MintStoreItemCollectionPublic",
+        external_domain: external_domain
+    )
 
     let rawMetadata: {String: String?} = {
         "merchantID": nft!.data.merchantID.toString(),
@@ -1632,6 +1684,7 @@ pub fun getMintStoreItem(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/testnet/account/0x195caada038c5806/contract/BarterYardPackNFT
 pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
   let contract = NFTContractData(
         name: "BarterYardPack",
@@ -1667,6 +1720,51 @@ pub fun getBarterYardPack(owner: PublicAccount, id: UInt64): NFTData? {
       "pack": display.name
     },
   )
+}
+// https://flow-view-source.com/testnet/account/0x195caada038c5806/contract/BarterYardClubWerewolf
+pub fun getBarterYardClubWerewolf(owner: PublicAccount, id: UInt64): NFTData? {
+  let contract = NFTContractData(
+        name: "BarterYardClubWerewolf",
+        address: 0x195caada038c5806,
+        storage_path: "BarterYardClubWerewolf.CollectionStoragePath",
+        public_path: "BarterYardClubWerewolf.CollectionPublicPath",
+        public_collection_name: "BarterYardClubWerewolf.CollectionPublic",
+        external_domain: "https://app.barteryard.club"
+    )
+    let collection = owner.getCapability<&{MetadataViews.ResolverCollection}>(BarterYardClubWerewolf.CollectionPublicPath).borrow()
+        ?? panic("Could not borrow a reference to the collection")
+    let nft = collection.borrowViewResolver(id: id)
+    let view = nft.resolveView(Type<BarterYardClubWerewolf.CompleteDisplay>())!
+    let display = view as! BarterYardClubWerewolf.CompleteDisplay
+
+    let background = display.getAttributes()[0].value
+    let fur = display.getAttributes()[1].value
+    let body = display.getAttributes()[2].value
+    let eyes = display.getAttributes()[4].value
+    let glasses = display.getAttributes()[5].value
+    let headgear = display.getAttributes()[6].value
+    let item = display.getAttributes()[7].value
+    let mouth = display.getAttributes()[3].value
+    return NFTData(
+      contract: contract,
+      id: id,
+      uuid: nil,
+      title: display.name,
+      description: display.description,
+      external_domain_view_url: "https://barteryard.club/nft/".concat(id.toString()),
+      token_uri: nil,
+      media: [NFTMedia(uri: "https://ipfs.io/ipfs/".concat(display.thumbnail.cid).concat("/").concat(display.thumbnail.path!), mimetype: "image")],
+      metadata: {
+        "Background": background,
+        "Fur": fur,
+        "Body": body,
+        "Eyes": eyes,
+        "Glasses": glasses,
+        "Headgear": headgear,
+        "Item": item,
+        "Mouth": mouth
+      },
+    )
 }
 
 // https://flow-view-source.com/testnet/account/0x0b7f00d13cd033bd/contract/DayNFT
@@ -1750,11 +1848,11 @@ pub fun getGogoroCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x758252ab932a3416/contract/YahooCollectible
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooCollectible
 pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "YahooCollectible",
-        address: 0x758252ab932a3416,
+        address: 0x5d50ce3fd080edce,
         storage_path: "YahooCollectible.CollectionStoragePath",
         public_path: "YahooCollectible.CollectionPublicPath",
         public_collection_name: "YahooCollectible.CollectionPublic",
@@ -1788,6 +1886,85 @@ pub fun getYahooCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
         }
     )
 }
+
+// https://flow-view-source.com/mainnet/account/0x5d50ce3fd080edce/contract/YahooPartnersCollectible
+pub fun getYahooPartnersCollectibleNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "YahooPartnersCollectible",
+        address: 0x5d50ce3fd080edce,
+        storage_path: "YahooPartnersCollectible.CollectionStoragePath",
+        public_path: "YahooPartnersCollectible.CollectionPublicPath",
+        public_collection_name: "YahooPartnersCollectible.CollectionPublic",
+        external_domain: "https://tw.yahoo.com/",
+    )
+
+    let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+        .borrow<&{YahooPartnersCollectible.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowYahooPartnersCollectible(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/yahoo-partners/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xb073f87f88ee7449/contract/BlindBoxRedeemVoucher
+pub fun getBlindBoxRedeemVoucherNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "BlindBoxRedeemVoucher",
+        address: 0xb073f87f88ee7449,
+        storage_path: "BlindBoxRedeemVoucher.CollectionStoragePath",
+        public_path: "BlindBoxRedeemVoucher.CollectionPublicPath",
+        public_collection_name: "BlindBoxRedeemVoucher.CollectionPublic",
+        external_domain: "https://flow.com/",
+    )
+
+    let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+        .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowBlindBoxRedeemVoucher(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()!
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata.name,
+        description: metadata.description,
+        external_domain_view_url: "https://bay-staging.blocto.app/flow/blindbox-voucher/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.mediaHash), mimetype: metadata.mediaType)
+        ],
+        metadata: {
+            "rarity": metadata.getAdditional()["rarity"]!,
+            "editionNumber": nft!.editionNumber.toString(),
+            "editionCount": metadata.itemCount.toString()
+        }
+    )
+}
+
 
 // https://flow-view-source.com/testnet/account/0x1a3e64df3663edd3/contract/NowggNFT
 pub fun getNowggNFT(owner: PublicAccount, id: UInt64): NFTData? {
@@ -1969,7 +2146,7 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     metadata["editionCount"] = metadata["numberOfEditions"]!
     metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
     metadata["royaltyPercentage"] = "10.0"
-    metadata["rarity"] = metadata["artifactRarityLevel"]!
+    metadata["rarity"] = metadata["rarityLevel"]!
 
     let rawMetadata: {String:String?} = {}
     for key in metadata.keys {
@@ -2011,7 +2188,9 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
     let display = displayView as! MetadataViews.Display
-    let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+
+    let metadataView = nft!.resolveView(Type<NftReality.NftRealityMetadataView>())!
+    let metadata = metadataView as! NftReality.NftRealityMetadataView
 
     return NFTData(
         contract: contract,
@@ -2022,18 +2201,18 @@ pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [
-            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(ipfsFile.cid).concat("/").concat(ipfsFile.path!), mimetype: "image")
+            NFTMedia(uri: "https://ipfs.io/ipfs/".concat(metadata.artwork).concat("/").concat("artwork"), mimetype: "image")
         ],
         metadata: {
-            "editionNumber": nft!.unit.toString(),
-            "editionCount": nft!.totalUnits.toString(),
-            "company": nft!.metadata.company,
-            "role": nft!.metadata.role,
-            "description": nft!.metadata.description,
-            "artwork": nft!.metadata.artwork,
-            "logotype": nft!.metadata.logotype,
-            "creator": nft!.metadata.creator,
-            "creationDate": nft!.metadata.creationDate
+            "editionNumber": metadata.unit.toString(),
+            "editionCount": metadata.totalUnits.toString(),
+            "company": metadata.company,
+            "role": metadata.role,
+            "description": metadata.description,
+            "artwork": metadata.artwork,
+            "logotype": metadata.logotype,
+            "creator": metadata.creator,
+            "creationDate": metadata.creationDate
         }
     )
 }
@@ -2141,10 +2320,16 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
     let traits = nft!.getTraits();
     let rawMetadata: {String:String?} = {}
 
+       // Core metadata attributes
+    rawMetadata.insert(key:"editionNumber", nft!.id.toString());
+    rawMetadata.insert(key:"editionCount", "7006");
+    rawMetadata.insert(key:"royaltyAddress", "0x9e1cf1801d78b2ed");
+    rawMetadata.insert(key:"royaltyPercentage", "10.1");
+
     for key in traits.keys {
         let currentTrait = traits[key]!;
         for currentTraitKey in currentTrait.keys{
-            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey]) 
+            rawMetadata.insert(key:key.concat("-").concat(currentTraitKey),currentTrait[currentTraitKey])
         }
     }
 
@@ -2157,7 +2342,12 @@ pub fun getMomentables(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: nil,
         token_uri: nil,
         media: [NFTMedia(uri: ipfsURL, mimetype: "image")],
-        metadata: rawMetadata
+        metadata: {
+            "editionNumber": nft!.id.toString(),
+            "editionCount": "7006",
+            "royaltyAddress": "0x9e1cf1801d78b2ed",
+            "royaltyPercentage": "10.0"
+        }
     )
 }
 
@@ -2217,8 +2407,8 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowCemeteryPlot(id: id)
     if nft == nil { return nil }
 
-    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
- 
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -2251,7 +2441,7 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
     let float = col!.borrowFLOAT(id: id)
     if float == nil { return nil }
 
-    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display        
+    let display = float!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
 
     return NFTData(
         contract: contract,
@@ -2358,5 +2548,650 @@ pub fun getOwnersNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "twitterID": nft!.twitterID.toString()
         }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x1500efa9e71dcd23/contract/Metaverse
+pub fun getOzoneMetaverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Metaverse",
+        address: 0x1500efa9e71dcd23,
+        storage_path: "Metaverse.CollectionStoragePath",
+        public_path: "Metaverse.CollectionPublicPath",
+        public_collection_name: "Metaverse.MetaverseCollectionPublic",
+        external_domain: "https://ozonemetaverse.io"
+    )
+
+    let col = owner.getCapability(Metaverse.CollectionPublicPath)
+        .borrow<&{Metaverse.MetaverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMetaverse(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    if metadata == nil { return nil }
+
+    let rawMetadata: {String: String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+    if (!metadata.containsKey("editionNumber")) {
+        rawMetadata.insert(key: "editionNumber", nft!.id.toString())
+    }
+    if (!metadata.containsKey("editionCount")) {
+        rawMetadata.insert(key: "editionCount", Metaverse.totalSupply.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) {
+        rawMetadata.insert(key: "royaltyAddress", "0xbf8ada6bb945651f")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) {
+        rawMetadata.insert(key: "royaltyPercentage", "10.0")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: metadata["name"],
+        description: metadata["description"],
+        external_domain_view_url: metadata["url"],
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["videoUrl"], mimetype: metadata["videoMimeType"]),
+            NFTMedia(uri: metadata["imageUrl"], mimetype: metadata["imageMimeType"])
+        ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x2a37a78609bba037/contract/TheFabricantS2ItemNFT
+pub fun getTheFabricantS2ItemNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TheFabricantS2ItemNFT",
+        address: 0x2a37a78609bba037,
+        storage_path: "TheFabricantS2ItemNFT.CollectionStoragePath",
+        public_path: "TheFabricantS2ItemNFT.CollectionPublicPath",
+        public_collection_name: "TheFabricantS2ItemNFT.ItemCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+        .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowItem(id: id)!
+    if nft == nil { return nil }
+
+    let itemDataID = nft.item.itemDataID
+    let itemData = TheFabricantS2ItemNFT.getItemData(id: itemDataID)
+    let itemMetadata = itemData.getMetadata()
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: itemMetadata["itemVideo"]!.metadataValue, mimetype: "video"),
+                NFTMedia(uri: itemMetadata["itemImage"]!.metadataValue, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "primaryColor": itemMetadata["primaryColor"]!.metadataValue,
+            "secondaryColor": itemMetadata["secondaryColor"]!.metadataValue,
+            "coCreator": itemData.coCreator.toString(),
+            "season": itemMetadata["season"]!.metadataValue
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4fb7700ee1a19c44/contract/VnMiss
+pub fun getVnMiss(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "VnMiss",
+        address: 0x7c11edb826692404,
+        storage_path: "VnMiss.CollectionStoragePath",
+        public_path: "VnMiss.CollectionPublicPath",
+        public_collection_name: "VnMiss.VnMissCollectionPublic",
+        external_domain: "https://hoahauhoanvuvietnam.avatarart.io"
+    )
+
+    let col = owner.getCapability(VnMiss.CollectionPublicPath)
+        .borrow<&{VnMiss.VnMissCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowVnMiss(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+
+    let levelAsString = fun (level: UInt8): String {
+         switch level {
+            case VnMiss.Level.Bronze.rawValue:
+                return "Bronze"
+
+            case VnMiss.Level.Silver.rawValue:
+                return "Silver"
+
+            case VnMiss.Level.Diamond.rawValue:
+                return "Diamond"
+        }
+        return "Unknown"
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://avatarart.io/nfts/A.7c11edb826692404.VnMiss.NFT.".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
+        metadata: {
+            "name": display.name,
+            "level": levelAsString(nft!.level),
+            "editionNumber": nft!.id.toString(),
+            "editionCount": "14200",
+            "royaltyAddress": "0xe7da9bede73c8cc2",
+            "royaltyPercentage": "5.0"
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x03a4ea61342fcb6c/contract/AADigital
+pub fun getAvatarArt(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "AADigital",
+        address: 0x03a4ea61342fcb6c,
+        storage_path: "AADigital.CollectionStoragePath",
+        public_path: "AADigital.CollectionPublicPath",
+        public_collection_name: "AADigital.AADigitalCollectionPublic",
+        external_domain: "https://avatarart.io"
+    )
+
+    let col = owner.getCapability(AADigital.CollectionPublicPath)
+        .borrow<&{AADigital.AADigitalCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowAADigital(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://avatarart.io/nfts/A.39eeb4ee6f30fc3f.AADigital.NFT.".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://api.avatarart.io/upload".concat(display.thumbnail.uri()), mimetype: "image")],
+        metadata: {
+            "editionNumber": "1",
+            "editionCount": AADigital.totalSupply.toString(),
+            "royaltyAddress": "0xe7da9bede73c8cc2",
+            "royaltyPercentage": "5.0"
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x5ab407dfb3bf35e8/contract/DooverseItems
+pub fun getDooverseNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "DooverseItems",
+        address: 0x5ab407dfb3bf35e8,
+        storage_path: "DooverseItems.CollectionStoragePath",
+        public_path: "DooverseItems.CollectionPublicPath",
+        public_collection_name: "DooverseItems.DooverseItemsCollectionPublic",
+        external_domain: "https://dooverse.io/"
+    )
+
+    let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+        .borrow<&{DooverseItems.DooverseItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowDooverseItem(id: id)
+    if nft == nil { return nil }
+
+    let metadata = nft!.getMetadata()
+    let rawMetadata: {String : String?} = {}
+    for key in metadata.keys {
+        rawMetadata[key] = metadata[key]
+    }
+
+    if (!metadata.containsKey("editionNumber")) {
+        rawMetadata.insert(key: "editionNumber", nft!.id.toString())
+    }
+    if (!metadata.containsKey("editionCount")) {
+        rawMetadata.insert(key: "editionCount", DooverseItems.totalSupply.toString())
+    }
+    if (!metadata.containsKey("royaltyAddress")) {
+        rawMetadata.insert(key: "royaltyAddress", "0x8f4ef32a0ffb99a6")
+    }
+    if (!metadata.containsKey("royaltyPercentage")) {
+        rawMetadata.insert(key: "royaltyPercentage", "5")
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "Dooverse Items NFT",
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x4e024b8545e52d07/contract/TrartContractNFT
+pub fun getTrartContractNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TrartContractNFT",
+        address: 0x4e024b8545e52d07,
+        storage_path: "/storage/TrartContractNFTCollection",
+        public_path: "/public/TrartContractNFTCollection",
+        public_collection_name: "TrartContractNFT.ICardCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+        .borrow<&{TrartContractNFT.ICardCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCard(id: id)
+    if nft == nil { return nil }
+
+    let metadata = TrartContractNFT.getMetadataForCardID(cardID: nft!.id)!.data
+    let rawMetadata: {String:String?} = {
+        "editionNumber": metadata["SERIES ID"]??"",
+        "editionCount": metadata["TOTAL ISSUANCE"]??"",
+        "royaltyAddress": "0x399169c5c83bf22d",
+        "royaltyPercentage": "2.5"
+    }
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+    var nftTitle: String? = metadata["NAME"]
+    if nftTitle == nil && metadata["CARD NUMBER"] != nil {
+       nftTitle = (metadata["CARD SERIES"]!=nil?metadata["CARD SERIES"]!.concat(" - "):"").concat(metadata["CARD NUMBER"]!)
+    }
+
+    let ipfsScheme = "ipfs://"
+    let httpsScheme = "https://"
+
+    var ipfsURL: String? = nil
+    let metadataUrl: String = metadata["URI"]?? metadata["URL"]?? ""
+
+    if metadataUrl.length > ipfsScheme.length && stringStartsWith(string: metadataUrl, prefix: ipfsScheme) {
+        ipfsURL = "https://trartgateway.mypinata.cloud/ipfs/".concat(metadataUrl.slice(from: ipfsScheme.length, upTo: metadataUrl.length));
+    } else if metadataUrl.length > httpsScheme.length &&stringStartsWith(string: metadataUrl, prefix: httpsScheme) {
+        ipfsURL = metadataUrl
+    }
+
+    let mediaArray:[NFTMedia] = ipfsURL!=nil?[NFTMedia(uri: ipfsURL, mimetype: "image")]:[]
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: nftTitle,
+        description: nil,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: mediaArray,
+        metadata: rawMetadata,
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xfafb022e4e45634b/contract/SturdyItems
+pub fun getSturdyItemsNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SturdyItems",
+        address: 0xfafb022e4e45634b,
+        storage_path: "SturdyItems.CollectionStoragePath",
+        public_path: "SturdyItems.CollectionPublicPath",
+        public_collection_name: "SturdyItems.SturdyItemsCollectionPublic",
+        external_domain: "https://sturdy.exchange/"
+    )
+
+    let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+        .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowSturdyItem(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.tokenTitle,
+        description: nft!.tokenDescription,
+        external_domain_view_url: "https://sturdy.exchange/secondary-sale/".concat(nft!.id.toString()),
+        token_uri: nft!.tokenURI,
+        media: [],
+        metadata: {
+          "typeID": nft!.typeID.toString(),
+          "artist": nft!.artist,
+          "editionCount": SturdyItems.totalSupply.toString(),
+          "secondaryRoyalty": nft!.secondaryRoyalty,
+          "platformMintedOn": nft!.platformMintedOn
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x5511546363e3daa2/contract/TicalUniverse
+pub fun getTicalUniverse(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TicalUniverse",
+        address: 0x5511546363e3daa2,
+        storage_path: "TicalUniverse.CollectionStoragePath",
+        public_path: "TicalUniverse.CollectionPublicPath",
+        public_collection_name: "TicalUniverse.TicalUniverseCollectionPublic",
+        external_domain: "tunegonft.com"
+    )
+
+    let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+        .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowCollectible(id: id)
+    if nft == nil { return nil }
+
+    let data = nft!.data
+    let itemMetadata = TicalUniverse.getItemMetadata(itemId: data.itemId)!
+    let editionNumber = data.serialNumber!
+    let editionCount = TicalUniverse.getNumberCollectiblesInEdition(setId: data.setId, itemId: data.itemId)!
+
+    var metadata = itemMetadata
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+    rawMetadata["editionNumber"] = editionNumber.toString()
+    rawMetadata["editionCount"] = editionCount.toString()
+    rawMetadata["royaltyAddress"] = "0x3691a2fcb9626f20"
+    rawMetadata["royaltyPercentage"] = "5.0"
+
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: itemMetadata["Title"],
+        description: itemMetadata["Description"],
+        external_domain_view_url: "https://tunegonft.com/collectible/".concat(nft!.uuid.toString()),
+        token_uri: nil,
+        media: [ NFTMedia(uri: itemMetadata["Asset"]!, mimetype: "video/mp4") ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x8c7e52f597aa6117/contract/Gear
+pub fun getGear(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Gear",
+        address: 0x8c7e52f597aa6117,
+        storage_path: "Gear.CollectionStoragePath",
+        public_path: "Gear.CollectionPublicPath",
+        public_collection_name: "Gear.GearCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(Gear.CollectionPublicPath)
+        .borrow<&{Gear.GearCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowGear(id: id)
+    if nft == nil { return nil }
+
+    let gearSku = Gear.gearSKUs[nft.skuId]
+    var gearSkuMeta = gearSku!.metadata
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: gearSkuMeta!["title"],
+        description: gearSkuMeta!["description"],
+        external_domain_view_url: gearSkuMeta!["domain_url"],
+        token_uri: Gear.baseURI,
+        media: [NFTMedia(uri: gearSkuMeta!["img"], mimetype: "image")],
+        metadata: {},
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x8c7e52f597aa6117/contract/ProShop_5
+pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ProShop_5",
+        address: 0x8c7e52f597aa6117,
+        storage_path: "ProShop_5.CollectionStoragePath",
+        public_path: "ProShop_5.CollectionPublicPath",
+        public_collection_name: "ProShop_5.ProShopCollectionPublic",
+        external_domain: ""
+    )
+
+    let col = owner.getCapability(ProShop_5.CollectionPublicPath)!.borrow<&{ProShop_5.ProShopCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowProShop(id: id)
+    if nft == nil { return nil }
+    let metadata = nft!.metadata
+    
+     return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: metadata!["description"],
+        external_domain_view_url: metadata!["domain_url"],
+        token_uri: ProShop_5.baseURI,
+        media: [NFTMedia(uri: metadata!["img"], mimetype: "image")],
+        metadata: {},
+     )
+}
+
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "QRL",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "QRLNFT.CollectionStoragePath",
+        public_path: "QRLNFT.CollectionPublicPath",
+        public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
+        external_domain: "https://swaychain.com/"
+    )
+
+    let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+        .borrow<&{QRLNFT.QRLNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowQRLNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "description": nft!.description
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
+pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Maxar",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "MaxarNFT.CollectionStoragePath",
+        public_path: "MaxarNFT.CollectionPublicPath",
+        public_collection_name: "MaxarNFT.MaxarNFTCollectionPublic",
+        external_domain: "https://nft.maxar.com/"
+    )
+
+    let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+        .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x921ea449dffec68a/contract/Flovatar
+pub fun getFlovatarNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Flovatar",
+        address: 0x9392a4a7c3f49a0b,
+        storage_path: "Flovatar.CollectionStoragePath",
+        public_path: "Flovatar.CollectionPublicPath",
+        public_collection_name: "Flovatar.CollectionPublic",
+        external_domain: "https://www.flovatar.com"
+    )
+
+    let col = owner.getCapability(Flovatar.CollectionPublicPath)
+        .borrow<&{Flovatar.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlovatar(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+    let metadata = nft!.getMetadata()
+    rawMetadata["series"] = metadata.series.toString()
+    rawMetadata["combination"] = metadata.combination
+    rawMetadata["creatorAddress"] = metadata.creatorAddress.toString()
+    rawMetadata["rareCount"] = metadata.rareCount.toString()
+    rawMetadata["epicCount"] = metadata.epicCount.toString()
+    rawMetadata["legendaryCount"] = metadata.legendaryCount.toString()
+    rawMetadata["accessoryId"] = nft!.getAccessory() != nil  ? nft!.getAccessory()!.toString() : ""
+    rawMetadata["hatId"] = nft!.getHat() != nil  ? nft!.getHat()!.toString() : ""
+    rawMetadata["eyeglassesId"] = nft!.getEyeglasses() != nil ? nft!.getEyeglasses()!.toString() : ""
+    rawMetadata["backgroundId"] = nft!.getBackground() != nil  ? nft!.getBackground()!.toString() : ""
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: "Flovatar",
+        description: nil,
+        external_domain_view_url: "https://flovatar.com/flovatars/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://flovatar.com/api/image/".concat(nft!.id.toString()), mimetype: "video" )],
+        metadata: rawMetadata
+    )
+}
+
+
+
+// https://flow-view-source.com/mainnet/account/0x921ea449dffec68a/contract/FlovatarComponent
+pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+        .borrow<&{FlovatarComponent.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowComponent(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String?} = {}
+    let componentTemplate = FlovatarComponentTemplate.getComponentTemplate(id: nft!.templateId)!
+    rawMetadata["templateId"] = componentTemplate.id.toString()
+    rawMetadata["name"] = componentTemplate.name
+    rawMetadata["description"] = componentTemplate.description
+    rawMetadata["category"] = componentTemplate.category
+    rawMetadata["rarity"] = componentTemplate.rarity
+
+
+    let contract = NFTContractData(
+        name: "FlovatarComponent",
+        address: 0x9392a4a7c3f49a0b,
+        storage_path: "FlovatarComponent.CollectionStoragePath",
+        public_path: "FlovatarComponent.CollectionPublicPath",
+        public_collection_name: "FlovatarComponent.CollectionPublic",
+        external_domain: "https://www.flovatar.com"
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.mint,
+        uuid: nft!.id,
+        title: "Flovatar Flobit",
+        description: nil,
+        external_domain_view_url: "https://flovatar.com/components/".concat(nft!.id.toString()),
+        token_uri: nil,
+        media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x734061e710725233/contract/ByteNextMedalNFT
+pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ByteNextMedalNFT",
+        address: 0x734061e710725233,
+        storage_path: "ByteNextMedalNFT.CollectionStoragePath",
+        public_path: "ByteNextMedalNFT.CollectionPublicPath",
+        public_collection_name: "ByteNextMedalNFT.CollectionPublic",
+        external_domain: "https://app.bytenext.io"
+    )
+
+    let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+        .borrow<&{ByteNextMedalNFT.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMedalNFT(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String} = {}
+    let metadata = nft!.getMetadata()
+    rawMetadata["name"] = metadata["name"] ?? ""
+    rawMetadata["level"] = metadata["level"] ?? ""
+    rawMetadata["metaURI"] = metadata["metaURI"] ?? ""
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: rawMetadata["name"],
+        description: rawMetadata["name"],
+        external_domain_view_url: rawMetadata["metaURI"],
+        token_uri: nil,
+        media: [NFTMedia(uri: rawMetadata["metaURI"], mimetype: "image")],
+        metadata: rawMetadata
     )
 }

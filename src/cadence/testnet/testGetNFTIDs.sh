@@ -21,10 +21,14 @@ BarterYard)
   echo "Barter Yard Club"
   flow scripts execute getNFTIDs.cdc 0x4300fc3a11778a9a --network testnet
   ;;
+BarterYardClubWerewolf)
+  echo "Barter Yard Club"
+  flow scripts execute getNFTIDs.cdc 0x195caada038c5806 --network testnet
+  ;;
 NFTContract)
   echo "NFTContract"
   flow scripts execute getNFTIDs.cdc 0x0add010813a8c23f --network testnet
-  ;;    
+  ;;
 DayNFT)
   echo "DayNFT"
   flow scripts execute getNFTIDs.cdc 0x1d1f11dcbae7f839 --network testnet
@@ -32,7 +36,7 @@ DayNFT)
 NowggNFT)
   echo "NowggNFT"
   flow scripts execute getNFTIDs.cdc 0x8cfe54881e5edd9b --network testnet
-  ;; 
+  ;;
 GogoroCollectible)
   echo "GogoroCollectible"
   flow scripts execute getNFTIDs.cdc 0x42bd08a9f3724129 --network testnet
@@ -40,6 +44,14 @@ GogoroCollectible)
 YahooCollectible)
   echo "YahooCollectible"
   flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
+YahooPartnersCollectible)
+  echo "YahooPartnersCollectible"
+  flow scripts execute getNFTIDs.cdc 0x66ca989c2cd296fb --network testnet
+  ;;
+BlindBoxRedeemVoucher)
+  echo "BlindBoxRedeemVoucher"
+  flow scripts execute getNFTIDs.cdc 0xeec852ceb51a5fb3 --network testnet
   ;;
 SomePlaceCollectible)
   echo "SomePlaceCollectible"
@@ -89,7 +101,73 @@ Owners)
   echo "Owners"
   flow scripts execute getNFTIDs.cdc 0x890f42a0a872ae77 --network testnet
   ;;
-
+Metaverse)
+  echo "Metaverse"
+  flow scripts execute getNFTIDs.cdc 0x1500efa9e71dcd23 --network testnet
+  ;;
+Swaychain)
+  echo "Swaychain"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
+TheFabricantS2ItemNFT)
+  echo "TheFabricantS2ItemNFT"
+  flow scripts execute getNFTIDs.cdc 0x2bcdfcf5d9e73154 --network testnet
+  ;;
+VnMiss)
+  echo "VnMiss"
+  flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
+  ;;
+AvatarArt)
+  echo "AvatarArt"
+  flow scripts execute getNFTIDs.cdc 0xae12a483d2db4a63 --network testnet
+  ;;
+Dooverse)
+  echo "Dooverse"
+  flow scripts execute getNFTIDs.cdc 0x8f4ef32a0ffb99a6 --network testnet
+  ;;
+Gear)
+  echo "Gear"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
+ProShop_5)
+  echo "ProShop_5"
+  flow scripts execute getNFTIDs.cdc 0x8c7e52f597aa6117 --network testnet
+  ;;
+TrartContractNFT)
+  echo "TrartContractNFT"
+  flow scripts execute getNFTIDs.cdc 0x3e100699f7218d1d --network testnet
+  ;;
+SturdyItems)
+  echo "SturdyItems"
+  flow scripts execute getNFTIDs.cdc 0x87ff916f3bbcf518 --network testnet
+  ;;
+TuneGO)
+  echo "TuneGO"
+  flow scripts execute getNFTIDs.cdc 0xb30ec2319df2aa30 --network testnet
+  ;;
+TicalUniverse)
+  echo "TicalUniverse"
+  flow scripts execute getNFTIDs.cdc 0x5511546363e3daa2 --network testnet
+  ;;
+QRL)
+  echo "QRL"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
+  ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
+  ;;
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

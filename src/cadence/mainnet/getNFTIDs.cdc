@@ -2,8 +2,6 @@ import NonFungibleToken from 0x1d7e57aa55817448
 import CNN_NFT from 0x329feb3ab062d289
 import Gaia from 0x8b148183c28ff88f
 import Beam from 0x86b4a0010a71cfc3
-import BlockleteGames_NFT from 0x329feb3ab062d289
-import ChainmonstersRewards from 0x93615d25d14fa337
 import Crave from 0x6d008a788fc27265
 import CricketMoments from 0xed398881d9bf40fb
 import Everbloom from 0xe703f7fee6400754
@@ -18,7 +16,6 @@ import Mynft from 0xf6fcbef550d97aa5
 import NyatheesOVO from 0x75e0b6de94eb05d0
 import RaceDay_NFT from 0x329feb3ab062d289
 import RareRooms_NFT from 0x329feb3ab062d289
-import RCRDSHPNFT from 0x6c3ff40b90b928ab
 import SportsIconCollectible from 0x8de96244f54db422
 import StarlyCard from 0x5b82f21c0edf76e3
 import CaaPass from 0x98c9c2e548b84d31
@@ -48,6 +45,7 @@ import Andbox_NFT from 0x329feb3ab062d289
 import ZeedzINO from 0x62b3063fbe672fc8
 import Kicks from 0xf3cc54f4d91c2f6c
 import BarterYardPackNFT from 0xa95b021cf8a30d80
+import BarterYardClubWerewolf from 0x28abb9f291cadaf2
 import DayNFT from 0x1600b04bf033fb99
 import Costacos_NFT from 0x329feb3ab062d289
 import Canes_Vault_NFT from 0x329feb3ab062d289
@@ -59,6 +57,8 @@ import DGD_NFT from 0x329feb3ab062d289
 import NowggNFT from 0x85b8bbf926dcddfa
 import GogoroCollectible from 0x8c9bbcdcd7514081
 import YahooCollectible from 0x758252ab932a3416
+import YahooPartnersCollectible from 0x758252ab932a3416
+import BlindBoxRedeemVoucher from 0x910514afa41bfeac
 import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
@@ -70,13 +70,31 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
-<<<<<<< main
-import LibraryPass from 0x4c4a03d405ed9520
-=======
+import LibraryPass from 0x52cbea4e6f616b8e
 import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
->>>>>>> main
+import Metaverse from 0x256599e1b091be12
+import NFTContract from 0x1e075b24abe6eca6
+import SwaychainNFT from 0xa4e9020ad21eb30b
+import QRLNFT from 0xa4e9020ad21eb30b
+import TheFabricantS2ItemNFT from 0x7752ea736384322f
+import VnMiss from 0x7c11edb826692404
+import AADigital from 0x39eeb4ee6f30fc3f
+import DooverseItems from 0x66ad29c7d7465437
+import CryptoPiggo from 0xd3df824bf81910a4
+import TrartContractNFT from 0x6f01a4b0046c1f87
+import SturdyItems from 0x427ceada271aa0b1
+import TicalUniverse from 0xfef48806337aabf1
+import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
+import Evolution from 0xf4264ac8f3256818
+import Flovatar from 0x921ea449dffec68a
+import FlovatarComponent from 0x921ea449dffec68a
+import Moments from 0xd4ad4740ee426334
+import MotoGPCard from 0xa49cc0ee46c54bfb
+import UFC_NFT from 0x329feb3ab062d289
+import ByteNextMedalNFT from 0x3b16cb9f5c036412
+import MaxarNFT from 0xa4e9020ad21eb30b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -87,10 +105,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         .borrow<&{CNN_NFT.CNN_NFTCollectionPublic}>() {
             ids["CNN"] = col.getIDs()
         }
-    if let col = owner.getCapability(/public/ChainmonstersRewardCollection)
-        .borrow<&{ChainmonstersRewards.ChainmonstersRewardCollectionPublic}>() {
-            ids["ChainmonstersRewards"] = col.getIDs()
-        }
     if let col = owner.getCapability(Gaia.CollectionPublicPath)
         .borrow<&{Gaia.CollectionPublic}>() {
             ids["Gaia"] = col.getIDs()
@@ -98,10 +112,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Beam.CollectionPublicPath)
         .borrow<&{Beam.BeamCollectionPublic}>() {
             ids["Beam"] = col.getIDs()
-        }
-    if let col = owner.getCapability(BlockleteGames_NFT.CollectionPublicPath)
-        .borrow<&{BlockleteGames_NFT.BlockleteGames_NFTCollectionPublic}>() {
-            ids["BlockleteGames_NFT"] = col.getIDs()
         }
     if let col = owner.getCapability(Crave.CollectionPublicPath)
         .borrow<&{Crave.CraveCollectionPublic}>() {
@@ -158,10 +168,6 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(RareRooms_NFT.CollectionPublicPath)
         .borrow<&{RareRooms_NFT.RareRooms_NFTCollectionPublic}>() {
             ids["RareRooms_NFT"] = col.getIDs()
-        }
-    if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
-        .borrow<&{NonFungibleToken.CollectionPublic}>() {
-            ids["RCRDSHPNFT"] = col.getIDs()
         }
     if let col = owner.getCapability(SportsIconCollectible.CollectionPublicPath)
         .borrow<&{SportsIconCollectible.CollectibleCollectionPublic}>() {
@@ -230,7 +236,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
     if let col = owner.getCapability(Collectible.CollectionPublicPath)
         .borrow<&{Collectible.CollectionPublic}>() {
-            ids["Xtingles_NFT"] = col.getIDs()
+            ids["Xtingles"] = col.getIDs()
     }
     if let col = owner.getCapability(CryptoZooNFT.CollectionPublicPath)
     .borrow<&{CryptoZooNFT.CryptoZooNFTCollectionPublic}>() {
@@ -300,10 +306,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{Kicks.KicksCollectionPublic}>() {
         ids["Kicks"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(BarterYardPackNFT.CollectionPublicPath)
     .borrow<&{ BarterYardPackNFT.BarterYardPackNFTCollectionPublic }>() {
         ids["BarterYardPack"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BarterYardClubWerewolf.CollectionPublicPath)
+    .borrow<& BarterYardClubWerewolf.Collection{NonFungibleToken.CollectionPublic}>() {
+        ids["BarterYardClubWerewolf"] = col.getIDs()
     }
 
     if let col = owner.getCapability(DayNFT.CollectionPublicPath)
@@ -361,6 +372,16 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["YahooCollectible"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(YahooPartnersCollectible.CollectionPublicPath)
+    .borrow<&{YahooPartnersCollectible.CollectionPublic}>() {
+        ids["YahooPartnersCollectible"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
+    .borrow<&{BlindBoxRedeemVoucher.CollectionPublic}>() {
+        ids["BlindBoxRedeemVoucher"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(SomePlaceCollectible.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["SomePlaceCollectible"] = col.getIDs()
@@ -385,7 +406,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["MatrixWorldAssetsNFT"] = col.getIDs()
     }
-     
+
     if let col = owner.getCapability(RacingTime.CollectionPublicPath)
     .borrow<&{RacingTime.RacingTimeCollectionPublic}>() {
         ids["RacingTime"] = col.getIDs()
@@ -405,7 +426,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["GoatedGoatsTrait"] = col.getIDs()
     }
-        
+
     if let col = owner.getCapability(DropzToken.CollectionPublicPath)
     .borrow<&{DropzToken.DropzTokenCollectionPublic}>() {
         ids["DropzToken"] = col.getIDs()
@@ -415,7 +436,7 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{Necryptolis.NecryptolisCollectionPublic}>() {
         ids["Necryptolis"] = col.getIDs()
     }
-    
+
     if let col = owner.getCapability(FLOAT.FLOATCollectionPublicPath)
     .borrow<&FLOAT.Collection{FLOAT.CollectionPublic}>() {
         ids["FLOAT"] = col.getIDs()
@@ -424,16 +445,111 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(BreakingT_NFT.CollectionPublicPath)
     .borrow<&{BreakingT_NFT.BreakingT_NFTCollectionPublic}>() {
         ids["BreakingT_NFT"] = col.getIDs()
-    }  
+    }
 
     if let col = owner.getCapability(Owners.CollectionPublicPath)
     .borrow<&{Owners.OwnersCollectionPublic}>() {
         ids["Owners"] = col.getIDs()
     }
-
+    
     if let col = owner.getCapability(LibraryPass.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["LibraryPass"] = col.getIDs()
+    }
+        
+    if let col = owner.getCapability(Metaverse.CollectionPublicPath)
+    .borrow<&{Metaverse.MetaverseCollectionPublic}>() {
+        ids["Metaverse"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(NFTContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["NFTContract"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(SwaychainNFT.CollectionPublicPath)
+    .borrow<&{SwaychainNFT.SwaychainNFTCollectionPublic}>() {
+        ids["Swaychain"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(QRLNFT.CollectionPublicPath)
+    .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
+        ids["QRL"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+    .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
+        ids["Maxar"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
+    .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
+        ids["TheFabricantS2ItemNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(VnMiss.CollectionPublicPath)
+    .borrow<&{VnMiss.VnMissCollectionPublic}>() {
+        ids["VnMiss"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(AADigital.CollectionPublicPath)
+    .borrow<&{AADigital.AADigitalCollectionPublic}>() {
+        ids["AvatarArt"] = col.getIDs()
+    }
+    if let col = owner.getCapability(DooverseItems.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Dooverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(/public/motogpCardCollection)
+    .borrow<&{MotoGPCard.ICardCollectionPublic}>() {
+        ids["MotoGPCard"] = col.getIDs()
+    }
+    if let col = owner.getCapability(PartyMansionDrinksContract.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["PartyMansionDrinksContract"] = col.getIDs()
+    }
+    if let col = owner.getCapability(CryptoPiggo.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["CryptoPiggo"] = col.getIDs()
+    }
+    if let col = owner.getCapability(TrartContractNFT.CollectionPublicPath)
+    .borrow<&{TrartContractNFT.ICardCollectionPublic}>() {
+        ids["TrartContractNFT"] = col.getIDs()
+    }
+    if let col = owner.getCapability(SturdyItems.CollectionPublicPath)
+    .borrow<&{SturdyItems.SturdyItemsCollectionPublic}>() {
+        ids["SturdyItems"] = col.getIDs()
+    }
+    if let col = owner.getCapability(TicalUniverse.CollectionPublicPath)
+    .borrow<&{TicalUniverse.TicalUniverseCollectionPublic}>() {
+        ids["TicalUniverse"] = col.getIDs()
+    }
+    if let col = owner.getCapability(/public/f4264ac8f3256818_Evolution_Collection)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Evolution"] = col.getIDs()
+    }
+    if let col = owner.getCapability(Moments.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Moments"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(UFC_NFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["UFC_NFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Flovatar.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flovatar"] = col.getIDs()
+    }
+    if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["FlovatarComponent"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ByteNextMedalNFT"] = col.getIDs()
     }
 
     return ids
