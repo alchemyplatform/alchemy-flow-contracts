@@ -1,6 +1,6 @@
 # Alchemy's Flow Contracts
 
-> :warning: **Please use [https://flow-nft-catalog.com](https://flow-nft-catalog.com) instead of onboarding to th repo.**
+> :warning: **Please use [https://flow-nft-catalog.com](https://flow-nft-catalog.com) instead of onboarding to this repo.**
 
 There have been improvements to the Flow Developer Ecosystem to improve and streamline the process to make your NFT’s metadata discoverable and interoperable. Making the following changes will become the defacto way to become listed and gain support from marketplaces and platforms throughout Flow.
 
