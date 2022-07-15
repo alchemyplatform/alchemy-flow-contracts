@@ -3551,7 +3551,7 @@ pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
         storage_path: "LibraryPass.CollectionPath",
         public_path: "LibraryPass.CollectionPublicPath",
         public_collection_name: "LibraryPass.CollectionPublic",
-        external_domain: "https://publishednft-35803.web.app/"
+        external_domain: "https://publishednft.io/"
     )
 
     let col = owner.getCapability(LibraryPass.CollectionPublicPath)

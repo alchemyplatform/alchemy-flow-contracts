@@ -70,6 +70,7 @@ import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
 import ByteNextMedalNFT from 0x734061e710725233
+import LibraryPass from 0x4d79d7aa8c56c615
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -227,6 +228,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
+                case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -3193,5 +3195,40 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: rawMetadata["metaURI"], mimetype: "image")],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x4d79d7aa8c56c615/contract/LibraryPass
+pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "LibraryPass",
+        address: 0x4d79d7aa8c56c615,
+        storage_path: "LibraryPass.CollectionPath",
+        public_path: "LibraryPass.CollectionPublicPath",
+        public_collection_name: "LibraryPass.CollectionPublic",
+        external_domain: "https://publishednft.io/"
+    )
+
+    let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+        .borrow<&{LibraryPass.CollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowLibraryPassNFT(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+	
+	return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+		title: metadata!["title"],
+        description: metadata!["description"],
+        external_domain_view_url: metadata!["uri"],
+        media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+        alternate_media: [],
+        metadata: metadata!,
     )
 }

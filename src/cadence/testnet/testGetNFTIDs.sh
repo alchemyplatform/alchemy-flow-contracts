@@ -168,6 +168,10 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
   ;;
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTIDs.cdc 0x4d79d7aa8c56c615 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
