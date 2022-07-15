@@ -3734,11 +3734,11 @@ pub fun getNFTContract(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/SwaychainNFT
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/SwaychainNFT
 pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "Swaychain",
-        address: 0x5dfbd0d5aba6acf7,
+        address: 0xa4e9020ad21eb30b,
         storage_path: "SwaychainNFT.CollectionStoragePath",
         public_path: "SwaychainNFT.CollectionPublicPath",
         public_collection_name: "ShawychainNFT.SwaychainNFTCollectionPublic",
@@ -3770,14 +3770,14 @@ pub fun getSwaychainNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/QRLNFT
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
 pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "QRL",
-        address: 0x5dfbd0d5aba6acf7,
+        address: 0xa4e9020ad21eb30b,
         storage_path: "QRLNFT.CollectionStoragePath",
         public_path: "QRLNFT.CollectionPublicPath",
-        public_collection_name: "ShawychainNFT.QRLNFTCollectionPublic",
+        public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
         external_domain: "https://swaychain.com/"
     )
 
@@ -3806,11 +3806,11 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/MaxarNFT
+// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
 pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "Maxar",
-        address: 0x5dfbd0d5aba6acf7,
+        address: 0xa4e9020ad21eb30b,
         storage_path: "MaxarNFT.CollectionStoragePath",
         public_path: "MaxarNFT.CollectionPublicPath",
         public_collection_name: "MaxarNFT.MaxarNFTCollectionPublic",

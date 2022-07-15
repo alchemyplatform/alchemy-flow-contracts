@@ -77,6 +77,7 @@ import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
 import QRLNFT from 0xa4e9020ad21eb30b
+import MaxarNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -92,7 +93,6 @@ import FlovatarComponent from 0x921ea449dffec68a
 import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
-import MaxarNFT from 0xa4e9020ad21eb30b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)

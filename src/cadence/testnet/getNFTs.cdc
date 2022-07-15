@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import MaxarNFT from 0x5dfbd0d5aba6acf7
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -3000,11 +3001,11 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
      )
 }
 
-// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/QRLNFT
 pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "QRL",
-        address: 0xa4e9020ad21eb30b,
+        address: 0x5dfbd0d5aba6acf7,
         storage_path: "QRLNFT.CollectionStoragePath",
         public_path: "QRLNFT.CollectionPublicPath",
         public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
@@ -3030,11 +3031,11 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
+// https://flow-view-source.com/testnet/account/0x5dfbd0d5aba6acf7/contract/MaxarNFT
 pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Maxar",
-        address: 0xa4e9020ad21eb30b,
+        address: 0x5dfbd0d5aba6acf7,
         storage_path: "MaxarNFT.CollectionStoragePath",
         public_path: "MaxarNFT.CollectionPublicPath",
         public_collection_name: "MaxarNFT.MaxarNFTCollectionPublic",
