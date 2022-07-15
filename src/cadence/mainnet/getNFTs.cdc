@@ -3813,7 +3813,7 @@ pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
         address: 0x5dfbd0d5aba6acf7,
         storage_path: "MaxarNFT.CollectionStoragePath",
         public_path: "MaxarNFT.CollectionPublicPath",
-        public_collection_name: "ShawychainNFT.MaxarNFTCollectionPublic",
+        public_collection_name: "MaxarNFT.MaxarNFTCollectionPublic",
         external_domain: "https://nft.maxar.com/"
     )
 
