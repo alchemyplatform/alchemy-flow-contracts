@@ -96,6 +96,7 @@ import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
 import FlovatarComponentTemplate from 0x921ea449dffec68a
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
+import TopTCollection from 0xb9f22ede3a3ba937
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -284,6 +285,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
+                case "TopTCollection": d = getTopTNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4559,6 +4561,46 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: metadata["metaURI"],
         token_uri: nil,
         media: [NFTMedia(uri: metadata["metaURI"], mimetype: "image")],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xb9f22ede3a3ba937/contract/TopTCollection
+pub fun getTopTNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "TopTCollection",
+        address: 0xb9f22ede3a3ba937,
+        storage_path: "TopTCollection.CollectionStoragePath",
+        public_path: "TopTCollection.CollectionPublicPath",
+        public_collection_name: "TopTCollection.TopTCollectionPublic",
+        external_domain: "https://topt.io" // not available yet
+    )
+
+    let col = owner.getCapability(TopTCollection.CollectionPublicPath)
+        .borrow<&{TopTCollection.TopTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowToptItem(id: id)
+    if nft == nil { return nil }
+
+    let rawMetadata: {String : String} = {}
+    rawMetadata["name"] = nft!.name ?? "no name"
+    rawMetadata["caption"] = nft!.metadata.caption ?? "no caption"
+    rawMetadata["description"] = nft!.description ?? "no description"
+    rawMetadata["editionNumber"] = nil ?? "no description"
+    rawMetadata["editionCount"] = nil ?? "no description"
+    rawMetadata["royaltyAddress"] = "0xb9f22ede3a3ba937" ?? "no description"
+    rawMetadata["royaltyPercentage"] = "10.0" ?? "no description"
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.metadata.storageRef,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.metadata.storageRef, mimetype: "video")],
         metadata: rawMetadata
     )
 }

@@ -95,6 +95,7 @@ import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
 import MaxarNFT from 0xa4e9020ad21eb30b
+import TopTCollection from 0xb9f22ede3a3ba937
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -545,6 +546,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["ByteNextMedalNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TopTCollection.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["TopTCollection"] = col.getIDs()
     }
 
     return ids
