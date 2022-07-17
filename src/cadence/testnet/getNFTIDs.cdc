@@ -66,12 +66,13 @@ import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
 import QRLNFT from 0x5dfbd0d5aba6acf7
-
+import MaxarNFT from 0x5dfbd0d5aba6acf7
 import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import MonoCatMysteryBox from 0xa01dd6e82b7352be
+import ByteNextMedalNFT from 0x734061e710725233
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -390,7 +391,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     .borrow<&{QRLNFT.QRLNFTCollectionPublic}>() {
         ids["QRL"] = col.getIDs()
     }
-
+    if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+    .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
+        ids["Maxar"] = col.getIDs()
+    }
     if let col = owner.getCapability(Flovatar.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Flovatar"] = col.getIDs()
@@ -402,6 +406,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["MonoCatMysteryBox"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ByteNextMedalNFT"] = col.getIDs()
     }
 
     return ids

@@ -391,6 +391,11 @@ QRL)
   flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
   ;;
 
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTIDs.cdc 0xa4e9020ad21eb30b --network mainnet
+  ;;
+
 TheFabricantS2ItemNFT)
   echo "TheFabricantS2ItemNFT"
   flow scripts execute getNFTIDs.cdc 0xe413ceddca372042 --network mainnet
@@ -472,8 +477,14 @@ FlovatarComponent)
   ;;
 MonoCatMysteryBox)
   echo "MonoCatMysteryBox"
-  flow scripts execute getNFTIDs.cdc 0x8529aaf64c168952 --network mainnet
+  flow scripts execute getNFTIDs.cdc 0xb02edfdd1972728f --network mainnet
   ;;
+
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTIDs.cdc 0x3f9d4046fcd6fce3 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;
