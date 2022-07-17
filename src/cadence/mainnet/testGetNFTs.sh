@@ -350,6 +350,11 @@ Necryptolis)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xa8faf3edb270f24e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Necryptolis" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "16" }] } }] }]' --network mainnet
   ;;
 
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4c4a03d405ed9520" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "LibraryPass" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2" }] } }] }]' --network mainnet
+  ;;
+  
 FLOAT)
   echo "FLOAT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x92ba5cba77fc1e87" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FLOAT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "185466660" }] } }] }]' --network mainnet
@@ -467,6 +472,7 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3f9d4046fcd6fce3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9999" }] } }] }]' --network mainnet
   ;;
+
 *)
   echo "Unknown contract"
   ;;

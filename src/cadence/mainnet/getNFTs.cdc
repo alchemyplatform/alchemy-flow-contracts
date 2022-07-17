@@ -71,6 +71,7 @@ import GoatedGoats from 0x2068315349bdfce5
 import GoatedGoatsTrait from 0x2068315349bdfce5
 import DropzToken from 0x2ba17360b76f0143
 import Necryptolis from 0x718efe5e88fe48ea
+import LibraryPass from 0x52cbea4e6f616b8e
 import FLOAT from 0x2d4c3caffbeab845
 import BreakingT_NFT from 0x329feb3ab062d289
 import Owners from 0x41cad19decccdf25
@@ -262,8 +263,9 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "GoatedGoatsTrait": d = getGoatedGoatsTrait(owner: owner, id: id)
                 case "DropzToken": d = getDropzToken(owner: owner, id: id)
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
+                case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
-                case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
+                case "BreakingT_NFT": d = (owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
@@ -3496,6 +3498,7 @@ pub fun getNecryptolisNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+
 //https://flow-view-source.com/mainnet/account/0x2d4c3caffbeab845/contract/FLOAT
 pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -3536,6 +3539,41 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
             "royaltyAddress": "0x5643fd47a29770e7",
             "royaltyPercentage": "5.0"
         }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x52cbea4e6f616b8e/contract/LibraryPass
+pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "LibraryPass",
+        address: 0x52cbea4e6f616b8e,
+        storage_path: "LibraryPass.CollectionPath",
+        public_path: "LibraryPass.CollectionPublicPath",
+        public_collection_name: "LibraryPass.CollectionPublic",
+        external_domain: "https://publishednft.io/"
+    )
+
+    let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+        .borrow<&{LibraryPass.CollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowLibraryPassNFT(id: id)
+    if nft == nil { return nil }
+
+    let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+	
+	return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+		title: metadata!["title"],
+        description: metadata!["description"],
+        external_domain_view_url: metadata!["uri"],
+        media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+        alternate_media: [],
+        metadata: metadata!,
     )
 }
 
@@ -4483,8 +4521,6 @@ pub fun getFlovatarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
-
-
 // https://flow-view-source.com/mainnet/account/0x921ea449dffec68a/contract/FlovatarComponent
 pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
@@ -4562,4 +4598,3 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: rawMetadata
     )
 }
-
