@@ -70,6 +70,7 @@ import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
 import MetaPanda from 0x26e7006d6734ba69
+import MaxarNFT from 0x5dfbd0d5aba6acf7
 import ByteNextMedalNFT from 0x734061e710725233
 
 pub struct NFTCollection {
@@ -3005,11 +3006,11 @@ pub fun getProShop5(owner: PublicAccount, id: UInt64): NFTData? {
      )
 }
 
-// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/QRLNFT
+// https://flow-view-source.com/mainnet/account/0x5dfbd0d5aba6acf7/contract/QRLNFT
 pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
         name: "QRL",
-        address: 0xa4e9020ad21eb30b,
+        address: 0x5dfbd0d5aba6acf7,
         storage_path: "QRLNFT.CollectionStoragePath",
         public_path: "QRLNFT.CollectionPublicPath",
         public_collection_name: "QRLNFT.QRLNFTCollectionPublic",
@@ -3024,22 +3025,18 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     return NFTData(
-        contract: contract,
-        id: nft!.id,
-        uuid: nft!.uuid,
-        title: nft!.name,
-        description: nft!.description,
-        external_domain_view_url: nft!.thumbnail,
-        token_uri: nil,
+	@@ -3028,14 +3028,13 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
         metadata: {
             "name": nft!.name,
-            "description": nft!.description
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail
         }
     )
 }
 
-// https://flow-view-source.com/mainnet/account/0xa4e9020ad21eb30b/contract/MaxarNFT
+// https://flow-view-source.com/testnet/account/0x5dfbd0d5aba6acf7/contract/MaxarNFT
 pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContract(
         name: "Maxar",
