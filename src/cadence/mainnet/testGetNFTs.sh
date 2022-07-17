@@ -463,6 +463,9 @@ Flovatar)
   echo "FlovatarComponent"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x2a0eccae942667be" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "440" }] } }] }]' --network mainnet
   ;;
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xf2af175e411dfff8" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MetaPanda" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1793" }] } }] }]' --network mainnet
 ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3f9d4046fcd6fce3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9999" }] } }] }]' --network mainnet

@@ -165,6 +165,10 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
   ;;
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTIDs.cdc 0x26e7006d6734ba69 --network testnet
+  ;;
 ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
