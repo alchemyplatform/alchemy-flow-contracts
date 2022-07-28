@@ -481,6 +481,26 @@ ByteNextMedalNFT)
   flow scripts execute getNFTIDs.cdc 0x3f9d4046fcd6fce3 --network mainnet
   ;;
 
+RCRDSHPNFT)
+  echo "RCRDSHPNFT"
+  flow scripts execute getNFTIDs.cdc 0x6817f95deed15918 --network mainnet
+  ;;
+
+Seussibles)
+  echo "Seussibles"
+  flow scripts execute getNFTIDs.cdc 0x55a2e3af3ea5273d --network mainnet
+  ;;
+
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTIDs.cdc 0x1491fc5961efa2eb --network mainnet
+  ;;
+
+Flunks)
+  echo "Flunks"
+  flow scripts execute getNFTIDs.cdc 0x5f71947aea94eb43 --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

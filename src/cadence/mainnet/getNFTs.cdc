@@ -96,6 +96,10 @@ import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
 import FlovatarComponentTemplate from 0x921ea449dffec68a
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
+import RCRDSHPNFT from 0x6c3ff40b90b928ab
+import Seussibles from 0x321d8fcde05f6e8c
+import MetaPanda from 0xf2af175e411dfff8
+import Flunks from 0x807c3d470888cc48
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -284,6 +288,10 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
+                case "RCRDSHPNFT": d = getRCRDSHPNFT(owner: owner, id: id)
+                case "Seussibles": d = getSeussibles(owner: owner, id: id)
+                case "MetaPanda": d = getMetaPanda(owner: owner, id: id)
+                case "Flunks": d = getFlunks(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4563,3 +4571,142 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x6c3ff40b90b928ab/contract/RCRDSHPNFT
+pub fun getRCRDSHPNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "RCRDSHPNFT",
+        address: 0x6c3ff40b90b928ab,
+        storage_path: "RCRDSHPNFT.collectionStoragePath",
+        public_path: "RCRDSHPNFT.collectionPublicPath",
+        public_collection_name: "RCRDSHPNFT.RCRDSHPNFTCollectionPublic",
+        external_domain: "https://app.rcrdshp.com/"
+    )
+
+    let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
+        .borrow<&{RCRDSHPNFT.RCRDSHPNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowRCRDSHPNFT(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let httpFile = display.thumbnail as! MetadataViews.HTTPFile
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: httpFile.uri(), mimetype: "image")],
+        metadata: {}
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x321d8fcde05f6e8c/contract/Seussibles
+pub fun getSeussibles(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Seussibles",
+        address: 0x321d8fcde05f6e8c,
+        storage_path: "Seussibles.CollectionStoragePath",
+        public_path: "Seussibles.PublicCollectionPath",
+        public_collection_name: "",
+        external_domain: "https://seussibles.com/"
+    )
+
+    let col = owner.getCapability<&AnyResource{MetadataViews.ResolverCollection}>(Seussibles.PublicCollectionPath)
+        .borrow<>()
+    if col == nil { return nil }
+
+    let nftResolver = col!.borrowViewResolver(id: id)
+    if nftResolver == nil { return nil }
+
+    let displayView = nftResolver!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let httpFile = display.thumbnail as! MetadataViews.HTTPFile
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: nil,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: httpFile.uri(), mimetype: "image")],
+        metadata: {}
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xf2af175e411dfff8/contract/MetaPanda
+pub fun getMetaPanda(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "MetaPanda",
+        address: 0xf2af175e411dfff8,
+        storage_path: "MetaPanda.CollectionStoragePath",
+        public_path: "MetaPanda.CollectionPublicPath",
+        public_collection_name: "",
+        external_domain: "https://metapandaclub.com/"
+    )
+
+    let col = owner.getCapability<&AnyResource{MetadataViews.ResolverCollection}>(MetaPanda.CollectionPublicPath)
+        .borrow<>()
+    if col == nil { return nil }
+
+    let nftResolver = col!.borrowViewResolver(id: id)
+    if nftResolver == nil { return nil }
+
+    let displayView = nftResolver!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let httpFile = display.thumbnail as! MetadataViews.HTTPFile
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: nil,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: httpFile.uri(), mimetype: "image")],
+        metadata: {}
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x807c3d470888cc48/contract/Flunks
+pub fun getFlunks(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Flunks",
+        address: 0x807c3d470888cc48,
+        storage_path: "Flunks.CollectionStoragePath",
+        public_path: "Flunks.CollectionPublicPath",
+        public_collection_name: "Flunks.FlunksCollectionPublic",
+        external_domain: "https://flunks.io/"
+    )
+
+    let col = owner.getCapability(Flunks.CollectionPublicPath)
+        .borrow<&{Flunks.FlunksCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowFlunks(id: id)
+    if nft == nil { return nil }
+
+    let displayView = nft!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let httpFile = display.thumbnail as! MetadataViews.HTTPFile
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: httpFile.uri(), mimetype: "image")],
+        metadata: {}
+    )
+}
