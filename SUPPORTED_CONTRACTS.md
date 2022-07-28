@@ -108,11 +108,15 @@
 | AADigital  | 0x39eeb4ee6f30fc3f |
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
+| Flunks  | 0x807c3d470888cc48 |
+| MetaPanda  | 0xf2af175e411dfff8 |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
 | NFTContract  | 0x1e075b24abe6eca6 |
 | PartyMansionDrinksContract  | 0x34f2bf4a80bb0f69 |
 | QRLNFT  | 0xa4e9020ad21eb30b |
+| RCRDSHPNFT  | 0x6c3ff40b90b928ab |
+| Seussibles  | 0x321d8fcde05f6e8c |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
 | TrartContractNFT  | 0x6f01a4b0046c1f87 |
