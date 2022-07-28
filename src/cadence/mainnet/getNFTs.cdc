@@ -4491,7 +4491,7 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
 // https://flow-view-source.com/mainnet/account/0x8529aaf64c168952/contract/MonoCatMysteryBox
 pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
-        .borrow<&{MonoCatMysteryBox.CollectionPublic}>()
+        .borrow<&{MonoCatMysteryBox.MonoCatMysteryBoxCollectionPublic}>()
     if col == nil { return nil }
     
     let nft = col!.borrowMonoCatMysteryBox(id: id)
