@@ -3451,7 +3451,7 @@ pub fun getDropzToken(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
-    letthumbnail = display.thumbnail as! MetadataViews.IPFSFile
+    let thumbnail = display.thumbnail as! MetadataViews.IPFSFile
     let metadata = nft!.resolveView(Type<DropzToken.IPFSTokenMetadata>())! as! DropzToken.IPFSTokenMetadata
 
     return NFTData(
