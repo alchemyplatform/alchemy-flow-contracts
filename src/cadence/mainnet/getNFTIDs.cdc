@@ -77,6 +77,7 @@ import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
 import QRLNFT from 0xa4e9020ad21eb30b
+import MaxarNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -93,6 +94,8 @@ import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
 import MonoCatMysteryBox from 0x8529aaf64c168952
+import ByteNextMedalNFT from 0x3b16cb9f5c036412
+import MaxarNFT from 0xa4e9020ad21eb30b
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -470,6 +473,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["QRL"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+    .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
+        ids["Maxar"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
     .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
         ids["TheFabricantS2ItemNFT"] = col.getIDs()
@@ -538,6 +546,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["MonoCatMysteryBox"] = col.getIDs()
+    if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ByteNextMedalNFT"] = col.getIDs()
     }
 
     return ids
