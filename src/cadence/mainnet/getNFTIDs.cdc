@@ -95,6 +95,10 @@ import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
 import MaxarNFT from 0xa4e9020ad21eb30b
+import RCRDSHPNFT from 0x6c3ff40b90b928ab
+import Seussibles from 0x321d8fcde05f6e8c
+import MetaPanda from 0xf2af175e411dfff8
+import Flunks from 0x807c3d470888cc48
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -545,6 +549,26 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["ByteNextMedalNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["RCRDSHPNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Seussibles.PublicCollectionPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Seussibles"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MetaPanda.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MetaPanda"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Flunks.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flunks"] = col.getIDs()
     }
 
     return ids
