@@ -95,6 +95,7 @@ import MaxarNFT from 0xa4e9020ad21eb30b
 import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
 import FlovatarComponentTemplate from 0x921ea449dffec68a
+import MonoCatMysteryBox from 0x8529aaf64c168952
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
 
 pub struct NFTCollection {
@@ -282,7 +283,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MotoGPCard": d = getMotoGPCardNFT(owner: owner, id: id)
                 case "UFC_NFT": d = getUFCNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
-                case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "MonoCatMysteryBox": d = getMonoCatMysteryBoxNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -4526,6 +4528,38 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x8529aaf64c168952/contract/MonoCatMysteryBox
+pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
+        .borrow<&{MonoCatMysteryBox.MonoCatMysteryBoxCollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCatMysteryBox(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCatMysteryBox",
+        address: 0x8529aaf64c168952,
+        storage_path: "MonoCatMysteryBox.CollectionStoragePath",
+        public_path: "MonoCatMysteryBox.CollectionPublicPath",
+        public_collection_name: "MonoCatMysteryBox.Collection",
+        external_domain: "https://mono.fun"
+    )
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.getRawMetadata()["uuid"],
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://static.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "image/png"),
+            NFTMedia(uri: "https://static.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "video/mp4")
+        ],
+        metadata: nft!.getRawMetadata()
+    )
+        
 // https://flow-view-source.com/mainnet/account/0x3b16cb9f5c036412/contract/ByteNextMedalNFT
 pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
