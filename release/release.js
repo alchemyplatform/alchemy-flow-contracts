@@ -28,6 +28,13 @@ const DENY_LIST = {
         "ItemNFT",
         "Everbloom",
         "Owners",
+        "Necryptolis",
+        "ByteNextMedalNFT",
+        "Flovatar",
+        "FlovatarComponent",
+        "FlovatarComponentTemplate",
+        "MaxarNFT",
+        "SportsIconCollectible",
     ],
 };
 
