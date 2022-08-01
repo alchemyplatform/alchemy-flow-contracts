@@ -265,7 +265,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Necryptolis": d = getNecryptolisNFT(owner: owner, id: id)
                 case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
                 case "FLOAT" : d = getFLOAT(owner: owner, id: id)
-                case "BreakingT_NFT": d = (owner: owner, id: id)
+                case "BreakingT_NFT": d = getBreakingTNFT(owner: owner, id: id)
                 case "Owners": d = getOwnersNFT(owner: owner, id: id)
                 case "Metaverse": d = getOzoneMetaverseNFT(owner: owner, id: id)
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
@@ -3562,18 +3562,19 @@ pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
     let nft = col!.borrowLibraryPassNFT(id: id)
     if nft == nil { return nil }
 
-    let metadata = Gaia.getTemplateMetaData(templateID: nft!.data.templateID)
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
 	
 	return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-		title: metadata!["title"],
-        description: metadata!["description"],
-        external_domain_view_url: metadata!["uri"],
-        media: NFTMedia(uri: metadata!["img"], mimetype: "image"),
+		title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://publishednft.io/".concat(nft!.id.toString()),
+        media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         alternate_media: [],
-        metadata: metadata!,
+        metadata: {            
+        }
     )
 }
 
