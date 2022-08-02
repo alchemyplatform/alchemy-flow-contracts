@@ -29,9 +29,11 @@
 | YahooCollectible  | 0x5d50ce3fd080edce |
 | YahooPartnersCollectible  | 0x5d50ce3fd080edce |
 | ZeedzINO  | 0x2dda9145001182e0 |
+| ByteNextMedalNFT  | 0x734061e710725233 |
 | DooverseItems  | 0x5ab407dfb3bf35e8 |
 | FLOAT  | 0x0afe396ebc8eee65 |
 | Momentables  | 0x9f2eb43b6df02730 |
+| Necryptolis  | 0x720bbc077f5b0bda |
 | NftReality  | 0xa3222e7505186595 |
 | Owners  | 0x890f42a0a872ae77 |
 | QRLNFT  | 0x5dfbd0d5aba6acf7 |
@@ -106,11 +108,15 @@
 | AADigital  | 0x39eeb4ee6f30fc3f |
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
+| Flunks  | 0x807c3d470888cc48 |
+| MetaPanda  | 0xf2af175e411dfff8 |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
 | NFTContract  | 0x1e075b24abe6eca6 |
 | PartyMansionDrinksContract  | 0x34f2bf4a80bb0f69 |
 | QRLNFT  | 0xa4e9020ad21eb30b |
+| RCRDSHPNFT  | 0x6c3ff40b90b928ab |
+| Seussibles  | 0x321d8fcde05f6e8c |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
 | TrartContractNFT  | 0x6f01a4b0046c1f87 |
