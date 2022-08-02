@@ -465,6 +465,10 @@ Flovatar)
   echo "Flovatar"
   flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
+StoreFront)
+  echo "StoreFront"
+  flow scripts execute getNFTIDs.cdc 0x766b859539a6679b --network mainnet
+  ;;
 
 FlovatarComponent)
   echo "FlovatarComponent"

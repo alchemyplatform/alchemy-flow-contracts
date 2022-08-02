@@ -66,6 +66,7 @@ import DooverseItems from 0x5ab407dfb3bf35e8
 import TrartContractNFT from 0x4e024b8545e52d07
 import SturdyItems from 0xfafb022e4e45634b
 import QRLNFT from 0x5dfbd0d5aba6acf7
+import StoreFront from 0x34d2a0f0a4f8c6e8
 
 import Gear from 0x8c7e52f597aa6117
 import ProShop_5 from 0x8c7e52f597aa6117
@@ -397,6 +398,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["FlovatarComponent"] = col.getIDs()
+    }
+    if let col = owner.getCapability(StoreFront.collectionPublicPath)
+    .borrow<&{StoreFront.CollectionPublic}>() {
+        ids["StoreFront"] = col.getIDs()
     }
 
     return ids
