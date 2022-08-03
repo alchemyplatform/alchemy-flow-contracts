@@ -3178,10 +3178,10 @@ pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
     return NFTData(
         contract: contract,
         id: nft!.id,
-        uuid: nft!.getRawMetadata()["uuid"],
+        uuid: nft!.id,
         title: nft!.getRawMetadata()["name"],
         description: nft!.getRawMetadata()["description"],
-        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]),
+        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]!),
         token_uri: nil,
         media: [
             NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimeType: "image/png"),
