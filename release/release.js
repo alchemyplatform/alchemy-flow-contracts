@@ -33,7 +33,6 @@ const DENY_LIST = {
         "Flovatar",
         "FlovatarComponent",
         "FlovatarComponentTemplate",
-        "MaxarNFT",
         "SportsIconCollectible",
     ],
 };
