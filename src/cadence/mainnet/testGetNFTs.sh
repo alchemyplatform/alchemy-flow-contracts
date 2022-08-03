@@ -465,7 +465,7 @@ Flovatar)
   ;;
 MonoCatMysteryBox)
   echo "MonoCatMysteryBox"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xb02edfdd1972728f" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MonoCatMysteryBox" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x62ace6e7212276d6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MonoCatMysteryBox" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network mainnet
   ;;
 ByteNextMedalNFT)
   echo "ByteNextMedalNFT"

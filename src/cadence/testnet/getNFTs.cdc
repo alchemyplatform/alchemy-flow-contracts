@@ -3191,7 +3191,7 @@ pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
         ],
         metadata: nft!.getRawMetadata()
     )
-)
+}
 
 // https://flow-view-source.com/testnet/account/0x734061e710725233/contract/ByteNextMedalNFT
 pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
