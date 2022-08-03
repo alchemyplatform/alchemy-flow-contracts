@@ -3174,6 +3174,8 @@ pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
         public_collection_name: "MonoCatMysteryBox.Collection",
         external_domain: "https://uat.mono.fun"
     )
+
+    let uuid = nft!.getRawMetadata()["uuid"]
     
     return NFTData(
         contract: contract,
@@ -3181,7 +3183,7 @@ pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
         uuid: nft!.id,
         title: nft!.getRawMetadata()["name"],
         description: nft!.getRawMetadata()["description"],
-        external_domain_view_url: "https://mono.fun/items/".concat(nft!.getRawMetadata()["uuid"]!),
+        external_domain_view_url: uuid == nil ? nil : "https://mono.fun/items/".concat(uuid!),
         token_uri: nil,
         media: [
             NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimetype: "image/png"),
