@@ -109,6 +109,7 @@
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
 | Flunks  | 0x807c3d470888cc48 |
+| MaxarNFT  | 0xa4e9020ad21eb30b |
 | MetaPanda  | 0xf2af175e411dfff8 |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |

@@ -4438,11 +4438,11 @@ pub fun getUFCNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: "UFC_NFT",
+        title: "UFC Strike",
         description: nil,
         external_domain_view_url: nil,
         token_uri: nil,
-        media: [NFTMedia(uri: metadata["image"]!, mimetype: "video" )],
+        media: [NFTMedia(uri: metadata["preview"]!, mimetype: "image" )],
         metadata: rawMetadata
     )
 }
