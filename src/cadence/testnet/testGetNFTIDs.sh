@@ -161,6 +161,11 @@ Flovatar)
   echo "Flovatar"
   flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
   ;;
+StoreFront)
+  echo "StoreFront"
+  flow scripts execute getNFTIDs.cdc 0xa3bad204ca0e87d9 --network testnet
+  ;;
+
 FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet

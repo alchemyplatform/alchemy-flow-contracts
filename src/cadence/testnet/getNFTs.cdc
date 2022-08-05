@@ -69,6 +69,8 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import StoreFront from 0x34d2a0f0a4f8c6e8
+import StoreFrontViews from 0x34d2a0f0a4f8c6e8
 import MaxarNFT from 0x5dfbd0d5aba6acf7
 import ByteNextMedalNFT from 0x734061e710725233
 
@@ -226,6 +228,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
+                case "StoreFront": d = getStoreFront(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
@@ -3189,6 +3192,56 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         external_domain_view_url: rawMetadata["metaURI"],
         token_uri: nil,
         media: [NFTMedia(uri: rawMetadata["metaURI"], mimetype: "image")],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x34d2a0f0a4f8c6e8/contract/StoreFront
+pub fun getStoreFront(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let col = owner.getCapability(StoreFront.collectionPublicPath)
+        .borrow<&{StoreFront.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrow(id: id)
+    if nft == nil { return nil }
+
+    let view = nft!.resolveView(Type<StoreFrontViews.StoreFrontDisplay>())! as! StoreFrontViews.StoreFrontDisplay
+    var metadata = view.metadata
+    let title = metadata["name"]!
+    let description = metadata["description"]!
+
+    let viewNFTCollection = nft!.resolveView(Type<MetadataViews.NFTCollectionDisplay>())! as! MetadataViews.NFTCollectionDisplay
+
+    metadata["editionNumber"] = "1"
+    metadata["editionCount"] = "1"
+
+    let template = StoreFront.getTemplate(templateId: nft!.data.templateId)!
+    let contract = NFTContractData(
+        name: "StoreFront",
+        address: 0x34d2a0f0a4f8c6e8,
+        storage_path: "StoreFront.collectionStoragePath",
+        public_path: "StoreFront.collectionPublicPath",
+        public_collection_name: "StoreFront.CollectionPublic",
+        external_domain: viewNFTCollection.externalURL.url,
+    )
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: title,
+        description: description,
+        external_domain_view_url: metadata["external_url"]!,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["image"], mimetype: "image")
+        ],
         metadata: rawMetadata
     )
 }
