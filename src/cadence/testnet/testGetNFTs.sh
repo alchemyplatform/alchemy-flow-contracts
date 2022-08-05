@@ -173,6 +173,10 @@ MonoCatMysteryBox)
   echo "MonoCatMysteryBox"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x22f42e263c42d7bd" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MonoCatMysteryBox" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
   ;;
+MonoCat)
+  echo "MonoCat"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xe33af37fcbef8e84" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MonoCat" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5" }] } }] }]' --network testnet
+  ;;
 ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "999" }] } }] }]' --network testnet

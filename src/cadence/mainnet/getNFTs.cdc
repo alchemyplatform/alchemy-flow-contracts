@@ -285,6 +285,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "MonoCatMysteryBox": d = getMonoCatMysteryBoxNFT(owner: owner, id: id)
+                case "MonoCat": d = getMonoCatNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -4525,6 +4526,39 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x8529aaf64c168952/contract/MonoCat
+pub fun getMonoCatNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCat.CollectionPublicPath)
+        .borrow<&{MonoCat.MonoCatCollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCat(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCat",
+        address: 0x8529aaf64c168952,
+        storage_path: "MonoCat.CollectionStoragePath",
+        public_path: "MonoCat.CollectionPublicPath",
+        public_collection_name: "MonoCat.Collection",
+        external_domain: nft!.getRawMetadata()["external_url"]!
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: nft!.getRawMetadata()["external_url"],
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://arweave.net/".concat(nft!.getRawMetadata()["image"]!), mimetype: "image/png")
+        ],
+        metadata: nft!.getRawMetadata()
     )
 }
 
