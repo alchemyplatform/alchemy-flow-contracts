@@ -501,6 +501,11 @@ Flunks)
   flow scripts execute getNFTIDs.cdc 0x5f71947aea94eb43 --network mainnet
   ;;
 
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTIDs.cdc 0x52cbea4e6f616b8e --network mainnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

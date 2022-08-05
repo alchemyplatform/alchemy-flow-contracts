@@ -100,6 +100,7 @@ import RCRDSHPNFT from 0x6c3ff40b90b928ab
 import Seussibles from 0x321d8fcde05f6e8c
 import MetaPanda from 0xf2af175e411dfff8
 import Flunks from 0x807c3d470888cc48
+import LibraryPass from 0x52cbea4e6f616b8e
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -292,6 +293,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "Seussibles": d = getSeussibles(owner: owner, id: id)
                 case "MetaPanda": d = getMetaPanda(owner: owner, id: id)
                 case "Flunks": d = getFlunks(owner: owner, id: id)
+                case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4708,5 +4710,41 @@ pub fun getFlunks(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: httpFile.uri(), mimetype: "image")],
         metadata: {}
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x52cbea4e6f616b8e/contract/LibraryPass
+pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
+
+    let contract = NFTContract(
+        name: "LibraryPass",
+        address: 0x52cbea4e6f616b8e,
+        storage_path: "LibraryPass.CollectionPath",
+        public_path: "LibraryPass.CollectionPublicPath",
+        public_collection_name: "LibraryPass.CollectionPublic",
+        external_domain: "https://publishednft.io/"
+    )
+
+    let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+        .borrow<&{LibraryPass.CollectionPublic}>()
+
+    if col == nil { return nil }
+
+    let nft = col!.borrowLibraryPassNFT(id: id)
+    if nft == nil { return nil }
+
+    let display = nft!.resolveView(Type<MetadataViews.Display>())! as! MetadataViews.Display
+	
+	return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+		title: display.name,
+        description: display.description,
+        external_domain_view_url: "https://publishednft.io/".concat(nft!.id.toString()),
+        media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
+        alternate_media: [],
+        metadata: {            
+        }
     )
 }

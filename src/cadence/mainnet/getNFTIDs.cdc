@@ -99,6 +99,7 @@ import RCRDSHPNFT from 0x6c3ff40b90b928ab
 import Seussibles from 0x321d8fcde05f6e8c
 import MetaPanda from 0xf2af175e411dfff8
 import Flunks from 0x807c3d470888cc48
+import LibraryPass from 0x52cbea4e6f616b8e
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -569,6 +570,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(Flunks.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["Flunks"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["LibraryPass"] = col.getIDs()
     }
 
     return ids
