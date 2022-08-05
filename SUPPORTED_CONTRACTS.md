@@ -77,7 +77,6 @@
 | FlowChinaBadge  | 0x99fed1e8da4c3431 |
 | GeniaceNFT  | 0xabda6627c70c7f52 |
 | GooberXContract  | 0x34f2bf4a80bb0f69 |
-| HaikuNFT  | 0xf61e40c19db2a9e2 |
 | MiamiNFT  | 0x429a19abea586a3e |
 | MintStoreItem  | 0x20187093790b9aef |
 | PackNFT  | 0xe4cf4bdc1751c65d |
