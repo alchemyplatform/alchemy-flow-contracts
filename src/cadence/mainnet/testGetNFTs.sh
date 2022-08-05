@@ -483,6 +483,10 @@ Flunks)
   echo "Flunks"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5f71947aea94eb43" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flunks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9953" }] } }] }]' --network mainnet
   ;;
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x52cbea4e6f616b8e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "LibraryPass" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
