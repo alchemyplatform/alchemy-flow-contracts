@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import MonoCatMysteryBox from 0xa01dd6e82b7352be
 import MaxarNFT from 0x5dfbd0d5aba6acf7
 import ByteNextMedalNFT from 0x734061e710725233
 
@@ -227,6 +228,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "MonoCatMysteryBox": d = getMonoCatMysteryBoxNFT(owner: owner, id: id)
+                case "MonoCat": d = getMonoCatNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
@@ -3153,6 +3156,75 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         token_uri: nil,
         media: [NFTMedia(uri: "https://flovatar.com/api/image/template/".concat(nft!.templateId.toString()), mimetype: "image" )],
         metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0xa01dd6e82b7352be/contract/MonoCat
+pub fun getMonoCatNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCat.CollectionPublicPath)
+        .borrow<&{MonoCat.MonoCatCollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCat(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCat",
+        address: 0xa01dd6e82b7352be,
+        storage_path: "MonoCat.CollectionStoragePath",
+        public_path: "MonoCat.CollectionPublicPath",
+        public_collection_name: "MonoCat.Collection",
+        external_domain: nft!.getRawMetadata()["external_url"]!
+    )
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: nft!.getRawMetadata()["external_url"],
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://arweave.net/".concat(nft!.getRawMetadata()["image"]!), mimetype: "image/png")
+        ],
+        metadata: nft!.getRawMetadata()
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0xa01dd6e82b7352be/contract/MonoCatMysteryBox
+pub fun getMonoCatMysteryBoxNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let col = owner.getCapability(MonoCatMysteryBox.CollectionPublicPath)
+        .borrow<&{MonoCatMysteryBox.MonoCatMysteryBoxCollectionPublic}>()
+    if col == nil { return nil }
+    
+    let nft = col!.borrowMonoCatMysteryBox(id: id)
+    if nft == nil { return nil }
+
+    let contract = NFTContractData(
+        name: "MonoCatMysteryBox",
+        address: 0xa01dd6e82b7352be,
+        storage_path: "MonoCatMysteryBox.CollectionStoragePath",
+        public_path: "MonoCatMysteryBox.CollectionPublicPath",
+        public_collection_name: "MonoCatMysteryBox.Collection",
+        external_domain: "https://uat.mono.fun"
+    )
+
+    let uuid = nft!.getRawMetadata()["uuid"]
+    
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.id,
+        title: nft!.getRawMetadata()["name"],
+        description: nft!.getRawMetadata()["description"],
+        external_domain_view_url: uuid == nil ? nil : "https://mono.fun/items/".concat(uuid!),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimetype: "image/png"),
+            NFTMedia(uri: "https://statictest.mono.fun/public/contents/projects/a73c1a41-be88-4c7c-a32e-929d453dbd39/nft/MysteryBox.png", mimetype: "video/mp4")
+        ],
+        metadata: nft!.getRawMetadata()
     )
 }
 
