@@ -116,6 +116,10 @@ QRL)
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "QRL" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
   ;;
 
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5dfbd0d5aba6acf7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Maxar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "336" }] } }] }]' --network mainnet
+  ;;
 
 TheFabricantS2ItemNFT)
   echo "TheFabricantS2ItemNFT"
@@ -157,10 +161,22 @@ TicalUniverse)
   echo "TicalUniverse"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5511546363e3daa2" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "TicalUniverse" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;;
-MyNFT)
-  echo "MyNFT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MyNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "128" }] } }] }]' --network testnet
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flovatar" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
   ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x57991b17c63ea6c1" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "FlovatarComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "33270" }] } }] }]' --network testnet
+  ;;
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "999" }] } }] }]' --network testnet
+  ;;
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SkyharborNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;  
 *)
   echo "Unknown contract"
   ;;

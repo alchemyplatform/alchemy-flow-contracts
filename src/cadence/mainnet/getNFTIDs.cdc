@@ -77,6 +77,7 @@ import Metaverse from 0x256599e1b091be12
 import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
 import QRLNFT from 0xa4e9020ad21eb30b
+import MaxarNFT from 0xa4e9020ad21eb30b
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -87,12 +88,19 @@ import SturdyItems from 0x427ceada271aa0b1
 import TicalUniverse from 0xfef48806337aabf1
 import PartyMansionDrinksContract from 0x34f2bf4a80bb0f69
 import Evolution from 0xf4264ac8f3256818
-
+import Flovatar from 0x921ea449dffec68a
+import FlovatarComponent from 0x921ea449dffec68a
 import Moments from 0xd4ad4740ee426334
-
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
-import MyNFT from 0x33f44e504a396ba7
+import ByteNextMedalNFT from 0x3b16cb9f5c036412
+import MaxarNFT from 0xa4e9020ad21eb30b
+import RCRDSHPNFT from 0x6c3ff40b90b928ab
+import Seussibles from 0x321d8fcde05f6e8c
+import MetaPanda from 0xf2af175e411dfff8
+import Flunks from 0x807c3d470888cc48
+import LibraryPass from 0x52cbea4e6f616b8e
+import SkyharborNFT from 0x33f44e504a396ba7
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -470,6 +478,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["QRL"] = col.getIDs()
     }
 
+    if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
+    .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
+        ids["Maxar"] = col.getIDs()
+    }
+
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
     .borrow<&{TheFabricantS2ItemNFT.ItemCollectionPublic}>() {
         ids["TheFabricantS2ItemNFT"] = col.getIDs()
@@ -526,10 +539,49 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["UFC_NFT"] = col.getIDs()
     }
 
-	if let col = owner.getCapability(/public/MyNFTCollection)
-	.borrow<&MyNFT.Collection{NonFungibleToken.CollectionPublic}>() {
-		ids["MyNFT"] = col.getIDs()
-	}
+    if let col = owner.getCapability(Flovatar.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flovatar"] = col.getIDs()
+    }
+    if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["FlovatarComponent"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["ByteNextMedalNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(RCRDSHPNFT.collectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["RCRDSHPNFT"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Seussibles.PublicCollectionPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Seussibles"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(MetaPanda.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MetaPanda"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(Flunks.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["Flunks"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(LibraryPass.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["LibraryPass"] = col.getIDs()
+    }
+	
+	if let col = owner.getCapability(SkyharborNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["SkyharborNFT"] = col.getIDs()
+    }
 
     return ids
 }

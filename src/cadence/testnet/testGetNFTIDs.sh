@@ -153,10 +153,26 @@ QRL)
   echo "QRL"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
-MyNFT)
-  echo "MyNFT"
-  flow scripts execute getNFTIDs.cdc 0xadb237cb752bac09 --network testnet
+Maxar)
+  echo "Maxar"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
+Flovatar)
+  echo "Flovatar"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
+  ;;
+FlovatarComponent)
+  echo "FlovatarComponent"
+  flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet
+  ;;
+ByteNextMedalNFT)
+  echo "ByteNextMedalNFT"
+  flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
+  ;;
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTIDs.cdc 0xadb237cb752bac09 --network testnet
+  ;;   
 *)
   echo "Unknown contract"
   ;;
