@@ -505,6 +505,11 @@ LibraryPass)
   echo "LibraryPass"
   flow scripts execute getNFTIDs.cdc 0x52cbea4e6f616b8e --network mainnet
   ;;
+  
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTIDs.cdc 0x5affd8c030ae5761 --network mainnet
+  ;;  
 
 *)
   echo "Unknown contract"
