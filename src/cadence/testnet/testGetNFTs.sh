@@ -173,6 +173,10 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "999" }] } }] }]' --network testnet
   ;;
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0xadb237cb752bac09" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SkyharborNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network testnet
+  ;;  
 *)
   echo "Unknown contract"
   ;;

@@ -101,6 +101,7 @@ import Seussibles from 0x321d8fcde05f6e8c
 import MetaPanda from 0xf2af175e411dfff8
 import Flunks from 0x807c3d470888cc48
 import LibraryPass from 0x52cbea4e6f616b8e
+import SkyharborNFT from 0x33f44e504a396ba7
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -294,6 +295,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MetaPanda": d = getMetaPanda(owner: owner, id: id)
                 case "Flunks": d = getFlunks(owner: owner, id: id)
                 case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
+				case "SkyharborNFT": d = getSkyHarborNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4746,5 +4748,42 @@ pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
         alternate_media: [],
         metadata: {            
         }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x33f44e504a396ba7/contract/SkyharborNFT
+pub fun getSkyHarborNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SkyharborNFT",
+        address: 0x33f44e504a396ba7,
+        storage_path: "SkyharborNFT.CollectionStoragePath",
+        public_path: "SkyharborNFT.CollectionPublicPath",
+        public_collection_name: "",
+        external_domain: "https://www.skyharbor.app/"
+    )
+
+    let col = owner.getCapability<&AnyResource{MetadataViews.ResolverCollection}>(SkyharborNFT.CollectionPublicPath)
+        .borrow<>()
+    if col == nil { return nil }
+
+    let nftResolver = col!.borrowViewResolver(id: id)
+    if nftResolver == nil { return nil }
+
+    let displayView = nftResolver!.resolveView(Type<MetadataViews.Display>())!
+    let display = displayView as! MetadataViews.Display
+    let ipfsFile = display.thumbnail as! MetadataViews.IPFSFile
+
+    return NFTData(
+        contract: contract,
+        id: id,
+        uuid: nil,
+        title: display.name,
+        description: display.description,
+        external_domain_view_url: nil,
+        token_uri: nil,
+        media: [NFTMedia(uri: ipfsFile.uri(), mimetype: "image"),
+		        NFTMedia(uri: ipfsFile.uri(), mimetype: "video")
+			   ],
+        metadata: {}
     )
 }

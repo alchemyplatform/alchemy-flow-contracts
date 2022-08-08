@@ -169,6 +169,10 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
   ;;
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTIDs.cdc 0xadb237cb752bac09 --network testnet
+  ;;   
 *)
   echo "Unknown contract"
   ;;

@@ -487,6 +487,10 @@ LibraryPass)
   echo "LibraryPass"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x52cbea4e6f616b8e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "LibraryPass" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2" }] } }] }]' --network mainnet
   ;;
+SkyharborNFT)
+  echo "SkyharborNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5affd8c030ae5761" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SkyharborNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "1" }] } }] }]' --network mainnet
+  ;;  
 *)
   echo "Unknown contract"
   ;;

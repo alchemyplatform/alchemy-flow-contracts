@@ -72,6 +72,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import ByteNextMedalNFT from 0x734061e710725233
+import SkyharborNFT from 0x9af2f3f3b56ce0e7
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -406,6 +407,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["ByteNextMedalNFT"] = col.getIDs()
+    }
+	
+	if let col = owner.getCapability(SkyharborNFT.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["SkyharborNFT"] = col.getIDs()
     }
 
     return ids
