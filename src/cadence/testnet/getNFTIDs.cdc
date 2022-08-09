@@ -412,15 +412,15 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     }
 
     if let col = owner.getCapability(SoulMadeComponent.CollectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{SoulMadeComponent.CollectionPublic}>() {
         ids["SoulMadeComponent"] = col.getIDs()
     }
     if let col = owner.getCapability(SoulMadeMain.CollectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{SoulMadeMain.CollectionPublic}>() {
         ids["SoulMadeMain"] = col.getIDs()
     }
     if let col = owner.getCapability(SoulMadePack.CollectionPublicPath)
-    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+    .borrow<&{SoulMadePack.CollectionPublic}>() {
         ids["SoulMadePack"] = col.getIDs()
     }
 

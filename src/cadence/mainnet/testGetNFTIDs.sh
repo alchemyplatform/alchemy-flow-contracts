@@ -506,6 +506,19 @@ LibraryPass)
   flow scripts execute getNFTIDs.cdc 0x52cbea4e6f616b8e --network mainnet
   ;;
 
+SoulMadeComponent)
+  echo "SoulMadeComponent"
+  flow scripts execute getNFTIDs.cdc 0xb3d4cbeefd71a223 --network testnet
+  ;;
+SoulMadeMain)
+  echo "SoulMadeMain"
+  flow scripts execute getNFTIDs.cdc 0xb3d4cbeefd71a223 --network testnet
+  ;;
+SoulMadePack)
+  echo "SoulMadePack"
+  flow scripts execute getNFTIDs.cdc 0xb3d4cbeefd71a223 --network testnet
+  ;;
+
 *)
   echo "Unknown contract"
   ;;

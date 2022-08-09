@@ -3221,7 +3221,7 @@ pub fun getSoulMadeComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        name: nft!.componentDetail.name,
+        title: nft!.componentDetail.name,
         description: nft!.componentDetail.description,
         external_domain_view_url: "https://www.soulmade.art/",
         token_uri: nil,
@@ -3234,7 +3234,7 @@ pub fun getSoulMadeComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "layer": nft!.componentDetail.layer.toString(),
             "edition": nft!.componentDetail.edition.toString(),
             "maxEdition": nft!.componentDetail.maxEdition.toString(),
-            "ipfsHash": nft!.componentDetail.ipfsHash,
+            "ipfsHash": nft!.componentDetail.ipfsHash
         }
     )
 }
@@ -3261,7 +3261,7 @@ pub fun getSoulMadeMainNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        name: nft!.mainDetail.name,
+        title: nft!.mainDetail.name,
         description: nft!.mainDetail.description,
         external_domain_view_url: "https://www.soulmade.art/",
         token_uri: nil,
@@ -3270,7 +3270,7 @@ pub fun getSoulMadeMainNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "name": nft!.mainDetail.name,
             "series": nft!.mainDetail.series,
             "description": nft!.mainDetail.description,
-            "ipfsHash": nft!.mainDetail.ipfsHash,
+            "ipfsHash": nft!.mainDetail.ipfsHash
         }
     )
 }
@@ -3297,13 +3297,15 @@ pub fun getSoulMadePackNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
+        title: "SoulMadepack",
+        description: "SoulMadePack contains component and main",
         external_domain_view_url: "https://www.soulmade.art/",
         token_uri: nil,
         media: [NFTMedia(uri:"https://i.imgur.com/Y2ZXszr.png", mimetype: "image")],
         metadata: {
             "name": "SoulMadepack",
             "series": nft!.packDetail.series,
-            "ipfsHash": nft!.packDetail.ipfsHash,
+            "ipfsHash": nft!.packDetail.ipfsHash
         }
     )
 }

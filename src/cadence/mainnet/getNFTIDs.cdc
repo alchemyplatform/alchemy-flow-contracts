@@ -100,6 +100,9 @@ import Seussibles from 0x321d8fcde05f6e8c
 import MetaPanda from 0xf2af175e411dfff8
 import Flunks from 0x807c3d470888cc48
 import LibraryPass from 0x52cbea4e6f616b8e
+import SoulMadeComponent from 0x9a57dfe5c8ce609c
+import SoulMadeMain from 0x9a57dfe5c8ce609c
+import SoulMadePack from 0x9a57dfe5c8ce609c
 
 pub fun main(ownerAddress: Address): {String: [UInt64]} {
     let owner = getAccount(ownerAddress)
@@ -575,6 +578,19 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(LibraryPass.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["LibraryPass"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(SoulMadeComponent.CollectionPublicPath)
+    .borrow<&{SoulMadeComponent.CollectionPublic}>() {
+        ids["SoulMadeComponent"] = col.getIDs()
+    }
+    if let col = owner.getCapability(SoulMadeMain.CollectionPublicPath)
+    .borrow<&{SoulMadeMain.CollectionPublic}>() {
+        ids["SoulMadeMain"] = col.getIDs()
+    }
+    if let col = owner.getCapability(SoulMadePack.CollectionPublicPath)
+    .borrow<&{SoulMadePack.CollectionPublic}>() {
+        ids["SoulMadePack"] = col.getIDs()
     }
 
     return ids

@@ -101,6 +101,9 @@ import Seussibles from 0x321d8fcde05f6e8c
 import MetaPanda from 0xf2af175e411dfff8
 import Flunks from 0x807c3d470888cc48
 import LibraryPass from 0x52cbea4e6f616b8e
+import SoulMadeComponent from 0x9a57dfe5c8ce609c
+import SoulMadeMain from 0x9a57dfe5c8ce609c
+import SoulMadePack from 0x9a57dfe5c8ce609c
 
 pub struct NFTCollection {
     pub let owner: Address
@@ -294,6 +297,9 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "MetaPanda": d = getMetaPanda(owner: owner, id: id)
                 case "Flunks": d = getFlunks(owner: owner, id: id)
                 case "LibraryPass": d = getLibraryPass(owner: owner, id: id)
+                case "SoulMadeComponent": d = getSoulMadeComponentNFT(owner: owner, id: id)
+                case "SoulMadeMain": d = getSoulMadeMainNFT(owner: owner, id: id)
+                case "SoulMadePack": d = getSoulMadePackNFT(owner: owner, id: id)
                 default:
                     panic("adapter for NFT not found: ".concat(key))
             }
@@ -4745,6 +4751,118 @@ pub fun getLibraryPass(owner: PublicAccount, id: UInt64): NFTData? {
         media: [NFTMedia(uri: display.thumbnail.uri(), mimetype: "image")],
         alternate_media: [],
         metadata: {            
+        }
+    )
+}
+
+
+// https://flow-view-source.com/mainnet/account/0x9a57dfe5c8ce609c/contract/SoulMadeComponent
+pub fun getSoulMadeComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SoulMadeComponent",
+        address: 0x9a57dfe5c8ce609c,
+        storage_path: "SoulMadeComponent.CollectionStoragePath",
+        public_path: "SoulMadeComponent.CollectionPublicPath",
+        public_collection_name: "SoulMadeComponent.CollectionPublic",
+        external_domain: "https://www.soulmade.art/"
+    )
+
+    let col = owner.getCapability(SoulMadeComponent.CollectionPublicPath)
+        .borrow<&{SoulMadeComponent.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowComponent(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.componentDetail.name,
+        description: nft!.componentDetail.description,
+        external_domain_view_url: "https://www.soulmade.art/",
+        token_uri: nil,
+        media: [NFTMedia(uri:"s3://soulmade-dev/".concat(nft!.componentDetail.series.toLower()).concat("/display/").concat(nft!.componentDetail.ipfsHash).concat(".png"), mimetype: "image")],
+        metadata: {
+            "name": nft!.componentDetail.name,
+            "series": nft!.componentDetail.series,
+            "description": nft!.componentDetail.description,
+            "category": nft!.componentDetail.category,
+            "layer": nft!.componentDetail.layer.toString(),
+            "edition": nft!.componentDetail.edition.toString(),
+            "maxEdition": nft!.componentDetail.maxEdition.toString(),
+            "ipfsHash": nft!.componentDetail.ipfsHash
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x9a57dfe5c8ce609c/contract/SoulMadeMain
+pub fun getSoulMadeMainNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SoulMadeMain",
+        address: 0x9a57dfe5c8ce609c,
+        storage_path: "SoulMadeMain.CollectionStoragePath",
+        public_path: "SoulMadeMain.CollectionPublicPath",
+        public_collection_name: "SoulMadeMain.CollectionPublic",
+        external_domain: "https://www.soulmade.art/"
+    )
+
+    let col = owner.getCapability(SoulMadeMain.CollectionPublicPath)
+        .borrow<&{SoulMadeMain.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowMain(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.mainDetail.name,
+        description: nft!.mainDetail.description,
+        external_domain_view_url: "https://www.soulmade.art/",
+        token_uri: nil,
+        media: [NFTMedia(uri:"s3://soulmade-dev/".concat(nft!.mainDetail.series.toLower()).concat("/display/").concat(nft!.mainDetail.ipfsHash).concat(".png"), mimetype: "image")],
+        metadata: {
+            "name": nft!.mainDetail.name,
+            "series": nft!.mainDetail.series,
+            "description": nft!.mainDetail.description,
+            "ipfsHash": nft!.mainDetail.ipfsHash
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x9a57dfe5c8ce609c/contract/SoulMadePack
+pub fun getSoulMadePackNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "SoulMadePack",
+        address: 0x9a57dfe5c8ce609c,
+        storage_path: "SoulMadePack.CollectionStoragePath",
+        public_path: "SoulMadePack.CollectionPublicPath",
+        public_collection_name: "SoulMadePack.CollectionPublic",
+        external_domain: "https://www.soulmade.art/"
+    )
+
+    let col = owner.getCapability(SoulMadePack.CollectionPublicPath)
+        .borrow<&{SoulMadePack.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowPack(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "SoulMadepack",
+        description: "SoulMadePack contains component and main",
+        external_domain_view_url: "https://www.soulmade.art/",
+        token_uri: nil,
+        media: [NFTMedia(uri:"https://i.imgur.com/Y2ZXszr.png", mimetype: "image")],
+        metadata: {
+            "name": "SoulMadepack",
+            "series": nft!.packDetail.series,
+            "ipfsHash": nft!.packDetail.ipfsHash
         }
     )
 }
