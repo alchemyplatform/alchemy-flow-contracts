@@ -169,6 +169,18 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTIDs.cdc 0x4bab9fe5c1ff69f6 --network testnet
   ;;
+SoulMadeComponent)
+  echo "SoulMadeComponent"
+  flow scripts execute getNFTIDs.cdc 0x5b92110256443f23 --network testnet
+  ;;
+SoulMadeMain)
+  echo "SoulMadeMain"
+  flow scripts execute getNFTIDs.cdc 0x5b92110256443f23 --network testnet
+  ;;
+SoulMadePack)
+  echo "SoulMadePack"
+  flow scripts execute getNFTIDs.cdc 0x5b92110256443f23 --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;

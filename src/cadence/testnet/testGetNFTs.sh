@@ -173,6 +173,18 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4bab9fe5c1ff69f6" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "999" }] } }] }]' --network testnet
   ;;
+SoulMadeComponent)
+  echo "SoulMadeComponent"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5b92110256443f23" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SoulMadeComponent" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
+SoulMadeMain)
+  echo "SoulMadeMain"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5b92110256443f23" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SoulMadeMain" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
+SoulMadePack)
+  echo "SoulMadePack"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5b92110256443f23" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "SoulMadePack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "0" }] } }] }]' --network testnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
