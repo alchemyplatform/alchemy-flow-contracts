@@ -60,7 +60,6 @@
 | RaceDay_NFT  | 0x329feb3ab062d289 |
 | RareRooms_NFT  | 0x329feb3ab062d289 |
 | Shard  | 0x82b54037a8f180cf |
-| SportsIconCollectible  | 0x8de96244f54db422 |
 | StarlyCard  | 0x5b82f21c0edf76e3 |
 | TopShot  | 0x0b2a3299cc857e29 |
 | TuneGO  | 0x0d9bc5af3fc0c2e3 |
@@ -78,7 +77,6 @@
 | FlowChinaBadge  | 0x99fed1e8da4c3431 |
 | GeniaceNFT  | 0xabda6627c70c7f52 |
 | GooberXContract  | 0x34f2bf4a80bb0f69 |
-| HaikuNFT  | 0xf61e40c19db2a9e2 |
 | MiamiNFT  | 0x429a19abea586a3e |
 | MintStoreItem  | 0x20187093790b9aef |
 | PackNFT  | 0xe4cf4bdc1751c65d |
@@ -100,7 +98,6 @@
 | MatrixWorldAssetsNFT  | 0xf20df769e658c257 |
 | Metaverse  | 0x256599e1b091be12 |
 | Momentables  | 0x9d21537544d9123d |
-| Necryptolis  | 0x718efe5e88fe48ea |
 | NftReality  | 0x5892036f9111fbb8 |
 | NowggNFT  | 0x85b8bbf926dcddfa |
 | SomePlaceCollectible  | 0x667a16294a089ef8 |
@@ -108,18 +105,18 @@
 | YahooCollectible  | 0x758252ab932a3416 |
 | YahooPartnersCollectible  | 0x758252ab932a3416 |
 | AADigital  | 0x39eeb4ee6f30fc3f |
-| ByteNextMedalNFT  | 0x3b16cb9f5c036412 |
 | DooverseItems  | 0x66ad29c7d7465437 |
 | Evolution  | 0xf4264ac8f3256818 |
-| Flovatar  | 0x921ea449dffec68a |
-| FlovatarComponent  | 0x921ea449dffec68a |
-| FlovatarComponentTemplate  | 0x921ea449dffec68a |
+| Flunks  | 0x807c3d470888cc48 |
 | MaxarNFT  | 0xa4e9020ad21eb30b |
+| MetaPanda  | 0xf2af175e411dfff8 |
 | Moments  | 0xd4ad4740ee426334 |
 | MotoGPCard  | 0xa49cc0ee46c54bfb |
 | NFTContract  | 0x1e075b24abe6eca6 |
 | PartyMansionDrinksContract  | 0x34f2bf4a80bb0f69 |
 | QRLNFT  | 0xa4e9020ad21eb30b |
+| RCRDSHPNFT  | 0x6c3ff40b90b928ab |
+| Seussibles  | 0x321d8fcde05f6e8c |
 | TheFabricantS2ItemNFT  | 0x7752ea736384322f |
 | TicalUniverse  | 0xfef48806337aabf1 |
 | TrartContractNFT  | 0x6f01a4b0046c1f87 |

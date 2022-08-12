@@ -470,6 +470,26 @@ ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x3f9d4046fcd6fce3" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ByteNextMedalNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9999" }] } }] }]' --network mainnet
   ;;
+RCRDSHPNFT)
+  echo "RCRDSHPNFT"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6817f95deed15918" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "RCRDSHPNFT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "22492" }] } }] }]' --network mainnet
+  ;;
+Seussibles)
+  echo "Seussibles"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x55a2e3af3ea5273d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Seussibles" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "259750" }] } }] }]' --network mainnet
+  ;;
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1491fc5961efa2eb" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "MetaPanda" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "5401" }] } }] }]' --network mainnet
+  ;;
+Flunks)
+  echo "Flunks"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x5f71947aea94eb43" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "Flunks" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "9953" }] } }] }]' --network mainnet
+  ;;
+LibraryPass)
+  echo "LibraryPass"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x52cbea4e6f616b8e" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "LibraryPass" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "2" }] } }] }]' --network mainnet
+  ;;
 *)
   echo "Unknown contract"
   ;;
