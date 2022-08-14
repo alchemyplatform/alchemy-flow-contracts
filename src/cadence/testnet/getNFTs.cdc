@@ -69,6 +69,7 @@ import ProShop_5 from 0x8c7e52f597aa6117
 import Flovatar from 0x9392a4a7c3f49a0b
 import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
+import MetaPanda from 0x26e7006d6734ba69
 import MaxarNFT from 0x5dfbd0d5aba6acf7
 import ByteNextMedalNFT from 0x734061e710725233
 
@@ -226,6 +227,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SturdyItems": d = getSturdyItemsNFT(owner: owner, id: id)
                 case "QRL": d = getQRLNFT(owner: owner, id: id)
                 case "Flovatar": d = getFlovatarNFT(owner: owner, id: id)
+                case "FlovatarCompoment": d = getFlovatarComponentNFT(owner: owner, id: id)
+                case "MetaPanda": d = getMetaPandaNFT(owner: owner, id: id)
                 case "FlovatarComponent": d = getFlovatarComponentNFT(owner: owner, id: id)
                 case "ByteNextMedalNFT": d = getByteNextMedalNFT(owner: owner, id: id)
                 default:
@@ -3156,6 +3159,30 @@ pub fun getFlovatarComponentNFT(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/testnet/account/0x26e7006d6734ba69/contract/MetaPanda
+pub fun getMetaPandaNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "MetaPanda",
+        address: 0x26e7006d6734ba69,
+        storage_path: "MetaPanda.CollectionStoragePath",
+        public_path: "MetaPanda.CollectionPublicPath",
+        public_collection_name: "MetaPanda.Collection",
+        external_domain: "https://metapandaclub.com/"
+    )
+
+    let col = owner.getCapability(MetaPanda.CollectionPublicPath)
+        .borrow<&{NonFungibleToken.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    let external_domain_view_url = "https://s3.us-west-2.amazonaws.com/nft.pandas/".concat(nft!.id.toString()).concat(".png")
+    let rawMetadata: {String : String?} = {}
+    rawMetadata.insert(key: "name", "MetaPanda #".concat(nft!.id.toString()))
+    rawMetadata.insert(key: "image", external_domain_view_url)
+    rawMetadata.insert(key: "contentType", "image")
+
 // https://flow-view-source.com/testnet/account/0x734061e710725233/contract/ByteNextMedalNFT
 pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -3184,6 +3211,13 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
+        title: "MetaPanda",
+        description: nil,
+        external_domain_view_url: external_domain_view_url,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
         title: rawMetadata["name"],
         description: rawMetadata["name"],
         external_domain_view_url: rawMetadata["metaURI"],

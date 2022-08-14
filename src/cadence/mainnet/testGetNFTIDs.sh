@@ -475,12 +475,14 @@ FlovatarComponent)
   echo "FlovatarComponent"
   flow scripts execute getNFTIDs.cdc 0x2a0eccae942667be --network mainnet
   ;;
-
+MetaPanda)
+  echo "MetaPanda"
+  flow scripts execute getNFTIDs.cdc 0xf2af175e411dfff8 --network mainnet
+  ;;
 ByteNextMedalNFT)
   echo "ByteNextMedalNFT"
   flow scripts execute getNFTIDs.cdc 0x3f9d4046fcd6fce3 --network mainnet
   ;;
-
 RCRDSHPNFT)
   echo "RCRDSHPNFT"
   flow scripts execute getNFTIDs.cdc 0x6817f95deed15918 --network mainnet
@@ -505,7 +507,6 @@ LibraryPass)
   echo "LibraryPass"
   flow scripts execute getNFTIDs.cdc 0x52cbea4e6f616b8e --network mainnet
   ;;
-
 *)
   echo "Unknown contract"
   ;;

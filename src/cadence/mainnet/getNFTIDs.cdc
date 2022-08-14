@@ -93,6 +93,7 @@ import FlovatarComponent from 0x921ea449dffec68a
 import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
+import MetaPanda from 0xf2af175e411dfff8
 import ByteNextMedalNFT from 0x3b16cb9f5c036412
 import MaxarNFT from 0xa4e9020ad21eb30b
 import RCRDSHPNFT from 0x6c3ff40b90b928ab
@@ -545,6 +546,10 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(FlovatarComponent.CollectionPublicPath)
     .borrow<&{NonFungibleToken.CollectionPublic}>() {
         ids["FlovatarComponent"] = col.getIDs()
+    }
+    if let col = owner.getCapability(MetaPanda.CollectionPublicPath)
+    .borrow<&{NonFungibleToken.CollectionPublic}>() {
+        ids["MetaPanda"] = col.getIDs()
     }
 
     if let col = owner.getCapability(ByteNextMedalNFT.CollectionPublicPath)
