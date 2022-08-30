@@ -78,6 +78,7 @@ import NFTContract from 0x1e075b24abe6eca6
 import SwaychainNFT from 0xa4e9020ad21eb30b
 import QRLNFT from 0xa4e9020ad21eb30b
 import MaxarNFT from 0xa4e9020ad21eb30b
+import Toknd from 0x8bcaf9dacd3bb125
 import TheFabricantS2ItemNFT from 0x7752ea736384322f
 import VnMiss from 0x7c11edb826692404
 import AADigital from 0x39eeb4ee6f30fc3f
@@ -481,6 +482,11 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
     if let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
     .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>() {
         ids["Maxar"] = col.getIDs()
+    }
+
+    if let col = owner.getCapability(TokndNFT.CollectionPublicPath)
+    .borrow<&{TokndNFT.TokndNFTCollectionPublic}>() {
+        ids["Toknd"] = col.getIDs()
     }
 
     if let col = owner.getCapability(TheFabricantS2ItemNFT.CollectionPublicPath)
