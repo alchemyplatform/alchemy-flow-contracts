@@ -71,6 +71,7 @@ import FlovatarComponent from 0x9392a4a7c3f49a0b
 import FlovatarComponentTemplate from 0x9392a4a7c3f49a0b
 import MetaPanda from 0x26e7006d6734ba69
 import MaxarNFT from 0x5dfbd0d5aba6acf7
+import TokndNFT from 0x5dfbd0d5aba6acf7
 import ByteNextMedalNFT from 0x734061e710725233
 
 pub struct NFTCollection {
@@ -3049,6 +3050,42 @@ pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let col = owner.getCapability(MaxarNFT.CollectionPublicPath)
         .borrow<&{MaxarNFT.MaxarNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
+            "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail,
+        }
+    )
+}
+
+// https://flow-view-source.com/testnet/account/0x5dfbd0d5aba6acf7/contract/TokndNFT
+pub fun getTokndNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContract(
+        name: "Toknd",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "TokndNFT.CollectionStoragePath",
+        public_path: "TokndNFT.CollectionPublicPath",
+        public_collection_name: "TokndNFT.TokndNFTCollectionPublic",
+        external_domain: "https://toknd.store/"
+    )
+
+    let col = owner.getCapability(TokndNFT.CollectionPublicPath)
+        .borrow<&{TokndNFT.TokndNFTCollectionPublic}>()
     if col == nil { return nil }
 
     let nft = col!.borrowNFT(id: id)

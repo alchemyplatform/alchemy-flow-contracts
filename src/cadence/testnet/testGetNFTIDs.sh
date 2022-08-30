@@ -157,6 +157,10 @@ Maxar)
   echo "Maxar"
   flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
   ;;
+Toknd)
+  echo "Toknd"
+  flow scripts execute getNFTIDs.cdc 0x5dfbd0d5aba6acf7 --network testnet
+  ;;
 Flovatar)
   echo "Flovatar"
   flow scripts execute getNFTIDs.cdc 0x57991b17c63ea6c1 --network mainnet

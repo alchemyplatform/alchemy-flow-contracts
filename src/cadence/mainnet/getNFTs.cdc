@@ -92,6 +92,7 @@ import Moments from 0xd4ad4740ee426334
 import MotoGPCard from 0xa49cc0ee46c54bfb
 import UFC_NFT from 0x329feb3ab062d289
 import MaxarNFT from 0xa4e9020ad21eb30b
+import Toknd from 0x8bcaf9dacd3bb125
 import Flovatar from 0x921ea449dffec68a
 import FlovatarComponent from 0x921ea449dffec68a
 import FlovatarComponentTemplate from 0x921ea449dffec68a
@@ -275,6 +276,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "NFTContract": d = getNFTContract(owner: owner, id: id)
                 case "Swaychain": d = getSwaychainNFT(owner: owner, id: id)
                 case "Maxar": d = getMaxarNFT(owner: owner, id: id)
+                case "Toknd": d = getTokndNFT(owner: owner, id: id)
                 case "TheFabricantS2ItemNFT": d = getTheFabricantS2ItemNFT(owner: owner, id: id)
                 case "VnMiss": d = getVnMiss(owner: owner, id: id)
                 case "AvatarArt": d = getAvatarArt(owner: owner, id: id)
@@ -3851,6 +3853,41 @@ pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
         metadata: {
             "name": nft!.name,
             // "message": nft!.title,
+            "description": nft!.description,
+            "thumbnail": nft!.thumbnail
+        }
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x8bcaf9dacd3bb125/contract/TokndNFT
+pub fun getTokndNFT(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "Toknd",
+        address: 0xa4e9020ad21eb30b,
+        storage_path: "TokndNFT.CollectionStoragePath",
+        public_path: "TokndNFT.CollectionPublicPath",
+        public_collection_name: "TokndNFT.TokndNFTCollectionPublic",
+        external_domain: "https://toknd.store/"
+    )
+
+    let col = owner.getCapability(TokndNFT.CollectionPublicPath)
+        .borrow<&{TokndNFT.TokndNFTCollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrowTokndNFT(id: id)
+    if nft == nil { return nil }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
+        media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
+        metadata: {
+            "name": nft!.name,
             "description": nft!.description,
             "thumbnail": nft!.thumbnail
         }
