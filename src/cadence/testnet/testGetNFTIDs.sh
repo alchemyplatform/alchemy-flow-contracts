@@ -65,13 +65,13 @@ ARTIFACT)
   echo "ARTIFACT"
   flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
   ;;
-ARTIFACTPackV2)
-  echo "ARTIFACTPackV2"
-  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
+ARTIFACTPackV3)
+  echo "ARTIFACTPackV3"
+  flow scripts execute getNFTIDs.cdc 0x4f54a2c2183846f5 --network testnet
   ;;
 ARTIFACTV2)
   echo "ARTIFACTV2"
-  flow scripts execute getNFTIDs.cdc 0x1214de5003064ed7 --network testnet
+  flow scripts execute getNFTIDs.cdc 0x4f54a2c2183846f5 --network testnet
   ;;
 NftReality)
   echo "NftReality"

@@ -317,8 +317,8 @@ ARTIFACT)
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
   ;;
 
-ARTIFACTPackV2)
-  echo "ARTIFACTPackV2"
+ARTIFACTPackV3)
+  echo "ARTIFACTPackV3"
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
   ;;
 

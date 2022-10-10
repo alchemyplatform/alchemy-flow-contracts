@@ -63,7 +63,7 @@ import BlindBoxRedeemVoucher from 0x910514afa41bfeac
 import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
-import ARTIFACTPackV2 from 0x24de869c5e40b2eb
+import ARTIFACTPackV3 from 0x24de869c5e40b2eb
 import ARTIFACTV2 from 0x24de869c5e40b2eb
 import ARTIFACTViews from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
@@ -261,7 +261,7 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
-                case "ARTIFACTPackV2": d = getARTIFACTPackV2(owner: owner, id: id)
+                case "ARTIFACTPackV3": d = getARTIFACTPackV3(owner: owner, id: id)
                 case "ARTIFACTV2": d = getARTIFACTV2(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
@@ -3228,18 +3228,18 @@ pub fun getARTIFACTV2(owner: PublicAccount, id: UInt64): NFTData? {
 }
 
 // https://flow-view-source.com/mainnet/account/0x24de869c5e40b2eb/contract/ARTIFACTPack
-pub fun getARTIFACTPackV2(owner: PublicAccount, id: UInt64): NFTData? {
+pub fun getARTIFACTPackV3(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
-        name: "ARTIFACTPackV2",
+        name: "ARTIFACTPackV3",
         address: 0x24de869c5e40b2eb,
-        storage_path: "ARTIFACTPackV2.collectionStoragePath",
-        public_path: "ARTIFACTPackV2.collectionPublicPath",
-        public_collection_name: "ARTIFACTPackV2.CollectionPublic",
+        storage_path: "ARTIFACTPackV3.collectionStoragePath",
+        public_path: "ARTIFACTPackV3.collectionPublicPath",
+        public_collection_name: "ARTIFACTPackV3.CollectionPublic",
         external_domain: "https://artifact.scmp.com/",
     )
 
-    let col = owner.getCapability(ARTIFACTPackV2.collectionPublicPath)
-        .borrow<&{ARTIFACTPackV2.CollectionPublic}>()
+    let col = owner.getCapability(ARTIFACTPackV3.collectionPublicPath)
+        .borrow<&{ARTIFACTPackV3.CollectionPublic}>()
     if col == nil { return nil }
 
     let nft = col!.borrow(id: id)

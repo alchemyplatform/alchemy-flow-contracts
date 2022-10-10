@@ -49,8 +49,8 @@ import BlindBoxRedeemVoucher from 0xb073f87f88ee7449
 import SomePlaceCollectible from 0x0c153e28da9f988a
 import ARTIFACTPack from 0xa00baa74eccae8fa
 import ARTIFACT from 0xa00baa74eccae8fa
-import ARTIFACTPackV2 from 0xa00baa74eccae8fa
-import ARTIFACTV2 from 0xa00baa74eccae8fa
+import ARTIFACTPackV3 from 0xee7ee160dc542af0
+import ARTIFACTV2 from 0xee7ee160dc542af0
 import NftReality from 0xa3222e7505186595
 import MatrixWorldAssetsNFT from 0x95702b3642af3d0c
 import RacingTime from 0xe0e251b47ff622ba
@@ -300,9 +300,9 @@ pub fun main(ownerAddress: Address): {String: [UInt64]} {
         ids["ARTIFACT"] = col.getIDs()
     }
 
-    if let col = owner.getCapability(ARTIFACTPackV2.collectionPublicPath)
-    .borrow<&{ARTIFACTPackV2.CollectionPublic}>() {
-        ids["ARTIFACTPackV2"] = col.getIDs()
+    if let col = owner.getCapability(ARTIFACTPackV3.collectionPublicPath)
+    .borrow<&{ARTIFACTPackV3.CollectionPublic}>() {
+        ids["ARTIFACTPackV3"] = col.getIDs()
     }
 
     if let col = owner.getCapability(ARTIFACTV2.collectionPublicPath)
