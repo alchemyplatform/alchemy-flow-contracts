@@ -3142,11 +3142,17 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     return NFTData(
-	@@ -3028,14 +3028,13 @@ pub fun getQRLNFT(owner: PublicAccount, id: UInt64): NFTData? {
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: nft!.name,
+        description: nft!.description,
+        external_domain_view_url: nft!.thumbnail,
+        token_uri: nil,
         media: [NFTMedia(uri: nft!.thumbnail, mimetype: "image")],
         metadata: {
             "name": nft!.name,
-            "message": nft!.title,
+            // "message": nft!.title,
             "description": nft!.description,
             "thumbnail": nft!.thumbnail
         }
@@ -3184,7 +3190,7 @@ pub fun getMaxarNFT(owner: PublicAccount, id: UInt64): NFTData? {
             "name": nft!.name,
             "message": nft!.title,
             "description": nft!.description,
-            "thumbnail": nft!.thumbnail,
+            "thumbnail": nft!.thumbnail
         }
     )
 }
@@ -3300,6 +3306,21 @@ pub fun getMetaPandaNFT(owner: PublicAccount, id: UInt64): NFTData? {
     rawMetadata.insert(key: "image", external_domain_view_url)
     rawMetadata.insert(key: "contentType", "image")
 
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "MetaPanda",
+        description: nil,
+        external_domain_view_url: external_domain_view_url,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
+        metadata: rawMetadata
+    )
+}
+
 // https://flow-view-source.com/testnet/account/0x734061e710725233/contract/ByteNextMedalNFT
 pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -3320,26 +3341,19 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let rawMetadata: {String : String} = {}
     let metadata = nft!.getMetadata()
-    rawMetadata["name"] = metadata["name"] ?? ""
-    rawMetadata["level"] = metadata["level"] ?? ""
-    rawMetadata["metaURI"] = metadata["metaURI"] ?? ""
+    rawMetadata["name"] = metadata.name ?? ""
+    rawMetadata["level"] = metadata.level ?? ""
+    rawMetadata["metaURI"] = metadata.metaURI ?? ""
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: "MetaPanda",
-        description: nil,
-        external_domain_view_url: external_domain_view_url,
-        token_uri: nil,
-        media: [
-            NFTMedia(uri: external_domain_view_url, mimetype: "image")
-        ],
         title: rawMetadata["name"],
         description: rawMetadata["name"],
-        external_domain_view_url: rawMetadata["metaURI"],
+        external_domain_view_url: metadata.metaURI,
         token_uri: nil,
-        media: [NFTMedia(uri: rawMetadata["metaURI"], mimetype: "image")],
+        media: [NFTMedia(uri: metadata.metaURI, mimetype: "image")],
         metadata: rawMetadata
     )
 }
