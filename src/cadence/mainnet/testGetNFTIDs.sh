@@ -317,6 +317,16 @@ ARTIFACT)
   flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
   ;;
 
+ARTIFACTPackV3)
+  echo "ARTIFACTPackV3"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
+ARTIFACTV2)
+  echo "ARTIFACTV2"
+  flow scripts execute getNFTIDs.cdc 0xd9cccb588a70de71 --network mainnet
+  ;;
+
 NftReality)
   echo "NftReality"
   flow scripts execute getNFTIDs.cdc 0x5892036f9111fbb8 --network mainnet

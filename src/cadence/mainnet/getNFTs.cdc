@@ -63,6 +63,9 @@ import BlindBoxRedeemVoucher from 0x910514afa41bfeac
 import SomePlaceCollectible from 0x667a16294a089ef8
 import ARTIFACTPack from 0x24de869c5e40b2eb
 import ARTIFACT from 0x24de869c5e40b2eb
+import ARTIFACTPackV3 from 0x24de869c5e40b2eb
+import ARTIFACTV2 from 0x24de869c5e40b2eb
+import ARTIFACTViews from 0x24de869c5e40b2eb
 import NftReality from 0x5892036f9111fbb8
 import MatrixWorldAssetsNFT from 0xf20df769e658c257
 import RacingTime from 0x8d4fa88ffa2d9117
@@ -258,6 +261,8 @@ pub fun main(ownerAddress: Address, ids: {String:[UInt64]}): [NFTData?] {
                 case "SomePlaceCollectible": d = getSomePlaceCollectibleNFT(owner: owner, id: id)
                 case "ARTIFACTPack": d = getARTIFACTPack(owner: owner, id: id)
                 case "ARTIFACT": d = getARTIFACT(owner: owner, id: id)
+                case "ARTIFACTPackV3": d = getARTIFACTPackV3(owner: owner, id: id)
+                case "ARTIFACTV2": d = getARTIFACTV2(owner: owner, id: id)
                 case "NftReality": d = getNftRealityNFT(owner: owner, id: id)
                 case "MatrixWorldAssetsNFT": d = getNftMatrixWorldAssetsNFT(owner: owner, id: id)
                 case "TuneGO": d = getTuneGO(owner: owner, id: id)
@@ -3171,6 +3176,121 @@ pub fun getARTIFACTPack(owner: PublicAccount, id: UInt64): NFTData? {
     )
 }
 
+// https://flow-view-source.com/mainnet/account/0x24de869c5e40b2eb/contract/ARTIFACT
+pub fun getARTIFACTV2(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ARTIFACTV2",
+        address: 0x24de869c5e40b2eb,
+        storage_path: "ARTIFACTV2.collectionStoragePath",
+        public_path: "ARTIFACTV2.collectionPublicPath",
+        public_collection_name: "ARTIFACTV2.CollectionPublic",
+        external_domain: "https://artifact.scmp.com/",
+    )
+
+    let col = owner.getCapability(ARTIFACTV2.collectionPublicPath)
+        .borrow<&{ARTIFACTV2.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrow(id: id)
+    if nft == nil { return nil }
+
+    let view = nft!.resolveView(Type<ARTIFACTViews.ArtifactsDisplay>())! as! ARTIFACTViews.ArtifactsDisplay
+    var metadata = view.metadata
+    let title = metadata["artifactName"]!
+    let description = metadata["artifactShortDescription"]!
+    let series = metadata["artifactLookupId"]!
+
+    metadata["editionNumber"] = metadata["artifactEditionNumber"]!
+    metadata["editionCount"] = metadata["artifactNumberOfEditions"]!
+    metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
+    metadata["royaltyPercentage"] = "10.0"
+    metadata["rarity"] = metadata["artifactRarityLevel"]!
+
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: title,
+        description: description,
+        external_domain_view_url: "https://artifact.scmp.com/".concat(series),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: metadata["artifactFileUri"], mimetype: "video/mp4")
+        ],
+        metadata: rawMetadata
+    )
+}
+
+// https://flow-view-source.com/mainnet/account/0x24de869c5e40b2eb/contract/ARTIFACTPack
+pub fun getARTIFACTPackV3(owner: PublicAccount, id: UInt64): NFTData? {
+    let contract = NFTContractData(
+        name: "ARTIFACTPackV3",
+        address: 0x24de869c5e40b2eb,
+        storage_path: "ARTIFACTPackV3.collectionStoragePath",
+        public_path: "ARTIFACTPackV3.collectionPublicPath",
+        public_collection_name: "ARTIFACTPackV3.CollectionPublic",
+        external_domain: "https://artifact.scmp.com/",
+    )
+
+    let col = owner.getCapability(ARTIFACTPackV3.collectionPublicPath)
+        .borrow<&{ARTIFACTPackV3.CollectionPublic}>()
+    if col == nil { return nil }
+
+    let nft = col!.borrow(id: id)
+    if nft == nil {
+        return nil
+    }
+
+    var description = ""
+    var mediaUri = ""
+
+    let isOpen = nft!.isOpen
+    let view = nft!.resolveView(Type<ARTIFACTViews.ArtifactsDisplay>())! as! ARTIFACTViews.ArtifactsDisplay
+    var metadata = view.metadata
+    var series = metadata["lookupId"]!
+    var title = metadata["name"]!
+
+    if (isOpen) {
+        description = metadata["descriptionOpened"]!
+        mediaUri = metadata["fileUriOpened"]!
+    } else {
+        description = metadata["descriptionUnopened"]!
+        mediaUri = metadata["fileUriUnopened"]!
+    }
+
+    metadata["editionNumber"] = nft!.edition.toString()
+    metadata["editionCount"] = metadata["numberOfEditions"]!
+    metadata["royaltyAddress"] = "0xe9e563d7021d6eda"
+    metadata["royaltyPercentage"] = "10.0"
+    metadata["rarity"] = metadata["rarityLevel"]!
+
+    let rawMetadata: {String:String?} = {}
+    for key in metadata.keys {
+        rawMetadata.insert(key: key, metadata[key])
+    }
+
+
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: title,
+        description: description,
+        external_domain_view_url: "https://artifact.scmp.com/".concat(series),
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: mediaUri, mimetype: "image/png")
+        ],
+        metadata: rawMetadata
+    )
+}
+
 // https://flow-view-source.com/mainnet/account/0x5892036f9111fbb8/contract/NftReality
 pub fun getNftRealityNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -4563,6 +4683,20 @@ pub fun getMetaPandaNFT(owner: PublicAccount, id: UInt64): NFTData? {
     rawMetadata.insert(key: "image", external_domain_view_url)
     rawMetadata.insert(key: "contentType", "image")
 
+    return NFTData(
+        contract: contract,
+        id: nft!.id,
+        uuid: nft!.uuid,
+        title: "MetaPanda",
+        description: nil,
+        external_domain_view_url: external_domain_view_url,
+        token_uri: nil,
+        media: [
+            NFTMedia(uri: external_domain_view_url, mimetype: "image")
+        ],
+        metadata: rawMetadata
+    )
+}
 // https://flow-view-source.com/mainnet/account/0x3b16cb9f5c036412/contract/ByteNextMedalNFT
 pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
     let contract = NFTContractData(
@@ -4583,29 +4717,19 @@ pub fun getByteNextMedalNFT(owner: PublicAccount, id: UInt64): NFTData? {
 
     let rawMetadata: {String : String} = {}
     let metadata = nft!.getMetadata()
-    rawMetadata["name"] = metadata["name"] ?? ""
-    rawMetadata["level"] = metadata["level"] ?? ""
-    rawMetadata["metaURI"] = metadata["metaURI"] ?? ""
+    rawMetadata["name"] = metadata.name ?? ""
+    rawMetadata["level"] = metadata.level ?? ""
+    rawMetadata["metaURI"] = metadata.metaURI ?? ""
 
     return NFTData(
         contract: contract,
         id: nft!.id,
         uuid: nft!.uuid,
-        title: "MetaPanda",
-        description: nil,
-        external_domain_view_url: external_domain_view_url,
-        token_uri: nil,
-        media: [
-            NFTMedia(uri: external_domain_view_url, mimetype: "image")
-        ],
-        metadata: rawMetadata
-    )
-}
         title: rawMetadata["name"],
         description: rawMetadata["name"],
-        external_domain_view_url: metadata["metaURI"],
+        external_domain_view_url: metadata.metaURI,
         token_uri: nil,
-        media: [NFTMedia(uri: metadata["metaURI"], mimetype: "image")],
+        media: [NFTMedia(uri: metadata.metaURI, mimetype: "image")],
         metadata: rawMetadata
     )
 }

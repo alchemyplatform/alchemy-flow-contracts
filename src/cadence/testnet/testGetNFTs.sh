@@ -59,11 +59,19 @@ SomePlaceCollectible)
   ;;
 ARTIFACTPack)
   echo "ARTIFACTPack"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6bc26c5911f3b19d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1214de5003064ed7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTPack" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "3" }] } }] }]' --network testnet
   ;;
 ARTIFACT)
   echo "ARTIFACT"
-  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x6bc26c5911f3b19d" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "15" }] } }] }]' --network testnet
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x1214de5003064ed7" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACT" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "16" }] } }] }]' --network testnet
+  ;;
+ARTIFACTPackV3)
+  echo "ARTIFACTPackV3"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4f54a2c2183846f5" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTPackV3" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "92" }] } }] }]' --network testnet
+  ;;
+ARTIFACTV2)
+  echo "ARTIFACTV2"
+  flow scripts execute getNFTs.cdc --args-json '[{ "type": "Address", "value": "0x4f54a2c2183846f5" }, { "type": "Dictionary", "value": [{ "key": { "type": "String", "value": "ARTIFACTV2" }, "value": { "type": "Array", "value": [{ "type": "UInt64", "value": "407" }] } }] }]' --network testnet
   ;;
 NftReality)
   echo "NftReality"
