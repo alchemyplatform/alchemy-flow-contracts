@@ -3537,7 +3537,7 @@ pub fun getFLOAT(owner: PublicAccount, id: UInt64): NFTData? {
         description: display.description,
         external_domain_view_url: "https://floats.city/".concat((owner.address as Address).toString()).concat("/float/").concat(float!.id.toString()),
         token_uri: nil,
-        media: [NFTMedia(uri: float!.eventImage, mimetype: "image")],
+        media: [NFTMedia(uri: "https://nftstorage.link/ipfs/".concat(float!.eventImage), mimetype: "image")],
         metadata: {
             "eventName" : float!.eventName,
             "eventDescription" : float!.eventDescription,
